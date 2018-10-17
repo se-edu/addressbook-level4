@@ -24,16 +24,22 @@ public class Grade {
             "Score must be between [0, 5] with increments of 0.5 and not 0.5";
 
     /**
+     * Default value's value
+     */
+    private static final String EMPTY_VALUE = "NIL";
+
+    /**
      * No whitespace allowed.
      */
     public static final String GRADE_VALIDATION_REGEX =
-            "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU";
+            "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU|" + EMPTY_VALUE;
 
     /**
      * Static Unchangeable Mapping between Grade and Point
      */
     private static final Map<String, Double> MAP_GRADE_POINT;
     private static final Map<Double, String> MAP_POINT_GRADE;
+
     static {
         Map<String, Double> tempGradePointMap = new HashMap<>();
         Map<Double, String> tempPointGradeMap = new HashMap<>();
@@ -63,25 +69,56 @@ public class Grade {
      */
     public final String value;
 
+
     /**
-     * Constructs an {@code Grade}.
-     *
-     * @param grade A valid grade.
+     * State of the grade
      */
-    public Grade(String grade) {
-        requireNonNull(grade);
-        checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
-        value = grade;
+    public final State state;
+
+    /**
+     * Creates a new {@code Grade} object with State INCOMPLETE
+     */
+    public Grade() {
+        this(EMPTY_VALUE, State.INCOMPLETE);
     }
 
     /**
-     * Constructs an {@code Grade} from point
+     * Creates a new {@code Grade} object with value grade and State COMPLETE
+     */
+    public Grade(String grade) {
+        this(grade, State.COMPLETE);
+    }
+
+    /**
+     * Constructs an {@code Grade} with letter grade and state of it.
+     * @param grade
+     * @param state
+     */
+    private Grade(String grade, State state) {
+        requireNonNull(grade);
+        checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
+        value = grade;
+        this.state = state;
+    }
+
+    /**
+     * Constructs an {@code Grade} from point with state COMPLETE
      * @param point
      */
     public Grade(double point) {
+        this(point, State.COMPLETE);
+    }
+
+    /**
+     * Constructs an {@code Grade} from point and given state
+     * @param point
+     * @param state
+     */
+    private Grade(double point, State state) {
         requireNonNull(point);
         checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
         value = mapPointToValue(point);
+        this.state = state;
     }
 
     /**
@@ -119,7 +156,7 @@ public class Grade {
      * @return true if grade affects cap and false if grade does not affect cap.
      */
     public boolean affectsCap() {
-        return !value.contentEquals("CS") && !value.contentEquals("CU");
+        return !EMPTY_VALUE.equals(value) && !value.contentEquals("CS") && !value.contentEquals("CU");
     }
 
     /**
@@ -132,6 +169,52 @@ public class Grade {
             return MAP_GRADE_POINT.get(value).floatValue();
         }
         return 0;
+    }
+
+    /**
+     * @return true if grade is complete
+     */
+    public boolean isComplete() {
+        return State.COMPLETE.equals(state);
+    }
+
+    /**
+     * @return true if grade is incomplete
+     */
+    public boolean isIncomplete() {
+        return State.INCOMPLETE.equals(state);
+    }
+
+    /**
+     * @return true if grade is adjusted
+     */
+    public boolean isAdjust() {
+        return State.ADJUST.equals(state);
+    }
+
+    /**
+     * @return true if is target grades
+     */
+    public boolean isTarget() {
+        return State.TARGET.equals(state);
+    }
+
+    /**
+     * Creates a new Grade that is adjusted
+     * @param grade
+     * @return new Grade object
+     */
+    public Grade adjustGrade(String grade) {
+        return new Grade(grade, State.ADJUST);
+    }
+
+    /**
+     * Creates a new Grade that is targeted
+     * @param grade
+     * @return new Grade object
+     */
+    public Grade targetGrade(String grade) {
+        return new Grade(grade, State.TARGET);
     }
 
     /**
@@ -156,11 +239,22 @@ public class Grade {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Grade
-                && value.equals(((Grade) other).value));
+                && value.equals(((Grade) other).value))
+                && state.equals(((Grade) other).state);
     }
 
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    /**
+     * Different states of a grade
+     */
+    private enum State {
+        COMPLETE,
+        INCOMPLETE,
+        TARGET,
+        ADJUST
     }
 }

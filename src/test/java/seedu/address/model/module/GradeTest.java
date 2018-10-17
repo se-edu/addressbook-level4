@@ -86,6 +86,25 @@ public class GradeTest {
         assertTrue(new Grade("A+").equals(new Grade("A+")));
     }
 
+    //@@author jeremiah-ang
+    @Test
+    public void adjustedTargetEqualsValid() {
+        assertTrue(new Grade("A+").adjustGrade("B").equals(new Grade("A+").adjustGrade("B")));
+        assertTrue(new Grade("A+").targetGrade("B").equals(new Grade("A+").targetGrade("B")));
+        assertFalse(new Grade().adjustGrade("A+").equals(new Grade("A+")));
+        assertFalse(new Grade().targetGrade("A+").equals(new Grade("A+")));
+    }
+
+    @Test
+    public void gradeStateValid() {
+        assertTrue(new Grade("A").isComplete());
+        assertTrue(new Grade().isIncomplete());
+        assertTrue(new Grade().adjustGrade("A").isAdjust());
+        assertTrue(new Grade("A").adjustGrade("A").isAdjust());
+        assertTrue(new Grade().targetGrade("A").isTarget());
+        assertTrue(new Grade("A").targetGrade("A").isTarget());
+    }
+
 
     //@@author jeremiah-ang
     @Test
