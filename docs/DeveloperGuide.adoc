@@ -383,6 +383,17 @@ finding duplicates while maintaining the function of searching using objects ins
 
 Remove Ledger uses the same concept ut instead starts with looking for the Ledger in the UniqueLedgerList instead.
 
+===  Member
+* As of V1.2, member adding and deleting functionality have been added.
+* Under logic -> commands, there is a new package named "MemberCommand".
+* AddMember : adds member from storage
+* DeleteMember: delete member storage
+* EditMember: edit member details present in storage
+* Also, Member model now contains 6 arguments: name, phonenumber, email, address and major.
+* There is a separate parser package for member functions which helps to segment the different arguments
+that the member model has.
+* The segmentation of the arguments allow for them to be used individually when needed.
+
 == Documentation
 
 We use asciidoc for writing documentation.
@@ -937,9 +948,9 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*KeepMaster*
 
-Author: ...
+Author: Zayn, Junhyuk, Daryl and Allen
 
 Pros:
 
