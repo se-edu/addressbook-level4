@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -196,4 +198,13 @@ public interface Model {
      * TODO: REMOVE
      */
     void commitAddressBook();
+
+    /**
+     * Adjusts the grade of a module.
+     * @param code
+     * @param grade
+     * @return
+     */
+    Module adjustModule(Code code, Grade grade);
+
 }

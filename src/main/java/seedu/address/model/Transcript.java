@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
@@ -242,6 +243,36 @@ public class Transcript implements ReadOnlyTranscript {
         this.capGoal = new CapGoal(capGoal);
     }
 
+    /**
+     * Given a module code, find the first instance of Module
+     * @param code
+     * @return module if found, null otherwise
+     */
+    public Module findModuleByCode(Code code) {
+        List<Module> module = modules.getFilteredModules(module1 -> module1.getCode().equals(code));
+        if (module.isEmpty()) {
+            return null;
+        } else {
+            return module.get(0);
+        }
+    }
+
+    /**
+     * Adjusts a module to have a grade of state ADJUST
+     * @param code
+     * @param grade
+     * @return adjusted module
+     */
+    public Module adjustModule(Code code, Grade grade) {
+        Module module = findModuleByCode(code);
+        Module newModule = module.adjustGrade(grade);
+
+        // TODO: Use update when fixed
+        modules.remove(module);
+        modules.add(newModule);
+        return newModule;
+    }
+
     //@@author
     //// util methods
 
@@ -267,5 +298,4 @@ public class Transcript implements ReadOnlyTranscript {
     public int hashCode() {
         return modules.hashCode();
     }
-
 }

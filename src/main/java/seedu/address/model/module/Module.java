@@ -221,4 +221,8 @@ public class Module {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(code, year, semester, credits, grade, completed);
     }
+
+    public Module adjustGrade(Grade grade) {
+        return new Module(this, grade);
+    }
 }
