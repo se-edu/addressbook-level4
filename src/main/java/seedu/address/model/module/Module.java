@@ -83,6 +83,47 @@ public class Module {
         this(module.code, module.year, module.semester, module.credits, grade, module.completed);
     }
 
+    /**
+     * Tells if this module can be used for target grade calculation
+     * @return true if yes false otherwise.
+     */
+    public boolean isTargetable() {
+        return getGrade().isTarget() || getGrade().isIncomplete();
+    }
+
+    /**
+     * Tells if this module will affect the calculation of CAP
+     * @return true if yes false otherwise.
+     */
+    public boolean affectsGrade() {
+        return getGrade().affectsCap();
+    }
+
+    /**
+     * returns the value of the Credit
+     * @return value of Credit
+     */
+    public int getCreditsValue() {
+        return getCredits().value;
+    }
+
+    /**
+     * Clones current Module into one with a new Grade with state TARGET
+     * @param point
+     * @return a new Module with Grade with state TARGET
+     */
+    public Module updateTargetGrade(double point) {
+        return new Module(this, grade.targetGrade(point));
+    }
+
+    /**
+     * Tells if the Module has a Grade with state TARGET
+     * @return true if yes, false otherwise
+     */
+    public boolean isTargeted() {
+        return getGrade().isTarget();
+    }
+
     //@@author alexkmj
     /**
      * Returns the module code.

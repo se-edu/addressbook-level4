@@ -3,6 +3,7 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -58,6 +59,13 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Adds all module in a list to the list
+     */
+    public boolean addAll(Collection<Module> modules) {
+        return internalList.addAll(modules);
+    }
+
+    /**
      * Replaces the module {@code target} in the list with {@code editedModule}.
      * <p>
      * {@code target} must exist in the list. The {@link Module} identity of {@code editedModule}
@@ -74,7 +82,7 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new ModuleNotFoundException();
         }
 
-        if (!target.equals(editedModule) && contains(editedModule)) {
+        if (target.equals(editedModule) && contains(editedModule)) {
             throw new DuplicateModuleException();
         }
 
@@ -120,6 +128,13 @@ public class UniqueModuleList implements Iterable<Module> {
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
         }
+    }
+
+    /**
+     * Removes all module in a list from the list
+     */
+    public boolean removeAll(Collection<Module> modules) {
+        return internalList.removeAll(modules);
     }
 
     /**
