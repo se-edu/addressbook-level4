@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -16,7 +17,7 @@ import seedu.address.model.module.UniqueModuleList;
 public class Transcript implements ReadOnlyTranscript {
 
     private final UniqueModuleList modules;
-    private double capGoal;
+    private CapGoal capGoal;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +32,7 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     public Transcript() {
+        capGoal = new CapGoal();
     }
 
     /**
@@ -97,6 +99,7 @@ public class Transcript implements ReadOnlyTranscript {
         modules.remove(key);
     }
 
+    //@@author jeremiah-ang
     /**
      * Return the current CAP
      *
@@ -162,6 +165,15 @@ public class Transcript implements ReadOnlyTranscript {
         return module.getGrade().affectsCap();
     }
 
+    public CapGoal getCapGoal() {
+        return capGoal;
+    }
+
+    public void setCapGoal(double capGoal) {
+        this.capGoal = new CapGoal(capGoal);
+    }
+
+    //@@author
     //// util methods
 
     @Override
@@ -187,13 +199,4 @@ public class Transcript implements ReadOnlyTranscript {
         return modules.hashCode();
     }
 
-    public double getCapGoal() {
-        return capGoal;
-    }
-
-    //TODO: Create another class capGoal (similarly to the Module parameters)
-    // that checks for valid input, and also has 'NIL' value.
-    public void setCapGoal(double capGoal) {
-        this.capGoal = capGoal;
-    }
 }

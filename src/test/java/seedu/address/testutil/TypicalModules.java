@@ -15,6 +15,8 @@ import seedu.address.model.util.ModuleBuilder;
 public class TypicalModules {
     // Manually added
 
+    public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
+
     public static final Module DISCRETE_MATH = new ModuleBuilder().withCode("CS1231")
             .withYear(1)
             .withSemester(Semester.SEMESTER_ONE)
@@ -42,8 +44,6 @@ public class TypicalModules {
             .withCredit(4)
             .withGrade("CS")
             .build();
-
-    public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
 
     public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
             .withYear(3)
