@@ -29,6 +29,14 @@ public class Grade {
     public static final String GRADE_VALIDATION_REGEX =
             "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU";
 
+
+    private static final String EMPTY_VALUE = "NIL";
+
+    /**
+     * State of the grade
+     */
+    public final GradeState gradeState;
+
     /**
      * Static Unchangeable Mapping between Grade and Point
      */
@@ -63,15 +71,25 @@ public class Grade {
      */
     public final String value;
 
+    public Grade() {
+        value = EMPTY_VALUE;
+        gradeState = GradeState.INCOMPLETE;
+    }
+
     /**
      * Constructs an {@code Grade}.
      *
      * @param grade A valid grade.
      */
     public Grade(String grade) {
+        this(grade, GradeState.COMPLETE);
+    }
+
+    public Grade(String grade, GradeState gradeState) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         value = grade;
+        this.gradeState = gradeState;
     }
 
     /**
@@ -119,7 +137,7 @@ public class Grade {
      * @return true if grade affects cap and false if grade does not affect cap.
      */
     public boolean affectsCap() {
-        return !value.contentEquals("CS") && !value.contentEquals("CU");
+        return !EMPTY_VALUE.equals(value) && !value.contentEquals("CS") && !value.contentEquals("CU");
     }
 
     /**
@@ -132,6 +150,52 @@ public class Grade {
             return MAP_GRADE_POINT.get(value).floatValue();
         }
         return 0;
+    }
+
+    /**
+     * @return true if grade is complete
+     */
+    public boolean isComplete() {
+        return GradeState.COMPLETE.equals(gradeState);
+    }
+
+    /**
+     * @return true if grade is incomplete
+     */
+    public boolean isIncomplete() {
+        return GradeState.INCOMPLETE.equals(gradeState);
+    }
+
+    /**
+     * @return true if grade is adjusted
+     */
+    public boolean isAdjust() {
+        return GradeState.ADJUST.equals(gradeState);
+    }
+
+    /**
+     * @return true if is target grades
+     */
+    public boolean isTarget() {
+        return GradeState.TARGET.equals(gradeState);
+    }
+
+    /**
+     * Creates a new Grade that is adjusted
+     * @param grade
+     * @return new Grade object
+     */
+    public Grade adjustGrade(String grade) {
+        return new Grade(grade, GradeState.ADJUST);
+    }
+
+    /**
+     * Creates a new Grade that is targeted
+     * @param grade
+     * @return new Grade object
+     */
+    public Grade targetGrade(String grade) {
+        return new Grade(grade, GradeState.TARGET);
     }
 
     /**
@@ -156,11 +220,22 @@ public class Grade {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Grade
-                && value.equals(((Grade) other).value));
+                && value.equals(((Grade) other).value))
+                && gradeState.equals(((Grade) other).gradeState);
     }
 
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    /**
+     * Different states of a grade
+     */
+    private enum GradeState {
+        COMPLETE,
+        INCOMPLETE,
+        TARGET,
+        ADJUST
     }
 }
