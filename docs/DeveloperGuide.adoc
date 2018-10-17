@@ -351,6 +351,19 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Events
+
+We create an Events package in modle, to combine the event element such as name and venue into an event list. In the Commands package, we create an package named EventCommand, which the commands are stored in. We have totally four commands:
+*`addEventsCommand` -- Add a new event to the event list.
+*`changeEvent` -- Change the information of the existing event.
+*`listEvent` -- List all the existing events.
+*`deleteEvent` -- Delete the a certain event.
+
+The users need to type openCalendar, and then type the corresponding command.
+Inside the parser package, we have the corresponding CommandParser. For example, addEventParser. What does the parser do is it divides the information typed in into several parts, which are name, venue, date, and description.
+After that, the AddEventCommand will store the parts into an EventList.
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
