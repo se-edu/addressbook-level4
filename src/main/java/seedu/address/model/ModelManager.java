@@ -84,13 +84,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addLedger(Ledger ledger) {
+    public boolean hasLedger (Ledger ledger) {
+        requireAllNonNull(ledger);
+        return versionedAddressBook.hasLedger(ledger);
+    }
 
+    @Override
+    public void addLedger(Ledger ledger) {
+        requireNonNull(ledger);
+        versionedAddressBook.addLedger(ledger);
+        indicateAddressBookChanged();
     }
 
     @Override
     public void deleteLedger(Ledger ledger) {
-
+        versionedAddressBook.removeLedger(ledger);
     }
 
     @Override
@@ -106,8 +114,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateLedger(Ledger target, Ledger editedLedger) {
+        requireAllNonNull(target, editedLedger);
+        versionedAddressBook.updateLedger(target, editedLedger);
         indicateAddressBookChanged();
     }
 
@@ -120,6 +134,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(filteredPersons);
+    }
+
+    @Override
+    public ObservableList<Ledger> getFilteredLedgerList() {
+        return null;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddLedgerCommand;
+import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -17,10 +17,17 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ledger.CreditCommand;
+import seedu.address.logic.commands.ledger.DebitCommand;
+import seedu.address.logic.commands.ledger.OpenLedgerCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.ledger.AddLedgerCommandParser;
+import seedu.address.logic.parser.ledger.CreditCommandParser;
+import seedu.address.logic.parser.ledger.DebitCommandParser;
+
 /**
  * Parses user input.
  */
@@ -86,6 +93,15 @@ public class AddressBookParser {
 
         case AddLedgerCommand.COMMAND_WORD:
             return new AddLedgerCommandParser().parse(arguments);
+
+        case OpenLedgerCommand.COMMAND_WORD:
+            return new OpenLedgerCommand();
+
+        case CreditCommand.COMMAND_WORD:
+            return new CreditCommandParser().parse(arguments);
+
+        case DebitCommand.COMMAND_WORD:
+            return new DebitCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

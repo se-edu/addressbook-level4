@@ -27,6 +27,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a ledger with the same date as (@code ledger) exists in the club book
+     */
+    boolean hasLedger(Ledger ledger);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -71,8 +76,17 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given ledger (@code target) with (@code editedLedger).
+     * target must exist in the club book.
+     */
+    void updateLedger(Ledger target, Ledger editedLedger);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered ledger list */
+    ObservableList<Ledger> getFilteredLedgerList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
