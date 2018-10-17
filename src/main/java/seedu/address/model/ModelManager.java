@@ -12,7 +12,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.ledger.Account;
+import seedu.address.model.ledger.Ledger;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -47,6 +50,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void deleteTag (Tag tag) {
+        versionedAddressBook.removeTag(tag);
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
     }
@@ -73,6 +81,26 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addLedger(Ledger ledger) {
+
+    }
+
+    @Override
+    public void deleteLedger(Ledger ledger) {
+
+    }
+
+    @Override
+    public void increaseAccount(Account account) {
+
+    }
+
+    @Override
+    public void decreaseAccount(Account account) {
+
     }
 
     @Override
