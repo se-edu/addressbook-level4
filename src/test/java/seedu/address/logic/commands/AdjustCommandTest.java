@@ -33,13 +33,14 @@ public class AdjustCommandTest {
     @Test
     public void executeSuccess() {
         Module module = new ModuleBuilder().withCode("ABC").noGrade().build();
-        Module expectedModule = new ModuleBuilder().withCode("ABC").withGrade("A").build();
+        Grade expectedGrade = module.getGrade().adjustGrade("A");
+        Module expectedModule = new Module(module, expectedGrade);
         model.addModule(module);
 
         Transcript expectedTranscript = new Transcript();
         expectedTranscript.addModule(expectedModule);
         Model expectedModel = new ModelManager(expectedTranscript, new UserPrefs());
-        AdjustCommand adjustCommand = new AdjustCommand(module.getCode(), new Grade("A"));
+        AdjustCommand adjustCommand = new AdjustCommand(module.getCode(), new Grade().adjustGrade("A"));
         String expectedMessage = String.format(AdjustCommand.MESSAGE_SUCCESS, expectedModule);
         assertCommandSuccess(adjustCommand, model, commandHistory, expectedMessage, expectedModel);
     }

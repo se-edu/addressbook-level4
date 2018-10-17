@@ -21,7 +21,8 @@ public class AdjustCommandParser {
 
         Code code = ParserUtil.parseCode(tokenizedArgs[index++]);
         Grade grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
+        Grade adjustGrade = grade.adjustGrade(grade.value);
 
-        return new AdjustCommand(code, grade);
+        return new AdjustCommand(code, adjustGrade);
     }
 }
