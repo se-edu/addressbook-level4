@@ -27,6 +27,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    //@@author alexkmj
     /**
      * Tokenizes args into an array of args. Checks if args is null and trims leading and trailing
      * whitespaces.
@@ -40,6 +41,7 @@ public class ParserUtil {
         return trimmedArgs.split(" ");
     }
 
+    //@@author alexkmj
     /**
      * Validates the number of arguments. If number of arguments is not within the bounds,
      * ParseException will be thrown.
@@ -54,6 +56,7 @@ public class ParserUtil {
         }
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String code} into a {@code Code}. Leading and trailing whitespaces will be
      * trimmed.
@@ -69,6 +72,7 @@ public class ParserUtil {
         return new Code(trimmedCode);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String year} into a {@code Year}. Leading and trailing whitespaces will be
      * trimmed.
@@ -84,6 +88,7 @@ public class ParserUtil {
         return new Year(trimmedYear);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String semester} into a {@code Semester}. Leading and trailing whitespaces
      * will be trimmed.
@@ -99,6 +104,7 @@ public class ParserUtil {
         return new Semester(trimmedSemester);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String credit} into a {@code Credit}. Leading and trailing whitespaces will
      * be trimmed.
@@ -115,6 +121,7 @@ public class ParserUtil {
         return new Credit(intCredit);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String grade} into a {@code Grade}. Leading and trailing whitespaces will be
      * trimmed.
