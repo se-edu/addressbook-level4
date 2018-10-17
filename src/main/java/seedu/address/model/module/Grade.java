@@ -28,32 +28,23 @@ public class Grade {
     /**
      * State of the grade
      */
-    public final GradeState gradeState;
+    public final State state;
 
     /**
      * Immutable grade value.
      */
     public final String value;
 
-    public Grade() {
-        value = EMPTY_VALUE;
-        gradeState = GradeState.INCOMPLETE;
-    }
-
     /**
-     * Constructs an {@code Grade}.
-     *
-     * @param grade A valid grade.
+     * Constructs an {@code Grade} with letter grade and state of it.
+     * @param grade
+     * @param state
      */
-    public Grade(String grade) {
-        this(grade, GradeState.COMPLETE);
-    }
-
-    public Grade(String grade, GradeState gradeState) {
+    public Grade(String grade, State state) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         value = grade;
-        this.gradeState = gradeState;
+        this.state = state;
     }
 
     /**
@@ -112,28 +103,28 @@ public class Grade {
      * @return true if grade is complete
      */
     public boolean isComplete() {
-        return GradeState.COMPLETE.equals(gradeState);
+        return State.COMPLETE.equals(state);
     }
 
     /**
      * @return true if grade is incomplete
      */
     public boolean isIncomplete() {
-        return GradeState.INCOMPLETE.equals(gradeState);
+        return State.INCOMPLETE.equals(state);
     }
 
     /**
      * @return true if grade is adjusted
      */
     public boolean isAdjust() {
-        return GradeState.ADJUST.equals(gradeState);
+        return State.ADJUST.equals(state);
     }
 
     /**
      * @return true if is target grades
      */
     public boolean isTarget() {
-        return GradeState.TARGET.equals(gradeState);
+        return State.TARGET.equals(state);
     }
 
     /**
@@ -142,7 +133,7 @@ public class Grade {
      * @return new Grade object
      */
     public Grade adjustGrade(String grade) {
-        return new Grade(grade, GradeState.ADJUST);
+        return new Grade(grade, State.ADJUST);
     }
 
     /**
@@ -151,7 +142,7 @@ public class Grade {
      * @return new Grade object
      */
     public Grade targetGrade(String grade) {
-        return new Grade(grade, GradeState.TARGET);
+        return new Grade(grade, State.TARGET);
     }
 
     /**
@@ -177,7 +168,7 @@ public class Grade {
         return other == this
                 || (other instanceof Grade
                 && value.equals(((Grade) other).value))
-                && gradeState.equals(((Grade) other).gradeState);
+                && state.equals(((Grade) other).state);
     }
 
     @Override
@@ -188,7 +179,7 @@ public class Grade {
     /**
      * Different states of a grade
      */
-    private enum GradeState {
+    private enum State {
         COMPLETE,
         INCOMPLETE,
         TARGET,
