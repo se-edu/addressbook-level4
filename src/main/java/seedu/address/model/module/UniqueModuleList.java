@@ -82,7 +82,7 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new ModuleNotFoundException();
         }
 
-        if (target.equals(editedModule) && contains(editedModule)) {
+        if (!target.equals(editedModule) && contains(editedModule)) {
             throw new DuplicateModuleException();
         }
 
