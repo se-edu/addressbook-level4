@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -110,7 +111,7 @@ public interface Model {
     /**
      * Get the cap goal of the current transcript
      */
-    double getCapGoal();
+    CapGoal getCapGoal();
 
     /**
      * Set the cap goal of the current transcript

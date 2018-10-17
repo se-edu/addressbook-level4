@@ -34,14 +34,14 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    //private PersonListPanel personListPanel;
+    //private PersonListPanel personListPanel2;
+    private PersonListPanel capPanel;
     private ModuleListPanel moduleListPanel;
+    private ModuleListPanel moduleListPanelTwo;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-
-    @FXML
-    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,6 +51,18 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholderTwo;
+
+    @FXML
+    private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane personListPanelPlaceholder2;
+
+    @FXML
+    private StackPane capPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -119,11 +131,21 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
+        moduleListPanelTwo = new ModuleListPanel(logic.getFilteredModuleList());
+        moduleListPanelPlaceholderTwo.getChildren().add(moduleListPanelTwo.getRoot());
+
+
+//        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+//        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+//        personListPanel2 = new PersonListPanel(logic.getFilteredPersonList());
+//        personListPanelPlaceholder2.getChildren().add(personListPanel2.getRoot());
+
+        capPanel = new PersonListPanel(logic.getFilteredPersonList());
+        capPanelPlaceholder.getChildren().add(capPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -187,12 +209,17 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
+//    public PersonListPanel getPersonListPanel() {
+//        return personListPanel;
+//    }
+
+
     public ModuleListPanel getModuleListPanel() {
         return moduleListPanel;
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        //browserPanel.freeResources();
     }
 
     @Subscribe
