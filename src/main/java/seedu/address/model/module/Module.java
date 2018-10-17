@@ -66,6 +66,17 @@ public class Module {
         this.completed = completed;
     }
 
+    //@@author jeremiah-ang
+    /**
+     * Creates a new Module from an existing module but with a different grade
+     * @param module
+     * @param grade
+     */
+    public Module(Module module, Grade grade) {
+        this(module.code, module.year, module.semester, module.credits, grade, module.completed);
+    }
+
+    //@@author alexkmj
     /**
      * Returns the module code.
      *

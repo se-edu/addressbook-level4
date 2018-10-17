@@ -2,11 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -117,23 +121,41 @@ public class Transcript implements ReadOnlyTranscript {
     private double calculateCap() {
 
         ObservableList<Module> gradedModulesList = getGradedModulesList();
-        double totalCap = 0;
-        double point;
-        int totalModuleCredit = 0;
-        int moduleCredit;
-        for (Module module : gradedModulesList) {
-            moduleCredit = module.getCredits().value;
-            point = module.getGrade().getPoint();
-            totalCap += moduleCredit * point;
-            totalModuleCredit += moduleCredit;
-        }
+        double totalModulePoint = calculateTotalModulePoint(gradedModulesList);
+        double totalModuleCredit = calculateTotalModuleCredit(gradedModulesList);
 
         double cap = 0;
         if (totalModuleCredit > 0) {
-            cap = totalCap / totalModuleCredit;
+            cap = totalModulePoint / totalModuleCredit;
         }
 
         return cap;
+    }
+
+    /**
+     * Calculates the total module point from the list of modules
+     * @param modules
+     * @return
+     */
+    private double calculateTotalModulePoint(ObservableList<Module> modules) {
+        double totalPoint = 0;
+        for (Module module : modules) {
+            totalPoint += module.getGrade().getPoint() * module.getCredits().value;
+        }
+        return totalPoint;
+    }
+
+    /**
+     * Calculates the total module credit from the list of modules
+     * @param modules
+     * @return
+     */
+    private double calculateTotalModuleCredit(ObservableList<Module> modules) {
+        int totalModuleCredit = 0;
+        for (Module module : modules) {
+            totalModuleCredit += module.getCredits().value;
+        }
+        return totalModuleCredit;
     }
 
     /**
@@ -143,6 +165,14 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private ObservableList<Module> getGradedModulesList() {
         return modules.getFilteredModules(this::moduleIsUsedForCapCalculation);
+    }
+
+    /**
+     * Filters for modules that have yet been graded
+     * @return gradedModulesList: a list of modules used for CAP calculation
+     */
+    private ObservableList<Module> getNotCompletedModulesList() {
+        return modules.getFilteredModules(module -> !module.hasCompleted());
     }
 
     /**
@@ -163,6 +193,45 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private boolean moduleAffectsGrade(Module module) {
         return module.getGrade().affectsCap();
+    }
+
+    /**
+     * Calculates target module grade in order to achieve target goal
+     * @return a list of modules with target grade if possible. null otherwise
+     */
+    public ObservableList<Module> getTargetModuleGrade() {
+        ObservableList<Module> gradedModules = getGradedModulesList();
+        ObservableList<Module> ungradedModules = getNotCompletedModulesList()
+                .sorted(Comparator.comparingInt(o -> o.getCredits().value));
+        List<Module> targetModules = new ArrayList<>();
+        if (ungradedModules.isEmpty()) {
+            return FXCollections.observableArrayList(targetModules);
+        }
+
+        double totalUngradedModuleCredit = calculateTotalModuleCredit(ungradedModules);
+        double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
+        double currentTotalPoint = calculateTotalModulePoint(gradedModules);
+
+        double totalScoreToAchieve = capGoal.getCapGoal() * totalMc - currentTotalPoint;
+        double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+        if (unitScoreToAchieve > 5) {
+            return null;
+        }
+
+
+        Module targetModule;
+        for (Module ungradedModule : ungradedModules) {
+            if (unitScoreToAchieve == 0.5) {
+                unitScoreToAchieve = 1.0;
+            }
+            targetModule = new Module(ungradedModule, new Grade(unitScoreToAchieve));
+            targetModules.add(targetModule);
+            totalScoreToAchieve -= targetModule.getCredits().value * unitScoreToAchieve;
+            totalUngradedModuleCredit -= targetModule.getCredits().value;
+            unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+        }
+
+        return FXCollections.observableArrayList(targetModules);
     }
 
     public CapGoal getCapGoal() {
