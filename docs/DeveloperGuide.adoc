@@ -351,6 +351,18 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+===  Member
+* As of V1.2, member adding and deleting functionality have been added.
+* Under logic -> commands, there is a new package named "MemberCommand".
+* AddMember : adds member from storage
+* DeleteMember: delete member storage
+* EditMember: edit member details present in storage
+* Also, Member model now contains 6 arguments: name, phonenumber, email, address and major.
+* There is a separate parser package for member functions which helps to segment the different arguments
+that the member model has.
+* The segmentation of the arguments allow for them to be used individually when needed.
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
