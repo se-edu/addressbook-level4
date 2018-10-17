@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.model.module.Module;
 import seedu.address.model.util.ModuleBuilder;
 
+//@@author alexkmj
 public class AddModuleCommandParserTest {
     private AddModuleCommandParser parser = new AddModuleCommandParser();
 

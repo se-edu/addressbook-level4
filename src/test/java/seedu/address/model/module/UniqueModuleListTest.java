@@ -19,6 +19,7 @@ import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
+//@@author alexkmj
 public class UniqueModuleListTest {
 
     @Rule
