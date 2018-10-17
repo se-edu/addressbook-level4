@@ -89,7 +89,7 @@ public class Grade {
      * @param point
      * @return
      */
-    private static boolean isValidPoint(double point) {
+    public static boolean isValidPoint(double point) {
         double fraction = point - Math.floor(point);
         return point >= 0 && point <= 5 && (fraction == 0 || fraction == 0.5) && point != 0.5;
     }
