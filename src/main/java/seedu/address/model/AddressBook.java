@@ -78,6 +78,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a ledger with the same date as {@code ledger} exists in the club book
+     */
+    public boolean hasLedger(Ledger ledger){
+        requireNonNull(ledger);
+        return ledgers.contains(ledger);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -87,11 +95,15 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds a ledger to the club book
-     * @param l
      */
 
-    public void addLedger(Ledger l) {
-        ledgers.add(l);
+    public void addLedger(Ledger ledger) {
+        ledgers.add(ledger);
+    }
+
+    public void removeLedger(Ledger ledger) {
+        requireNonNull(ledger);
+        ledgers.remove(ledger);
     }
 
     /**
@@ -103,6 +115,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+    }
+
+    public void updateLedger(Ledger target, Ledger editedLedger) {
+        requireNonNull(editedLedger);
+        ledgers.setLedger(target, editedLedger);
     }
 
     /**

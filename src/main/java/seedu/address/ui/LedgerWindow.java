@@ -23,9 +23,9 @@ import java.util.logging.Logger;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class LedgerWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "LedgerWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -57,7 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public LedgerWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -174,8 +174,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+    public void show() {
+        logger.fine("Showing Ledger page of the application.");
+        getRoot().show();
+    }
+
+    public boolean isShowing() {
+        return getRoot().isShowing();
     }
 
     /**

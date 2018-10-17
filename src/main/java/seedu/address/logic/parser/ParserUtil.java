@@ -128,19 +128,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Double balance} into a {@code Account}.
+     * Parses a {@code String balance} into a {@code Account}.
      * Leading and trailing decimal places will be trimmed to 2 decimal places.
      *
      * @throws ParseException if the given {@code balance} is invalid.
      */
-    public static Account parseBalance(Double balance) throws ParseException {
+    public static Double parseBalance(String balance) throws ParseException {
         requireNonNull(balance);
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         Double trimmedBalance = Double.parseDouble(decimalFormat.format(balance));
-        if (!Account.isValidBalance(balance.toString())) {
+        if (!Account.isValidBalance(balance)) {
             throw new ParseException(Account.MESSAGE_BALANCE_CONSTRAINTS);
         }
-        return new Account(trimmedBalance);
+        return trimmedBalance;
     }
 
     /**

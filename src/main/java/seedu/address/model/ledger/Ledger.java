@@ -1,7 +1,5 @@
 package seedu.address.model.ledger;
 
-import seedu.address.model.person.Person;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -31,11 +29,11 @@ public class Ledger {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSameLedger(Ledger otherLedger) {
-        if (otherLedger.dateLedger == this.dateLedger) {
+        if (otherLedger.getDateLedger() == dateLedger) {
             return true;
         }
 
-        return otherLedger.dateLedger != null
+        return otherLedger.getDateLedger() != null
                 && otherLedger.getDateLedger().equals(getDateLedger());
     }
 

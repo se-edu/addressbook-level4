@@ -21,6 +21,21 @@ public class Account {
         value = balance;
     }
 
+    public void credit (Double amount) {
+        requireNonNull(amount);
+        value += amount;
+    }
+
+    public void debit (Double amount) {
+        requireNonNull(amount);
+        value -= amount;
+    }
+
+    public void setBalance (Double amount) {
+        requireNonNull(amount);
+        value = amount;
+    }
+
     /**
      * Returns true if the given argument is a valid Balance.
      */

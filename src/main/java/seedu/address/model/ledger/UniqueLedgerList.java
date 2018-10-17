@@ -2,6 +2,7 @@ package seedu.address.model.ledger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.ledger.exceptions.DuplicateLedgerException;
 import seedu.address.model.ledger.exceptions.LedgerNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -22,7 +23,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Ledger#isSameLedger(Ledger)
  */
 public class UniqueLedgerList implements Iterable<Ledger> {
 
@@ -43,16 +44,11 @@ public class UniqueLedgerList implements Iterable<Ledger> {
     public void add(Ledger toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            //do credit or debit;
+            throw new DuplicateLedgerException();
         }
         internalList.add(toAdd);
     }
 
-    /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
-     */
     public void setDate(Ledger target, Ledger editedDate) {
         requireAllNonNull(target, editedDate);
 
@@ -64,7 +60,6 @@ public class UniqueLedgerList implements Iterable<Ledger> {
         if (contains(editedDate)) {
             //add or deduct balance from ledger;
         }
-
         internalList.set(index, editedDate);
     }
 
@@ -79,22 +74,37 @@ public class UniqueLedgerList implements Iterable<Ledger> {
         }
     }
 
+    /**
+     * Replaces the contents of this list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
     public void setLedgers(UniqueLedgerList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the ledger {@code target} in the list with {@code editedLedger}.
+     * {@code target} must exist in the list.
+     * The DateLedger of {@code editedLedger} must not be the same as another existing ledger in the list.
      */
-    public void setLedgers(List<Ledger> ledgers) {
-        requireAllNonNull(ledgers);
-        if (!ledgersAreUnique(ledgers)) {
-            //add or deduct duplicate balance;
+    public void setLedger(Ledger target, Ledger editedLedger) {
+        requireAllNonNull(target, editedLedger);
+        DateLedger dateTarget = target.getDateLedger();
+        int index = -1;
+        for (int i = 0; i < internalList.size(); i++) {
+            if (dateTarget == internalList.get(i).getDateLedger()) {
+                index = i;
+            }
+        }
+        if (index == -1) {
+            throw new LedgerNotFoundException();
+        }
+        if (!target.isSameLedger(editedLedger) && contains(editedLedger)) {
+            throw new DuplicateLedgerException();
         }
 
-        internalList.setAll(ledgers);
+        internalList.set(index, editedLedger);
     }
 
     /**
@@ -122,7 +132,7 @@ public class UniqueLedgerList implements Iterable<Ledger> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code ledgers} contains only unique ledgers.
      */
     private boolean ledgersAreUnique(List<Ledger> ledgers) {
         for (int i = 0; i < ledgers.size() - 1; i++) {
