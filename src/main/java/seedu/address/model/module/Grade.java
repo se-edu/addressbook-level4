@@ -3,6 +3,10 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Represents a Module's grade in the transcript.
  * <p>
@@ -15,6 +19,9 @@ public class Grade {
      */
     public static final String MESSAGE_GRADE_CONSTRAINTS =
             "Grade can be A+, A, A-, B+, B, B-, C+, C, D+, D, F, CS, CU";
+
+    public static final String MESSAGE_POINT_CONSTRAINTS =
+            "Score must be between [0, 5] with increments of 0.5 and not 0.5";
 
     /**
      * No whitespace allowed.
@@ -31,6 +38,35 @@ public class Grade {
     public final State state;
 
     /**
+     * Static Unchangeable Mapping between Grade and Point
+     */
+    private static final Map<String, Double> MAP_GRADE_POINT;
+    private static final Map<Double, String> MAP_POINT_GRADE;
+    static {
+        Map<String, Double> tempGradePointMap = new HashMap<>();
+        Map<Double, String> tempPointGradeMap = new HashMap<>();
+        tempGradePointMap.put("A+", 5.0);
+        tempGradePointMap.put("A", 5.0);
+        tempGradePointMap.put("A-", 4.5);
+        tempGradePointMap.put("B+", 4.0);
+        tempGradePointMap.put("B", 3.5);
+        tempGradePointMap.put("B-", 3.0);
+        tempGradePointMap.put("C+", 2.5);
+        tempGradePointMap.put("C", 2.0);
+        tempGradePointMap.put("D+", 1.5);
+        tempGradePointMap.put("D", 1.0);
+        tempGradePointMap.put("F", 0.0);
+
+        for (Map.Entry<String, Double> entry : tempGradePointMap.entrySet()) {
+            tempPointGradeMap.put(entry.getValue(), entry.getKey());
+        }
+        tempPointGradeMap.put(5.0, "A");
+
+        MAP_GRADE_POINT = Collections.unmodifiableMap(tempGradePointMap);
+        MAP_POINT_GRADE = Collections.unmodifiableMap(tempPointGradeMap);
+    }
+
+    /**
      * Immutable grade value.
      */
     public final String value;
@@ -45,6 +81,35 @@ public class Grade {
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         value = grade;
         this.state = state;
+    }
+
+    /**
+     * Constructs an {@code Grade} from point
+     * @param point
+     */
+    public Grade(double point) {
+        requireNonNull(point);
+        checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
+        value = mapPointToValue(point);
+    }
+
+    /**
+     * Returns true if point is within [0, 5] and step by 0.5 and not 0.5
+     * @param point
+     * @return
+     */
+    public static boolean isValidPoint(double point) {
+        double fraction = point - Math.floor(point);
+        return point >= 0 && point <= 5 && (fraction == 0 || fraction == 0.5) && point != 0.5;
+    }
+
+    /**
+     * Returns the letter grade the point should be mapped to.
+     * @param point
+     * @return
+     */
+    private String mapPointToValue(double point) {
+        return MAP_POINT_GRADE.get(point);
     }
 
     /**
@@ -72,31 +137,10 @@ public class Grade {
      * @return point equivalent of the grade
      */
     public float getPoint() {
-        switch (value) {
-        case "A+":
-            return 5f;
-        case "A":
-            return 5f;
-        case "A-":
-            return 4.5f;
-        case "B+":
-            return 4f;
-        case "B":
-            return 3.5f;
-        case "B-":
-            return 3f;
-        case "C+":
-            return 2.5f;
-        case "C":
-            return 2f;
-        case "D+":
-            return 1.5f;
-        case "D":
-            return 1f;
-        case "F":
-        default:
-            return 0f;
+        if (MAP_GRADE_POINT.containsKey(value)) {
+            return MAP_GRADE_POINT.get(value).floatValue();
         }
+        return 0;
     }
 
     /**

@@ -38,7 +38,8 @@ public class TranscriptParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord")
+                .replaceFirst("c_", "");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case AddModuleCommand.COMMAND_WORD:
