@@ -215,12 +215,30 @@ public class Grade {
     }
 
     /**
+     * Creates a new Grade that is adjusted
+     * @param point
+     * @return new Grade object
+     */
+    public Grade adjustGrade(double point) {
+        return new Grade(point, State.ADJUST);
+    }
+
+    /**
      * Creates a new Grade that is targeted
      * @param grade
      * @return new Grade object
      */
     public Grade targetGrade(String grade) {
         return new Grade(grade, State.TARGET);
+    }
+
+    /**
+     * Creates a new Grade that is targeted
+     * @param point
+     * @return new Grade object
+     */
+    public Grade targetGrade(double point) {
+        return new Grade(point, State.TARGET);
     }
 
     /**

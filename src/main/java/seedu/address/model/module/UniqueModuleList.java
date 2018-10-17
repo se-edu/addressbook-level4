@@ -3,6 +3,7 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -56,6 +57,13 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new DuplicateModuleException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds all module in a list to the list
+     */
+    public boolean addAll(Collection<Module> modules) {
+        return internalList.addAll(modules);
     }
 
     /**
@@ -121,6 +129,13 @@ public class UniqueModuleList implements Iterable<Module> {
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
         }
+    }
+
+    /**
+     * Removes all module in a list from the list
+     */
+    public boolean removeAll(Collection<Module> modules) {
+        return internalList.removeAll(modules);
     }
 
     /**
