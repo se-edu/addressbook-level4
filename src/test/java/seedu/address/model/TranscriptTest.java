@@ -24,6 +24,8 @@ import seedu.address.model.util.ModuleBuilder;
  */
 public class TranscriptTest {
 
+    public static final String DELIMITER = " ";
+
     private static final Module GRADE_BMINUS_4MC_A = new ModuleBuilder()
             .withCode("BMINUSA")
             .withCredit(4)
@@ -136,22 +138,22 @@ public class TranscriptTest {
     public void testTriggersForTargetGradeCalculation() {
         Transcript transcript = new Transcript();
         transcript.addModule(GRADE_A_4MC_A);
-        assertTargetGradesEquals(transcript,"");
+        assertTargetGradesEquals(transcript, "");
 
         transcript.addModule(GRADE_BMINUS_4MC_A);
-        assertTargetGradesEquals(transcript,"");
+        assertTargetGradesEquals(transcript, "");
 
         transcript.setCapGoal(5.0);
-        assertTargetGradesEquals(transcript,"");
+        assertTargetGradesEquals(transcript, "");
 
         transcript.addModule(INCOMPLETE_4MC_A);
         assertTrue(transcript.isCapGoalImpossible());
 
         transcript.setCapGoal(4.0);
-        assertTargetGradesEquals(transcript,"B+");
+        assertTargetGradesEquals(transcript, "B+");
 
         transcript.addModule(INCOMPLETE_4MC_B);
-        assertTargetGradesEquals(transcript,"B+ B+");
+        assertTargetGradesEquals(transcript, "B+ B+");
     }
 
     /**
@@ -166,16 +168,21 @@ public class TranscriptTest {
         assertEquals(Double.valueOf(cap), expectedCapScore);
     }
 
+    /**
+     * Gets target grades as a delimited String
+     * @param transcript
+     * @return
+     */
     private String getTargetGradesStringFromTranscript(Transcript transcript) {
         ObservableList<Module> targetModules = transcript.getTargetedModulesList();
         List<String> targetGrades = new ArrayList<>();
         targetModules.forEach(module -> targetGrades.add(module.getGrade().value));
-        String targetGradesString = String.join(" ", targetGrades);
+        String targetGradesString = String.join(DELIMITER, targetGrades);
         return targetGradesString;
     }
 
     /**
-     * Assert that the given modules and cap goal will result in expected target grades
+     * Asserts that the given modules and cap goal will result in expected target grades
      * @param modules
      * @param capGoal
      * @param expectedTargetGrades
@@ -183,10 +190,26 @@ public class TranscriptTest {
     private void assertTargetGradesEquals(
             List<Module> modules, Double capGoal, List<String> expectedTargetGrades) {
         Transcript transcript = setUpTranscript(modules, capGoal);
-        String expectedTargetGradesString = String.join(" ", expectedTargetGrades);
+        String expectedTargetGradesString = String.join(DELIMITER, expectedTargetGrades);
         assertTargetGradesEquals(transcript, expectedTargetGradesString);
     }
 
+    /**
+     * Asserts that the given transcript will result in expected target grades
+     * @param transcript
+     * @param expectedTargetGrades
+     */
+    public void assertTargetGradesEquals(Transcript transcript, String expectedTargetGrades) {
+        String targetGrades = getTargetGradesStringFromTranscript(transcript);
+        assertEquals(targetGrades, expectedTargetGrades);
+    }
+
+    /**
+     * Sets modules and capGoal of a new Transcript
+     * @param modules
+     * @param capGoal
+     * @return
+     */
     private Transcript setUpTranscript(List<Module> modules, Double capGoal) {
         Transcript transcript = new Transcript();
         transcript.setModules(modules);
@@ -194,11 +217,11 @@ public class TranscriptTest {
         return transcript;
     }
 
-    public void assertTargetGradesEquals(Transcript transcript, String expectedTargetGrades) {
-        String targetGrades = getTargetGradesStringFromTranscript(transcript);
-        assertEquals(targetGrades, expectedTargetGrades);
-    }
-
+    /**
+     * Asserts that it is impossible to achieve the CapGoal
+     * @param modules
+     * @param capGoal
+     */
     private void assertCapGoalImpossible(
             List<Module> modules, Double capGoal) {
         Transcript transcript = setUpTranscript(modules, capGoal);
