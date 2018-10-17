@@ -176,7 +176,8 @@ public class Grade {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Grade
-                && value.equals(((Grade) other).value));
+                && value.equals(((Grade) other).value))
+                && gradeState.equals(((Grade) other).gradeState);
     }
 
     @Override
