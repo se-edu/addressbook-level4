@@ -11,6 +11,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.util.ModuleBuilder;
 import seedu.address.testutil.ModuleUtil;
 
+//@@author alexkmj
 public class TranscriptParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

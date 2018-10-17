@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.module.Module;
 import seedu.address.storage.JsonTranscriptDeserializer;
 
+//@@author alexkmj
 /**
  * Unmodifiable view of a Transcript.
  */

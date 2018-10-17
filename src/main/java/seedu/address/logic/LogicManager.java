@@ -26,6 +26,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final TranscriptParser transcriptParser;
     private final AddressBookParser addressBookParser;
 
+    //@@author alexkmj
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
@@ -33,6 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         addressBookParser = new AddressBookParser();
     }
 
+    //@@author alexkmj
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -49,6 +51,7 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
+    //@@author alexkmj
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
