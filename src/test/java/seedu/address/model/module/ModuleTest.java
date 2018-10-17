@@ -98,7 +98,7 @@ public class ModuleTest {
         assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 3 Semester: "
                 + "s1 Credits: 4 Grade: F Completed: true"));
     }
-    
+
     //@@author jeremiah-ang
     @Test
     public void autoFillIsCompletedSuccess() {
