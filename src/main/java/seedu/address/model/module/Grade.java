@@ -14,6 +14,7 @@ import java.util.Map;
  */
 public class Grade {
 
+    //@@author alexkmj
     /**
      * Describes the requirements for grade value.
      */
@@ -23,6 +24,7 @@ public class Grade {
     public static final String MESSAGE_POINT_CONSTRAINTS =
             "Score must be between [0, 5] with increments of 0.5 and not 0.5";
 
+    //@@author alexkmj
     /**
      * Default value's value
      */
@@ -33,7 +35,8 @@ public class Grade {
      */
     public static final String GRADE_VALIDATION_REGEX =
             "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU|" + EMPTY_VALUE;
-
+    
+    //@@author jeremiah-ang
     /**
      * Static Unchangeable Mapping between Grade and Point
      */
@@ -63,13 +66,14 @@ public class Grade {
         MAP_GRADE_POINT = Collections.unmodifiableMap(tempGradePointMap);
         MAP_POINT_GRADE = Collections.unmodifiableMap(tempPointGradeMap);
     }
-
+  
+    //@@author alexkmj
     /**
      * Immutable grade value.
      */
     public final String value;
 
-
+    //@@author alexkmj
     /**
      * State of the grade
      */
@@ -140,6 +144,7 @@ public class Grade {
         return MAP_POINT_GRADE.get(point);
     }
 
+    //@@author alexkmj
     /**
      * Returns true if a given string is a valid grade.
      *
@@ -171,6 +176,7 @@ public class Grade {
         return 0;
     }
 
+    //@@author alexkmj
     /**
      * @return true if grade is complete
      */
@@ -227,6 +233,7 @@ public class Grade {
         return value;
     }
 
+    //@@author alexkmj
     /**
      * Compares the grade value of both Grade object.
      * <p>
@@ -243,6 +250,7 @@ public class Grade {
                 && state.equals(((Grade) other).state);
     }
 
+    //@@author alexkmj
     @Override
     public int hashCode() {
         return value.hashCode();

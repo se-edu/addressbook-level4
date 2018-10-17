@@ -1,18 +1,6 @@
-package seedu.address.storage;
-
-import static java.util.Objects.requireNonNull;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyTranscript;
-import seedu.address.model.Transcript;
-
-//@@author jeremyyew
+# jeremyyew
+###### /java/seedu/address/storage/JsonTranscriptStorage.java
+``` java
 /**
  * A class to access Transcript stored in the hard disk as a json file
  */
@@ -59,3 +47,4 @@ public class JsonTranscriptStorage implements TranscriptStorage {
     }
 
 }
+```
