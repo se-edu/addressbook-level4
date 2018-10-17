@@ -167,7 +167,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel`, 'ModuleListPanel' etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -176,6 +176,13 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+[[Design-Layout]]
+=== UI component
+* The UI is seperated into 3 columns to clearly identify the different outputs from commands entered by the user.
+* First UI Column is for Modules that have already been completed
+* Second UI Column is for Modules whose grades have been calculated by the application
+* Third UI Column is for displaying summary statistics.
 
 [[Design-Logic]]
 === Logic component
@@ -693,5 +700,26 @@ _{ more test cases ... }_
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
+
+=== Navigating the UI
+
+. The UI is split into four sections; the three display columns and the search bar.
+
+. Column 1
+
+.. Used to display modules that the user has entered which are already completed.
+.. It is assumed that the modules in this column have grades that are true representations of the users academic results.
+
+. Column 2
+
+.. Used to display modules that the user wants to predict the grades of in order to reach CAP goal.
+.. It is assumed that the modules in this column have not been completed by the user and therefore do not have an entered grade.
+
+. Column 3
+
+.. Used to display summary statistics of the information entered by the user and calculated by the app.
+.. Includes total number of modules entered, CAP Goal, and required grades to reach CAP Goal.
 
 _{ more test cases ... }_
