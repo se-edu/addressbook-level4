@@ -84,6 +84,10 @@ public class GradeTest {
     @Test
     public void equalsValid() {
         assertTrue(new Grade("A+").equals(new Grade("A+")));
+    }
+
+    @Test
+    public void adjustedTargetEqualsValid() {
         assertTrue(new Grade("A+").adjustGrade("B").equals(new Grade("A+").adjustGrade("B")));
         assertTrue(new Grade("A+").targetGrade("B").equals(new Grade("A+").targetGrade("B")));
         assertFalse(new Grade().adjustGrade("A+").equals(new Grade("A+")));
