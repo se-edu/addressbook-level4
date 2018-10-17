@@ -24,24 +24,22 @@ public class Grade {
             "Score must be between [0, 5] with increments of 0.5 and not 0.5";
 
     /**
-     * No whitespace allowed.
+     * Default value's value
      */
-    public static final String GRADE_VALIDATION_REGEX =
-            "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU";
-
-
     private static final String EMPTY_VALUE = "NIL";
 
     /**
-     * State of the grade
+     * No whitespace allowed.
      */
-    public final State state;
+    public static final String GRADE_VALIDATION_REGEX =
+            "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU|" + EMPTY_VALUE;
 
     /**
      * Static Unchangeable Mapping between Grade and Point
      */
     private static final Map<String, Double> MAP_GRADE_POINT;
     private static final Map<Double, String> MAP_POINT_GRADE;
+
     static {
         Map<String, Double> tempGradePointMap = new HashMap<>();
         Map<Double, String> tempPointGradeMap = new HashMap<>();
