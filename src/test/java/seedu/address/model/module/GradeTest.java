@@ -94,8 +94,6 @@ public class GradeTest {
         assertTrue(new Grade("A+").targetGrade("B").equals(new Grade("A+").targetGrade("B")));
         assertFalse(new Grade().adjustGrade("A+").equals(new Grade("A+")));
         assertFalse(new Grade().targetGrade("A+").equals(new Grade("A+")));
-        assertTrue(new Grade().targetGrade("A").equals(new Grade().targetGrade(5)));
-        assertTrue(new Grade().adjustGrade("A").equals(new Grade().adjustGrade(5)));
     }
 
     @Test
