@@ -86,6 +86,7 @@ public class GradeTest {
         assertTrue(new Grade("A+").equals(new Grade("A+")));
     }
 
+    //@@author jeremiah-ang
     @Test
     public void adjustedTargetEqualsValid() {
         assertTrue(new Grade("A+").adjustGrade("B").equals(new Grade("A+").adjustGrade("B")));
@@ -94,7 +95,6 @@ public class GradeTest {
         assertFalse(new Grade().targetGrade("A+").equals(new Grade("A+")));
     }
 
-    //@@author jeremiah-ang
     @Test
     public void gradeStateValid() {
         assertTrue(new Grade("A").isComplete());
