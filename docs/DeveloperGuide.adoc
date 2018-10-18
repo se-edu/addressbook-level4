@@ -303,6 +303,14 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
+Step 7. The user executes many `add`, `delete`, and `clear` commands over a couple of hours, but decides at the end of the day that he does not want all the changes. He decides to undo all the changes by executing the `undoAll` command. The 'undoAll' command will call 'Model#undoAllAddressBook(), which will shift the 'currentStatePointer' to the start of the `addressBookStateList`, pointing it to the original address book state, and restores the address book to that state.
+
+image::UndoRedoExecuteUndoAllStateListDiagram.png[width="800"]
+
+Step 8. The user decides again that he wants all the changes after all, and decides to execute the `redoAll` command. `Model#redoAllAddressBook()` is called, shifts the currentStatePointer to the end of `addressBookStateList`, pointing to the furthest undone state, and restores the address book to that state.
+
+image::UndoRedoExecuteRedoAllStateListDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -363,6 +371,48 @@ The users need to type openCalendar, and then type the corresponding command.
 Inside the parser package, we have the corresponding CommandParser. For example, addEventParser. What does the parser do is it divides the information typed in into several parts, which are name, venue, date, and description.
 After that, the AddEventCommand will store the parts into an EventList.
 
+=== Add/Remove Ledger feature
+==== Current Implementation
+The add/remove mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an AddLedger and RemoveLedger method.
+
+* `AddressBook#addLedger()` -- Adds a ledger object to the UniqueLedgerList.
+* `AddressBook#removeLedger()` -- Removes a ledger object from the UniqueLedgerList.
+
+These operations are exposed in the `Model` interface as `Model#addLedger` and `Model#deleteLedger` respectively.
+
+Below is a scenario of how a user adds a ledger into the club book.
+
+Step 1. The user inputs the command addledger \d `[date]` \b `[balance]` into the command box.
+
+Step 2. The commandbox ui will then create a Logic object which parses the command to ascertain that it is an addLedger command.
+
+Step 3. The AddressBookParser will then parse the command to create a new addLedgerParser object.
+
+Step 4. This addLedgerParser will parser the arguments of the command line and create a new AddLedger object.
+
+Step 5. This will then be put into the model, into the versioned address book.
+
+The Ledger class creates an object that instantiates a DateLedger object and an Account object. The multiple Ledger objects created will be stored
+in a UniqueLedgerList, where the uniqueness of every ledger is in its date.
+
+This uniqueness is attained by comparing the DateLedger object in the ledger to be added and the ledgers already in the
+UniqueLedgerList using the `getDateLedger()` method in Ledger.
+
+Perhaps instead of using a for loop to loop through the entire UniqueLedgerList, one could implement a more efficient method of
+finding duplicates while maintaining the function of searching using objects instead of index.
+
+Remove Ledger uses the same concept ut instead starts with looking for the Ledger in the UniqueLedgerList instead.
+
+===  Member
+* As of V1.2, member adding and deleting functionality have been added.
+* Under logic -> commands, there is a new package named "MemberCommand".
+* AddMember : adds member from storage
+* DeleteMember: delete member storage
+* EditMember: edit member details present in storage
+* Also, Member model now contains 6 arguments: name, phonenumber, email, address and major.
+* There is a separate parser package for member functions which helps to segment the different arguments
+that the member model has.
+* The segmentation of the arguments allow for them to be used individually when needed.
 
 == Documentation
 
@@ -862,6 +912,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |delete an event |delete an event by indicating its name
 
 |`* * *` |user |modify an event |modify an event by calling its name
+
+|`* * *` |user |add a new item |
+
+|`* * *` |user |delete an item | remove item entries that I no longer need
+
+|`* * *` |user |find an item by name |locate details on items without having to go through the entire list
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily

@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.person.Person;
@@ -25,6 +26,11 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a ledger with the same date as (@code ledger) exists in the club book
+     */
+    boolean hasLedger(Ledger ledger);
 
     /**
      * Deletes the given person.
@@ -71,8 +77,17 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given ledger (@code target) with (@code editedLedger).
+     * target must exist in the club book.
+     */
+    void updateLedger(Ledger target, Ledger editedLedger);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered ledger list */
+    ObservableList<Ledger> getFilteredLedgerList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -104,4 +119,27 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Adds the given item.
+     * @param item
+     */
+    void addItem(Item item);
+
+    /**
+     * Deletes the given item.
+     * @param item
+     */
+    void deleteItem(Item item);
+
+    /**
+     * Restores the model's address book to its original state.
+     */
+    void undoAllAddressBook();
+
+    /**
+     * Restores the model's address book to its furthest undone state.
+     */
+    void redoAllAddressBook();
+
 }

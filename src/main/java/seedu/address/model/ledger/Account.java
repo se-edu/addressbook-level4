@@ -11,7 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Account {
 
     public static final String MESSAGE_BALANCE_CONSTRAINTS =
-            "Account should only contain numeric characters and no spaces, and it should not be blank";
+            "Account should only contain numbers and no spaces, and it should not be blank";
 
     private static Double value;
 
@@ -19,6 +19,21 @@ public class Account {
         requireNonNull(balance);
         checkArgument(isValidBalance(balance.toString()), MESSAGE_BALANCE_CONSTRAINTS);
         value = balance;
+    }
+
+    public void credit (Double amount) {
+        requireNonNull(amount);
+        value += amount;
+    }
+
+    public void debit (Double amount) {
+        requireNonNull(amount);
+        value -= amount;
+    }
+
+    public void setBalance (Double amount) {
+        requireNonNull(amount);
+        value = amount;
     }
 
     /**

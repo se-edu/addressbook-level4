@@ -29,6 +29,7 @@ public class AddLedgerCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.addLedger(addLedger);
+        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, addLedger));
     }
