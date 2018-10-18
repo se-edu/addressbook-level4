@@ -29,17 +29,29 @@
                 <Label fx:id="title" text="\$title" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
-
-            <Label styleClass="cell_small_label" text="CODE: "/>
-            <Label fx:id="code" styleClass="cell_small_label" text="\$code" />
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label styleClass="cell_small_label" text="CODE: "/>
+                <Label fx:id="code" styleClass="cell_small_label" text="\$code" />
+            </HBox>
+            <HBox spacing="5" alignment="CENTER_LEFT">
             <Label styleClass="cell_small_label" text="CREDITS: "/>
             <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
+            </HBox>
+
+            <HBox spacing="5" alignment="CENTER_LEFT">
             <Label styleClass="cell_small_label" text="SEMESTER: "/>
             <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
+            </HBox>
+
+            <HBox spacing="5" alignment="CENTER_LEFT">
             <Label styleClass="cell_small_label" text="YEAR: "/>
             <Label fx:id="year" styleClass="cell_small_label" text="\$year" />
+            </HBox>
+
+            <HBox spacing="5" alignment="CENTER_LEFT">
             <Label styleClass="cell_small_label" text="GRADE: "/>
             <Label fx:id="grade" styleClass="cell_small_label" text="\$grade" />
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>
