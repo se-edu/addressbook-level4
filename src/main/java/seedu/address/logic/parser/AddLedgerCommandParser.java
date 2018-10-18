@@ -1,9 +1,11 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BALANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import seedu.address.logic.commands.AddLedgerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.DateLedger;
 import seedu.address.model.ledger.Ledger;
 
@@ -23,8 +25,9 @@ public class AddLedgerCommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE);
         DateLedger date = ParserUtil.parseDateLedger(argMultimap.getValue(PREFIX_DATE).get());
+        //Account account = ParserUtil.parseBalance(Double.parseDouble(argMultimap.getValue(PREFIX_BALANCE).get()));
 
-        Ledger ledger = new Ledger(date);
+        Ledger ledger = new Ledger(date, new Account(0.0));
 
         return new AddLedgerCommand(ledger);
     }

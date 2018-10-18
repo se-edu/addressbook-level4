@@ -14,7 +14,7 @@ public class Assert {
 
     /**
      * Asserts that the {@code callable} throws the {@code expectedException} and the {@code expectedMessage}.
-     * If there's no need for the verification of the exception's error message, call
+     * If there's no need for the verification of the exceptions's error message, call
      * {@code assertThrows(Class<? extends Throwable>, VoidCallable)} instead.
      * {@see assertThrows(Class<? extends Throwable>, VoidCallable}
      */
@@ -26,7 +26,7 @@ public class Assert {
             String errorMessage;
 
             if (!actualException.getClass().isAssignableFrom(expectedException)) {
-                errorMessage = String.format("Expected exception thrown: %s, actual: %s",
+                errorMessage = String.format("Expected exceptions thrown: %s, actual: %s",
                         expectedException.getName(), actualException.getClass().getName());
             } else if (expectedMessage != null && !expectedMessage.equals(actualException.getMessage())) {
                 errorMessage = String.format(
@@ -43,7 +43,7 @@ public class Assert {
     }
 
     /**
-     * Represents a function which does not return anything and may throw an exception.
+     * Represents a function which does not return anything and may throw an exceptions.
      */
     @FunctionalInterface
     public interface VoidCallable {

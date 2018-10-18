@@ -12,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.DateLedger;
 import seedu.address.model.person.Address;
@@ -128,19 +129,28 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String item} into a {@code Item}
+     */
+    public static Item parseItem(String item) throws ParseException {
+        requireNonNull(item);
+        String trimmedItem = item.trim();
+        return new Item(trimmedItem);
+    }
+
+    /**
      * Parses a {@code Double balance} into a {@code Account}.
      * Leading and trailing decimal places will be trimmed to 2 decimal places.
      *
      * @throws ParseException if the given {@code balance} is invalid.
      */
-    public static Account parseBalance(Double balance) throws ParseException {
+    public static Double parseBalance(String balance) throws ParseException {
         requireNonNull(balance);
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         Double trimmedBalance = Double.parseDouble(decimalFormat.format(balance));
-        if (!Account.isValidBalance(balance.toString())) {
+        if (!Account.isValidBalance(balance)) {
             throw new ParseException(Account.MESSAGE_BALANCE_CONSTRAINTS);
         }
-        return new Account(trimmedBalance);
+        return trimmedBalance;
     }
 
     /**
