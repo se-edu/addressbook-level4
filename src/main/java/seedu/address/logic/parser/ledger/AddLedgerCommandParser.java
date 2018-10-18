@@ -1,9 +1,12 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.ledger;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BALANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
-import seedu.address.logic.commands.AddLedgerCommand;
+import seedu.address.logic.commands.ledger.AddLedgerCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.DateLedger;
@@ -13,7 +16,7 @@ import seedu.address.model.ledger.Ledger;
  * Parses input command arguments and creates a new addLedgerCommand object
  */
 
-public class AddLedgerCommandParser {
+public class AddLedgerCommandParser implements Parser<AddLedgerCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddLedgerCommand

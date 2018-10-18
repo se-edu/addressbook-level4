@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.ledger.Ledger;
+import seedu.address.model.ledger.UniqueLedgerList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -28,6 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+    }
+
+    private final UniqueLedgerList ledgers;
+
+    {
+        ledgers = new UniqueLedgerList();
     }
 
     public AddressBook() {}
@@ -70,11 +78,32 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a ledger with the same date as {@code ledger} exists in the club book
+     */
+    public boolean hasLedger(Ledger ledger){
+        requireNonNull(ledger);
+        return ledgers.contains(ledger);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds a ledger to the club book
+     */
+
+    public void addLedger(Ledger ledger) {
+        ledgers.add(ledger);
+    }
+
+    public void removeLedger(Ledger ledger) {
+        requireNonNull(ledger);
+        ledgers.remove(ledger);
     }
 
     /**
@@ -86,6 +115,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+    }
+
+    public void updateLedger(Ledger target, Ledger editedLedger) {
+        requireNonNull(editedLedger);
+        ledgers.setLedger(target, editedLedger);
     }
 
     /**
