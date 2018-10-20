@@ -8,8 +8,8 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.Transcript;
@@ -35,7 +35,7 @@ public class CapPanel extends UiPart<Region> {
         super(FXML);
         currentCapText.textProperty().bind(currentCapString);
         capGoalText.textProperty().bind(capGoalString);
-        
+
         Platform.runLater(() -> currentCapString.setValue("Current cap: " + transcript.getCap()));
         CapGoal goal = transcript.getCapGoal();
         Platform.runLater(() -> capGoalString.setValue("CAP Goal: " + (goal.isSet ? goal.capGoal : "NIL")));
@@ -54,11 +54,5 @@ public class CapPanel extends UiPart<Region> {
             logger.info("Error trying to calculate new cap:" + e);
         }
     }
-
-//    @Subscribe
-//    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
-//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        Platform.runLater(() -> displayed.setValue(event.message));
-//    }
 
 }
