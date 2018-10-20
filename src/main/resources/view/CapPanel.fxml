@@ -9,5 +9,6 @@
     <padding>
         <Insets top="15" right="15" bottom="15" left="15" />
     </padding>
-    <Text fx:id="capText" styleClass="cap-text" />
+    <Text fx:id="currentCapText" styleClass="cap-text"/>
+    <Text fx:id="capGoalText" styleClass="cap-text" />
 </VBox>
