@@ -27,9 +27,10 @@ public class CapPanel extends UiPart<Region> {
     @FXML
     private Text capText;
 
-    public CapPanel() {
+    public CapPanel(Transcript transcript) {
         super(FXML);
         capText.textProperty().bind(displayed);
+        Platform.runLater(() -> displayed.setValue("Current cap: " + transcript.getCap()));
         registerAsAnEventHandler(this);
     }
 
@@ -38,8 +39,7 @@ public class CapPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local transcript data changed, calculating new cap"));
         try {
             Transcript transcript = (Transcript) event.data;
-            double cap = transcript.getCap();
-            Platform.runLater(() -> displayed.setValue("Current cap: " + cap));
+            Platform.runLater(() -> displayed.setValue("Current cap: " + transcript.getCap()));
         } catch (Exception e) {
             logger.info("Error trying to calculate new cap:" + e);
         }

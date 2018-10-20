@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyTranscript;
+import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -23,6 +25,9 @@ public interface Logic {
     //@@author alexkmj
     /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();
+
+    /** Returns the transcript. */
+    Transcript getTranscript();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
