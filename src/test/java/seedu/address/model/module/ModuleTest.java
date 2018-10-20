@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.util.ModuleBuilder;
 import seedu.address.testutil.Assert;
 
-
+//@@author alexkmj
 public class ModuleTest {
 
     @Rule
@@ -97,5 +97,22 @@ public class ModuleTest {
     public void toStringValid() {
         assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 3 Semester: "
                 + "s1 Credits: 4 Grade: F Completed: true"));
+    }
+
+    //@@author jeremiah-ang
+    @Test
+    public void autoFillIsCompletedSuccess() {
+        assertTrue((new Module(
+                new Code("CS2103"), new Year(1), new Semester("1"),
+                new Credit(4), new Grade("A"))).hasCompleted());
+        assertFalse((new Module(
+                new Code("CS2103"), new Year(1), new Semester("1"),
+                new Credit(4), new Grade())).hasCompleted());
+        assertFalse((new Module(
+                new Code("CS2103"), new Year(1), new Semester("1"),
+                new Credit(4), new Grade().adjustGrade("A"))).hasCompleted());
+        assertFalse((new Module(
+                new Code("CS2103"), new Year(1), new Semester("1"),
+                new Credit(4), new Grade().targetGrade("A"))).hasCompleted());
     }
 }
