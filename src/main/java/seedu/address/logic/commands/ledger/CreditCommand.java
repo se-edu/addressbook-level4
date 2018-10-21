@@ -46,7 +46,7 @@ public class CreditCommand extends Command {
 
         for (int i = 0; i < lastShownList.size(); i++) {
             Ledger compare = lastShownList.get(i);
-            if (compare.getDateLedger() == dateLedger){
+            if (compare.getDateLedger().getDate().equals(dateLedger.getDate())){
                 ledgerToEdit = compare;
             } else {
                 throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);

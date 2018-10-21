@@ -26,6 +26,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
 
+    private final FilteredList<Ledger> filteredLedgers;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -37,6 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+
+        filteredLedgers = new FilteredList<>(versionedAddressBook.getLedgerList());
     }
 
     public ModelManager() {
@@ -93,6 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addLedger(Ledger ledger) {
         requireNonNull(ledger);
         versionedAddressBook.addLedger(ledger);
+        updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         indicateAddressBookChanged();
     }
 
@@ -138,13 +143,24 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ObservableList<Ledger> getFilteredLedgerList() {
-        return null;
+        logger.info("Filtered list observed");
+        logger.info("Size : " + Integer.toString(filteredLedgers.size()));
+        for (Ledger l : filteredLedgers) {
+            logger.info(l.getDateLedger().toString());
+        }
+        return FXCollections.unmodifiableObservableList(filteredLedgers);
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLedgerList(Predicate<Ledger> predicate) {
+        requireNonNull(predicate);
+        filteredLedgers.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
