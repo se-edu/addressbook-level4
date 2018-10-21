@@ -11,13 +11,6 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Damithic
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
 
 === Zhuang Yuan
 image::za-yn.png[width="150", align="left"]
@@ -37,7 +30,7 @@ Responsibilities: Data, Inventory feature
 
 '''
 
-=== Jun Hyuk
+=== Park Junhyuk
 image::hyukiejun.png[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
