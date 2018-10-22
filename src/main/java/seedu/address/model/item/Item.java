@@ -9,18 +9,24 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Item {
 
     // Identity fields
-    private final String itemName;
+    private final ItemName itemName;
+    private final ItemQuantity itemQuantity;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(String itemName) {
+    public Item(ItemName itemName, ItemQuantity itemQuantity) {
         requireAllNonNull(itemName);
         this.itemName = itemName;
+        this.itemQuantity = itemQuantity;
     }
 
-    public String getItemName() {
+    public ItemName getItemName() {
         return itemName;
+    }
+
+    public ItemQuantity getItemQuantity() {
+        return itemQuantity;
     }
 
     /**
@@ -46,11 +52,11 @@ public class Item {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.item.Item)) {
+        if (!(other instanceof Item)) {
             return false;
         }
 
-        seedu.address.model.item.Item otherItem = (seedu.address.model.item.Item) other;
+        Item otherItem = (Item) other;
         return otherItem.getItemName().equals(getItemName());
     }
 

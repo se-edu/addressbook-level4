@@ -29,7 +29,9 @@ public class AddItemCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
         model.addItem(addItem);
+        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, addItem));
     }
