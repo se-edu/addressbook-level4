@@ -25,4 +25,13 @@ public class DateLedger {
     public static boolean isValidDateLedger(String test) {
         return (test.matches(MESSAGE_VALIDATION_REGEX));
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    public String getDate() {
+        return value;
+    }
 }
