@@ -3,9 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddItemCommand;
 import seedu.address.logic.commands.AddLedgerCommand;
@@ -36,6 +39,9 @@ import seedu.address.logic.parser.ledger.DebitCommandParser;
  * Parses user input.
  */
 public class AddressBookParser {
+
+
+    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
 
     /**
      * Used for initial separation of command word and args.
@@ -99,6 +105,7 @@ public class AddressBookParser {
             return new AddItemCommandParser().parse(arguments);
 
         case AddLedgerCommand.COMMAND_WORD:
+            logger.info("Parsing");
             return new AddLedgerCommandParser().parse(arguments);
 
         case UndoAllCommand.COMMAND_WORD:

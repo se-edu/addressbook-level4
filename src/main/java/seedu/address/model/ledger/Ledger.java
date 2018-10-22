@@ -1,5 +1,9 @@
 package seedu.address.model.ledger;
 
+import seedu.address.commons.core.LogsCenter;
+
+import java.util.logging.Logger;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -7,6 +11,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 
 public class Ledger {
+
+    private final Logger logger = LogsCenter.getLogger(Ledger.class);
+
     private final Account account;
     private final DateLedger dateLedger;
 
@@ -25,16 +32,14 @@ public class Ledger {
     }
 
     /**
-     * Returns true if both ledgers of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both ledgers have the same date.
      */
     public boolean isSameLedger(Ledger otherLedger) {
-        if (otherLedger.getDateLedger() == dateLedger) {
+        if (otherLedger.getDateLedger().getDate().equals(this.getDateLedger().getDate())) {
+            logger.info("Same ledger");
             return true;
         }
-
-        return otherLedger.getDateLedger() != null
-                && otherLedger.getDateLedger().equals(getDateLedger());
+        return false;
     }
 
 }
