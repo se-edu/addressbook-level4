@@ -37,11 +37,13 @@ public class RedoModuleCommandTest {
     public void execute() {
         // multiple redoable states in model
         expectedModel.redoTranscript();
-        assertCommandSuccess(new RedoModuleCommand(), model, commandHistory, RedoModuleCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoModuleCommand(), model, commandHistory,
+                RedoModuleCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
         expectedModel.redoTranscript();
-        assertCommandSuccess(new RedoModuleCommand(), model, commandHistory, RedoModuleCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoModuleCommand(), model, commandHistory,
+                RedoModuleCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model
         assertCommandFailure(new RedoModuleCommand(), model, commandHistory, RedoModuleCommand.MESSAGE_FAILURE);

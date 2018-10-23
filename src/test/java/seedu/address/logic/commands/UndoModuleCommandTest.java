@@ -33,11 +33,13 @@ public class UndoModuleCommandTest {
     public void execute() {
         // multiple undoable states in model
         expectedModel.undoTranscript();
-        assertCommandSuccess(new UndoModuleCommand(), model, commandHistory, UndoModuleCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoModuleCommand(), model, commandHistory,
+                UndoModuleCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
         expectedModel.undoTranscript();
-        assertCommandSuccess(new UndoModuleCommand(), model, commandHistory, UndoModuleCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoModuleCommand(), model, commandHistory,
+                UndoModuleCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model
         assertCommandFailure(new UndoModuleCommand(), model, commandHistory, UndoModuleCommand.MESSAGE_FAILURE);
