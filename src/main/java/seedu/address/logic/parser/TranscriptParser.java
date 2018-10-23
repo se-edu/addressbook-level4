@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.CapCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.Code;
 
 /**
  * Parses user input.
@@ -44,6 +46,9 @@ public class TranscriptParser {
         switch (commandWord) {
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
+        case DeleteModuleCommand.COMMAND_WORD:
+            Code targetCode = new Code(arguments.trim());
+            return new DeleteModuleCommand(targetCode);
         case CapCommand.COMMAND_WORD:
             return new CapCommand();
         case GoalCommand.COMMAND_WORD:
