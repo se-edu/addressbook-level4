@@ -293,7 +293,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jeremiah-ang
     @Override
     public double getCap() {
-        return versionedTranscript.getCap();
+        return versionedTranscript.getCurrentCap();
     }
 
     //@@author alexkmj
