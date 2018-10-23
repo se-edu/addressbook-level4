@@ -21,6 +21,10 @@ public class Account {
         value = balance;
     }
 
+    public static String getBalance() {
+        return value.toString();
+    }
+
     public void credit (Double amount) {
         requireNonNull(amount);
         value += amount;
@@ -48,4 +52,10 @@ public class Account {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
+
 }

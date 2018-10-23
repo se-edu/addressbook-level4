@@ -3,22 +3,23 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.MemberCommand.*;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.AddCommand;
+
 import seedu.address.logic.commands.AddItemCommand;
 import seedu.address.logic.commands.AddLedgerCommand;
-import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.MemberCommand.FindMemberCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoAllCommand;
 import seedu.address.logic.commands.ledger.CreditCommand;
 import seedu.address.logic.commands.ledger.DebitCommand;
@@ -36,6 +37,9 @@ import seedu.address.logic.parser.ledger.DebitCommandParser;
  * Parses user input.
  */
 public class AddressBookParser {
+
+
+    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
 
     /**
      * Used for initial separation of command word and args.
@@ -59,26 +63,26 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD: case AddCommand.COMMAND_ALIAS:
+        case AddMemberCommand.COMMAND_WORD: case AddMemberCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD: case EditCommand.COMMAND_ALIAS:
+        case EditMemberCommand.COMMAND_WORD: case EditMemberCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD: case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD: case DeleteCommand.COMMAND_ALIAS:
+        case DeleteMemberCommand.COMMAND_WORD: case DeleteMemberCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD: case ClearCommand.COMMAND_ALIAS:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD: case FindCommand.COMMAND_ALIAS:
+        case FindMemberCommand.COMMAND_WORD: case FindMemberCommand.COMMAND_ALIAS:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD: case ListCommand.COMMAND_ALIAS:
-            return new ListCommand();
+        case ListMemberCommand.COMMAND_WORD: case ListMemberCommand.COMMAND_ALIAS:
+            return new ListMemberCommand();
 
         case HistoryCommand.COMMAND_WORD: case HistoryCommand.COMMAND_ALIAS:
             return new HistoryCommand();
@@ -99,6 +103,7 @@ public class AddressBookParser {
             return new AddItemCommandParser().parse(arguments);
 
         case AddLedgerCommand.COMMAND_WORD:
+            logger.info("Parsing");
             return new AddLedgerCommandParser().parse(arguments);
 
         case UndoAllCommand.COMMAND_WORD:

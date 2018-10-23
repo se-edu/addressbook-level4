@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.person.Person;
+import seedu.address.model.member.Person;
 
 /**
  * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
@@ -63,7 +63,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Navigates the listview to display {@code person}.
+     * Navigates the listview to display {@code member}.
      */
     public void navigateToCard(Person person) {
         if (!getRootNode().getItems().contains(person)) {
@@ -98,7 +98,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the member card handle of a member associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public PersonCardHandle getPersonCardHandle(int index) {
