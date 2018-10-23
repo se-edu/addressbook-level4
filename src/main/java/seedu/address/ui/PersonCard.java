@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.member.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -35,6 +35,10 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label postalcode;
+    @FXML
+    private Label major;
+    @FXML
     private Label email;
     @FXML
     private FlowPane tags;
@@ -46,6 +50,8 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
+        major.setText(person.getMajor().Course);
+        postalcode.setText(person.getPostalcode().value);
         email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

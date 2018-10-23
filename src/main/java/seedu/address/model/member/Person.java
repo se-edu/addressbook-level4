@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.member;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -19,6 +19,9 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Postalcode postalcode;
+    private final Major major;
+
 
     // Data fields
     private final Address address;
@@ -27,13 +30,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Postalcode postalcode, Major major, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.postalcode = postalcode;
+        this.major = major;
     }
 
     public Name getName() {
@@ -48,9 +53,16 @@ public class Person {
         return email;
     }
 
+    public Postalcode getPostalcode() {return postalcode; }
+
+    public Major getMajor() {return major; }
+
+
     public Address getAddress() {
         return address;
     }
+
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -112,6 +124,10 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append (" Postalcode: ")
+                .append (getPostalcode())
+                .append (" Major: ")
+                .append (getMajor())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

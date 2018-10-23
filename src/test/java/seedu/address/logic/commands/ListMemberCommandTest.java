@@ -9,15 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.MemberCommand.ListCommand;
+import seedu.address.logic.commands.MemberCommand.ListMemberCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListMemberCommand.
  */
-public class ListCommandTest {
+public class ListMemberCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -31,12 +31,12 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListMemberCommand(), model, commandHistory, ListMemberCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListMemberCommand(), model, commandHistory, ListMemberCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

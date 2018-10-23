@@ -9,8 +9,8 @@ import java.util.Set;
 import javafx.collections.ObservableList;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.ledger.UniqueLedgerList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.member.Person;
+import seedu.address.model.member.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -51,7 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
+     * Replaces the contents of the member list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
@@ -67,10 +67,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// member-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a member with the same identity as {@code member} exists in the address book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -86,8 +86,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a member to the address book.
+     * The member must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -107,9 +107,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given member {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The member identity of {@code editedPerson} must not be the same as another existing member in the address book.
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -130,7 +130,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
     /**
-     * Removes {@code tag} from {@code person} in this {@code AddressBook}.
+     * Removes {@code tag} from {@code member} in this {@code AddressBook}.
      */
     private void removeTagFromPerson(Tag tag, Person person) {
 
@@ -141,7 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         Person newPerson = new Person(person.getName(),
-                person.getPhone(), person.getEmail(), person.getAddress(), newTags);
+                person.getPhone(), person.getEmail(), person.getAddress(), person.getPostalcode(), person.getMajor(), newTags);
 
         updatePerson(person, newPerson);
     }

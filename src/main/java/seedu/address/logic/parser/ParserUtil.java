@@ -9,16 +9,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.geometry.Pos;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.DateLedger;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.member.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -99,6 +97,24 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    public static Postalcode parsePostalcode(String postalcode) throws ParseException {
+        requireNonNull(postalcode);
+        String trimmedPostalcode = postalcode.trim();
+        if (!Postalcode.isValidPostalcode(trimmedPostalcode)) {
+            throw new ParseException(Postalcode.MESSAGE_POSTALCODE_CONSTRAINTS);
+        }
+        return new Postalcode(trimmedPostalcode);
+    }
+
+    public static Major parseMajor(String major) throws ParseException {
+        requireNonNull(major);
+        String trimmedMajor = major.trim();
+        if (!Major.isValidMajor(trimmedMajor)) {
+            throw new ParseException(Major.MESSAGE_MAJOR_CONSTRAINTS);
+        }
+        return new Major(trimmedMajor);
     }
 
     /**
