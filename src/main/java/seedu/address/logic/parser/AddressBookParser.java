@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddItemCommand;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.MemberCommand.*;
