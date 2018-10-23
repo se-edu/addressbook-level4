@@ -59,6 +59,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the ledger list with {@code ledgers}.
+     * {@code ledgers} must not contain duplicate ledgers.
+     */
+    public void setLedgers(List<Ledger> ledger) {
+        this.ledgers.setLedgers(ledgers);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -161,6 +169,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Ledger> getLedgerList() {
+        return ledgers.asUnmodifiableObservableList();
     }
 
     @Override

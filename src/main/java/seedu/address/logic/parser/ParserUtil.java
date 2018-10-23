@@ -178,8 +178,9 @@ public class ParserUtil {
 
     public static DateLedger parseDateLedger(String date) throws ParseException {
         requireNonNull(date);
-        DateFormat formatter = new SimpleDateFormat("DD/MM");
-        String trimmedDate = formatter.format(date);
+        //DateFormat formatter = new SimpleDateFormat("DD/MM");
+        //String trimmedDate = formatter.format(date);
+        String trimmedDate = date.trim();
         if (!DateLedger.isValidDateLedger(trimmedDate)) {
             throw new ParseException(DateLedger.MESSAGE_DATE_CONSTRAINTS);
         }

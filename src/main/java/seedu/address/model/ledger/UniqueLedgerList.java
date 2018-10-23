@@ -27,16 +27,25 @@ public class UniqueLedgerList implements Iterable<Ledger> {
     private final ObservableList<Ledger> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent member as the given argument.
+
+     * Returns true if the list contains an equivalent ledger as the given argument.
      */
     public boolean contains(Ledger toCheck) {
         requireNonNull(toCheck);
+
+        /*
+        for (int i = 0; i < internalList.size(); i++) {
+            if (toCheck.getDateLedger().getDate().equals(internalList.get(i).getDateLedger().getDate())) {
+                return true;
+            }
+        }
+        */
         return internalList.stream().anyMatch(toCheck::isSameLedger);
     }
 
     /**
      * Adds a ledger to the list.
-     * If the ledger date is found in the list, the amount will be added or deducted.
+     * If the ledger date is found in the list, duplicate ledger exception will be thrown
      */
     public void add(Ledger toAdd) {
         requireNonNull(toAdd);

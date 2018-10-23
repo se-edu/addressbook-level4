@@ -16,6 +16,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    Predicate<Ledger> PREDICATE_SHOW_ALL_LEDGERS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
@@ -95,6 +97,11 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Updates the filter of the filtered ledger list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredLedgerList(Predicate<Ledger> predicate);
     /**
      * Returns true if the model has previous address book states to restore.
      */
