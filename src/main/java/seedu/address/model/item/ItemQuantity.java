@@ -36,7 +36,7 @@ public class ItemQuantity {
     /**
      * Returns true if a given string is a valid item quantity.
      */
-    private static Boolean isValidItemQuantity(String test) {
+    public static Boolean isValidItemQuantity(String test) {
         return StringUtil.isNonZeroUnsignedInteger(test);
     }
 

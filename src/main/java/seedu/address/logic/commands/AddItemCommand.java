@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_QUANTITY;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,7 +17,9 @@ public class AddItemCommand extends Command {
     public static final String COMMAND_WORD = "addItem";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item into the inventory."
-            + "parameters: ";
+            + "parameters: "
+            + PREFIX_ITEM_NAME + "ITEM NAME "
+            + PREFIX_ITEM_QUANTITY + "ITEM QUANTITY ";
 
     private static final String MESSAGE_SUCCESS = "New item added: %1$s";
 

@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ItemName {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS =
+    public static final String MESSAGE_ITEM_NAME_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
@@ -27,14 +27,14 @@ public class ItemName {
      */
     public ItemName(String itemName) {
         requireNonNull(itemName);
-        checkArgument(isValidItemName(itemName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument(isValidItemName(itemName), MESSAGE_ITEM_NAME_CONSTRAINTS);
         fullItemName = itemName;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    private static Boolean isValidItemName(String test) {
+    public static Boolean isValidItemName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 

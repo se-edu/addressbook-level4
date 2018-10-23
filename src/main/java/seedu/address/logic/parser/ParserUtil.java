@@ -12,7 +12,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.Item;
+import seedu.address.model.item.ItemName;
+import seedu.address.model.item.ItemQuantity;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.DateLedger;
 import seedu.address.model.person.Address;
@@ -129,12 +130,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String item} into a {@code Item}
+     * Parses a {@code String ItemName} into a {@code ItemName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code itemName} is invalid.
      */
-    public static Item parseItem(String item) throws ParseException {
-        requireNonNull(item);
-        String trimmedItem = item.trim();
-        return new Item(trimmedItem);
+    public static ItemName parseItemName(String itemName) throws ParseException {
+        requireNonNull(itemName);
+        String trimmedItemName = itemName.trim();
+        if (!ItemName.isValidItemName(trimmedItemName)) {
+            throw new ParseException(ItemName.MESSAGE_ITEM_NAME_CONSTRAINTS);
+        }
+        return new ItemName(trimmedItemName);
+    }
+
+    /**
+     * Parses a {@code String itemQuantity} into a {@code ItemQuantity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code itemQuantity} is invalid.
+     */
+    public static ItemQuantity parseItemQuantity(String itemQuantity) throws ParseException {
+        requireNonNull(itemQuantity);
+        String trimmedItemQuantity = itemQuantity.trim();
+        if (!ItemQuantity.isValidItemQuantity(trimmedItemQuantity)) {
+            throw new ParseException(ItemQuantity.MESSAGE_ITEM_QUANTITY_CONSTRAINTS);
+        }
+        return new ItemQuantity(trimmedItemQuantity);
     }
 
     /**

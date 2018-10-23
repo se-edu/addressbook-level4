@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.item.Item;
+import seedu.address.model.item.UniqueItemList;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.ledger.UniqueLedgerList;
 import seedu.address.model.person.Person;
@@ -36,6 +38,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     {
         ledgers = new UniqueLedgerList();
+    }
+
+    private final UniqueItemList items;
+
+    {
+        items = new UniqueItemList();
     }
 
     public AddressBook() {}
@@ -88,9 +96,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a ledger with the same date as {@code ledger} exists in the club book
      */
-    public boolean hasLedger(Ledger ledger){
+    public boolean hasLedger(Ledger ledger) {
         requireNonNull(ledger);
         return ledgers.contains(ledger);
+    }
+
+    /**
+     * Returns true if an item with the same ItemName as {@code item} exists in the club book
+     */
+    public boolean hasItem(Item item) {
+        requireNonNull(item);
+        return items.contains(item);
     }
 
     /**
@@ -104,7 +120,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a ledger to the club book
      */
-
     public void addLedger(Ledger ledger) {
         ledgers.add(ledger);
     }
@@ -112,6 +127,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeLedger(Ledger ledger) {
         requireNonNull(ledger);
         ledgers.remove(ledger);
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
     }
 
     /**
@@ -128,6 +147,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updateLedger(Ledger target, Ledger editedLedger) {
         requireNonNull(editedLedger);
         ledgers.setLedger(target, editedLedger);
+    }
+
+    public void updateItem(Item target, Item editedItem) {
+        requireNonNull(editedItem);
+        items.setItem(target, editedItem);
     }
 
     /**

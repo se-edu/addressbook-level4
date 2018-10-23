@@ -133,6 +133,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasLedger(Ledger ledger) {
+            return false;
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -143,13 +148,28 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateLedger(Ledger target, Ledger editedLedger) {
+
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Ledger> getFilteredLedgerList() {
+            return null;
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLedgerList(Predicate<Ledger> predicate) {
+
         }
 
         @Override
