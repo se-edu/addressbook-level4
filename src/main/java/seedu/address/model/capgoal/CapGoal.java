@@ -10,16 +10,24 @@ public class CapGoal {
 
     private static final String MESSAGE_IS_NULL = "NIL";
 
-    private double capGoal;
-    private boolean isSet = true;
+    public final double capGoal;
+    public final boolean isSet;
+    public final boolean isImpossible;
 
     public CapGoal() {
-
+        capGoal = 0;
+        isSet = false;
+        isImpossible = false;
     }
 
     public CapGoal(double capGoal) {
-        isSet = false;
+        this(capGoal, false);
+    }
+
+    public CapGoal(double capGoal, boolean isImpossible) {
+        isSet = true;
         this.capGoal = capGoal;
+        this.isImpossible = isImpossible;
     }
 
     /**
@@ -34,11 +42,17 @@ public class CapGoal {
         return isSet;
     }
 
+    public CapGoal isImpossible() {
+        return new CapGoal(capGoal, true);
+    }
+
+
     @Override
     public String toString() {
         if (isSet) {
-            return MESSAGE_IS_NULL;
+            return "" + getCapGoal();
         }
-        return "" + getCapGoal();
+        return MESSAGE_IS_NULL;
+
     }
 }
