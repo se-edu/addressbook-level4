@@ -6,20 +6,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.MemberParser.CliSyntaxmember.PREFIX_MAJOR;
-import static seedu.address.logic.parser.MemberParser.CliSyntaxmember.PREFIX_POSTALCODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSTALCODE;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.members.member;
-import seedu.address.model.person.Person;
+import seedu.address.model.member.Person;
 
 /**
- * Adds a person to the address book.
+ * Adds a member to the address book.
  */
-
-public class AddMemberCommand{
+public class AddMemberCommand extends Command {
 
     public static final String COMMAND_WORD = "addmember";
     public static final String COMMAND_ALIAS = "a";
@@ -46,14 +46,14 @@ public class AddMemberCommand{
     public static final String MESSAGE_SUCCESS = "New member added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This member already exists in the address book";
 
-    private final member toAdd;
-    /**
-     * Creates an AddCommand to add the specified {@code Member}
-     */
-    public AddCommand(member member ) {
+    private final Person toAdd;
 
-        requireNonNull(member);
-        toAdd = member;
+    /**
+     * Creates an AddMemberCommand to add the specified {@code Person}
+     */
+    public AddMemberCommand(Person person) {
+        requireNonNull(person);
+        toAdd = person;
     }
 
     @Override
@@ -72,11 +72,7 @@ public class AddMemberCommand{
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddMemberCommand // instanceof handles nulls
+                && toAdd.equals(((AddMemberCommand) other).toAdd));
     }
 }
-
-
-}
-

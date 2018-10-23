@@ -4,9 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ledger.exceptions.DuplicateLedgerException;
 import seedu.address.model.ledger.exceptions.LedgerNotFoundException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,8 +15,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  * A list of ledgers that enforces uniqueness between its elements and does not allow nulls.
  * A ledger is considered unique by comparing using {@code Ledger#isSameLedger(Ledger)}. As such, adding and updating of
  * ledger uses Ledger#isSameLedger(Ledger) for equality so as to ensure that the ledger being added or updated is
- * unique in terms of identity in the UniqueLedgerList. However, the removal of a person uses Ledger#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * unique in terms of identity in the UniqueLedgerList. However, the removal of a member uses Ledger#equals(Object) so
+ * as to ensure that the member with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -30,6 +27,7 @@ public class UniqueLedgerList implements Iterable<Ledger> {
     private final ObservableList<Ledger> internalList = FXCollections.observableArrayList();
 
     /**
+
      * Returns true if the list contains an equivalent ledger as the given argument.
      */
     public boolean contains(Ledger toCheck) {
