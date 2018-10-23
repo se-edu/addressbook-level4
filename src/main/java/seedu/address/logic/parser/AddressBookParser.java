@@ -11,7 +11,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddItemCommand;
-import seedu.address.logic.commands.AddLedgerCommand;
 import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
