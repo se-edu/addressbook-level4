@@ -123,6 +123,16 @@ Update your CAP goal to be 4.5
 Clears all entries from the cap tracker. +
 Format: `clear`
 
+=== Undoing commands : `undo`
+
+Reverts changes made by the last command given. +
+Format: `undo`
+
+=== Redoing commands : `redo`
+
+Reverts changes made by the undo command. +
+Format: `redo`
+
 === Exiting the program : `exit`
 
 Exits the program. +

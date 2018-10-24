@@ -139,4 +139,12 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Deletes the first module in {@code model}'s filtered list from {@code model}'s transcript.
+     */
+    public static void deleteFirstModule(Model model) {
+        Module firstModule = model.getFilteredModuleList().get(0);
+        model.deleteModule(firstModule);
+        model.commitTranscript();
+    }
 }

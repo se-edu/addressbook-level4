@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+//@@author alexkmj
 public class GradeTest {
 
     @Test
@@ -84,6 +85,27 @@ public class GradeTest {
     @Test
     public void equalsValid() {
         assertTrue(new Grade("A+").equals(new Grade("A+")));
+    }
+
+    //@@author jeremiah-ang
+    @Test
+    public void adjustedTargetEqualsValid() {
+        assertTrue(new Grade("A+").adjustGrade("B").equals(new Grade("A+").adjustGrade("B")));
+        assertTrue(new Grade("A+").targetGrade("B").equals(new Grade("A+").targetGrade("B")));
+        assertFalse(new Grade().adjustGrade("A+").equals(new Grade("A+")));
+        assertFalse(new Grade().targetGrade("A+").equals(new Grade("A+")));
+    }
+
+    @Test
+    public void gradeStateValid() {
+        assertTrue(new Grade("A").isComplete());
+        assertTrue(new Grade().isIncomplete());
+        assertTrue(new Grade().adjustGrade("A").isAdjust());
+        assertTrue(new Grade("A").adjustGrade("A").isAdjust());
+        assertTrue(new Grade("A").adjustGrade(5).isAdjust());
+        assertTrue(new Grade().targetGrade("A").isTarget());
+        assertTrue(new Grade("A").targetGrade("A").isTarget());
+        assertTrue(new Grade("A").targetGrade(5).isTarget());
     }
 
 
