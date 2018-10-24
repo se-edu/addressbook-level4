@@ -36,7 +36,16 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            logger.info("Printing model ledgers from logic manager");
+            for (Ledger i : model.getFilteredLedgerList()) {
+                logger.info(i.getDateLedger().getDate());
+            }
+            Command command = addressBookParser.parseCommand(commandText,model);
+
+            logger.info("After parsing : Printing model ledgers from logic manager");
+            for (Ledger i : model.getFilteredLedgerList()) {
+                logger.info(i.getDateLedger().getDate());
+            }
             logger.info("parsed");
             return command.execute(model, history);
         } finally {

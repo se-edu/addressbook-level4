@@ -20,6 +20,7 @@ import seedu.address.model.tag.Tag;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueLedgerList ledgers;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -30,11 +31,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-    }
-
-    private final UniqueLedgerList ledgers;
-
-    {
         ledgers = new UniqueLedgerList();
     }
 
