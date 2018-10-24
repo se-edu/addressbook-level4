@@ -24,6 +24,9 @@ public class CreditCommand extends Command {
 
     public static final String MESSAGE_CREDIT_ACCOUNT_SUCCESS = "New amount: %1$s";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "Credits the amount in a date ledger. Parameters: " +
+            "/d[Date DD/MM] /b[$Balance]";
+
     private final DateLedger dateLedger;
 
     private final Double toAdd;

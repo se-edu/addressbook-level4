@@ -14,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ledger.Ledger;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -101,6 +102,10 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
+            logger.info("Logging out info when enter key is pressed");
+            for (Ledger i : logic.getFilteredLedgerList()) {
+                logger.info(i.getDateLedger().getDate());
+            }
             CommandResult commandResult = logic.execute(commandTextField.getText());
             initHistory();
             historySnapshot.next();

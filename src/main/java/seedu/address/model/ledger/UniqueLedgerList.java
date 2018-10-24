@@ -3,12 +3,15 @@ package seedu.address.model.ledger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ledger.exceptions.DuplicateLedgerException;
 import seedu.address.model.ledger.exceptions.LedgerNotFoundException;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -28,6 +31,7 @@ public class UniqueLedgerList implements Iterable<Ledger> {
 
     private final ObservableList<Ledger> internalList = FXCollections.observableArrayList();
     private final HashSet<Ledger> masterSet = new HashSet<>();
+    private static final Logger logger = LogsCenter.getLogger(UniqueLedgerList.class);
 
     /**
 
@@ -35,15 +39,17 @@ public class UniqueLedgerList implements Iterable<Ledger> {
      */
     public boolean contains(Ledger toCheck) {
         requireNonNull(toCheck);
-        /*
+
         for (Ledger i  : internalList) {
+            logger.info("To check date :" + toCheck.getDateLedger().getDate());
+            logger.info("Ledger in internal list date : " + i.getDateLedger().getDate());
             if (toCheck.getDateLedger().getDate().equals(i.getDateLedger().getDate())) {
                 return true;
             }
         }
-        */
-        //return false;
-        return internalList.stream().anyMatch(toCheck::isSameLedger);
+
+        return false;
+        //return internalList.stream().anyMatch(toCheck::isSameLedger);
     }
 
     /**
@@ -53,11 +59,18 @@ public class UniqueLedgerList implements Iterable<Ledger> {
     public void add(Ledger toAdd) {
         requireNonNull(toAdd);
 
-        if (!masterSet.contains(toAdd)) {
-            masterSet.add(toAdd);
-            internalList.add(toAdd);
-        } else {
+        logger.info("Inside add in unique ledger list");
+        if (contains(toAdd)) {
+            logger.info("Duplicate ledger");
             throw new DuplicateLedgerException();
+        }
+        logger.info("No duplicate ledgers");
+
+        internalList.add(toAdd);
+        logger.info("Printing internal list after adding ledger");
+
+        for(Ledger i : internalList) {
+            logger.info(i.getDateLedger().getDate());
         }
     }
 

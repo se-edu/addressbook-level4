@@ -109,12 +109,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void increaseAccount(Account account) {
-
+        requireNonNull(account);
+        //versionedAddressBook;
     }
 
     @Override
     public void decreaseAccount(Account account) {
-
+        requireNonNull(account);
     }
 
     @Override

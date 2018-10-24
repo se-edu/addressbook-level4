@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.ledger.AddLedgerCommandParser;
 import seedu.address.logic.parser.ledger.CreditCommandParser;
 import seedu.address.logic.parser.ledger.DebitCommandParser;
+import seedu.address.model.Model;
 
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -40,7 +41,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, Model model) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -91,7 +92,7 @@ public class AddressBookParser {
 
         case AddLedgerCommand.COMMAND_WORD:
             logger.info("Parsing");
-            return new AddLedgerCommandParser().parse(arguments);
+            return new AddLedgerCommandParser().parse(arguments,model);
 
         case UndoAllCommand.COMMAND_WORD:
             return new UndoAllCommand();

@@ -45,10 +45,9 @@ public class DebitCommand extends Command {
         Ledger ledgerToEdit = new Ledger(dateLedger, new Account(toSub));
         Ledger editedLedger;
 
-        for (int i = 0; i < lastShownList.size(); i++) {
-            Ledger compare = lastShownList.get(i);
-            if (compare.getDateLedger() == dateLedger){
-                ledgerToEdit = compare;
+        for (Ledger i : lastShownList) {
+            if (i.getDateLedger().getDate() == dateLedger.getDate()){
+                ledgerToEdit = i;
             } else {
                 throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);
             }

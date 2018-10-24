@@ -36,7 +36,7 @@ public class Ledger {
      */
     public boolean isSameLedger(Ledger otherLedger) {
 
-        if (otherLedger.getDateLedger().equals(this.getDateLedger())) {
+        if (otherLedger.getDateLedger().getDate().equals(this.getDateLedger().getDate())) {
             logger.info("Same ledger");
             logger.info(otherLedger.getDateLedger().getDate() + " " + this.getDateLedger().getDate());
             return true;
