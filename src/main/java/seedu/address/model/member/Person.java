@@ -31,14 +31,14 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Postalcode postalcode, Major major, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, phone, email, address, postalcode, major, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
         this.postalcode = postalcode;
         this.major = major;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -53,14 +53,14 @@ public class Person {
         return email;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
     public Postalcode getPostalcode() {return postalcode; }
 
     public Major getMajor() {return major; }
 
-
-    public Address getAddress() {
-        return address;
-    }
 
 
 
@@ -105,13 +105,15 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getPostalcode().equals(getPostalcode())
+                && otherPerson.getMajor().equals(getMajor())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, postalcode, major, tags);
     }
 
     @Override
