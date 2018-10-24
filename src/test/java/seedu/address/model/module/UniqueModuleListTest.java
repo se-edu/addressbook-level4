@@ -19,7 +19,6 @@ import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
-//@@author alexkmj
 public class UniqueModuleListTest {
 
     @Rule
@@ -88,7 +87,7 @@ public class UniqueModuleListTest {
     public void setModuleEditedModuleHasSameIdentitySuccess() {
         uniqueModuleList.add(DATA_STRUCTURES);
         Module editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
-                .withCode(DISCRETE_MATH.getCode().value)
+                .withYear(DISCRETE_MATH.getYear().value)
                 .build();
         uniqueModuleList.setModule(DATA_STRUCTURES, editedDataStructures);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();
@@ -99,6 +98,9 @@ public class UniqueModuleListTest {
     @Test
     public void setModuleEditedModuleHasDifferentIdentitySuccess() {
         uniqueModuleList.add(DATA_STRUCTURES);
+        Module editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withCode(DISCRETE_MATH.getCode().value)
+                .build();
         uniqueModuleList.setModule(DATA_STRUCTURES, DISCRETE_MATH);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();
         expectedUniqueModuleList.add(DISCRETE_MATH);
@@ -115,10 +117,8 @@ public class UniqueModuleListTest {
 
     @Test
     public void removeNullModuleThrowsNullPointerException() {
-        Module nullModule = null;
-
         thrown.expect(NullPointerException.class);
-        uniqueModuleList.remove(nullModule);
+        uniqueModuleList.remove(null);
     }
 
     @Test
