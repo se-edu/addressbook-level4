@@ -75,6 +75,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the item list with {@code items}.
+     * {@code items} must not contain duplicate items.
+     */
+    public void setItems(List<Item> item) {
+        this.items.setItems(items);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -129,8 +137,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         ledgers.remove(ledger);
     }
 
+    /**
+     * Adds an item to the club book
+     */
     public void addItem(Item item) {
         items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        requireNonNull(item);
+        items.remove(item);
     }
 
     /**
@@ -198,6 +214,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Ledger> getLedgerList() {
         return ledgers.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Item> getItemList() {
+        return items.asUnmodifiableObservableList();
     }
 
     @Override

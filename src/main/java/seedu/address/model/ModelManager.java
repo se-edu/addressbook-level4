@@ -28,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
 
     private final FilteredList<Ledger> filteredLedgers;
+    private final FilteredList<Item> filteredItems;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
 
         filteredLedgers = new FilteredList<>(versionedAddressBook.getLedgerList());
+        filteredItems = new FilteredList<>(versionedAddressBook.getItemList());
     }
 
     public ModelManager() {
@@ -118,6 +120,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasItem(Item item) {
+        requireAllNonNull(item);
+        return versionedAddressBook.hasItem(item);
+    }
+
+    @Override
+    public void addItem(Item item) {
+        versionedAddressBook.addItem(item);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteItem(Item item) {
+        versionedAddressBook.removeItem(item);
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
@@ -128,6 +148,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateLedger(Ledger target, Ledger editedLedger) {
         requireAllNonNull(target, editedLedger);
         versionedAddressBook.updateLedger(target, editedLedger);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateItem(Item target, Item editedItem) {
+        requireAllNonNull(target, editedItem);
+        versionedAddressBook.updateItem(target, editedItem);
         indicateAddressBookChanged();
     }
 
@@ -153,6 +180,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Item> getFilteredItemList() {
+        logger.info("Filtered list observed");
+        logger.info("Size : " + Integer.toString(filteredItems.size()));
+        for (Item i : filteredItems) {
+            logger.info(i.getItemName().toString());
+        }
+        return FXCollections.unmodifiableObservableList(filteredItems);
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
@@ -162,6 +199,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredLedgerList(Predicate<Ledger> predicate) {
         requireNonNull(predicate);
         filteredLedgers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredItemList(Predicate<Item> predicate) {
+        requireNonNull(predicate);
+        filteredItems.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -191,16 +234,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
-    }
-
-    @Override
-    public void addItem(Item item) {
-
-    }
-
-    @Override
-    public void deleteItem(Item item) {
-
     }
 
     @Override

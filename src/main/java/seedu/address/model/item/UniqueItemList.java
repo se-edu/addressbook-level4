@@ -35,8 +35,8 @@ public class UniqueItemList implements Iterable<Item> {
     }
 
     /**
-     * Adds a item to the list.
-     * The person must not already exist in the list.
+     * Adds an item to the list.
+     * The item must not already exist in the list.
      */
     public void add(Item toAdd) {
         requireNonNull(toAdd);

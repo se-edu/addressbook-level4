@@ -138,6 +138,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasItem(Item item) {
+            return false;
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -153,6 +158,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateItem(Item target, Item editedItem) {
+
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -163,12 +173,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Item> getFilteredItemList() {
+            return null;
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredLedgerList(Predicate<Ledger> predicate) {
+
+        }
+
+        @Override
+        public void updateFilteredItemList(Predicate<Item> predicate) {
 
         }
 

@@ -2,6 +2,10 @@ package seedu.address.model.item;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+
 /**
  * Represents an Item in the inventory.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -11,6 +15,8 @@ public class Item {
     // Identity fields
     private final ItemName itemName;
     private final ItemQuantity itemQuantity;
+
+    private final Logger logger = LogsCenter.getLogger(Item.class);
 
     /**
      * Every field must be present and not null.
@@ -30,15 +36,15 @@ public class Item {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both items have the same ItemName
      */
-    public boolean isSameItem(seedu.address.model.item.Item otherItem) {
-        if (otherItem == this) {
+    public boolean isSameItem(Item otherItem) {
+        if (otherItem.getItemName() == itemName) {
+            logger.info("Same item");
             return true;
         }
 
-        return otherItem != null
+        return otherItem.getItemName() != null
                 && otherItem.getItemName().equals(getItemName());
     }
 
