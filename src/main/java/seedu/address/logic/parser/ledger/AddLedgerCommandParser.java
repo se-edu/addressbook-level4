@@ -36,11 +36,11 @@ public class AddLedgerCommandParser implements Parser<AddLedgerCommand> {
         logger.info("Still parsing...");
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-        /*
-        if(!arePrefixesPresent(argMultimap, PREFIX_DATE) || argMultimap.getPreamble().isEmpty()) {
+
+        if(!arePrefixesPresent(argMultimap, PREFIX_DATE) /*|| argMultimap.getPreamble().isEmpty()*/) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLedgerCommand.MESSAGE_USAGE));
         }
-        */
+
         logger.info("Parsed");
         DateLedger date = ParserUtil.parseDateLedger(argMultimap.getValue(PREFIX_DATE).get());
         //Account account = ParserUtil.parseBalance(Double.parseDouble(argMultimap.getValue(PREFIX_BALANCE).get()));

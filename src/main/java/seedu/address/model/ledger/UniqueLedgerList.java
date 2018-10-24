@@ -2,9 +2,11 @@ package seedu.address.model.ledger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.model.ledger.exceptions.DuplicateLedgerException;
 import seedu.address.model.ledger.exceptions.LedgerNotFoundException;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,6 +27,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class UniqueLedgerList implements Iterable<Ledger> {
 
     private final ObservableList<Ledger> internalList = FXCollections.observableArrayList();
+    private final HashSet<Ledger> masterSet = new HashSet<>();
 
     /**
 
@@ -32,14 +35,14 @@ public class UniqueLedgerList implements Iterable<Ledger> {
      */
     public boolean contains(Ledger toCheck) {
         requireNonNull(toCheck);
-
         /*
-        for (int i = 0; i < internalList.size(); i++) {
-            if (toCheck.getDateLedger().getDate().equals(internalList.get(i).getDateLedger().getDate())) {
+        for (Ledger i  : internalList) {
+            if (toCheck.getDateLedger().getDate().equals(i.getDateLedger().getDate())) {
                 return true;
             }
         }
         */
+        //return false;
         return internalList.stream().anyMatch(toCheck::isSameLedger);
     }
 
@@ -49,10 +52,13 @@ public class UniqueLedgerList implements Iterable<Ledger> {
      */
     public void add(Ledger toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+
+        if (!masterSet.contains(toAdd)) {
+            masterSet.add(toAdd);
+            internalList.add(toAdd);
+        } else {
             throw new DuplicateLedgerException();
         }
-        internalList.add(toAdd);
     }
 
     public void setDate(Ledger target, Ledger editedDate) {
@@ -99,7 +105,7 @@ public class UniqueLedgerList implements Iterable<Ledger> {
         DateLedger dateTarget = target.getDateLedger();
         int index = -1;
         for (int i = 0; i < internalList.size(); i++) {
-            if (dateTarget == internalList.get(i).getDateLedger()) {
+            if (dateTarget.getDate().equals(internalList.get(i).getDateLedger().getDate())) {
                 index = i;
             }
         }

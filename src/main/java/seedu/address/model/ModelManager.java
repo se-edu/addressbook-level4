@@ -98,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addLedger(Ledger ledger) {
         requireNonNull(ledger);
         versionedAddressBook.addLedger(ledger);
-        updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
+        //updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         indicateAddressBookChanged();
     }
 
@@ -147,7 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.info("Filtered list observed");
         logger.info("Size : " + Integer.toString(filteredLedgers.size()));
         for (Ledger l : filteredLedgers) {
-            logger.info(l.getDateLedger().toString());
+            logger.info(l.getDateLedger().getDate());
         }
         return FXCollections.unmodifiableObservableList(filteredLedgers);
     }
