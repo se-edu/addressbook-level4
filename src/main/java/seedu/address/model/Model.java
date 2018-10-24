@@ -5,8 +5,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
-import seedu.address.model.module.Code;
-import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -212,11 +210,9 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Adjusts the grade of a module.
-     * @param code
-     * @param grade
-     * @return
+     * Finds the module that isSameModule as moduleToFind
+     * @param moduleToFind
+     * @return module that return true with isSameModule; null if not matched
      */
-    Module adjustModule(Code code, Grade grade);
-
+    Module findModule(Module moduleToFind);
 }

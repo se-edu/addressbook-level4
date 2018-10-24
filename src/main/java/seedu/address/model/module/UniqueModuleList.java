@@ -3,6 +3,7 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -56,6 +57,13 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new DuplicateModuleException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds all module in a list to the list
+     */
+    public boolean addAll(Collection<Module> modules) {
+        return internalList.addAll(modules);
     }
 
     /**
@@ -124,6 +132,13 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Removes all module in a list from the list
+     */
+    public boolean removeAll(Collection<Module> modules) {
+        return internalList.removeAll(modules);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      *
      * @return backing list as an unmodifiable {@code ObservableList}
@@ -153,6 +168,20 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public ObservableList<Module> getFilteredModules(Predicate<Module> predicate) {
         return internalList.filtered(predicate);
+    }
+
+    /**
+     * Finds Module that isSameModule as moduleToFind
+     * @param moduleToFind
+     * @return the Module that matches; null if not matched
+     */
+    public Module find(Module moduleToFind) {
+        for (Module module: internalList) {
+            if (module.isSameModule(moduleToFind)) {
+                return module;
+            }
+        }
+        return null;
     }
 
     //@@author

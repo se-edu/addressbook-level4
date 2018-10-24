@@ -15,8 +15,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.capgoal.CapGoal;
-import seedu.address.model.module.Code;
-import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -196,6 +194,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTranscriptChanged();
     }
 
+    @Override
+    public Module findModule(Module moduleToFind) {
+        return versionedTranscript.findModule(moduleToFind);
+    }
+
+    //@@author
     //TODO: REMOVE
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -290,14 +294,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
-    }
-
-    //@@author jeremiah-ang
-    @Override
-    public Module adjustModule(Code code, Grade grade) {
-        Module module = versionedTranscript.adjustModule(code, grade);
-        indicateAddressBookChanged();
-        return module;
     }
 
     @Override

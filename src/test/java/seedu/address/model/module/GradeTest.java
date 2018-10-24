@@ -102,8 +102,10 @@ public class GradeTest {
         assertTrue(new Grade().isIncomplete());
         assertTrue(new Grade().adjustGrade("A").isAdjust());
         assertTrue(new Grade("A").adjustGrade("A").isAdjust());
+        assertTrue(new Grade("A").adjustGrade(5).isAdjust());
         assertTrue(new Grade().targetGrade("A").isTarget());
         assertTrue(new Grade("A").targetGrade("A").isTarget());
+        assertTrue(new Grade("A").targetGrade(5).isTarget());
     }
 
 
