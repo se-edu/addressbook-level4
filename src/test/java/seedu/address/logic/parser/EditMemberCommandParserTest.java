@@ -36,6 +36,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MemberCommand.EditMemberCommand;
 import seedu.address.logic.commands.MemberCommand.EditMemberCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.Member.EditCommandParser;
 import seedu.address.model.member.Address;
 import seedu.address.model.member.Email;
 import seedu.address.model.member.Name;
