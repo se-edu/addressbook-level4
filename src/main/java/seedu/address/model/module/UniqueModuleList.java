@@ -113,11 +113,27 @@ public class UniqueModuleList implements Iterable<Module> {
      * <p>
      * The {@link Module} must exist in the list.
      *
-     * @param toRemove the module to be removed from the list
+     * @param code the code that the module to be removed contains
      */
-    public void remove(Module toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+    public void remove(Module module) {
+        requireNonNull(module);
+
+        if (!internalList.remove(module)) {
+            throw new ModuleNotFoundException();
+        }
+    }
+
+    /**
+     * Removes the equivalent module from the list.
+     * <p>
+     * The {@link Module} must exist in the list.
+     *
+     * @param filter the predicate used to filter the modules to be removed
+     */
+    public void remove(Predicate<Module> filter) {
+        boolean successful = internalList.removeIf(filter);
+
+        if (!successful) {
             throw new ModuleNotFoundException();
         }
     }
