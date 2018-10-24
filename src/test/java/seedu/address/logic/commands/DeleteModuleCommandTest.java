@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalModules.getTypicalTranscript;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
+import static seedu.address.testutil.TypicalModules.getTypicalTranscript;
 
 import org.junit.Test;
 

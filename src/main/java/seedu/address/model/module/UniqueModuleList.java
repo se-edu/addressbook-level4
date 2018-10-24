@@ -113,7 +113,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * <p>
      * The {@link Module} must exist in the list.
      *
-     * @param code the code that the module to be removed contains
+     * @param module the code that the module to be removed contains
      */
     public void remove(Module module) {
         requireNonNull(module);
