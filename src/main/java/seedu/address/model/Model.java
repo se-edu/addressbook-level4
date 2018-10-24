@@ -48,6 +48,7 @@ public interface Model {
      */
     void addPerson(Person person);
 
+
     /**
      * Adds the given ledger
      * @param ledger
@@ -71,7 +72,6 @@ public interface Model {
      * @param account
      */
     void decreaseAccount (Account account);
-
     /**
      * Replaces the given member {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.

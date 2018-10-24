@@ -41,6 +41,7 @@ public class XmlAdaptedPerson {
     private String major;
 
 
+
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -76,7 +77,7 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         postalcode = source.getPostalcode().value;
-        major = source.getMajor().value;
+        major = source.getMajor().Course;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
