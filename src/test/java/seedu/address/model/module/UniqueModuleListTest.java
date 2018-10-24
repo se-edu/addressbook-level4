@@ -114,8 +114,10 @@ public class UniqueModuleListTest {
 
     @Test
     public void removeNullModuleThrowsNullPointerException() {
+        Module nullModule = null;
+
         thrown.expect(NullPointerException.class);
-        uniqueModuleList.remove(null);
+        uniqueModuleList.remove(nullModule);
     }
 
     @Test
