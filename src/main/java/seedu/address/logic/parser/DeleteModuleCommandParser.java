@@ -2,16 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.ParserUtil.validateNumOfArgs;
 
-import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
-import seedu.address.model.module.Credit;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.Year;
-import seedu.address.model.util.ModuleBuilder;
 
 /**
  * Parses input arguments and creates a new DeleteModuleCommand object
