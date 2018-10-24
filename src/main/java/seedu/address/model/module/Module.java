@@ -192,18 +192,21 @@ public class Module {
         return completed;
     }
 
-    //@@author alexkmj
+    //@@author jeremiah-ang
     /**
-     * Returns true if module code is the same.
+     * Returns true if module code + year + sem is the same.
      *
-     * @return true if modue code is the same
+     * @return true if module code + year + sem is the same
      */
     public boolean isSameModule(Module otherModule) {
         if (otherModule == this) {
             return true;
         }
 
-        return otherModule != null && otherModule.getCode().equals(getCode());
+        return otherModule != null
+                && otherModule.getCode().equals(getCode())
+                && otherModule.getSemester().equals(getSemester())
+                && otherModule.getYear().equals(getYear());
     }
 
     //@@author alexkmj
