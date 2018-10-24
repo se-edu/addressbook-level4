@@ -39,6 +39,16 @@ public class ModuleTest {
                 .withCode(DISCRETE_MATH.getCode().value)
                 .build();
         assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withYear(2)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withSemester(Semester.SEMESTER_TWO)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
     }
 
     @Test
