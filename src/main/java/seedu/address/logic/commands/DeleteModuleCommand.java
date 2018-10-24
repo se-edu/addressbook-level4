@@ -4,12 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import java.util.function.Predicate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -23,27 +27,50 @@ public class DeleteModuleCommand extends Command {
             + "Parameters: MODULE_CODE\n"
             + "Example: " + COMMAND_WORD + " CS2103";
 
-    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
+    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module";
+    public static final String MESSAGE_MODULE_NOT_EXIST =
+            "This module does not exist in the transcript";
 
     private final Code targetCode;
+    private final Year targetYear;
+    private final Semester targetSemester;
+
+    private DeleteModuleCommand() {
+        targetCode = null;
+        targetYear = null;
+        targetSemester = null;
+    }
 
     public DeleteModuleCommand(Code targetCode) {
         this.targetCode = targetCode;
+        targetYear = null;
+        targetSemester = null;
+    }
+
+    public DeleteModuleCommand(Code targetCode, Year targetYear, Semester targetSemester) {
+        this.targetCode = targetCode;
+        this.targetYear = targetYear;
+        this.targetSemester = targetSemester;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Module> lastShownList = model.getFilteredModuleList();
 
-        Module moduleToDelete = lastShownList.stream()
-                .filter(module -> module.getCode().equals(targetCode))
-                .findAny()
-                .orElseThrow(() -> new CommandException(Messages.MESSAGE_INVALID_MODULE));
+        Predicate<Module> predicate = target -> {
+            return target.getCode().equals(targetCode)
+                    && targetYear == null || target.getYear().equals(targetYear)
+                    && targetSemester == null | target.getSemester().equals(targetSemester);
+        };
 
-        model.deleteModule(moduleToDelete);
+        try {
+            model.deleteModule(predicate);
+        } catch (ModuleNotFoundException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULE);
+        }
+
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS));
     }
 
     @Override

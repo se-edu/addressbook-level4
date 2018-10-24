@@ -13,7 +13,6 @@ import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Code;
 
 /**
  * Parses user input.
@@ -40,15 +39,15 @@ public class TranscriptParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord")
-                .replaceFirst("c_", "");
+        final String commandWord = matcher.group("commandWord").replaceFirst("c_", "");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
         case DeleteModuleCommand.COMMAND_WORD:
-            Code targetCode = new Code(arguments.trim());
-            return new DeleteModuleCommand(targetCode);
+            System.out.println("TEST");
+            return new DeleteModuleCommandParser().parse(arguments);
         case CapCommand.COMMAND_WORD:
             return new CapCommand();
         case GoalCommand.COMMAND_WORD:
