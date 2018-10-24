@@ -14,6 +14,7 @@ import seedu.address.model.module.Semester;
 import seedu.address.model.module.Year;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
+//@@author alexkmj
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
