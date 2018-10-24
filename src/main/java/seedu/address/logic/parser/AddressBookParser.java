@@ -7,10 +7,7 @@ import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.ledger.CreditCommand;
 import seedu.address.logic.commands.ledger.DebitCommand;
 import seedu.address.logic.commands.ledger.OpenLedgerCommand;
-import seedu.address.logic.parser.Member.AddCommandParser;
-import seedu.address.logic.parser.Member.DeleteCommandParser;
-import seedu.address.logic.parser.Member.EditCommandParser;
-import seedu.address.logic.parser.Member.FindCommandParser;
+import seedu.address.logic.parser.Member.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.ledger.AddLedgerCommandParser;
 import seedu.address.logic.parser.ledger.CreditCommandParser;
@@ -71,6 +68,9 @@ public class AddressBookParser {
         case FindMemberCommand.COMMAND_WORD: case FindMemberCommand.COMMAND_ALIAS:
             return new FindCommandParser().parse(arguments);
 
+        case FindMajorCommand.COMMAND_WORD: case FindMajorCommand.COMMAND_ALIAS:
+            return new FindMajorCommandParser().parse(arguments);
+
         case ListMemberCommand.COMMAND_WORD: case ListMemberCommand.COMMAND_ALIAS:
             return new ListMemberCommand();
 
@@ -110,6 +110,7 @@ public class AddressBookParser {
 
         case DebitCommand.COMMAND_WORD:
             return new DebitCommandParser().parse(arguments);
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
