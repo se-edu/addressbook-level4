@@ -235,6 +235,11 @@ public class AddCommandTest {
         public double getCap() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Module findModule(Module moduleToFind) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

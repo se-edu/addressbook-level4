@@ -16,13 +16,13 @@ import seedu.address.model.module.Module;
 import seedu.address.model.util.ModuleBuilder;
 
 public class AdjustCommandTest {
-    private Model model = new ModelManager(new Transcript(), new UserPrefs());
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
+
+    private Model model = new ModelManager(new Transcript(), new UserPrefs());
 
     @Test
     public void constructorNullModuleThrowsNullPointerException() {
@@ -40,7 +40,7 @@ public class AdjustCommandTest {
         Transcript expectedTranscript = new Transcript();
         expectedTranscript.addModule(expectedModule);
         Model expectedModel = new ModelManager(expectedTranscript, new UserPrefs());
-        AdjustCommand adjustCommand = new AdjustCommand(module.getCode(), new Grade().adjustGrade("A"));
+        AdjustCommand adjustCommand = new AdjustCommand(module, new Grade().adjustGrade("A"));
         String expectedMessage = String.format(AdjustCommand.MESSAGE_SUCCESS, expectedModule);
         assertCommandSuccess(adjustCommand, model, commandHistory, expectedMessage, expectedModel);
     }

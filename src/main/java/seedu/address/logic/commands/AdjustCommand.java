@@ -1,15 +1,16 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
-import seedu.address.model.util.ModuleBuilder;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Adjusts target grade of a Module
+ */
 public class AdjustCommand extends Command {
     public static final String COMMAND_WORD = "c_adjust";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adjust target grade of an incomplete module "
@@ -32,7 +33,9 @@ public class AdjustCommand extends Command {
         requireNonNull(model);
         Module targetModule = model.findModule(moduleToFind);
         Module adjustedModule = targetModule.adjustGrade(grade);
-        model.updateModule(targetModule, adjustedModule);
+        //TODO: Use updateModule when fixed
+        model.deleteModule(targetModule);
+        model.addModule(adjustedModule);
         return new CommandResult(String.format(MESSAGE_SUCCESS, adjustedModule));
     }
 }
