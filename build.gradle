@@ -82,7 +82,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'clubhub.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -207,8 +207,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
+        'site-name': 'main',
+        'site-githuburl': 'https://github.com/CS2113-AY1819S1-T09-3/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
