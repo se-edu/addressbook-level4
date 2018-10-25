@@ -23,6 +23,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     private final UniqueModuleList modules;
     private CapGoal capGoal;
+    private double currentCap;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -38,6 +39,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     public Transcript() {
         capGoal = new CapGoal();
+        currentCap = 0;
     }
 
     /**
@@ -121,8 +123,12 @@ public class Transcript implements ReadOnlyTranscript {
      *
      * @return current cap score
      */
-    public double getCap() {
-        return calculateCap();
+    public double getCurrentCap() {
+        return currentCap;
+    }
+
+    private void updateCurrentCap() {
+        currentCap = calculateCap();
     }
 
     /**
@@ -210,13 +216,14 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void modulesUpdated() {
         updateTargetModuleGrades();
+        updateCurrentCap();
     }
 
     /**
      * Replaces targetable module with an updated target grade
      */
     public void updateTargetModuleGrades() {
-        boolean shouldSkip = !capGoal.isSet;
+        boolean shouldSkip = !capGoal.isSet();
         if (shouldSkip) {
             return;
         }
@@ -262,7 +269,7 @@ public class Transcript implements ReadOnlyTranscript {
         double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
         double currentTotalPoint = calculateTotalModulePoint(gradedModules);
 
-        double totalScoreToAchieve = capGoal.getCapGoal() * totalMc - currentTotalPoint;
+        double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
         if (unitScoreToAchieve > 5) {
             return null;
@@ -293,18 +300,18 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
-     * Sets the capGoal as something impossible
+     * Sets the value as something impossible
      */
-    public void makeCapGoalImpossible() {
-        capGoal = capGoal.isImpossible();
+    private void makeCapGoalImpossible() {
+        capGoal = capGoal.makeIsImpossible();
     }
 
     /**
-     * Tells if the capGoal is no longer possible
+     * Tells if the value is no longer possible
      * @return true if yes, false otherwise
      */
     public boolean isCapGoalImpossible() {
-        return capGoal.isImpossible;
+        return capGoal.isImpossible();
     }
 
     //@@author
