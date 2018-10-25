@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Code;
+import seedu.address.model.util.ModuleBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -42,5 +43,10 @@ public class DeleteModuleCommandTest {
         DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(invalidCode);
 
         assertCommandFailure(deleteModuleCommand, model, commandHistory, Messages.MESSAGE_INVALID_MODULE);
+
+        model.addModule(new ModuleBuilder(DISCRETE_MATH).withYear(5).build());
+        deleteModuleCommand = new DeleteModuleCommand(DISCRETE_MATH.getCode());
+
+        assertCommandFailure(deleteModuleCommand, model, commandHistory, Messages.MESSAGE_MULTIPLE_INSTANCES_FOUND);
     }
 }

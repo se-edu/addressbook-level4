@@ -209,13 +209,6 @@ public class Module {
                 && otherModule.getSemester().equals(getSemester());
     }
 
-    //@@author alexkmj
-    /**
-     * Returns true if module code is the same.
-     *
-     * @return true if module code is the same
-     */
-
     /**
      * Returns true if both modules are of the same object or contains the same set of data fields.
      * <p>

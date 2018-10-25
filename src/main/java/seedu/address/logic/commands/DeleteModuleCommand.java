@@ -24,7 +24,7 @@ public class DeleteModuleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module identified by the module code.\n"
-            + "Parameters: MODULE_CODE\n"
+            + "Parameters: MODULE_CODE [YEAR] [SEMESTER]\n"
             + "Example: " + COMMAND_WORD + " CS2103";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module";
@@ -42,9 +42,7 @@ public class DeleteModuleCommand extends Command {
     }
 
     public DeleteModuleCommand(Code targetCode) {
-        this.targetCode = targetCode;
-        targetYear = null;
-        targetSemester = null;
+        this(targetCode, null, null);
     }
 
     public DeleteModuleCommand(Code targetCode, Year targetYear, Semester targetSemester) {
@@ -57,10 +55,14 @@ public class DeleteModuleCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        if (model.hasMultipleInstances(targetCode) && targetYear == null) {
+            throw new CommandException(Messages.MESSAGE_MULTIPLE_INSTANCES_FOUND);
+        }
+
         Predicate<Module> predicate = target -> {
             return target.getCode().equals(targetCode)
                     && targetYear == null || target.getYear().equals(targetYear)
-                    && targetSemester == null | target.getSemester().equals(targetSemester);
+                    && targetSemester == null || target.getSemester().equals(targetSemester);
         };
 
         try {
