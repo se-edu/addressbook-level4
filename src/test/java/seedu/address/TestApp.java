@@ -104,18 +104,47 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns the file path of the storage file.
+     * Returns a defensive copy of the transcript data stored inside the storage file.
      */
-    public Path getStorageSaveLocation() {
+    public Transcript readStorageTranscript() {
+        try {
+            return new Transcript(storage.readTranscript().get());
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the Transcript format.", dce);
+        } catch (IOException ioe) {
+            throw new AssertionError("Storage file cannot be found.", ioe);
+        }
+    }
+
+    /**
+     * Returns the file path of the address book storage file.
+     */
+    public Path getAddressStorageSaveLocation() {
         return storage.getAddressBookFilePath();
     }
 
     /**
-     * Returns a defensive copy of the model.
+     * Returns the file path of the transcript storage file.
      */
-    public Model getModel() {
+    public Path getTranscriptStorageSaveLocation() {
+        return storage.getTranscriptFilePath();
+    }
+
+    /**
+     * Returns a defensive copy of the address book model.
+     */
+    public Model getAddressBookModel() {
         Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        return copy;
+    }
+
+    /**
+     * Returns a defensive copy of the transcript model.
+     */
+    public Model getTranscriptModel() {
+        Model copy = new ModelManager((model.getTranscript()), new UserPrefs());
+        ModelHelper.setFilteredModuleList(copy, model.getFilteredModuleList());
         return copy;
     }
 
