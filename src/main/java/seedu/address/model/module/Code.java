@@ -35,7 +35,7 @@ public class Code {
     public Code(String code) {
         requireNonNull(code);
         checkArgument(isValidCode(code), MESSAGE_CODE_CONSTRAINTS);
-        value = code;
+        value = code.toUpperCase();
     }
 
     /**

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -47,6 +48,12 @@ public interface Model {
      * @return true if module exists in transcript
      */
     boolean hasModule(Module module);
+
+    //@@author alexkmj
+    /**
+     * Returns true if the list contains multiple instances of module with the given code.
+     */
+    boolean hasMultipleInstances(Code code);
 
     //@@author alexkmj
     /**

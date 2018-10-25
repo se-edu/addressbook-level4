@@ -45,6 +45,16 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Returns true if the list contains multiple instances of module with the given code.
+     */
+    public boolean hasMultipleInstances(Code code) {
+        requireNonNull(code);
+        return internalList.stream()
+                .filter(target -> target.getCode().equals(code))
+                .count() > 1;
+    }
+
+    /**
      * Adds a module to the list.
      * <p>
      * The {@link Module} must not have already exist in the list.

@@ -274,7 +274,7 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
+        assertEquals(Paths.get(".").resolve(testApp.getAddressStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
@@ -283,6 +283,6 @@ public abstract class AddressBookSystemTest {
      * Returns a defensive copy of the current model.
      */
     protected Model getModel() {
-        return testApp.getModel();
+        return testApp.getAddressBookModel();
     }
 }
