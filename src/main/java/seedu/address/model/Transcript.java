@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -75,6 +76,14 @@ public class Transcript implements ReadOnlyTranscript {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
+    }
+
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in the transcript.
+     */
+    public boolean hasMultipleInstances(Code code) {
+        requireNonNull(code);
+        return modules.hasMultipleInstances(code);
     }
 
     /**
