@@ -90,7 +90,7 @@ public class Grade {
      * Creates a new {@code Grade} object with value grade and State COMPLETE
      */
     public Grade(String grade) {
-        this(grade, State.COMPLETE);
+        this(grade.toUpperCase(), State.COMPLETE);
     }
 
     /**
@@ -101,7 +101,7 @@ public class Grade {
     private Grade(String grade, State state) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
-        value = grade;
+        value = grade.toUpperCase();
         this.state = state;
     }
 
