@@ -47,7 +47,7 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Returns true if the list contains multiple instances of module with the given code.
      */
-    public boolean hasMultipleInstance(Code code) {
+    public boolean hasMultipleInstances(Code code) {
         requireNonNull(code);
         return internalList.stream()
                 .filter(target -> target.getCode().equals(code))
