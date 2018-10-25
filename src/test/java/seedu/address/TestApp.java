@@ -102,8 +102,8 @@ public class TestApp extends MainApp {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
     }
-
-     /**
+    
+    /**
      * Returns a defensive copy of the transcript data stored inside the storage file.
      */
     public Transcript readStorageTranscript() {
