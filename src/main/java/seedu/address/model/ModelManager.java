@@ -16,6 +16,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -210,6 +211,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Module findModule(Code moduleCodeToFind) {
         return versionedTranscript.findModule(moduleCodeToFind);
+    }
+
+    @Override
+    public Module adjustModule(Module targetModule, Grade adjustGrade) {
+        return versionedTranscript.adjustModule(targetModule, adjustGrade);
     }
 
     //@@author

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -330,6 +331,21 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public Module findModule(Code moduleCodeToFind) {
         return modules.find(moduleCodeToFind);
+    }
+
+    /**
+     * Adjust the target Module to the desired Grade
+     * @param targetModule
+     * @param adjustGrade
+     * @return adjusted Module
+     */
+    public Module adjustModule(Module targetModule, Grade adjustGrade) {
+        Module adjustedModule = targetModule.adjustGrade(adjustGrade);
+        //TODO: Use updateModule when fixed
+        modules.remove(targetModule);
+        modules.add(adjustedModule);
+        modulesUpdated();
+        return adjustedModule;
     }
 
     //@@author

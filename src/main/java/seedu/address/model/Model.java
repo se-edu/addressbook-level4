@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -229,4 +230,12 @@ public interface Model {
      * @return module that return true; null if not matched
      */
     Module findModule(Code moduleCodeToFind);
+
+    /**
+     * Adjust the target Module to the desired Grade
+     * @param targetModule
+     * @param adjustGrade
+     * @return adjusted Module
+     */
+    Module adjustModule(Module targetModule, Grade adjustGrade);
 }

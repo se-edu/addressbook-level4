@@ -61,10 +61,7 @@ public class AdjustCommand extends Command {
             targetModule = model.findModule(code);
         }
 
-        Module adjustedModule = targetModule.adjustGrade(grade);
-        //TODO: Use updateModule when fixed
-        model.deleteModule(targetModule);
-        model.addModule(adjustedModule);
+        Module adjustedModule = model.adjustModule(targetModule, grade);
         return new CommandResult(String.format(MESSAGE_SUCCESS, adjustedModule));
     }
 

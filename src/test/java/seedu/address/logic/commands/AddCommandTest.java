@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -249,6 +250,11 @@ public class AddCommandTest {
 
         @Override
         public Module findModule(Code moduleCodeToFind) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Module adjustModule(Module targetModule, Grade adjustGrade) {
             throw new AssertionError("This method should not be called.");
         }
     }
