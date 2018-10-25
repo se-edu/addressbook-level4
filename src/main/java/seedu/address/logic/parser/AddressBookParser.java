@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddItemCommand;
+import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.MemberCommand.*;
 import seedu.address.logic.commands.ledger.AddLedgerCommand;
@@ -25,13 +27,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  */
 public class AddressBookParser {
 
-
-    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
-
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
 
     /**
      * Parses user input into command for execution.
@@ -90,6 +91,7 @@ public class AddressBookParser {
             return new RedoCommand();
 
         case AddItemCommand.COMMAND_WORD:
+            logger.info("Parsing");
             return new AddItemCommandParser().parse(arguments);
 
         case AddLedgerCommand.COMMAND_WORD:

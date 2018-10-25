@@ -11,7 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-
+import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.member.Person;
 
@@ -52,6 +52,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Ledger> getFilteredLedgerList() {
         return model.getFilteredLedgerList();
+    }
+
+    @Override
+    public ObservableList<Item> getFilteredItemList() {
+        return model.getFilteredItemList();
     }
 
     @Override
