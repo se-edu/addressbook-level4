@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Person;
+import seedu.address.model.member.Person;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class PersonListPanelTest extends GuiUnitTest {
@@ -72,7 +72,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of member cards exceeded time limit");
     }
 
     /**

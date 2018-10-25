@@ -9,12 +9,15 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import javafx.geometry.Pos;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.member.Address;
+import seedu.address.model.member.Email;
+import seedu.address.model.member.Name;
+import seedu.address.model.member.Person;
+import seedu.address.model.member.Phone;
+import seedu.address.model.member.Major;
+import seedu.address.model.member.Postalcode;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,6 +35,12 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String postalcode;
+    @XmlElement (required = true)
+    private String major;
+
+
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -43,13 +52,15 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedPerson} with the given member details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address, String postalcode, String major, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.postalcode = postalcode;
+        this.major = major;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -65,15 +76,17 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        postalcode = source.getPostalcode().value;
+        major = source.getMajor().Course;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted member object into the model's Person object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted member
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
@@ -113,8 +126,24 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (postalcode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Postalcode.class.getSimpleName()));
+        }
+        if (!Postalcode.isValidPostalcode(postalcode)) {
+            throw new IllegalValueException(Postalcode.MESSAGE_POSTALCODE_CONSTRAINTS);
+        }
+        final Postalcode modelPostalcode = new Postalcode(postalcode);
+
+        if ( major == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Major.class.getSimpleName()));
+        }
+        if (!Major.isValidMajor(major)) {
+            throw new IllegalValueException(Major.MESSAGE_MAJOR_CONSTRAINTS);
+        }
+        final Major modelMajor = new Major(major);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress,modelPostalcode, modelMajor, modelTags);
     }
 
     @Override
@@ -132,6 +161,8 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
+                && Objects.equals(postalcode, otherPerson.postalcode)
+                && Objects.equals(major, otherPerson.major)
                 && tagged.equals(otherPerson.tagged);
     }
 }

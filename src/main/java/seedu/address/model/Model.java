@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.Ledger;
-import seedu.address.model.person.Person;
+import seedu.address.model.member.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,7 +27,7 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a member with the same identity as {@code member} exists in the address book.
      */
     boolean hasPerson(Person person);
 
@@ -37,6 +37,7 @@ public interface Model {
     boolean hasLedger(Ledger ledger);
 
     /**
+<<<<<<< HEAD
      * Returns true if an item with the same name as (@code item) exists in the club book
      */
     boolean hasItem(Item item);
@@ -44,16 +45,21 @@ public interface Model {
     /**
      * Deletes the given person.
      * The person must exist in the address book.
+=======
+     * Deletes the given member.
+     * The member must exist in the address book.
+>>>>>>> 6d442c15430894643b47f1e74494bacc233900f3
      */
     void deletePerson(Person target);
 
     void deleteTag(Tag tag);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given member.
+     * {@code member} must not already exist in the address book.
      */
     void addPerson(Person person);
+
 
     /**
      * Adds the given ledger
@@ -78,11 +84,10 @@ public interface Model {
      * @param account
      */
     void decreaseAccount (Account account);
-
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given member {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The member identity of {@code editedPerson} must not be the same as another existing member in the address book.
      */
     void updatePerson(Person target, Person editedPerson);
 
@@ -98,7 +103,7 @@ public interface Model {
      */
     void updateItem(Item target, Item editedItem);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered member list */
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the filtered ledger list */
@@ -108,7 +113,7 @@ public interface Model {
     ObservableList<Item> getFilteredItemList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered member list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
