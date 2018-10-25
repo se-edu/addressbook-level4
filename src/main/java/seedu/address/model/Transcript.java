@@ -22,6 +22,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     private final UniqueModuleList modules;
     private CapGoal capGoal;
+    private double currentCap;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -37,6 +38,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     public Transcript() {
         capGoal = new CapGoal();
+        currentCap = 0;
     }
 
     /**
@@ -113,7 +115,11 @@ public class Transcript implements ReadOnlyTranscript {
      * @return current cap score
      */
     public double getCurrentCap() {
-        return calculateCap();
+        return currentCap;
+    }
+
+    private void updateCurrentCap() {
+        currentCap = calculateCap();
     }
 
     /**
@@ -201,6 +207,7 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void modulesUpdated() {
         updateTargetModuleGrades();
+        updateCurrentCap();
     }
 
     /**
