@@ -222,4 +222,11 @@ public interface Model {
      * @return module that return true with isSameModule; null if not matched
      */
     Module findModule(Module moduleToFind);
+
+    /**
+     * Finds the first instance of the module that has the same moduleCodeToFind
+     * @param moduleCodeToFind
+     * @return module that return true; null if not matched
+     */
+    Module findModule(Code moduleCodeToFind);
 }

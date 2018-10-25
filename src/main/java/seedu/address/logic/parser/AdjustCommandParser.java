@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.ParserUtil.validateNumOfArgs;
 
 import seedu.address.logic.commands.AdjustCommand;
@@ -15,7 +16,7 @@ import seedu.address.model.util.ModuleBuilder;
 /**
  * Parses input arguments and creates a new AdjustCommand object
  */
-public class AdjustCommandParser {
+public class AdjustCommandParser implements Parser<AdjustCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -23,21 +24,28 @@ public class AdjustCommandParser {
      */
     public AdjustCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        validateNumOfArgs(tokenizedArgs, 4, 5);
+        validateNumOfArgs(tokenizedArgs, 3, 5);
 
-        int index = 0;
+        int index = 1;
 
-        Code code = ParserUtil.parseCode(tokenizedArgs[index++]);
-        Year year = ParserUtil.parseYear(tokenizedArgs[index++]);
-        Semester sem = ParserUtil.parseSemester(tokenizedArgs[index++]);
-        Module moduleToFind = new ModuleBuilder()
-                .withCode(code.toString())
-                .withYear(Integer.parseInt(year.toString()))
-                .withSemester(sem.toString()).build();
+        Year year = null;
+        Semester sem = null;
+        Code code;
+        Grade grade;
+        if (tokenizedArgs.length == 5) {
+            code = ParserUtil.parseCode(tokenizedArgs[index++]);
+            year = ParserUtil.parseYear(tokenizedArgs[index++]);
+            sem = ParserUtil.parseSemester(tokenizedArgs[index++]);
+            grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
+        } else if (tokenizedArgs.length == 3) {
+            code = ParserUtil.parseCode(tokenizedArgs[index++]);
+            grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AdjustCommand.MESSAGE_USAGE));
+        }
 
-        Grade grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
         Grade adjustGrade = grade.adjustGrade(grade.value);
 
-        return new AdjustCommand(moduleToFind, adjustGrade);
+        return new AdjustCommand(code, year, sem, adjustGrade);
     }
 }

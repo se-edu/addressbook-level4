@@ -323,6 +323,15 @@ public class Transcript implements ReadOnlyTranscript {
         return modules.find(moduleToFind);
     }
 
+    /**
+     * Finds the first instance of the module that has the same moduleCodeToFind
+     * @param moduleCodeToFind
+     * @return module that return true; null if not matched
+     */
+    public Module findModule(Code moduleCodeToFind) {
+        return modules.find(moduleCodeToFind);
+    }
+
     //@@author
     //// util methods
 

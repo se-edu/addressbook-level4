@@ -207,6 +207,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedTranscript.findModule(moduleToFind);
     }
 
+    @Override
+    public Module findModule(Code moduleCodeToFind) {
+        return versionedTranscript.findModule(moduleCodeToFind);
+    }
+
     //@@author
     //TODO: REMOVE
     @Override

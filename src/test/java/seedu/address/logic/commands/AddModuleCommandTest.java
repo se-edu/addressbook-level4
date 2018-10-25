@@ -224,6 +224,11 @@ public class AddModuleCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public Module findModule(Code moduleCodeToFind) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
