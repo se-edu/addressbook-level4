@@ -27,7 +27,7 @@ public class AdjustCommandTest {
     @Test
     public void constructorNullModuleThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AdjustCommand(null, null);
+        new AdjustCommand(null, null, null, null);
     }
 
     @Test
@@ -40,7 +40,8 @@ public class AdjustCommandTest {
         Transcript expectedTranscript = new Transcript();
         expectedTranscript.addModule(expectedModule);
         Model expectedModel = new ModelManager(expectedTranscript, new UserPrefs());
-        AdjustCommand adjustCommand = new AdjustCommand(module, new Grade().adjustGrade("A"));
+        AdjustCommand adjustCommand = new AdjustCommand(
+                module.getCode(), module.getYear(), module.getSemester(), new Grade().adjustGrade("A"));
         String expectedMessage = String.format(AdjustCommand.MESSAGE_SUCCESS, expectedModule);
         assertCommandSuccess(adjustCommand, model, commandHistory, expectedMessage, expectedModel);
     }
