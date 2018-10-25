@@ -122,6 +122,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author alexkmj
     @Override
+    public void deleteModule(Predicate<Module> predicate) {
+        versionedTranscript.removeModule(predicate);
+        indicateTranscriptChanged();
+    }
+
+    @Override
     public void addModule(Module module) {
         versionedTranscript.addModule(module);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);

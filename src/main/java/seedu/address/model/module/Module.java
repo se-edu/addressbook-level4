@@ -192,11 +192,11 @@ public class Module {
         return completed;
     }
 
-    //@@author jeremiah-ang
+    //@@author alexkmj
     /**
-     * Returns true if module code + year + sem is the same.
+     * Returns true if module code, year, and semester are the same.
      *
-     * @return true if module code + year + sem is the same
+     * @return true if modue code, year, and semester is the same
      */
     public boolean isSameModule(Module otherModule) {
         if (otherModule == this) {
@@ -205,11 +205,10 @@ public class Module {
 
         return otherModule != null
                 && otherModule.getCode().equals(getCode())
-                && otherModule.getSemester().equals(getSemester())
-                && otherModule.getYear().equals(getYear());
+                && otherModule.getYear().equals(getYear())
+                && otherModule.getSemester().equals(getSemester());
     }
 
-    //@@author alexkmj
     /**
      * Returns true if both modules are of the same object or contains the same set of data fields.
      * <p>

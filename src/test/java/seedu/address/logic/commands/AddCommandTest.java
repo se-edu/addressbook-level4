@@ -129,6 +129,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteModule(Predicate<Module> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateModule(Module target, Module editedModule) {
             throw new AssertionError("This method should not be called.");
         }

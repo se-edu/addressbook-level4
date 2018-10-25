@@ -68,6 +68,15 @@ public interface Model {
 
     //@@author alexkmj
     /**
+     * Deletes the given module.
+     * <p>
+     * The module must exist in the transcript.
+     *
+     * @param predicate predicate used to filter the modules to be deleted
+     */
+    void deleteModule(Predicate<Module> predicate);
+
+    /**
      * Adds the given module.
      * <p>
      * {@code module} must not already exist in the transcript.
