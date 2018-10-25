@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import java.util.function.Predicate;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -115,6 +117,13 @@ public class Transcript implements ReadOnlyTranscript {
     public void removeModule(Module key) {
         modules.remove(key);
         modulesUpdated();
+    }
+
+    /**
+     * Removes {@code key} from this {@code Transcript}.
+     */
+    public void removeModule(Predicate<Module> predicate) {
+        modules.remove(predicate);
     }
 
     //@@author jeremiah-ang
