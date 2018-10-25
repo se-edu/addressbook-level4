@@ -44,6 +44,21 @@ public class UniqueModuleListTest {
     }
 
     @Test
+    public void hasMultipleInstancesReturnsFalse() {
+        assertFalse(uniqueModuleList.hasMultipleInstances(DATA_STRUCTURES.getCode()));
+    }
+
+    @Test
+    public void hasMultipleInstancesReturnsTrue() {
+        Module sameModuleDifferentYear = new ModuleBuilder(DATA_STRUCTURES)
+                .withYear(DATA_STRUCTURES.getYear().value + 1)
+                .build();
+        uniqueModuleList.add(sameModuleDifferentYear);
+        assertFalse(uniqueModuleList.hasMultipleInstances(DATA_STRUCTURES.getCode()));
+        uniqueModuleList.remove(sameModuleDifferentYear);
+    }
+
+    @Test
     public void addNullModuleThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueModuleList.add(null);
