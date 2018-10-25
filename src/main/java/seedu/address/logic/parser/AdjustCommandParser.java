@@ -7,10 +7,8 @@ import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
-import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.Year;
-import seedu.address.model.util.ModuleBuilder;
 
 //@@author jeremiah-ang
 /**

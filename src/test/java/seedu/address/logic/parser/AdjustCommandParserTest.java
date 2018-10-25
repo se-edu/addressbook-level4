@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
+
 import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
@@ -24,6 +25,13 @@ public class AdjustCommandParserTest {
         assertAdjustParseSuccess(expectedCode, expectedSem, expectedYear, expectedGrade);
     }
 
+    /**
+     * Asserts that parse will be successful given those parameters
+     * @param expectedCode
+     * @param expectedSem
+     * @param expectedYear
+     * @param expectedGrade
+     */
     private void assertAdjustParseSuccess(
             String expectedCode, String expectedSem, String expectedYear, String expectedGrade) {
         String userInput = AdjustCommand.COMMAND_WORD + " "

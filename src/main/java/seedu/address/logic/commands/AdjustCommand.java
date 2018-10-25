@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.*;
+import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
 import seedu.address.model.util.ModuleBuilder;
 
 /**
@@ -20,7 +23,7 @@ public class AdjustCommand extends Command {
             + "\n"
             + MESSAGE_COMMAND_CODE_YEAR_SEM
             + "\n"
-            +"Adjust target grade of an incomplete module "
+            + "Adjust target grade of an incomplete module "
             + "Parameters: CODE YEAR SEM GRADE "
             + "Example: " + COMMAND_WORD + " CS2103 1 1 A+";
     public static final String MESSAGE_MULTIPLE_INSTANCE =

@@ -266,6 +266,14 @@ public class Module {
                 .toString();
     }
 
+    public boolean isAdjusted() {
+        return getGrade().isAdjust();
+    }
+
+    public Module adjustGrade(Grade grade) {
+        return new Module(this, grade.adjustGrade(grade.value));
+    }
+
     //@@author alexkmj
     @Override
     public int hashCode() {
@@ -273,7 +281,5 @@ public class Module {
         return Objects.hash(code, year, semester, credits, grade, completed);
     }
 
-    public Module adjustGrade(Grade grade) {
-        return new Module(this, grade);
-    }
+
 }

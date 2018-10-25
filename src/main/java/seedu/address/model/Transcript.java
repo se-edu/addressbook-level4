@@ -258,22 +258,25 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private ObservableList<Module> calculateNewTargetModuleGrade(ObservableList<Module> targetableModules) {
         List<Module> targetModules = new ArrayList<>();
-        if (targetableModules.isEmpty()) {
-            return FXCollections.observableArrayList(targetModules);
-        }
-
         ObservableList<Module> gradedModules = getGradedModulesList();
+        ObservableList<Module> adjustedModules = getAdjustedModulesList();
         ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
                 Comparator.comparingInt(Module::getCreditsValue));
 
         double totalUngradedModuleCredit = calculateTotalModuleCredit(sortedTargetableModules);
-        double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
-        double currentTotalPoint = calculateTotalModulePoint(gradedModules);
+        double totalMc = calculateTotalModuleCredit(gradedModules)
+                + calculateTotalModuleCredit(adjustedModules) + totalUngradedModuleCredit;
+        double currentTotalPoint = calculateTotalModulePoint(gradedModules)
+                + calculateTotalModulePoint(adjustedModules);
 
         double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+
         if (unitScoreToAchieve > 5) {
             return null;
+        }
+        if (targetableModules.isEmpty()) {
+            return FXCollections.observableArrayList(targetModules);
         }
 
         Module newTargetModule;
@@ -289,6 +292,10 @@ public class Transcript implements ReadOnlyTranscript {
         }
 
         return FXCollections.observableArrayList(targetModules);
+    }
+
+    private ObservableList<Module> getAdjustedModulesList() {
+        return modules.getFilteredModules(Module::isAdjusted);
     }
 
     public CapGoal getCapGoal() {

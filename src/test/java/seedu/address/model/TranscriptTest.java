@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.util.ModuleBuilder;
 
@@ -65,6 +66,74 @@ public class TranscriptTest {
             .withCompleted(false)
             .noGrade()
             .build();
+
+    @Test
+    public void adjustModuleRecalculatesTargetGradeAndCap() {
+
+        /**
+         * Test if adjusting causes list of module to not have Targeted Modules
+         */
+        List<Module> modules = new ArrayList<>(Arrays.asList(GRADE_A_4MC_A, INCOMPLETE_4MC_A));
+        Transcript transcript = new Transcript();
+        transcript.setModules(modules);
+        transcript.setCapGoal(5);
+        Module targetedModule = INCOMPLETE_4MC_A.updateTargetGrade(5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B+"));
+        assertTrue(transcript.isCapGoalImpossible());
+
+        /**
+         * Test if adjusting with graded module return correct result
+         */
+        modules = new ArrayList<>(Arrays.asList(
+                INCOMPLETE_4MC_A,
+                INCOMPLETE_4MC_B,
+                INCOMPLETE_4MC_C,
+                GRADE_A_4MC_A,
+                GRADE_A_4MC_B
+        ));
+        transcript = new Transcript();
+        transcript.setModules(modules);
+        transcript.setCapGoal(4.0);
+        targetedModule = INCOMPLETE_4MC_A.updateTargetGrade(3.5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B+"));
+        assertTargetGradesEquals(transcript, "B- B-");
+
+        /**
+         * Test if adjusting a bunch of incomplete module return correct result
+         */
+        modules = new ArrayList<>(Arrays.asList(
+                INCOMPLETE_4MC_A,
+                INCOMPLETE_4MC_B,
+                INCOMPLETE_4MC_C
+        ));
+        transcript = new Transcript();
+        transcript.setModules(modules);
+        transcript.setCapGoal(4.0);
+        targetedModule = INCOMPLETE_4MC_A.updateTargetGrade(4.0);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B"));
+
+        assertTargetGradesEquals(transcript, "A- B+");
+        targetedModule = INCOMPLETE_4MC_B.updateTargetGrade(4.5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B"));
+
+        assertTargetGradesEquals(transcript, "A");
+        targetedModule = INCOMPLETE_4MC_B.adjustGrade(new Grade("B"));
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("A"));
+
+        assertTargetGradesEquals(transcript, "B");
+        targetedModule = INCOMPLETE_4MC_B.adjustGrade(new Grade("A"));
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B-"));
+
+        assertTrue(transcript.isCapGoalImpossible());
+        targetedModule = INCOMPLETE_4MC_B.adjustGrade(new Grade("B-"));
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("A"));
+
+        targetedModule = INCOMPLETE_4MC_C.updateTargetGrade(3.5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("A"));
+        assertTargetGradesEquals(transcript, "");
+
+
+    }
 
     @Test
     public void typicalModulesCapScore() {
