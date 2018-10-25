@@ -50,7 +50,6 @@ public class TranscriptParser {
         case AdjustCommand.COMMAND_WORD:
             return new AdjustCommandParser().parse(arguments);
         case DeleteModuleCommand.COMMAND_WORD:
-            System.out.println("TEST");
             return new DeleteModuleCommandParser().parse(arguments);
         case CapCommand.COMMAND_WORD:
             return new CapCommand();
