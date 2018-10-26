@@ -213,7 +213,7 @@ public class Transcript implements ReadOnlyTranscript {
      * @return true if yes, false otherwise
      */
     private boolean moduleIsUsedForCapCalculation(Module module) {
-        return module.hasCompleted() && module.affectsGrade();
+        return module.hasCompleted() && module.isAffectCap();
     }
 
     /**
