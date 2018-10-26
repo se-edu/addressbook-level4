@@ -22,20 +22,20 @@ public class AdjustCommandParser implements Parser<AdjustCommand> {
      */
     public AdjustCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        validateNumOfArgs(tokenizedArgs, 3, 5);
+        validateNumOfArgs(tokenizedArgs, 2, 4);
 
-        int index = 1;
+        int index = 0;
 
         Year year = null;
         Semester sem = null;
         Code code;
         Grade grade;
-        if (tokenizedArgs.length == 5) {
+        if (tokenizedArgs.length == 4) {
             code = ParserUtil.parseCode(tokenizedArgs[index++]);
             year = ParserUtil.parseYear(tokenizedArgs[index++]);
             sem = ParserUtil.parseSemester(tokenizedArgs[index++]);
             grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
-        } else if (tokenizedArgs.length == 3) {
+        } else if (tokenizedArgs.length == 2) {
             code = ParserUtil.parseCode(tokenizedArgs[index++]);
             grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
         } else {

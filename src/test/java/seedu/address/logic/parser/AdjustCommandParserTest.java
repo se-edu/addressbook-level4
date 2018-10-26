@@ -31,8 +31,7 @@ public class AdjustCommandParserTest {
      */
     private void assertAdjustParseFullArgumentSuccess(
             String expectedCode, String expectedSem, String expectedYear, String expectedGrade) {
-        String userInput = AdjustCommand.COMMAND_WORD + " "
-                + expectedCode + " " + expectedYear + " " + expectedSem + " " + expectedGrade;
+        String userInput = expectedCode + " " + expectedYear + " " + expectedSem + " " + expectedGrade;
         Grade expectedAdjustedGrade = new Grade().adjustGrade(expectedGrade);
         Module expectedModule = new ModuleBuilder()
                 .withCode(expectedCode).withYear(Integer.parseInt(expectedYear)).withSemester(expectedSem).build();
@@ -48,7 +47,7 @@ public class AdjustCommandParserTest {
      * @param expectedGrade
      */
     private void assertAdjustParseCodeOnlySuccess(String expectedCode, String expectedGrade) {
-        String userInput = AdjustCommand.COMMAND_WORD + " " + expectedCode + " " + expectedGrade;
+        String userInput = expectedCode + " " + expectedGrade;
         Grade expectedAdjustedGrade = new Grade().adjustGrade(expectedGrade);
         Module expectedModule = new ModuleBuilder()
                 .withCode(expectedCode).build();
@@ -66,7 +65,7 @@ public class AdjustCommandParserTest {
      * Assert that given wrong number of argument should fail
      */
     private void assertWrongNumberArgumentParseFailure() {
-        String userInput = AdjustCommand.COMMAND_WORD + " 1 1 1";
+        String userInput = "1 1 1";
         String expectedMessage = String.format(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AdjustCommand.MESSAGE_USAGE));
         assertParseFailure(parser, userInput, expectedMessage);

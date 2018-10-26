@@ -16,7 +16,7 @@ import seedu.address.model.util.ModuleBuilder;
  * Adjusts target grade of a Module
  */
 public class AdjustCommand extends Command {
-    public static final String COMMAND_WORD = "c_adjust";
+    public static final String COMMAND_WORD = "adjust";
     public static final String MESSAGE_COMMAND_CODE_ONLY = COMMAND_WORD + " CODE";
     public static final String MESSAGE_COMMAND_CODE_YEAR_SEM = COMMAND_WORD + " CODE YEAR SEM";
     public static final String MESSAGE_USAGE = MESSAGE_COMMAND_CODE_ONLY
