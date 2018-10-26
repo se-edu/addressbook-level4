@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Transcript;
@@ -15,6 +16,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
 public class AdjustCommandTest {
@@ -35,47 +37,48 @@ public class AdjustCommandTest {
     }
 
     @Test
-    public void executeSuccess() {
+    public void assertAdjustMultipleInstanceSuccess() {
+        assertAdjustInstanceSuccess(moduleAbc, moduleAbcDuplicate, moduleDef);
+    }
+
+    @Test
+    public void assertAdjustSingleInstanceSuccess() {
+        assertAdjustInstanceSuccess(moduleDef, moduleAbc, moduleAbcDuplicate);
+    }
+
+    /**
+     * Asserts adjusting a module is successful
+     */
+    private void assertAdjustInstanceSuccess(Module moduleAbc, Module moduleAbcDuplicate, Module moduleDef) {
         Model model = getSampleModel();
-
-        Grade expectedGradeDef = moduleDef.getGrade().adjustGrade("A");
-        Module expectedModuleDef = new Module(moduleDef, expectedGradeDef);
-        Transcript expectedTranscript = new Transcript();
-        expectedTranscript.addModule(moduleAbc);
-        expectedTranscript.addModule(moduleAbcDuplicate);
-        expectedTranscript.addModule(expectedModuleDef);
-        Model expectedModel = new ModelManager(expectedTranscript, new UserPrefs());
-        AdjustCommand adjustCommand = new AdjustCommand(
-                moduleDef.getCode(), moduleDef.getYear(), moduleDef.getSemester(), new Grade().adjustGrade("A"));
-        String expectedMessage = String.format(AdjustCommand.MESSAGE_SUCCESS, expectedModuleDef);
-        assertCommandSuccess(adjustCommand, model, commandHistory, expectedMessage, expectedModel);
-
-        model = getSampleModel();
         Grade expectedGradeAbc = moduleAbc.getGrade().adjustGrade("A");
         Module expectedModuleAbc = new Module(moduleAbc, expectedGradeAbc);
-        expectedTranscript = new Transcript();
+        Transcript expectedTranscript = new Transcript();
         expectedTranscript.addModule(moduleAbcDuplicate);
         expectedTranscript.addModule(moduleDef);
         expectedTranscript.addModule(expectedModuleAbc);
-        expectedModel = new ModelManager(expectedTranscript, new UserPrefs());
-        adjustCommand = new AdjustCommand(
+        Model expectedModel = new ModelManager(expectedTranscript, new UserPrefs());
+        AdjustCommand adjustCommand = new AdjustCommand(
                 moduleAbc.getCode(), moduleAbc.getYear(), moduleAbc.getSemester(), new Grade().adjustGrade("A"));
-        expectedMessage = String.format(AdjustCommand.MESSAGE_SUCCESS, expectedModuleAbc);
+        String expectedMessage = String.format(AdjustCommand.MESSAGE_SUCCESS, expectedModuleAbc);
         assertCommandSuccess(adjustCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void executeFailure() {
+    public void assertAdjustModuleNotExistFailure() throws CommandException {
+        Model model = getSampleModel();
+        AdjustCommand adjustCommand = new AdjustCommand(
+                new Code("Hij"), moduleAbc.getYear(), moduleAbc.getSemester(), new Grade().adjustGrade("A"));
+        thrown.expect(ModuleNotFoundException.class);
+        adjustCommand.execute(model, new CommandHistory());
+    }
+
+    @Test
+    public void assertAdjustCodeOnlyMultipleInstanceFailure() {
         Model model = getSampleModel();
         AdjustCommand adjustCommand = new AdjustCommand(
                 new Code("ABC"), null, null, new Grade().adjustGrade("A"));
         String expectedMessage = AdjustCommand.MESSAGE_MULTIPLE_INSTANCE;
-        assertCommandFailure(adjustCommand, model, commandHistory, expectedMessage);
-
-        model = getSampleModel();
-        adjustCommand = new AdjustCommand(
-                new Code("Hij"), moduleAbc.getYear(), moduleAbc.getSemester(), new Grade().adjustGrade("A"));
-        expectedMessage = AdjustCommand.MESSAGE_MODULE_NOT_EXIST;
         assertCommandFailure(adjustCommand, model, commandHistory, expectedMessage);
     }
 

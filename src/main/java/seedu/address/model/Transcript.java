@@ -356,6 +356,9 @@ public class Transcript implements ReadOnlyTranscript {
      * @return adjusted Module
      */
     public Module adjustModule(Module targetModule, Grade adjustGrade) {
+        requireNonNull(targetModule);
+        requireNonNull(adjustGrade);
+
         Module adjustedModule = targetModule.adjustGrade(adjustGrade);
         //TODO: Use updateModule when fixed
         modules.remove(targetModule);

@@ -18,35 +18,54 @@ public class AdjustCommandParserTest {
 
     @Test
     public void parseValidCommandSuccess() {
-        String expectedCode = "CS4234";
-        String expectedYear = "1";
-        String expectedSem = Semester.SEMESTER_ONE;
-        String expectedGrade = "A";
-        assertAdjustParseSuccess(expectedCode, expectedSem, expectedYear, expectedGrade);
+        assertAdjustParseFullArgumentSuccess("CS4234", Semester.SEMESTER_ONE, "1", "A");
+        assertAdjustParseCodeOnlySuccess("CS4234", "A");
     }
 
     /**
-     * Asserts that parse will be successful given those parameters
+     * Asserts that parse will be successful given all valid parameters
      * @param expectedCode
      * @param expectedSem
      * @param expectedYear
      * @param expectedGrade
      */
-    private void assertAdjustParseSuccess(
+    private void assertAdjustParseFullArgumentSuccess(
             String expectedCode, String expectedSem, String expectedYear, String expectedGrade) {
         String userInput = AdjustCommand.COMMAND_WORD + " "
                 + expectedCode + " " + expectedYear + " " + expectedSem + " " + expectedGrade;
+        Grade expectedAdjustedGrade = new Grade().adjustGrade(expectedGrade);
         Module expectedModule = new ModuleBuilder()
                 .withCode(expectedCode).withYear(Integer.parseInt(expectedYear)).withSemester(expectedSem).build();
-        Grade expectedAdjustedGrade = new Grade().adjustGrade(expectedGrade);
         AdjustCommand expectedCommand = new AdjustCommand(
                 expectedModule.getCode(), expectedModule.getYear(),
                 expectedModule.getSemester(), expectedAdjustedGrade);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    /**
+     * Asserts that parse will be successful given code only
+     * @param expectedCode
+     * @param expectedGrade
+     */
+    private void assertAdjustParseCodeOnlySuccess(String expectedCode, String expectedGrade) {
+        String userInput = AdjustCommand.COMMAND_WORD + " " + expectedCode + " " + expectedGrade;
+        Grade expectedAdjustedGrade = new Grade().adjustGrade(expectedGrade);
+        Module expectedModule = new ModuleBuilder()
+                .withCode(expectedCode).build();
+        AdjustCommand expectedCommand = new AdjustCommand(
+                expectedModule.getCode(), null, null, expectedAdjustedGrade);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
     @Test
-    public void parseInvalidCommandSuccess() {
+    public void parseInvalidCommandFailure() {
+        assertWrongNumberArgumentParseFailure();
+    }
+
+    /**
+     * Assert that given wrong number of argument should fail
+     */
+    private void assertWrongNumberArgumentParseFailure() {
         String userInput = AdjustCommand.COMMAND_WORD + " 1 1 1";
         String expectedMessage = String.format(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AdjustCommand.MESSAGE_USAGE));

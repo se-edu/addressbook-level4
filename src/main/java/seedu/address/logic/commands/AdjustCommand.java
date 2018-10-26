@@ -30,8 +30,6 @@ public class AdjustCommand extends Command {
             "Multiple Instance of Module, please include Year and Semester\n"
             + MESSAGE_COMMAND_CODE_YEAR_SEM;
     public static final String MESSAGE_SUCCESS = "Module Adjusted: %1$s";
-    public static final String MESSAGE_MODULE_NOT_EXIST =
-            "This module does not exist in the transcript";
 
     private final Code code;
     private final Year year;
@@ -66,10 +64,6 @@ public class AdjustCommand extends Command {
             targetModule = model.findModule(code);
         }
 
-        if (targetModule == null) {
-            throw new CommandException(MESSAGE_MODULE_NOT_EXIST);
-        }
-
         Module adjustedModule = model.adjustModule(targetModule, grade);
         return new CommandResult(String.format(MESSAGE_SUCCESS, adjustedModule));
     }
@@ -80,7 +74,7 @@ public class AdjustCommand extends Command {
                 || (other instanceof AdjustCommand // instanceof handles nulls
                 && grade.equals(((AdjustCommand) other).grade)
                 && code.equals(((AdjustCommand) other).code)
-                && year.equals(((AdjustCommand) other).year)
-                && sem.equals(((AdjustCommand) other).sem));
+                && (year == null || year.equals(((AdjustCommand) other).year))
+                && (sem == null || sem.equals(((AdjustCommand) other).sem)));
     }
 }

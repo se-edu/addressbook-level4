@@ -221,7 +221,7 @@ public class UniqueModuleList implements Iterable<Module> {
                 return module;
             }
         }
-        return null;
+        throw new ModuleNotFoundException();
     }
 
     //@@author
