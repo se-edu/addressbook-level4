@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -102,6 +103,13 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return versionedTranscript.hasModule(module);
+    }
+
+    //@@author alexkmj
+    @Override
+    public boolean hasMultipleInstances(Code code) {
+        requireNonNull(code);
+        return versionedTranscript.hasMultipleInstances(code);
     }
 
     //@@author alexkmj
@@ -293,7 +301,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jeremiah-ang
     @Override
     public double getCap() {
-        return versionedTranscript.getCap();
+        return versionedTranscript.getCurrentCap();
     }
 
     //@@author alexkmj
