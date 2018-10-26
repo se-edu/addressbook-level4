@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,8 +15,10 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
 
-import java.util.logging.Logger;
 
+/**
+ * Describes the design of second UI panel containing module list display.
+ */
 public class ModuleListPanel2 extends UiPart<Region> {
     private static final String FXML = "ModuleListPanel2.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel2.class);

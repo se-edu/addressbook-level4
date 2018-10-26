@@ -137,8 +137,8 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanelTwo = new ModuleListPanel2(logic.getFilteredModuleList());
         moduleListPanelPlaceholderTwo.getChildren().add(moduleListPanelTwo.getRoot());
 
-//        capPanel = new PersonListPanel(logic.getFilteredPersonList());
-//        capPanelPlaceholder.getChildren().add(capPanel.getRoot());
+        //capPanel = new PersonListPanel(logic.getFilteredPersonList());
+        //capPanelPlaceholder.getChildren().add(capPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -202,9 +202,7 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-//    public PersonListPanel getPersonListPanel() {
-//        return personListPanel;
-//    }
+
 
 
     public ModuleListPanel getModuleListPanel() {

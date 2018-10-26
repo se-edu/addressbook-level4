@@ -20,8 +20,13 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyTranscript;
+import seedu.address.model.Transcript;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
+
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonTranscriptStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -81,24 +86,10 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-//        Optional<ReadOnlyAddressBook> addressBookOptional;
-//        ReadOnlyAddressBook initialData;
+
         Optional<ReadOnlyTranscript> transcriptOptional;
         ReadOnlyTranscript initialTranscriptData;
-//        try {
-//            addressBookOptional = storage.readAddressBook();
-//            if (!addressBookOptional.isPresent()) {
-//                logger.info("Data file not found. Will be starting with a sample AddressBook");
-//            }
-//            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-//        } catch (DataConversionException e) {
-//            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-//            initialData = new AddressBook();
-//        } catch (IOException e) {
-//            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-//            initialData = new AddressBook();
-//        }
-        // Not used for now. But wrote down already so I will leave it here for when we do complete morph.
+
         try {
             transcriptOptional = storage.readTranscript();
             if (!transcriptOptional.isPresent()) {
@@ -111,9 +102,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Transcript");
             initialTranscriptData = new Transcript();
-
-       }
-
+        }
         return new ModelManager(initialTranscriptData, userPrefs);
     }
 
