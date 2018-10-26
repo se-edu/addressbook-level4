@@ -34,7 +34,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel capPanel;
     private ModuleListPanel moduleListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -51,15 +50,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane moduleListPanelPlaceholderTwo;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane personListPanelPlaceholder2;
-
-    @FXML
-    private StackPane capPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;

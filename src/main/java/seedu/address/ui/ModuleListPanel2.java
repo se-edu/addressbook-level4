@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -48,12 +47,12 @@ public class ModuleListPanel2 extends UiPart<Region> {
     /**
      * Scrolls to the {@code ModuleCard} at the {@code index} and selects it.
      */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            moduleListView.scrollTo(index);
-            moduleListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
+    //private void scrollTo(int index) {
+    //Platform.runLater(() -> {
+    //moduleListView.scrollTo(index);
+    //moduleListView.getSelectionModel().clearAndSelect(index);
+    //});
+    //}
 
 
     //@Subscribe
