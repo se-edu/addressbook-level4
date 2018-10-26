@@ -25,8 +25,6 @@ public class ModuleCard2 extends UiPart<Region> {
     public final Module module;
 
     @FXML
-    private HBox cardPane;
-    @FXML
     private Label code;
     @FXML
     private Label id;
@@ -38,10 +36,8 @@ public class ModuleCard2 extends UiPart<Region> {
     private Label year;
     @FXML
     private Label grade;
-    @FXML
-    private FlowPane tags;
 
-    public ModuleCard2(Module module, int displayedIndex) {
+    public ModuleCard2(Module module) {
         super(FXML);
         this.module = module;
         id.setText(""); // may be used to index module cards in the UI.

@@ -34,11 +34,8 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    //private PersonListPanel personListPanel;
-    //private PersonListPanel personListPanel2;
     private PersonListPanel capPanel;
     private ModuleListPanel moduleListPanel;
-    private ModuleListPanel2 moduleListPanelTwo;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -134,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        moduleListPanelTwo = new ModuleListPanel2(logic.getFilteredModuleList());
+        ModuleListPanel2 moduleListPanelTwo = new ModuleListPanel2(logic.getFilteredModuleList());
         moduleListPanelPlaceholderTwo.getChildren().add(moduleListPanelTwo.getRoot());
 
         //capPanel = new PersonListPanel(logic.getFilteredPersonList());

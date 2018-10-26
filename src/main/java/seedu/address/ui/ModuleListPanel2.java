@@ -59,11 +59,11 @@ public class ModuleListPanel2 extends UiPart<Region> {
     }
 
 
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
-    }
+//    @Subscribe
+//    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+//        scrollTo(event.targetIndex);
+//    }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
@@ -77,7 +77,7 @@ public class ModuleListPanel2 extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ModuleCard2(module, getIndex() + 1).getRoot());
+                setGraphic(new ModuleCard2(module).getRoot());
             }
         }
     }
