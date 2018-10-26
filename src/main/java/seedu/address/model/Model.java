@@ -122,6 +122,7 @@ public interface Model {
      */
     void commitTranscript();
 
+    //@@author jeremiah-ang
     /**
      * Get the cap goal of the current transcript
      */
@@ -136,6 +137,9 @@ public interface Model {
      * Returns the CAP based on the current Transcript records
      */
     double getCap();
+
+
+    //@@author
 
     /** Returns the AddressBook TODO: REMOVE*/
     ReadOnlyAddressBook getAddressBook();

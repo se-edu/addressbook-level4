@@ -183,7 +183,7 @@ public class Transcript implements ReadOnlyTranscript {
      * @return gradedModulesList: a list of modules used for CAP calculation
      */
     public ObservableList<Module> getTargetedModulesList() {
-        return modules.getFilteredModules(Module::isTargeted);
+        return modules.getFilteredModules(Module::isGradeTarget);
     }
 
     /**
