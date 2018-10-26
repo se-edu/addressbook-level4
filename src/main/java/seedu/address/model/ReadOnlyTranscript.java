@@ -1,5 +1,9 @@
 package seedu.address.model;
 
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javafx.collections.ObservableList;
@@ -7,10 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Module;
 import seedu.address.storage.JsonTranscriptDeserializer;
-
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 //@@author jeremiah-ang
 /**
@@ -25,12 +25,12 @@ public interface ReadOnlyTranscript {
     ObservableList<Module> getModuleList();
 
     /**
-     * Returns an new instance of a CapGoal object
+     * Returns the CapGoal of this transcript
      */
     CapGoal getCapGoal();
 
     /**
-     * Returns the current CAP
+     * Returns the current CAP of this transcript
      */
     double getCap();
 

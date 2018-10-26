@@ -107,11 +107,7 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     //@@author jeremiah-ang
-    /**
-     * Return the current CAP
-     *
-     * @return current cap score
-     */
+    @Override
     public double getCap() {
         return calculateCap();
     }
@@ -274,6 +270,7 @@ public class Transcript implements ReadOnlyTranscript {
         return FXCollections.observableArrayList(targetModules);
     }
 
+    @Override
     public CapGoal getCapGoal() {
         return capGoal;
     }

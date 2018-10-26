@@ -3,28 +3,32 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Module;
-import seedu.address.model.util.ModuleBuilder;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Test;
+
+import seedu.address.model.module.Grade;
+import seedu.address.model.module.Module;
+import seedu.address.model.util.ModuleBuilder;
+
+
 public class ReadOnlyTranscriptTest {
-    Module complete = new ModuleBuilder().withCode("COMPLETE").withGrade("A").build();
-    Module incomplete = new ModuleBuilder().withCode("INCOMPLETE").noGrade().build();
-    Module adjust = new Module(new ModuleBuilder().withCode("ADJUST").noGrade().build(), new Grade().adjustGrade("A"));
-    Module target = new Module(new ModuleBuilder().withCode("TARGET").noGrade().build(), new Grade().targetGrade("A"));
-    List<Module> fullModules = new ArrayList<>(Arrays.asList(
+    private Module complete = new ModuleBuilder().withCode("COMPLETE").withGrade("A").build();
+    private Module incomplete = new ModuleBuilder().withCode("INCOMPLETE").noGrade().build();
+    private Module adjust = new Module(
+            new ModuleBuilder().withCode("ADJUST").noGrade().build(), new Grade().adjustGrade("A"));
+    private Module target = new Module(
+            new ModuleBuilder().withCode("TARGET").noGrade().build(), new Grade().targetGrade("A"));
+    private List<Module> fullModules = new ArrayList<>(Arrays.asList(
             complete,
             incomplete,
             adjust,
             target
     ));
 
-    List<Module> emptyModules = new ArrayList<>();
+    private List<Module> emptyModules = new ArrayList<>();
 
     @Test
     public void assertFiltersSuccess() {
