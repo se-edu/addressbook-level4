@@ -141,12 +141,18 @@ Format: `exit`
 === Adjusting target goals: `adjust`
 
 Adjust a generated target grade of a module +
-Format: `adjust MODULE_CODE GRADE`
+Format:
+
+* Module code is unique: `adjust MODULE_CODE GRADE`
+* Otherwise: `adjust MODULE_CODE YEAR SEM GRADE`
 
 Examples:
 
 * `adjust CS2103 A` +
 Adjusts the grade with module code CS2103 to have grade A
+
+* `adjust CS2103 1 1 A` +
+Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
 
 
 === Saving the data
