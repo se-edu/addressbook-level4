@@ -5,9 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.ModuleCardHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,13 +30,15 @@ public class GuiTestAssert {
 
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * @param expectedModule
+     * @param actualCard
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+    public static void assertCardDisplaysPerson(Module expectedModule, ModuleCardHandle actualCard) {
+        assertEquals(expectedModule.getName().fullName, actualCard.getCode());
+        assertEquals(expectedModule.getPhone().value, actualCard.getSemester());
+        assertEquals(expectedModule.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedModule.getAddress().value, actualCard.getCredits());
+        assertEquals(expectedModule.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
