@@ -10,6 +10,7 @@ import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.Year;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
 /**
@@ -30,6 +31,7 @@ public class AdjustCommand extends Command {
             "Multiple Instance of Module, please include Year and Semester\n"
             + MESSAGE_COMMAND_CODE_YEAR_SEM;
     public static final String MESSAGE_SUCCESS = "Module Adjusted: %1$s";
+    public static final String MESSAGE_MODULE_NOT_FOUND = "Module not found";
 
     private final Code code;
     private final Year year;
@@ -53,17 +55,22 @@ public class AdjustCommand extends Command {
         Module targetModule;
         if (hasMultipleInstance && year == null && sem == null) {
             throw new CommandException(MESSAGE_MULTIPLE_INSTANCE);
-        } else if (hasMultipleInstance) {
-            Module moduleToFind = new ModuleBuilder()
-                    .withSemester(sem.value)
-                    .withCode(code.value)
-                    .withYear(year.value)
-                    .build();
-            targetModule = model.findModule(moduleToFind);
         } else {
-            targetModule = model.findModule(code);
+            try {
+                if (hasMultipleInstance) {
+                    Module moduleToFind = new ModuleBuilder()
+                            .withSemester(sem.value)
+                            .withCode(code.value)
+                            .withYear(year.value)
+                            .build();
+                    targetModule = model.findModule(moduleToFind);
+                } else {
+                    targetModule = model.findModule(code);
+                }
+            } catch (ModuleNotFoundException mnfe) {
+                throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+            }
         }
-
         Module adjustedModule = model.adjustModule(targetModule, grade);
         return new CommandResult(String.format(MESSAGE_SUCCESS, adjustedModule));
     }

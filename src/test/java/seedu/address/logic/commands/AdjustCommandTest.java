@@ -69,8 +69,8 @@ public class AdjustCommandTest {
         Model model = getSampleModel();
         AdjustCommand adjustCommand = new AdjustCommand(
                 new Code("Hij"), moduleAbc.getYear(), moduleAbc.getSemester(), new Grade().adjustGrade("A"));
-        thrown.expect(ModuleNotFoundException.class);
-        adjustCommand.execute(model, new CommandHistory());
+        String expectedMessage = AdjustCommand.MESSAGE_MODULE_NOT_FOUND;
+        assertCommandFailure(adjustCommand, model, commandHistory, expectedMessage);
     }
 
     @Test
