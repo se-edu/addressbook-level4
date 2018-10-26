@@ -169,6 +169,13 @@
     /*-fx-position-shape: true;*/
 }
 
+/*author Amber Joseph*/
+.circle_color2 {
+    -fx-stroke: "red";
+    -fx-stroke-width: 5;
+    /*-fx-position-shape: true;*/
+}
+
 /*author josephambe */
 .cell_appName_label {
     -fx-font-family: "Arial Black";

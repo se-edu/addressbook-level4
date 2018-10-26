@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     //private PersonListPanel personListPanel2;
     private PersonListPanel capPanel;
     private ModuleListPanel moduleListPanel;
-    private ModuleListPanel moduleListPanelTwo;
+    private ModuleListPanel2 moduleListPanelTwo;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -134,7 +134,7 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        moduleListPanelTwo = new ModuleListPanel(logic.getFilteredModuleList());
+        moduleListPanelTwo = new ModuleListPanel2(logic.getFilteredModuleList());
         moduleListPanelPlaceholderTwo.getChildren().add(moduleListPanelTwo.getRoot());
 
 
