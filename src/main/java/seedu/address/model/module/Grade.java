@@ -90,7 +90,7 @@ public class Grade {
      * Creates a new {@code Grade} object with value grade and State COMPLETE
      */
     public Grade(String grade) {
-        this(grade, State.COMPLETE);
+        this(grade.toUpperCase(), State.COMPLETE);
     }
 
     /**
@@ -101,7 +101,7 @@ public class Grade {
     private Grade(String grade, State state) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
-        value = grade;
+        value = grade.toUpperCase();
         this.state = state;
     }
 
@@ -215,12 +215,30 @@ public class Grade {
     }
 
     /**
+     * Creates a new Grade that is adjusted
+     * @param point
+     * @return new Grade object
+     */
+    public Grade adjustGrade(double point) {
+        return new Grade(point, State.ADJUST);
+    }
+
+    /**
      * Creates a new Grade that is targeted
      * @param grade
      * @return new Grade object
      */
     public Grade targetGrade(String grade) {
         return new Grade(grade, State.TARGET);
+    }
+
+    /**
+     * Creates a new Grade that is targeted
+     * @param point
+     * @return new Grade object
+     */
+    public Grade targetGrade(double point) {
+        return new Grade(point, State.TARGET);
     }
 
     /**

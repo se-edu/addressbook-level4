@@ -3,6 +3,7 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -44,6 +45,16 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Returns true if the list contains multiple instances of module with the given code.
+     */
+    public boolean hasMultipleInstances(Code code) {
+        requireNonNull(code);
+        return internalList.stream()
+                .filter(target -> target.getCode().equals(code))
+                .count() > 1;
+    }
+
+    /**
      * Adds a module to the list.
      * <p>
      * The {@link Module} must not have already exist in the list.
@@ -56,6 +67,13 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new DuplicateModuleException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds all module in a list to the list
+     */
+    public boolean addAll(Collection<Module> modules) {
+        return internalList.addAll(modules);
     }
 
     /**
@@ -75,7 +93,7 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new ModuleNotFoundException();
         }
 
-        if (!target.equals(editedModule) && contains(editedModule)) {
+        if (!target.isSameModule(editedModule) && contains(editedModule)) {
             throw new DuplicateModuleException();
         }
 
@@ -114,13 +132,36 @@ public class UniqueModuleList implements Iterable<Module> {
      * <p>
      * The {@link Module} must exist in the list.
      *
-     * @param toRemove the module to be removed from the list
+     * @param module the code that the module to be removed contains
      */
-    public void remove(Module toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+    public void remove(Module module) {
+        requireNonNull(module);
+
+        if (!internalList.remove(module)) {
             throw new ModuleNotFoundException();
         }
+    }
+
+    /**
+     * Removes the equivalent module from the list.
+     * <p>
+     * The {@link Module} must exist in the list.
+     *
+     * @param filter the predicate used to filter the modules to be removed
+     */
+    public void remove(Predicate<Module> filter) {
+        boolean successful = internalList.removeIf(filter);
+
+        if (!successful) {
+            throw new ModuleNotFoundException();
+        }
+    }
+
+    /**
+     * Removes all module in a list from the list
+     */
+    public boolean removeAll(Collection<Module> modules) {
+        return internalList.removeAll(modules);
     }
 
     /**

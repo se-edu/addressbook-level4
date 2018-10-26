@@ -34,9 +34,50 @@ public class ModuleTest {
         // different object -> returns false
         assertFalse(DATA_STRUCTURES.isSameModule(DISCRETE_MATH));
 
+        // same code, year, sem -> returns true
+        Module editedDataStructures = new ModuleBuilder(DISCRETE_MATH)
+                .withCode(DATA_STRUCTURES.getCode().value)
+                .withYear(DATA_STRUCTURES.getYear().value)
+                .withSemester(DATA_STRUCTURES.getSemester().value)
+                .build();
+        assertTrue(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
         // different code -> returns false
-        Module editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
                 .withCode(DISCRETE_MATH.getCode().value)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        // different year -> returns false
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withYear(DISCRETE_MATH.getYear().value)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        // different sem -> returns false
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withSemester(DISCRETE_MATH.getSemester().value)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        // different code, year -> returns false
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withCode(DISCRETE_MATH.getCode().value)
+                .withYear(DISCRETE_MATH.getYear().value)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        // different code, semester -> returns false
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withCode(DISCRETE_MATH.getCode().value)
+                .withSemester(DISCRETE_MATH.getSemester().value)
+                .build();
+        assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
+
+        // different year, semester -> returns false
+        editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withYear(DISCRETE_MATH.getYear().value)
+                .withSemester(DISCRETE_MATH.getSemester().value)
                 .build();
         assertFalse(DATA_STRUCTURES.isSameModule(editedDataStructures));
     }

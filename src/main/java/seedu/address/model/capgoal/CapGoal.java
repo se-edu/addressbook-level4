@@ -8,37 +8,44 @@ package seedu.address.model.capgoal;
  */
 public class CapGoal {
 
-    private static final String MESSAGE_IS_NULL = "NIL";
-
-    private double capGoal;
-    private boolean isSet = true;
+    private final double value;
+    private final boolean isSet;
+    private final boolean isImpossible;
 
     public CapGoal() {
-
-    }
-
-    public CapGoal(double capGoal) {
+        value = 0;
         isSet = false;
-        this.capGoal = capGoal;
+        isImpossible = false;
     }
 
-    /**
-     * Returns the cap goal
-     * @return
-     */
-    public double getCapGoal() {
-        return capGoal;
+    public CapGoal(double value) {
+        this(value, false);
+    }
+
+    public CapGoal(double value, boolean isImpossible) {
+        isSet = true;
+        this.value = value;
+        this.isImpossible = isImpossible;
+    }
+
+    public double getValue() {
+        return value;
     }
 
     public boolean isSet() {
         return isSet;
     }
 
+    public boolean isImpossible() {
+        return isImpossible;
+    }
+
+    public CapGoal makeIsImpossible() {
+        return new CapGoal(value, true);
+    }
+
     @Override
     public String toString() {
-        if (isSet) {
-            return MESSAGE_IS_NULL;
-        }
-        return "" + getCapGoal();
+        return "" + getValue();
     }
 }

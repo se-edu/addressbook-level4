@@ -601,27 +601,88 @@ can enter my entries incrementally.
 [appendix]
 == Use Cases
 
-=== Use case: Calculate predicted CAP
-  . User enters all modules - modules with grades (previous or target), modules without grades (unknown).
-  . System immediately displays confirmation and current CAP.
+=== Use case: [UC1] Calculating current CAP
 
-=== Use case:  View grades needed to achieve CAP goal (based on previous grades)
-  . Use-Case-B.1.
-  . User enters CAP goal.
-  . User requests for target grade.
-  .. **V1.0:**
-  ... System displays target grades for each module (numeric).
-  .. **V2.0:**
-  ... System displays target grades for each module (numeric and letter).
-  ... User edits target grades.
-  ... System displays new target grades for each module.
+*MSS*
 
-=== Use case:  Save entered module
-  . User enters some modules
-  . System saves the modules
-  . User restarts the application
-  . User list entered modules
-  . System displays saved modules
+1. User enter modules
+2. System recalculates CAP
+3. System displays CAP
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid parameters
+** 1a1. System shows an `Invalid entry` error message
++
+Use case ends.
+
+* 1b. User enters duplicate Module
+** 1b1. System shows an `Duplicate Module` error message
++
+Use case ends
+
+=== Use case: [UC2] View grades needed to achieve CAP goal (based on previous grades)
+
+*MSS*
+
+1. User enter CAP goal
+2. System displays target grades for ungraded modules
++
+Use case ends.
+
+*Extensions*
+
+* 1a. CAP goal is invalid
+** 1a1. System shows an `Invalid CAP Goal` error message
++
+Use case ends.
+
+* 2a. CAP goal is not achievable
+** 2a1. System shows an `Not achievable` error message
++
+Use case ends.
+
+=== Use case: [UC3] Updating target grades
+
+*Pre-condition:* `[UC2]` completed
+
+*MSS*
+
+1. User modify modules entries
+2. System recalculates target grades for ungraded modules
+3. System displays new target grades for ungraded modules
++
+Use case ends.
+
+*Extensions*
+
+* 2a. CAP goal is not achievable with new set of modules
+** 2a1. System shows an `Not achievable` error message
++
+Use case ends.
+
+=== Use case: [UC4] Save entered module
+
+*MSS*
+
+1. User enters module
+2. System saves the modules
++
+Use case ends.
+
+=== Use case: [UC5] Loading saved modules
+
+*Pre-conditions:* `[UC4]` completed
+
+*MSS*
+
+1. User restarts the application
+2. User list entered modules
+3. System displays saved modules
++
+Use case ends
 
 [appendix]
 == Non Functional Requirements
