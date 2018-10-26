@@ -8,6 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.StackPane?>
+
 
 <?import javafx.scene.text.Text?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -19,39 +22,39 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
+
+            <HBox spacing="0" alignment="CENTER_LEFT">
+                <Label fx:id="id" styleClass="cell_title_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="title" text="\$title" styleClass="cell_big_label" />
+                <Label fx:id="code" text="\$code" styleClass="cell_title_label" />
             </HBox>
+
+            <StackPane>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label styleClass="cell_small_label" text="CREDITS: "/>
+                    <Label fx:id="credits" styleClass="cell_list_label" text="\$credits" />
+                </HBox>
+                    <Circle fx:id="circle" styleClass="circle_color" fill="rgba(124,240,10,0)" radius="25" ></Circle>
+                    <Label fx:id="grade" styleClass="cell_grade_label" text="\$grade" />
+            </StackPane>
+
             <FlowPane fx:id="tags" />
+
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label styleClass="cell_small_label" text="CODE: "/>
-                <Label fx:id="code" styleClass="cell_small_label" text="\$code" />
-            </HBox>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label styleClass="cell_small_label" text="CREDITS: "/>
-            <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
+                <Label styleClass="cell_small_label" text="SEMESTER: "/>
+                <Label fx:id="semester" styleClass="cell_list_label" text="\$semester" />
             </HBox>
 
             <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label styleClass="cell_small_label" text="SEMESTER: "/>
-            <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
+                <Label styleClass="cell_small_label" text="YEAR: "/>
+                <Label fx:id="year" styleClass="cell_list_label" text="\$year" />
             </HBox>
 
-            <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label styleClass="cell_small_label" text="YEAR: "/>
-            <Label fx:id="year" styleClass="cell_small_label" text="\$year" />
-            </HBox>
 
-            <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label styleClass="cell_small_label" text="GRADE: "/>
-            <Label fx:id="grade" styleClass="cell_small_label" text="\$grade" />
-            </HBox>
         </VBox>
     </GridPane>
 </HBox>

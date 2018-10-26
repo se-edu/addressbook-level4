@@ -44,7 +44,7 @@ public class ModuleCard extends UiPart<Region> {
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
-        id.setText(displayedIndex + ". ");
+        id.setText(""); // may be used to index module cards in the UI.
         code.setText(module.getCode().value);
         credits.setText(module.getCredits().value + "");
         semester.setText(module.getSemester().value);
