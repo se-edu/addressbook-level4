@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalModules.MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP;
 import static seedu.address.testutil.TypicalModules.getModulesWithNonGradeAffectingModules;
@@ -13,10 +12,10 @@ import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
-import org.junit.rules.ExpectedException;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
