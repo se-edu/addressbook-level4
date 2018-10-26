@@ -16,7 +16,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
 public class AdjustCommandTest {
