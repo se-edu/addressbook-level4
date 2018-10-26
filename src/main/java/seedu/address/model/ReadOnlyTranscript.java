@@ -32,7 +32,7 @@ public interface ReadOnlyTranscript {
     /**
      * Returns the current CAP of this transcript
      */
-    double getCap();
+    double getCurrentCap();
 
     /**
      * Filters a list of modules with Grade in state COMPLETE

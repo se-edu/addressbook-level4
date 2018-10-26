@@ -26,6 +26,8 @@ endif::[]
 == Acknowledgements
 
 * Some parts of this application were inspired by https://github.com/nus-cs2103-AY1819S1/
+* Some parts of this application were inspired by https://github.com/se-edu/addressbook-level4
+* Some parts of this application were inspired by https://github.com/se-edu/addressbook-level3
 * Some parts of this application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]

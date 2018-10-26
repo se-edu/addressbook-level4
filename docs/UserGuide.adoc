@@ -57,7 +57,7 @@ Format: `help`
 === Adding a module: `add`
 
 Adds a module to the cap tracker +
-Format: `add MODULE_CODE YEAR SEMESTER [GRADE]`
+Format: `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`
 
 [TIP]
 A module with grade provided means it has already been completed while a module without grade means it hasn't been taken by the user.
@@ -66,11 +66,6 @@ Examples:
 
 * `add CS2103 1 2 A+`
 * `add CS2103 1 2`
-
-=== Listing all modules : `list`
-
-Shows a list of all modules in the cap tracker. +
-Format: `list`
 
 === Editing a module : `edit`
 
@@ -93,7 +88,10 @@ Edits the year and semester of `CS2103` module to be `2 1` and grade to `CS`.
 === Deleting a module : `delete`
 
 Deletes the specified module from the cap tracker. +
-Format: `delete MODULE_CODE`
+Format:
+
+* If only one module with the module code exist: `delete MODULE_CODE`
+* Otherwise: `delete MODULE_CODE YEAR SEMESTER`
 
 ****
 * Deletes the module with the specified module code.
@@ -103,6 +101,8 @@ Examples:
 
 * `delete CS2103` +
 Deletes the module CS2103 in the cap tracker.
+* `delete CS2103 1 2`
+Deletes the module CS2103 taken during the second semester of the first year.
 
 === Computing CAP : `goal`
 
@@ -122,6 +122,16 @@ Update your CAP goal to be 4.5
 
 Clears all entries from the cap tracker. +
 Format: `clear`
+
+=== Undoing commands : `undo`
+
+Reverts changes made by the last command given. +
+Format: `undo`
+
+=== Redoing commands : `redo`
+
+Reverts changes made by the undo command. +
+Format: `redo`
 
 === Exiting the program : `exit`
 
