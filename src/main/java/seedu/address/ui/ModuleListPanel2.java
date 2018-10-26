@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +9,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
 
@@ -59,11 +56,11 @@ public class ModuleListPanel2 extends UiPart<Region> {
     }
 
 
-//    @Subscribe
-//    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        scrollTo(event.targetIndex);
-//    }
+    //@Subscribe
+    //private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    //logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    //scrollTo(event.targetIndex);
+    //}
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
