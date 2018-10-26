@@ -182,7 +182,14 @@
     -fx-font-weight: bold;
     -fx-font-size: 18px;
     -fx-text-fill: goldenrod;
-    /*-fx-stroke: red;*/
+}
+
+/*author josephambe */
+.cell_capPanel_title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: goldenrod;
 }
 
 
