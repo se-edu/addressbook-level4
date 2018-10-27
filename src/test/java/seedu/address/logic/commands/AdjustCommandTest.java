@@ -26,7 +26,7 @@ public class AdjustCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Module moduleAbc = new ModuleBuilder().withCode("ABC").withYear(2).noGrade().build();
-    private Module moduleAbcDuplicate = new ModuleBuilder().withCode("ABC").withYear(1).noGrade().build();
+    private Module moduleAbcDuplicate = new ModuleBuilder(moduleABC).withYear(1).build();
     private Module moduleDef = new ModuleBuilder().withCode("DEF").withYear(1).noGrade().build();
 
     @Test
