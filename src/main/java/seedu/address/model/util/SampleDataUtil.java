@@ -117,6 +117,13 @@ public class SampleDataUtil {
         return tr;
     }
 
+    /**
+     * Returns an {@code Transcript} given modules as arguments.
+     */
+    public static Module[] getSampleModules(Module... modules) {
+        return modules;
+    }
+
     public static ReadOnlyTranscript getSampleTranscript() {
         return getTranscriptWithModules(
             DISCRETE_MATH,

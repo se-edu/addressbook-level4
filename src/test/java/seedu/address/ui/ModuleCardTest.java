@@ -6,7 +6,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.util.ModuleBuilder;
 
 import static org.junit.Assert.*;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysModule;
 
 public class ModuleCardTest extends GuiUnitTest {
 
@@ -64,6 +64,6 @@ public class ModuleCardTest extends GuiUnitTest {
         assertEquals(Integer.toString(expectedId) + ". ", moduleCardHandle.getId());
 
         // verify person details are displayed correctly
-        assertCardDisplaysPerson(expectedModule, moduleCardHandle);
+        assertCardDisplaysModule(expectedModule, moduleCardHandle);
     }
 }
