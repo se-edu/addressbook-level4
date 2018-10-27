@@ -209,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public ItemListPanel getItemListPanel() {
-        return  itemListPanel;
+        return itemListPanel;
     }
 
     void releaseResources() {

@@ -145,6 +145,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         items.add(item);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
     public void removeItem(Item item) {
         requireNonNull(item);
         items.remove(item);
@@ -183,6 +187,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
+
     /**
      * Removes {@code tag} from {@code member} in this {@code AddressBook}.
      */
@@ -195,7 +200,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         Person newPerson = new Person(person.getName(),
-                person.getPhone(), person.getEmail(), person.getAddress(), person.getPostalcode(), person.getMajor(), newTags);
+                person.getPhone(), person.getEmail(), person.getAddress(), person.getPostalcode(),
+                person.getMajor(), newTags);
 
         updatePerson(person, newPerson);
     }
