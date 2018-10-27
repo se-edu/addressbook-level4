@@ -165,6 +165,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         ledgers.setLedger(target, editedLedger);
     }
 
+    /**
+     * Replaces the given item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the address book.
+     * The ItemName of {@code editedItem} must not be the same as another existing item in the item list.
+     */
     public void updateItem(Item target, Item editedItem) {
         requireNonNull(editedItem);
         items.setItem(target, editedItem);

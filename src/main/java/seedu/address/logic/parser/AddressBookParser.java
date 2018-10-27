@@ -98,6 +98,12 @@ public class AddressBookParser {
             logger.info("Parsing");
             return new AddLedgerCommandParser().parse(arguments);
 
+        case DeleteItemCommand.COMMAND_WORD: case DeleteItemCommand.COMMAND_ALIAS:
+            return new DeleteItemCommandParser().parse(arguments);
+
+        case EditItemCommand.COMMAND_WORD: case EditItemCommand.COMMAND_ALIAS:
+            return new EditItemCommandParser().parse(arguments);
+
         case UndoAllCommand.COMMAND_WORD:
             return new UndoAllCommand();
 
