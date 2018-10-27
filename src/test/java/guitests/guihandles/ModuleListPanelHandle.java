@@ -2,14 +2,14 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.person.Person;
+import seedu.address.model.module.Module;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code ModuleListPanel} containing the list of {@code ModuleCard}.
  */
 public class ModuleListPanelHandle extends NodeHandle<ListView<Module>> {
     public static final String MODULE_LIST_VIEW_ID = "#moduleListView";
@@ -23,7 +23,7 @@ public class ModuleListPanelHandle extends NodeHandle<ListView<Module>> {
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code ModuleCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
@@ -91,14 +91,14 @@ public class ModuleListPanelHandle extends NodeHandle<ListView<Module>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code ModuleCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the module card handle of a module associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public ModuleCardHandle getModuleCardHandle(int index) {
@@ -136,8 +136,8 @@ public class ModuleListPanelHandle extends NodeHandle<ListView<Module>> {
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * Returns true if the selected {@code ModuleCard} is different from the value remembered by the most recent
+     * {@code rememberSelectedModuleCard()} call.
      */
     public boolean isSelectedModuleCardChanged() {
         List<Module> selectedItems = getRootNode().getSelectionModel().getSelectedItems();

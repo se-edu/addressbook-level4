@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.model.module.Module;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class ModuleCardHandle extends NodeHandle<Node> {
     private final Label creditsLabel;
     private final Label semesterLabel;
     private final Label yearLabel;
-    private final List<Label> gradeLabels;
+    private final Label gradeLabel;
 
     public ModuleCardHandle(Node cardNode) {
         super(cardNode);
@@ -34,13 +35,8 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         creditsLabel = getChildNode(CREDITS_FIELD_ID);
         semesterLabel = getChildNode(SEMESTER_FIELD_ID);
         yearLabel = getChildNode(YEAR_FIELD_ID);
+        gradeLabel = getChildNode(GRADE_FIELD_ID);
 
-        Region tagsContainer = getChildNode(GRADE_FIELD_ID);
-        gradeLabels = tagsContainer
-                .getChildrenUnmodifiable()
-                .stream()
-                .map(Label.class::cast)
-                .collect(Collectors.toList());
     }
 
     public String getId() {
@@ -63,24 +59,17 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         return yearLabel.getText();
     }
 
-    public List<String> getGrade() {
-        return gradeLabels
-                .stream()
-                .map(Label::getText)
-                .collect(Collectors.toList());
-    }
+    public String getGrade() { return gradeLabel.getText(); }
+
 
     /**
      * Returns true if this handle contains {@code module}.
      */
     public boolean equals(Module module) {
-        return true;
-//        return getCode().equals(module.getCode().value)
-//                && getCredits().equals(module.getCredits().value)
-//                && getSemester().equals(module.getSemester().value)
-//                && getYear().equals(module.getYear().value)
-//                && ImmutableMultiset.copyOf(getGrade()).equals(ImmutableMultiset.copyOf(module.getGrade().stream()
-//                        .map(tag -> tag.tagName)
-//                        .collect(Collectors.toList())));
+        return getCode().equals(module.getCode().value)
+                && getCredits().equals(module.getCredits().value)
+                && getSemester().equals(module.getSemester().value)
+                && getYear().equals(module.getYear().value)
+                && getGrade().equals(module.getGrade().value);
     }
 }
