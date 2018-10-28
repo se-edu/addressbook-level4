@@ -9,45 +9,50 @@ import java.util.List;
 
 import org.junit.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.util.ModuleBuilder;
 
 
-public class ReadOnlyTranscriptTest {
+
+public class ModelTest {
     private Module complete = new ModuleBuilder().withCode("COMPLETE").withGrade("A").build();
     private Module incomplete = new ModuleBuilder().withCode("INCOMPLETE").noGrade().build();
     private Module adjust = new Module(
             new ModuleBuilder().withCode("ADJUST").noGrade().build(), new Grade().adjustGrade("A"));
     private Module target = new Module(
             new ModuleBuilder().withCode("TARGET").noGrade().build(), new Grade().targetGrade("A"));
-    private List<Module> fullModules = new ArrayList<>(Arrays.asList(
-            complete,
-            incomplete,
-            adjust,
-            target
-    ));
+    private ObservableList<Module> fullModules = FXCollections.unmodifiableObservableList(
+            FXCollections.observableArrayList(new ArrayList<>(Arrays.asList(
+                    complete,
+                    incomplete,
+                    adjust,
+                    target
+            )))
+    );
 
     private List<Module> emptyModules = new ArrayList<>();
 
     @Test
     public void assertFiltersSuccess() {
-        List<Module> completedModules = ReadOnlyTranscript.filterModulesWithCompleteGrade(fullModules);
+        List<Module> completedModules = Model.filterModulesWithCompleteGrade(fullModules);
         assertEquals(complete, completedModules.get(0));
-        List<Module> targetedModules = ReadOnlyTranscript.filterModulesWithTargetGrade(fullModules);
+        List<Module> targetedModules = Model.filterModulesWithTargetGrade(fullModules);
         assertEquals(target, targetedModules.get(0));
-        List<Module> adjustedModules = ReadOnlyTranscript.filterModulesWithAdjustGrade(fullModules);
+        List<Module> adjustedModules = Model.filterModulesWithAdjustGrade(fullModules);
         assertEquals(adjust, adjustedModules.get(0));
-        List<Module> incompleteModules = ReadOnlyTranscript.filterModulesWithIncompleteGrade(fullModules);
+        List<Module> incompleteModules = Model.filterModulesWithIncompleteGrade(fullModules);
         assertEquals(incomplete, incompleteModules.get(0));
 
-        completedModules = ReadOnlyTranscript.filterModulesWithCompleteGrade(emptyModules);
+        completedModules = Model.filterModulesWithCompleteGrade(emptyModules);
         assertTrue(completedModules.isEmpty());
-        targetedModules = ReadOnlyTranscript.filterModulesWithTargetGrade(emptyModules);
+        targetedModules = Model.filterModulesWithTargetGrade(emptyModules);
         assertTrue(targetedModules.isEmpty());
-        adjustedModules = ReadOnlyTranscript.filterModulesWithAdjustGrade(emptyModules);
+        adjustedModules = Model.filterModulesWithAdjustGrade(emptyModules);
         assertTrue(adjustedModules.isEmpty());
-        incompleteModules = ReadOnlyTranscript.filterModulesWithIncompleteGrade(emptyModules);
+        incompleteModules = Model.filterModulesWithIncompleteGrade(emptyModules);
         assertTrue(incompleteModules.isEmpty());
     }
 
