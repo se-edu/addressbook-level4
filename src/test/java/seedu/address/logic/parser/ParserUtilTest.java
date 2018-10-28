@@ -47,16 +47,12 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void validateNumOfArgsValid() throws Exception {
+    public void validateNumOfArgs() throws Exception {
         String[] tokenized = {"a", "b", "c", "d"};
+
         ParserUtil.validateNumOfArgs(tokenized, 4);
         ParserUtil.validateNumOfArgs(tokenized, Integer.MIN_VALUE, 4);
         ParserUtil.validateNumOfArgs(tokenized, 4, Integer.MAX_VALUE);
-    }
-
-    @Test
-    public void validateNumOfArgsThrowsException() throws Exception {
-        String[] tokenized = {"a", "b", "c", "d"};
 
         thrown.expect(ParseException.class);
         ParserUtil.validateNumOfArgs(tokenized, 5, Integer.MAX_VALUE);

@@ -15,6 +15,7 @@ import seedu.address.model.util.ModuleBuilder;
  */
 public class TypicalModules {
     // Manually added
+    public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
 
     public static final String CODE_ASKING_QUESTIONS = "GEQ1000";
     public static final String CODE_DATABASE_SYSTEMS = "CS2102";
