@@ -19,6 +19,8 @@ public interface Model {
 
     Predicate<Ledger> PREDICATE_SHOW_ALL_LEDGERS = unused -> true;
 
+    Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
@@ -36,6 +38,13 @@ public interface Model {
     boolean hasLedger(Ledger ledger);
 
     /**
+     * Returns true if an item with the same name as (@code item) exists in the club book
+     */
+    boolean hasItem(Item item);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
      * Deletes the given member.
      * The member must exist in the address book.
      */
@@ -86,6 +95,12 @@ public interface Model {
      */
     void updateLedger(Ledger target, Ledger editedLedger);
 
+    /**
+     * Replaces the given item (@code target) with (@code editedItem).
+     * target must exist in the club book.
+     */
+    void updateItem(Item target, Item editedItem);
+
     /** Returns an unmodifiable view of the filtered member list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -94,6 +109,8 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered ledger set */
     ObservableSet<Ledger> getFilteredLedgerSet();
+    /** Returns an unmodifiable view of the filtered item list */
+    ObservableList<Item> getFilteredItemList();
 
     /**
      * Updates the filter of the filtered member list to filter by the given {@code predicate}.
@@ -106,6 +123,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredLedgerList(Predicate<Ledger> predicate);
+
+    /**
+     * Updates the filter of the filtered item list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredItemList(Predicate<Item> predicate);
+
+
     /**
      * Returns true if the model has previous address book states to restore.
      */

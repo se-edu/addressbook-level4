@@ -5,7 +5,7 @@ import javafx.collections.ObservableSet;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
+import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.member.Person;
 
@@ -30,6 +30,8 @@ public interface Logic {
 
     /**  Returns an unmodifiable view of the filtered set of ledgers*/
     ObservableSet<Ledger> getFilteredLedgerSet();
+    /**  Returns an unmodifiable view of the filtered list of items*/
+    ObservableList<Item> getFilteredItemList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

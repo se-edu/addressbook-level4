@@ -69,11 +69,11 @@
             <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="inventoryList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="itemList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="inventoryListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="itemListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
         </SplitPane>
