@@ -25,7 +25,7 @@ public class AddItemCommand extends Command {
             + PREFIX_ITEM_QUANTITY + "ITEM QUANTITY ";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the club book";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the item list";
 
     private final Logger logger = LogsCenter.getLogger(AddItemCommand.class);
 

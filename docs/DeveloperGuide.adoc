@@ -414,6 +414,33 @@ Remove Ledger uses the same concept ut instead starts with looking for the Ledge
 that the member model has.
 * The segmentation of the arguments allow for them to be used individually when needed.
 
+=== AddItem/DeleteItem feature
+==== Current Implementation
+
+The AddItem/DeleteItem mechanism is facilitated by `AddressBook`.
+It extends `AddressBook` with the `AddItem` and `DeleteItem` methods, and implements the following operations:
+
+* `AddressBook#addItem()` -- Adds an `Item` object to the `UniqueItemList`.
+* `AddressBook#deleteItem()` -- Removes an `Item` object from the `UniqueItemList`.
+
+These operations are exposed in the `Model` interface as `Model#addItem()` and `Model#removeItem()` respectively.
+
+Below is a scenario of how a user adds an `Item` into the club book.
+
+Step 1. The user inputs the command addItem /n[itemName] /q[itemQuantity] into the command box.
+
+Step 2. The `CommandBox` UI will create a `Logic` object which parses the command to ascertain that it is an `additem` command.
+
+Step 3. The `AddressBookParser` will then parse the command to create a new `addItemParser` object.
+
+Step 4. This `addItemParser` will parse the arguments of the command line and create a new `AddLedger` object.
+
+Step 5. This will then be put into the `model`, into the `VersionedAddressBook`.
+
+The `Item` class creates an object that instantiates an `ItemName` object and an `ItemQuantity` object. The multiple `Item` objects created will be stored in a `UniqueItemList`, where the uniqueness of every `Item` is in its `ItemName`.
+
+This uniqueness is attained by comparing the `ItemName` object in the `Item` to be added and the `Item`s already in the `UniqueItemList` using the `getItemName()` method in `Item`.
+
 == Documentation
 
 We use asciidoc for writing documentation.
