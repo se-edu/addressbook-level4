@@ -103,7 +103,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addLedger(Ledger ledger) {
         requireNonNull(ledger);
         versionedAddressBook.addLedger(ledger);
-        //updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
+        updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         indicateAddressBookChanged();
     }
 
@@ -115,7 +115,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void increaseAccount(Account account) {
         requireNonNull(account);
-        //versionedAddressBook;
     }
 
     @Override
@@ -150,17 +149,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ObservableList<Ledger> getFilteredLedgerList() {
-        logger.info("Filtered list observed");
-        logger.info("Size : " + Integer.toString(filteredLedgers.size()));
-        for (Ledger l : filteredLedgers) {
-            logger.info(l.getDateLedger().getDate());
-        }
         return FXCollections.unmodifiableObservableList(filteredLedgers);
     }
 
     @Override
     public ObservableSet<Ledger> getFilteredLedgerSet() {
-        Set<Ledger> filteredLedgers2 = new HashSet<Ledger>(filteredLedgers);
+        Set<Ledger> filteredLedgers2 = new HashSet<>(filteredLedgers);
         return FXCollections.unmodifiableObservableSet((ObservableSet<Ledger>) filteredLedgers2);
     }
 
