@@ -26,7 +26,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_MODULE);
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
+    //private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
     //private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
