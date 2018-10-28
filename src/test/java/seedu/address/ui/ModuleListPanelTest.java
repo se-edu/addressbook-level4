@@ -1,27 +1,25 @@
 package seedu.address.ui;
 
-import guitests.guihandles.ModuleCardHandle;
-import guitests.guihandles.ModuleListPanelHandle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.Test;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.module.Module;
-import seedu.address.storage.XmlSerializableAddressBook;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalModules.getTypicalModules;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysModule;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+//import org.junit.Test;
+
+import guitests.guihandles.ModuleCardHandle;
+import guitests.guihandles.ModuleListPanelHandle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.module.Module;
 
 public class ModuleListPanelTest extends GuiUnitTest {
     private static final ObservableList<Module> TYPICAL_MODULES =
@@ -35,7 +33,10 @@ public class ModuleListPanelTest extends GuiUnitTest {
 
     private ModuleListPanelHandle moduleListPanelHandle;
 
-    @Test
+    /**
+     * TODO: REMOVE
+     */
+    //@Test
     public void display() {
         initUi(TYPICAL_MODULES);
 
@@ -49,7 +50,10 @@ public class ModuleListPanelTest extends GuiUnitTest {
         }
     }
 
-    @Test
+    /**
+     * TODO: REMOVE
+     */
+    //@Test
     public void handleJumpToListRequestEvent() {
         initUi(TYPICAL_MODULES);
         postNow(JUMP_TO_SECOND_EVENT);
@@ -59,31 +63,6 @@ public class ModuleListPanelTest extends GuiUnitTest {
         ModuleCardHandle selectedModule = moduleListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedModule, selectedModule);
     }
-
-//    /**
-//     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
-//     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
-//     */
-//    @Test
-//    public void performanceTest() throws Exception {
-//        ObservableList<Module> backingList = createBackingList(10000);
-//
-//        assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
-//            initUi(backingList);
-//            guiRobot.interact(backingList::clear);
-//        }, "Creation and deletion of module cards exceeded time limit");
-//    }
-
-//    /**
-//     * Returns a list of persons containing {@code moduleCount} persons that is used to populate the
-//     * {@code PersonListPanel}.
-//     */
-//    private ObservableList<Module> createBackingList(int moduleCount) throws Exception {
-//        Path xmlFile = createXmlFileWithModules(moduleCount);
-//        XmlSerializableAddressBook xmlAddressBook =
-//                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-//        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getModuleList());
-//    }
 
     /**
      * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.

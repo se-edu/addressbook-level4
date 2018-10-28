@@ -1,12 +1,12 @@
 package guitests.guihandles;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.module.Module;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * Provides a handle for {@code ModuleListPanel} containing the list of {@code ModuleCard}.

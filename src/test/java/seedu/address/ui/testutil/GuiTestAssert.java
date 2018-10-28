@@ -24,12 +24,12 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getGrade(), actualCard.getGrade());
     }
     //public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
-        //assertEquals(expectedCard.getId(), actualCard.getId());
-        //assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        //assertEquals(expectedCard.getEmail(), actualCard.getEmail());
-        //assertEquals(expectedCard.getName(), actualCard.getName());
-        //assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        //assertEquals(expectedCard.getTags(), actualCard.getTags());
+    //assertEquals(expectedCard.getId(), actualCard.getId());
+    //assertEquals(expectedCard.getAddress(), actualCard.getAddress());
+    //assertEquals(expectedCard.getEmail(), actualCard.getEmail());
+    //assertEquals(expectedCard.getName(), actualCard.getName());
+    //assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+    // assertEquals(expectedCard.getTags(), actualCard.getTags());
     //}
 
     /**
@@ -46,12 +46,12 @@ public class GuiTestAssert {
     }
 
     //public static void assertCardDisplaysPerson(Module expectedModule, ModuleCardHandle actualCard) {
-        //assertEquals(expectedModule.getName().fullName, actualCard.getCode());
-        //assertEquals(expectedModule.getPhone().value, actualCard.getSemester());
-        //assertEquals(expectedModule.getEmail().value, actualCard.getEmail());
-        //assertEquals(expectedModule.getAddress().value, actualCard.getCredits());
-        //assertEquals(expectedModule.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-        //actualCard.getTags());
+    //assertEquals(expectedModule.getName().fullName, actualCard.getCode());
+    //assertEquals(expectedModule.getPhone().value, actualCard.getSemester());
+    //assertEquals(expectedModule.getEmail().value, actualCard.getEmail());
+    //assertEquals(expectedModule.getAddress().value, actualCard.getCredits());
+    //assertEquals(expectedModule.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+    //actualCard.getTags());
     //}
 
     /**
@@ -66,10 +66,10 @@ public class GuiTestAssert {
     }
 
     //public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
-        //for (int i = 0; i < persons.length; i++) {
-            //personListPanelHandle.navigateToCard(i);
-            //assertCardDisplaysModule(persons[i], personListPanelHandle.getPersonCardHandle(i));
-        //}
+    //for (int i = 0; i < persons.length; i++) {
+    //personListPanelHandle.navigateToCard(i);
+    //assertCardDisplaysModule(persons[i], personListPanelHandle.getPersonCardHandle(i));
+    //}
     //}
 
     /**
@@ -81,7 +81,7 @@ public class GuiTestAssert {
     }
 
     //public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        //assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    //assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
     //}
 
     /**
@@ -93,8 +93,8 @@ public class GuiTestAssert {
     }
 
     //public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        //int numberOfPeople = personListPanelHandle.getListSize();
-        //assertEquals(size, numberOfPeople);
+    //int numberOfPeople = personListPanelHandle.getListSize();
+    //assertEquals(size, numberOfPeople);
     //}
 
     /**

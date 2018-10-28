@@ -3,10 +3,8 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalPersons.getTypicalModules;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,16 +47,6 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
     }
 
-//    @Test
-//    public void handleJumpToListRequestEvent() {
-//        initUi(TYPICAL_PERSONS);
-//        postNow(JUMP_TO_SECOND_EVENT);
-//        guiRobot.pauseForHuman();
-//
-//        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_MODULE.getZeroBased());
-//        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
-//        assertCardEquals(expectedPerson, selectedPerson);
-//    }
 
     /**
      * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than

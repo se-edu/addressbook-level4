@@ -1,13 +1,9 @@
 package guitests.guihandles;
 
-import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import seedu.address.model.module.Module;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -59,7 +55,9 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         return yearLabel.getText();
     }
 
-    public String getGrade() { return gradeLabel.getText(); }
+    public String getGrade() {
+        return gradeLabel.getText();
+    }
 
 
     /**
