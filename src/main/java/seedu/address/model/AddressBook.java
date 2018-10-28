@@ -75,7 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the item list with {@code items}.
      * {@code items} must not contain duplicate items.
      */
-    public void setItems(List<Item> item) {
+    public void setItems(List<Item> items) {
         this.items.setItems(items);
     }
 
@@ -86,6 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setItems(newData.getItemList());
     }
 
     //// member-level operations
@@ -141,6 +142,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         items.add(item);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
     public void removeItem(Item item) {
         requireNonNull(item);
         items.remove(item);
@@ -161,6 +166,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         ledgers.setLedger(target, editedLedger);
     }
 
+    /**
+     * Replaces the given item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the address book.
+     * The ItemName of {@code editedItem} must not be the same as another existing item in the item list.
+     */
     public void updateItem(Item target, Item editedItem) {
         requireNonNull(editedItem);
         items.setItem(target, editedItem);
@@ -173,6 +183,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
+
     /**
      * Removes {@code tag} from {@code member} in this {@code AddressBook}.
      */
@@ -185,7 +196,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         Person newPerson = new Person(person.getName(),
-                person.getPhone(), person.getEmail(), person.getAddress(), person.getPostalcode(), person.getMajor(), newTags);
+                person.getPhone(), person.getEmail(), person.getAddress(), person.getPostalcode(),
+                person.getMajor(), newTags);
 
         updatePerson(person, newPerson);
     }
