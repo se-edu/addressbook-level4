@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,6 +27,9 @@ public interface Logic {
 
     /**  Returns an unmodifiable view of the filtered list of ledgers*/
     ObservableList<Ledger> getFilteredLedgerList();
+
+    /**  Returns an unmodifiable view of the filtered set of ledgers*/
+    ObservableSet<Ledger> getFilteredLedgerSet();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

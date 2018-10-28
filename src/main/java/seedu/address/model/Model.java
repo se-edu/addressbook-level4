@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.Ledger;
@@ -90,6 +91,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered ledger list */
     ObservableList<Ledger> getFilteredLedgerList();
+
+    /** Returns an unmodifiable view of the filtered ledger set */
+    ObservableSet<Ledger> getFilteredLedgerSet();
 
     /**
      * Updates the filter of the filtered member list to filter by the given {@code predicate}.

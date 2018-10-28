@@ -34,7 +34,6 @@ public class AddLedgerCommandParser implements Parser<AddLedgerCommand> {
      */
 
     public AddLedgerCommand parse(String args, Model model) throws ParseException {
-        logger.info("Still parsing...");
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
@@ -50,7 +49,7 @@ public class AddLedgerCommandParser implements Parser<AddLedgerCommand> {
         for (Ledger i : model.getFilteredLedgerList()) {
             logger.info(i.getDateLedger().getDate());
         }
-        logger.info("Parsed");
+
         DateLedger date = ParserUtil.parseDateLedger(argMultimap.getValue(PREFIX_DATE).get());
         //Account account = ParserUtil.parseBalance(Double.parseDouble(argMultimap.getValue(PREFIX_BALANCE).get()));
         logger.info("Creating new Ledger");

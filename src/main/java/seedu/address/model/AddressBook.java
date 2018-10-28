@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.ledger.UniqueLedgerList;
 import seedu.address.model.member.Person;
@@ -170,6 +171,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Ledger> getLedgerList() {
         return ledgers.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableSet<Ledger> getLedgerSet() {
+        return ledgers.asUnmodifiableObservableSet();
     }
 
     @Override

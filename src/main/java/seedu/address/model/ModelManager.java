@@ -3,11 +3,16 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlySetWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
@@ -151,6 +156,12 @@ public class ModelManager extends ComponentManager implements Model {
             logger.info(l.getDateLedger().getDate());
         }
         return FXCollections.unmodifiableObservableList(filteredLedgers);
+    }
+
+    @Override
+    public ObservableSet<Ledger> getFilteredLedgerSet() {
+        Set<Ledger> filteredLedgers2 = new HashSet<Ledger>(filteredLedgers);
+        return FXCollections.unmodifiableObservableSet((ObservableSet<Ledger>) filteredLedgers2);
     }
 
     @Override
