@@ -19,7 +19,7 @@ public class ModuleCardTest extends GuiUnitTest {
     //@Test
     public void display() {
         // no tags
-        Module moduleWithNoTags = new ModuleBuilder().withCode(new String()).build();
+        Module moduleWithNoTags = new ModuleBuilder().build();
         ModuleCard moduleCard = new ModuleCard(moduleWithNoTags);
         uiPartRule.setUiPart(moduleCard);
         assertCardDisplay(moduleCard, moduleWithNoTags, 1);

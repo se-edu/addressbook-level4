@@ -18,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.model.module.Module;
 
 public class ModuleListPanelTest extends GuiUnitTest {
@@ -62,30 +61,6 @@ public class ModuleListPanelTest extends GuiUnitTest {
         ModuleCardHandle expectedModule = moduleListPanelHandle.getModuleCardHandle(INDEX_SECOND_MODULE.getZeroBased());
         ModuleCardHandle selectedModule = moduleListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedModule, selectedModule);
-    }
-
-    /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
-     */
-    private Path createXmlFileWithModules(int moduleCount) throws Exception {
-        StringBuilder builder = new StringBuilder();
-        builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<transcript>\n");
-        for (int i = 0; i < moduleCount; i++) {
-            builder.append("<modules>\n");
-            builder.append("<code>").append(i).append("a</code>\n");
-            builder.append("<semester>000</semester>\n");
-            builder.append("<year>a@aa</year>\n");
-            builder.append("<grade>a</grade>\n");
-            builder.append("</modules>\n");
-        }
-        builder.append("</transcript>\n");
-
-        Path manyModulesFile = Paths.get(TEST_DATA_FOLDER + "manyModules.xml");
-        FileUtil.createFile(manyModulesFile);
-        FileUtil.writeToFile(manyModulesFile, builder.toString());
-        manyModulesFile.toFile().deleteOnExit();
-        return manyModulesFile;
     }
 
     /**
