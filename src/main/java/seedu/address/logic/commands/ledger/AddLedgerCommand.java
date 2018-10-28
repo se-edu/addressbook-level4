@@ -22,7 +22,7 @@ public class AddLedgerCommand extends Command {
     public static final String COMMAND_WORD = "addLedger";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a finance entry into the ledger. "
-            + "parameters: ";
+            + "parameters: /d[DATE DD/MM]";
     public static final String MESSAGE_SUCCESS = "New ledger added: %1$s";
     public static final String MESSAGE_DUPLICATE_LEDGER = "This ledger already exists in the club book";
 
@@ -37,15 +37,23 @@ public class AddLedgerCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        logger.info("Printing model internal list from addledgercommand");
+        for (Ledger i : model.getFilteredLedgerList()) {
+            logger.info(i.getDateLedger().getDate());
+        }
         if (model.hasLedger(addLedger)) {
+            logger.info("Has duplicate ledger in model");
             throw new CommandException(MESSAGE_DUPLICATE_LEDGER);
         }
         logger.info("Adding ledger...");
         model.addLedger(addLedger);
         logger.info("Added Ledger");
         model.commitAddressBook();
-        logger.info("Committing Club Book");
 
+        logger.info("Printing model internal list from addledgercommand after commmit");
+        for (Ledger i : model.getFilteredLedgerList()) {
+            logger.info(i.getDateLedger().getDate());
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, addLedger));
     }
 

@@ -13,7 +13,7 @@ public class Account {
     public static final String MESSAGE_BALANCE_CONSTRAINTS =
             "Account should only contain numbers and no spaces, and it should not be blank";
 
-    private static Double value;
+    public Double value;
 
     public Account(Double balance) {
         requireNonNull(balance);
@@ -21,7 +21,7 @@ public class Account {
         value = balance;
     }
 
-    public static String getBalance() {
+    public String getBalance() {
         return value.toString();
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.UniqueItemList;
 import seedu.address.model.ledger.Ledger;
@@ -22,6 +23,7 @@ import seedu.address.model.tag.Tag;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueLedgerList ledgers;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -32,11 +34,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-    }
-
-    private final UniqueLedgerList ledgers;
-
-    {
         ledgers = new UniqueLedgerList();
     }
 
@@ -156,7 +153,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
     }
 
@@ -216,6 +212,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return ledgers.asUnmodifiableObservableList();
     }
 
+    @Override
+    public ObservableSet<Ledger> getLedgerSet() {
+        return ledgers.asUnmodifiableObservableSet();
     @Override
     public ObservableList<Item> getItemList() {
         return items.asUnmodifiableObservableList();

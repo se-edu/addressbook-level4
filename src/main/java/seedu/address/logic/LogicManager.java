@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -36,9 +37,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
-            logger.info("parsed");
+
+            Command command = addressBookParser.parseCommand(commandText,model);
             return command.execute(model, history);
+
         } finally {
             history.add(commandText);
         }
@@ -55,6 +57,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
+    public ObservableSet<Ledger> getFilteredLedgerSet() {
+        return model.getFilteredLedgerSet();
     public ObservableList<Item> getFilteredItemList() {
         return model.getFilteredItemList();
     }

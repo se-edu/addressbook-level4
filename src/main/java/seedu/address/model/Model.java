@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.Ledger;
@@ -37,7 +38,6 @@ public interface Model {
     boolean hasLedger(Ledger ledger);
 
     /**
-<<<<<<< HEAD
      * Returns true if an item with the same name as (@code item) exists in the club book
      */
     boolean hasItem(Item item);
@@ -45,10 +45,8 @@ public interface Model {
     /**
      * Deletes the given person.
      * The person must exist in the address book.
-=======
      * Deletes the given member.
      * The member must exist in the address book.
->>>>>>> 6d442c15430894643b47f1e74494bacc233900f3
      */
     void deletePerson(Person target);
 
@@ -109,6 +107,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered ledger list */
     ObservableList<Ledger> getFilteredLedgerList();
 
+    /** Returns an unmodifiable view of the filtered ledger set */
+    ObservableSet<Ledger> getFilteredLedgerSet();
     /** Returns an unmodifiable view of the filtered item list */
     ObservableList<Item> getFilteredItemList();
 

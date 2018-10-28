@@ -25,9 +25,9 @@ public class DebitCommand extends Command {
 
     public static final String MESSAGE_DEBIT_ACCOUNT_SUCCESS = "New amount: %1$s";
 
-    private final DateLedger dateLedger;
+    private DateLedger dateLedger;
 
-    private final Double toSub;
+    private Double toSub;
 
     public DebitCommand (DateLedger date, Double amount) {
         requireNonNull(date);
@@ -45,13 +45,24 @@ public class DebitCommand extends Command {
         Ledger ledgerToEdit = new Ledger(dateLedger, new Account(toSub));
         Ledger editedLedger;
 
-        for (int i = 0; i < lastShownList.size(); i++) {
-            Ledger compare = lastShownList.get(i);
-            if (compare.getDateLedger() == dateLedger){
-                ledgerToEdit = compare;
-            } else {
-                throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);
+        boolean k = false;
+
+        for (Ledger i : lastShownList) {
+
+            k = false;
+
+            if (i.getDateLedger().getDate().equals(dateLedger.getDate())){
+
+                ledgerToEdit = i;
+                k = true;
+                break;
+
             }
+
+        }
+
+        if (!k) {
+            throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);
         }
 
         ledgerToEdit.getAccount().debit(toSub);

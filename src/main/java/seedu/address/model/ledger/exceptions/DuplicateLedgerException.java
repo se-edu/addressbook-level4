@@ -6,6 +6,6 @@ package seedu.address.model.ledger.exceptions;
  */
 public class DuplicateLedgerException extends RuntimeException {
     public DuplicateLedgerException() {
-        super("Operation would result in duplicate persons");
+        super("Operation would result in duplicate ledgers");
     }
 }
