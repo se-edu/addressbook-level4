@@ -40,7 +40,7 @@ public class ItemCard extends UiPart<Region> {
         this.item = item;
         id.setText(displayedIndex + ". ");
         itemName.setText(item.getItemName().fullItemName);
-        itemQuantity.setText(String.valueOf(item.getItemQuantity().itemQuantity));
+        itemQuantity.setText("Quantity: " + String.valueOf(item.getItemQuantity().itemQuantity));
     }
 
     @Override
