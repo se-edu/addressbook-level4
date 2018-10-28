@@ -215,6 +215,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableSet<Ledger> getLedgerSet() {
         return ledgers.asUnmodifiableObservableSet();
+
+    }
+
     @Override
     public ObservableList<Item> getItemList() {
         return items.asUnmodifiableObservableList();
