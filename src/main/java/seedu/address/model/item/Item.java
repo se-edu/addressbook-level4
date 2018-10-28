@@ -66,4 +66,12 @@ public class Item {
         return otherItem.getItemName().equals(getItemName());
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getItemName())
+                .append(" ItemQuantity: ")
+                .append(getItemQuantity());
+        return builder.toString();
+    }
 }
