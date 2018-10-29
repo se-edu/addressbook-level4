@@ -138,6 +138,7 @@ public interface Model {
      */
     void commitTranscript();
 
+    //@@author jeremiah-ang
     /**
      * Get the cap goal of the current transcript
      */
@@ -152,6 +153,20 @@ public interface Model {
      * Returns the CAP based on the current Transcript records
      */
     double getCap();
+
+    /**
+     * Returns an unmodifiable view of list of modules that have completed
+     * @return completed module list
+     */
+    ObservableList<Module> getCompletedModuleList();
+
+    /**
+     * Returns an unmodifiable view of list of modules that have yet been completed
+     * @return incomplete module list
+     */
+    ObservableList<Module> getIncompleteModuleList();
+
+    //@@author
 
     /** Returns the AddressBook TODO: REMOVE*/
     ReadOnlyAddressBook getAddressBook();
