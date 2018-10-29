@@ -50,12 +50,9 @@ public class SampleDataTest extends AddressBookSystemTest {
     //assertListMatching(getPersonListPanel(), expectedList);
     //}
 
-    /**
-     * TODO: REMOVE
-     */
-    //@Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Module[] expectedList = SampleDataUtil.getSampleModules();
-        assertListMatching(getModuleListPanel(), expectedList);
+    public void transcript_dataFileDoesNotExist_loadSampleData() {
+        Module[] expectedModule = SampleDataUtil.getSampleModules();
+        assertListMatching(getModuleListPanel(), expectedModule);
     }
+
 }
