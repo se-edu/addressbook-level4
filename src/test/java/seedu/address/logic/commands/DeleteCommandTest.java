@@ -68,7 +68,8 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
-    @Test
+    //TODO: REMOVE TESTS AS INDEX ISN'T USED IN CAPGOAL APP
+    /*@Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
@@ -80,6 +81,7 @@ public class DeleteCommandTest {
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+    */
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
