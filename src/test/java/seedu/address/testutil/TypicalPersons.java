@@ -64,13 +64,13 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
+        for (Person person : getTypicalModules()) {
             ab.addPerson(person);
         }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
+    public static List<Person> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

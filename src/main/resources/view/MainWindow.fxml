@@ -12,6 +12,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
@@ -26,16 +28,23 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+          <StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+              <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                  <Menu mnemonicParsing="false" text="File">
+                      <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                      <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                  </Menu>
+              </MenuBar>
+              <HBox spacing="20" alignment="CENTER">
+                  <Label styleClass="cell_appName_label" text="THE CAPGOAL APP " textFill="goldenrod"/>
+              </HBox>
+          </StackPane>
+
+
+          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
@@ -47,6 +56,21 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
+
+          <StackPane VBox.vgrow="NEVER" fx:id="capPanel" styleClass="pane-with-border"
+                     minHeight="50" prefHeight="50" maxHeight="50">
+              <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+              <HBox spacing="20" alignment="CENTER_LEFT">
+                  <Label styleClass="cell_capPanel_title" text="CURRENT CAP: " textFill="goldenrod"/>
+              </HBox>
+              <HBox spacing="20" alignment="CENTER">
+                <Label styleClass="cell_capPanel_title" text="YOUR CAPGOAL: " textFill="goldenrod" />
+              </HBox>
+          </StackPane>
+
+
         <!--<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">-->
         <ScrollPane fx:id="modulesScrollPane" VBox.vgrow="ALWAYS" fitToHeight="true" fitToWidth="true">
         <HBox fx:id="modulesRow">
@@ -54,20 +78,20 @@
           <padding>
             <Insets top="10" right="5" bottom="10" left="5" />
           </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
         <VBox fx:id="personList2" minWidth="300" HBox.hgrow="ALWAYS">
           <padding>
             <Insets top="10" right="5" bottom="10" left="5" />
           </padding>
-          <StackPane fx:id="personListPanelPlaceholder2" VBox.vgrow="ALWAYS"/>
+          <StackPane fx:id="moduleListPanelPlaceholderTwo" VBox.vgrow="ALWAYS"/>
         </VBox>
-        <VBox fx:id="capPanel" minWidth="250">
-          <padding>
-            <Insets top="10" right="5" bottom="10" left="5" />
-          </padding>
-          <StackPane fx:id="capPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <!--<VBox fx:id="capPanel" minWidth="250">-->
+          <!--<padding>-->
+            <!--<Insets top="10" right="5" bottom="10" left="5" />-->
+          <!--</padding>-->
+          <!--<StackPane fx:id="capPanelPlaceholder" VBox.vgrow="ALWAYS"/>-->
+        <!--</VBox>-->
         </HBox>
         </ScrollPane>
         <!--</SplitPane>-->

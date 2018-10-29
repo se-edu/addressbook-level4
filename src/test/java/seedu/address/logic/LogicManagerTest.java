@@ -46,10 +46,18 @@ public class LogicManagerTest {
         assertHistoryCorrect(listCommand);
     }
 
-    @Test
+    //TODO: REMOVE
+    /*@Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredPersonList().remove(0);
+    }
+    */
+
+    @Test
+    public void getFilteredModuleListModifyListThrowsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredModuleList().remove(0);
     }
 
     /**
