@@ -29,4 +29,16 @@ public interface ReadOnlyTranscript {
      * Returns the current CAP of this transcript
      */
     double getCurrentCap();
+
+    /**
+     * Returns an unmodifiable view of list of modules that have completed
+     * @return completed module list
+     */
+    ObservableList<Module> getCompletedModuleList();
+
+    /**
+     * Returns an unmodifiable view of list of modules that have yet been completed
+     * @return incomplete module list
+     */
+    ObservableList<Module> getIncompleteModuleList();
 }

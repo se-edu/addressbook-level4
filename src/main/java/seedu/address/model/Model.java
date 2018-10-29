@@ -156,6 +156,17 @@ public interface Model {
      */
     double getCap();
 
+    /**
+     * Returns an unmodifiable view of list of modules that have completed
+     * @return completed module list
+     */
+    ObservableList<Module> getCompletedModuleList();
+
+    /**
+     * Returns an unmodifiable view of list of modules that have yet been completed
+     * @return incomplete module list
+     */
+    ObservableList<Module> getIncompleteModuleList();
 
     //@@author
 
@@ -230,51 +241,4 @@ public interface Model {
      * TODO: REMOVE
      */
     void commitAddressBook();
-
-    //@@author jeremiah-ang
-    /**
-     * Filters a list of modules with Grade in state COMPLETE
-     * @param modules
-     * @return return filtered list of module
-     */
-    static List<Module> filterModulesWithCompleteGrade(List<Module> modules) {
-        return filterModules(modules, module -> module.getGrade().isComplete());
-    }
-
-    /**
-     * Filters a list of modules with Grade in state TARGET
-     * @param modules
-     * @return return filtered list of module
-     */
-    static List<Module> filterModulesWithTargetGrade(List<Module> modules) {
-        return filterModules(modules, module -> module.getGrade().isTarget());
-    }
-
-    /**
-     * Filters a list of modules with Grade in state ADJUST
-     * @param modules
-     * @return return filtered list of module
-     */
-    static List<Module> filterModulesWithAdjustGrade(List<Module> modules) {
-        return filterModules(modules, module -> module.getGrade().isAdjust());
-    }
-
-    /**
-     * Filters a list of modules with Grade in state INCOMPLETE
-     * @param modules
-     * @return return filtered list of module
-     */
-    static List<Module> filterModulesWithIncompleteGrade(List<Module> modules) {
-        return filterModules(modules, module -> module.getGrade().isIncomplete());
-    }
-
-    /**
-     * Filters a list of modules
-     * @param modules
-     * @param predicate
-     * @return filtered list of module
-     */
-    static List<Module> filterModules(List<Module> modules, Predicate<Module> predicate) {
-        return modules.stream().filter(predicate).collect(Collectors.toList());
-    }
 }

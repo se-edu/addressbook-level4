@@ -310,6 +310,16 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedTranscript.getCurrentCap();
     }
 
+    @Override
+    public ObservableList<Module> getCompletedModuleList() {
+        return versionedTranscript.getCompletedModuleList();
+    }
+
+    @Override
+    public ObservableList<Module> getIncompleteModuleList() {
+        return versionedTranscript.getIncompleteModuleList();
+    }
+
     //@@author alexkmj
     @Override
     public boolean equals(Object obj) {
