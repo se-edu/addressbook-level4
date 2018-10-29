@@ -26,11 +26,9 @@ public class AdjustCommandTest {
 
     private Module moduleAbc = TypicalModules.DATA_STRUCTURES;
     private Module moduleAbcDuplicate = TypicalModules.duplicateWithDifferentYear(moduleAbc);
-    private Module moduleDef = TypicalModules.duplicateWithDifferentCode(moduleAbc);
+    private Module moduleDef = TypicalModules.DISCRETE_MATH;
     private Module moduleAdjustedAbc = TypicalModules.duplicateWithGradesAdjusted(moduleAbc);
-    private Module moduleNotInTranscript = TypicalModules.duplicateWithGradesAdjusted(
-            TypicalModules.duplicateWithDifferentCode(
-                    TypicalModules.duplicateWithDifferentSemester(moduleDef)));
+    private Module moduleNotInTranscript = TypicalModules.DATABASE_SYSTEMS;
 
     @Test
     public void constructorNullModuleThrowsNullPointerException() {

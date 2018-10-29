@@ -67,50 +67,7 @@ public class TypicalModules {
             .withGrade("A+")
             .build();
 
-    /**
-     * Duplicates Module with a different Code
-     * @param module
-     * @return Module with different Code
-     */
-    public static Module duplicateWithDifferentCode(Module module) {
-        Code option1 = new Code("ABC");
-        Code option2 = new Code("DEF");
-        Code target = (option1.equals(module.getCode())) ? option2 : option1;
-        return duplicateWithDifferentCode(module, target);
-    }
-
-    /**
-     * Duplicates Module with different Code
-     * @param module
-     * @param code
-     * @return Module with different Code
-     */
-    public static Module duplicateWithDifferentCode(Module module, Code code) {
-        return new ModuleBuilder(module).withCode(code.value).build();
-    }
-
-    /**
-     * Duplicates Module with different Semester
-     * @param module
-     * @return Module with different Semester
-     */
-    public static Module duplicateWithDifferentSemester(Module module) {
-        Semester option1 = new Semester("1");
-        Semester option2 = new Semester("2");
-        Semester target = (option1.equals(module.getSemester())) ? option2 : option1;
-        return duplicateWithDifferentSemester(module, target);
-    }
-
-    /**
-     * Duplicates Module with different Semester
-     * @param module
-     * @param semester
-     * @return Module with different Semester
-     */
-    public static Module duplicateWithDifferentSemester(Module module, Semester semester) {
-        return new ModuleBuilder(module).withSemester(semester.value).build();
-    }
-
+    //@@author jeremiah-ang
     /**
      * Duplicates Module with different Year
      * @param module
@@ -136,7 +93,7 @@ public class TypicalModules {
     public static Module duplicateWithGradesAdjusted(Module module) {
         return module.adjustGrade(module.getGrade());
     }
-
+    //@@ author
 
     /**
      * Prevents instantiation
