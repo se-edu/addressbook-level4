@@ -7,10 +7,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.AdjustCommand;
-import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.Semester;
-import seedu.address.model.util.ModuleBuilder;
+import seedu.address.testutil.TypicalModules;
 
 public class AdjustCommandParserTest {
 
@@ -18,41 +16,35 @@ public class AdjustCommandParserTest {
 
     @Test
     public void parseValidCommandSuccess() {
-        assertAdjustParseFullArgumentSuccess("CS4234", Semester.SEMESTER_ONE, "1", "A");
-        assertAdjustParseCodeOnlySuccess("CS4234", "A");
+        Module adjustedModule = TypicalModules.duplicateWithGradesAdjusted(TypicalModules.DATA_STRUCTURES);
+        assertAdjustParseFullArgumentSuccess(adjustedModule);
+        assertAdjustParseCodeOnlySuccess(adjustedModule);
     }
 
     /**
      * Asserts that parse will be successful given all valid parameters
-     * @param expectedCode
-     * @param expectedSem
-     * @param expectedYear
-     * @param expectedGrade
+     * @param expectedModule
      */
-    private void assertAdjustParseFullArgumentSuccess(
-            String expectedCode, String expectedSem, String expectedYear, String expectedGrade) {
-        String userInput = expectedCode + " " + expectedYear + " " + expectedSem + " " + expectedGrade;
-        Grade expectedAdjustedGrade = new Grade().adjustGrade(expectedGrade);
-        Module expectedModule = new ModuleBuilder()
-                .withCode(expectedCode).withYear(Integer.parseInt(expectedYear)).withSemester(expectedSem).build();
+    private void assertAdjustParseFullArgumentSuccess(Module expectedModule) {
+        String userInput = expectedModule.getCode().value
+                + " " + expectedModule.getYear().value
+                + " " + expectedModule.getSemester().value
+                + " " + expectedModule.getGrade().value;
         AdjustCommand expectedCommand = new AdjustCommand(
                 expectedModule.getCode(), expectedModule.getYear(),
-                expectedModule.getSemester(), expectedAdjustedGrade);
+                expectedModule.getSemester(), expectedModule.getGrade());
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     /**
      * Asserts that parse will be successful given code only
-     * @param expectedCode
-     * @param expectedGrade
+     * @param expectedModule
      */
-    private void assertAdjustParseCodeOnlySuccess(String expectedCode, String expectedGrade) {
-        String userInput = expectedCode + " " + expectedGrade;
-        Grade expectedAdjustedGrade = new Grade().adjustGrade(expectedGrade);
-        Module expectedModule = new ModuleBuilder()
-                .withCode(expectedCode).build();
+    private void assertAdjustParseCodeOnlySuccess(Module expectedModule) {
+        String userInput = expectedModule.getCode().value
+                + " " + expectedModule.getGrade().value;
         AdjustCommand expectedCommand = new AdjustCommand(
-                expectedModule.getCode(), null, null, expectedAdjustedGrade);
+                expectedModule.getCode(), null, null, expectedModule.getGrade());
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

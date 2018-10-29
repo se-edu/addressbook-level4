@@ -13,10 +13,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Transcript;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
-import seedu.address.model.util.ModuleBuilder;
+import seedu.address.testutil.TypicalModules;
 
 public class AdjustCommandTest {
 
@@ -25,9 +24,13 @@ public class AdjustCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
-    private Module moduleAbc = new ModuleBuilder().withCode("ABC").withYear(2).noGrade().build();
-    private Module moduleAbcDuplicate = new ModuleBuilder(moduleAbc).withYear(1).build();
-    private Module moduleDef = new ModuleBuilder().withCode("DEF").withYear(1).noGrade().build();
+    private Module moduleAbc = TypicalModules.DATA_STRUCTURES;
+    private Module moduleAbcDuplicate = TypicalModules.duplicateWithDifferentYear(moduleAbc);
+    private Module moduleDef = TypicalModules.duplicateWithDifferentCode(moduleAbc);
+    private Module moduleAdjustedAbc = TypicalModules.duplicateWithGradesAdjusted(moduleAbc);
+    private Module moduleNotInTranscript = TypicalModules.duplicateWithGradesAdjusted(
+            TypicalModules.duplicateWithDifferentCode(
+                    TypicalModules.duplicateWithDifferentSemester(moduleDef)));
 
     @Test
     public void constructorNullModuleThrowsNullPointerException() {
@@ -50,7 +53,7 @@ public class AdjustCommandTest {
      */
     private void assertAdjustInstanceSuccess(Module moduleAbc, Module moduleAbcDuplicate, Module moduleDef) {
         Model model = getSampleModel();
-        Grade expectedGradeAbc = moduleAbc.getGrade().adjustGrade("A");
+        Grade expectedGradeAbc = moduleAdjustedAbc.getGrade();
         Module expectedModuleAbc = new Module(moduleAbc, expectedGradeAbc);
         Transcript expectedTranscript = new Transcript();
         expectedTranscript.addModule(moduleAbcDuplicate);
@@ -58,7 +61,7 @@ public class AdjustCommandTest {
         expectedTranscript.addModule(expectedModuleAbc);
         Model expectedModel = new ModelManager(expectedTranscript, new UserPrefs());
         AdjustCommand adjustCommand = new AdjustCommand(
-                moduleAbc.getCode(), moduleAbc.getYear(), moduleAbc.getSemester(), new Grade().adjustGrade("A"));
+                moduleAbc.getCode(), moduleAbc.getYear(), moduleAbc.getSemester(), expectedGradeAbc);
         String expectedMessage = String.format(AdjustCommand.MESSAGE_SUCCESS, expectedModuleAbc);
         assertCommandSuccess(adjustCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,7 +70,8 @@ public class AdjustCommandTest {
     public void assertAdjustModuleNotExistFailure() throws CommandException {
         Model model = getSampleModel();
         AdjustCommand adjustCommand = new AdjustCommand(
-                new Code("Hij"), moduleAbc.getYear(), moduleAbc.getSemester(), new Grade().adjustGrade("A"));
+                moduleNotInTranscript.getCode(), moduleNotInTranscript.getYear(),
+                moduleNotInTranscript.getSemester(), moduleNotInTranscript.getGrade());
         String expectedMessage = AdjustCommand.MESSAGE_MODULE_NOT_FOUND;
         assertCommandFailure(adjustCommand, model, commandHistory, expectedMessage);
     }
@@ -76,7 +80,7 @@ public class AdjustCommandTest {
     public void assertAdjustCodeOnlyMultipleInstanceFailure() {
         Model model = getSampleModel();
         AdjustCommand adjustCommand = new AdjustCommand(
-                new Code("ABC"), null, null, new Grade().adjustGrade("A"));
+                moduleAbc.getCode(), null, null, moduleAdjustedAbc.getGrade());
         String expectedMessage = AdjustCommand.MESSAGE_MULTIPLE_INSTANCE;
         assertCommandFailure(adjustCommand, model, commandHistory, expectedMessage);
     }

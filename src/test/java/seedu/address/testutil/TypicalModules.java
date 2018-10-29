@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.Transcript;
+import seedu.address.model.module.*;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.Semester;
 import seedu.address.model.util.ModuleBuilder;
 
 //@@author alexkmj
@@ -66,6 +66,77 @@ public class TypicalModules {
             .withCredit(2)
             .withGrade("A+")
             .build();
+
+    /**
+     * Duplicates Module with a different Code
+     * @param module
+     * @return Module with different Code
+     */
+    public static Module duplicateWithDifferentCode(Module module) {
+        Code option1 = new Code("ABC");
+        Code option2 = new Code("DEF");
+        Code target = (option1.equals(module.getCode())) ? option2 : option1;
+        return duplicateWithDifferentCode(module, target);
+    }
+
+    /**
+     * Duplicates Module with different Code
+     * @param module
+     * @param code
+     * @return Module with different Code
+     */
+    public static Module duplicateWithDifferentCode(Module module, Code code) {
+        return new ModuleBuilder(module).withCode(code.value).build();
+    }
+
+    /**
+     * Duplicates Module with different Semester
+     * @param module
+     * @return Module with different Semester
+     */
+    public static Module duplicateWithDifferentSemester(Module module) {
+        Semester option1 = new Semester("1");
+        Semester option2 = new Semester("2");
+        Semester target = (option1.equals(module.getSemester())) ? option2 : option1;
+        return duplicateWithDifferentSemester(module, target);
+    }
+
+    /**
+     * Duplicates Module with different Semester
+     * @param module
+     * @param semester
+     * @return Module with different Semester
+     */
+    public static Module duplicateWithDifferentSemester(Module module, Semester semester) {
+        return new ModuleBuilder(module).withSemester(semester.value).build();
+    }
+
+    /**
+     * Duplicates Module with different Year
+     * @param module
+     * @return Module with different Year
+     */
+    public static Module duplicateWithDifferentYear(Module module) {
+        Year option1 = new Year(1);
+        Year option2 = new Year(2);
+        Year target = (option1.equals(module.getYear())) ? option2 : option1;
+        return duplicateWithDifferentYear(module, target);
+    }
+
+    /**
+     * Duplicates Module with different Year
+     * @param module
+     * @param year
+     * @return Module with different Year
+     */
+    public static Module duplicateWithDifferentYear(Module module, Year year) {
+        return new ModuleBuilder(module).withYear(year.value).build();
+    }
+
+    public static Module duplicateWithGradesAdjusted(Module module) {
+        return module.adjustGrade(module.getGrade());
+    }
+
 
     /**
      * Prevents instantiation
