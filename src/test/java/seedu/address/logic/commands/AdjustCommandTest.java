@@ -24,10 +24,10 @@ public class AdjustCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
-    private Module moduleAbc = TypicalModules.DATA_STRUCTURES;
-    private Module moduleAbcDuplicate = TypicalModules.duplicateWithDifferentYear(moduleAbc);
-    private Module moduleDef = TypicalModules.DISCRETE_MATH;
-    private Module moduleAdjustedAbc = TypicalModules.duplicateWithGradesAdjusted(moduleAbc);
+    private Module moduleA = TypicalModules.DATA_STRUCTURES;
+    private Module moduleADiffYear = TypicalModules.duplicateWithDifferentYear(moduleA);
+    private Module moduleB = TypicalModules.DISCRETE_MATH;
+    private Module moduleAAdjusted = TypicalModules.duplicateWithGradesAdjusted(moduleA);
     private Module moduleNotInTranscript = TypicalModules.DATABASE_SYSTEMS;
 
     @Test
@@ -38,12 +38,12 @@ public class AdjustCommandTest {
 
     @Test
     public void assertAdjustMultipleInstanceSuccess() {
-        assertAdjustInstanceSuccess(moduleAbc, moduleAbcDuplicate, moduleDef);
+        assertAdjustInstanceSuccess(moduleA, moduleADiffYear, moduleB);
     }
 
     @Test
     public void assertAdjustSingleInstanceSuccess() {
-        assertAdjustInstanceSuccess(moduleDef, moduleAbc, moduleAbcDuplicate);
+        assertAdjustInstanceSuccess(moduleB, moduleA, moduleADiffYear);
     }
 
     /**
@@ -51,7 +51,7 @@ public class AdjustCommandTest {
      */
     private void assertAdjustInstanceSuccess(Module moduleAbc, Module moduleAbcDuplicate, Module moduleDef) {
         Model model = getSampleModel();
-        Grade expectedGradeAbc = moduleAdjustedAbc.getGrade();
+        Grade expectedGradeAbc = moduleAAdjusted.getGrade();
         Module expectedModuleAbc = new Module(moduleAbc, expectedGradeAbc);
         Transcript expectedTranscript = new Transcript();
         expectedTranscript.addModule(moduleAbcDuplicate);
@@ -78,7 +78,7 @@ public class AdjustCommandTest {
     public void assertAdjustCodeOnlyMultipleInstanceFailure() {
         Model model = getSampleModel();
         AdjustCommand adjustCommand = new AdjustCommand(
-                moduleAbc.getCode(), null, null, moduleAdjustedAbc.getGrade());
+                moduleA.getCode(), null, null, moduleAAdjusted.getGrade());
         String expectedMessage = AdjustCommand.MESSAGE_MULTIPLE_INSTANCE;
         assertCommandFailure(adjustCommand, model, commandHistory, expectedMessage);
     }
@@ -89,9 +89,9 @@ public class AdjustCommandTest {
      */
     private Model getSampleModel() {
         Model model = new ModelManager(new Transcript(), new UserPrefs());
-        model.addModule(moduleAbc);
-        model.addModule(moduleAbcDuplicate);
-        model.addModule(moduleDef);
+        model.addModule(moduleA);
+        model.addModule(moduleADiffYear);
+        model.addModule(moduleB);
         return model;
     }
 }
