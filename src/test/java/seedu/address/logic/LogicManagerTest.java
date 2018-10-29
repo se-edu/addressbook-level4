@@ -129,4 +129,17 @@ public class LogicManagerTest {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }
+
+    //@@author jeremiah-ang
+    @Test
+    public void getCompletedModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getCompletedModuleList().remove(0);
+    }
+
+    @Test
+    public void getIncompleteModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getIncompleteModuleList().remove(0);
+    }
 }

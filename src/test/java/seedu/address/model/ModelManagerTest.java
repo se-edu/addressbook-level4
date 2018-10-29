@@ -51,48 +51,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCompletedModuleListModifyThrowsException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getCompletedModuleList().remove(0);
-    }
-
-    @Test
-    public void getCompletedModuleListAllCompleted() {
-        Module completed = TypicalModules.DATA_STRUCTURES;
-        Module incomplete = new ModuleBuilder(TypicalModules.DISCRETE_MATH).noGrade().build();
-        modelManager.addModule(completed);
-        modelManager.addModule(incomplete);
-        ObservableList<Module> completedModules = modelManager.getCompletedModuleList();
-        boolean isAllCompleted = true;
-        for (Module module : completedModules) {
-            isAllCompleted = isAllCompleted && module.hasCompleted();
-        }
-
-        assertTrue(isAllCompleted);
-    }
-
-    @Test
-    public void getIncompleteModuleListAllIncomplete() {
-        Module completed = TypicalModules.DATA_STRUCTURES;
-        Module incomplete = new ModuleBuilder(TypicalModules.DISCRETE_MATH).noGrade().build();
-        modelManager.addModule(completed);
-        modelManager.addModule(incomplete);
-        ObservableList<Module> completedModules = modelManager.getIncompleteModuleList();
-        boolean isAllCompleted = false;
-        for (Module module : completedModules) {
-            isAllCompleted = isAllCompleted || module.hasCompleted();
-        }
-
-        assertFalse(isAllCompleted);
-    }
-
-    @Test
-    public void getIncompleteModuleListModifyThrowsException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getIncompleteModuleList().remove(0);
-    }
-
-    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
@@ -127,5 +85,48 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    //@@author jeremiah-ang
+    @Test
+    public void getCompletedModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getCompletedModuleList().remove(0);
+    }
+
+    @Test
+    public void getIncompleteModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getIncompleteModuleList().remove(0);
+    }
+
+    @Test
+    public void getCompletedModuleListAllCompleted() {
+        Module completed = TypicalModules.DATA_STRUCTURES;
+        Module incomplete = new ModuleBuilder(TypicalModules.DISCRETE_MATH).noGrade().build();
+        modelManager.addModule(completed);
+        modelManager.addModule(incomplete);
+        ObservableList<Module> completedModules = modelManager.getCompletedModuleList();
+        boolean isAllCompleted = true;
+        for (Module module : completedModules) {
+            isAllCompleted = isAllCompleted && module.hasCompleted();
+        }
+
+        assertTrue(isAllCompleted);
+    }
+
+    @Test
+    public void getIncompleteModuleListAllIncomplete() {
+        Module completed = TypicalModules.DATA_STRUCTURES;
+        Module incomplete = new ModuleBuilder(TypicalModules.DISCRETE_MATH).noGrade().build();
+        modelManager.addModule(completed);
+        modelManager.addModule(incomplete);
+        ObservableList<Module> completedModules = modelManager.getIncompleteModuleList();
+        boolean isAllCompleted = false;
+        for (Module module : completedModules) {
+            isAllCompleted = isAllCompleted || module.hasCompleted();
+        }
+
+        assertFalse(isAllCompleted);
     }
 }
