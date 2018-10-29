@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -106,12 +107,25 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author alexkmj
     @Override
+    public boolean hasMultipleInstances(Code code) {
+        requireNonNull(code);
+        return versionedTranscript.hasMultipleInstances(code);
+    }
+
+    //@@author alexkmj
+    @Override
     public void deleteModule(Module target) {
         versionedTranscript.removeModule(target);
         indicateTranscriptChanged();
     }
 
     //@@author alexkmj
+    @Override
+    public void deleteModule(Predicate<Module> predicate) {
+        versionedTranscript.removeModule(predicate);
+        indicateTranscriptChanged();
+    }
+
     @Override
     public void addModule(Module module) {
         versionedTranscript.addModule(module);
@@ -293,7 +307,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jeremiah-ang
     @Override
     public double getCap() {
-        return versionedTranscript.getCap();
+        return versionedTranscript.getCurrentCap();
     }
 
     //@@author alexkmj

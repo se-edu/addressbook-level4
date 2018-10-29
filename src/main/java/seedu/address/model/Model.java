@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -50,6 +51,12 @@ public interface Model {
 
     //@@author alexkmj
     /**
+     * Returns true if the list contains multiple instances of module with the given code.
+     */
+    boolean hasMultipleInstances(Code code);
+
+    //@@author alexkmj
+    /**
      * Deletes the given module.
      * <p>
      * The module must exist in the transcript.
@@ -59,6 +66,15 @@ public interface Model {
     void deleteModule(Module target);
 
     //@@author alexkmj
+    /**
+     * Deletes the given module.
+     * <p>
+     * The module must exist in the transcript.
+     *
+     * @param predicate predicate used to filter the modules to be deleted
+     */
+    void deleteModule(Predicate<Module> predicate);
+
     /**
      * Adds the given module.
      * <p>

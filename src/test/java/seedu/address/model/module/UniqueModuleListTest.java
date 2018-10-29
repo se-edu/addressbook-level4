@@ -19,7 +19,6 @@ import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
-//@@author alexkmj
 public class UniqueModuleListTest {
 
     @Rule
@@ -42,6 +41,21 @@ public class UniqueModuleListTest {
     public void containsModuleInListReturnsTrue() {
         uniqueModuleList.add(DATA_STRUCTURES);
         assertTrue(uniqueModuleList.contains(DATA_STRUCTURES));
+    }
+
+    @Test
+    public void hasMultipleInstancesReturnsFalse() {
+        assertFalse(uniqueModuleList.hasMultipleInstances(DATA_STRUCTURES.getCode()));
+    }
+
+    @Test
+    public void hasMultipleInstancesReturnsTrue() {
+        Module sameModuleDifferentYear = new ModuleBuilder(DATA_STRUCTURES)
+                .withYear(DATA_STRUCTURES.getYear().value + 1)
+                .build();
+        uniqueModuleList.add(sameModuleDifferentYear);
+        assertFalse(uniqueModuleList.hasMultipleInstances(DATA_STRUCTURES.getCode()));
+        uniqueModuleList.remove(sameModuleDifferentYear);
     }
 
     @Test
@@ -88,7 +102,7 @@ public class UniqueModuleListTest {
     public void setModuleEditedModuleHasSameIdentitySuccess() {
         uniqueModuleList.add(DATA_STRUCTURES);
         Module editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
-                .withCode(DISCRETE_MATH.getCode().value)
+                .withYear(DISCRETE_MATH.getYear().value)
                 .build();
         uniqueModuleList.setModule(DATA_STRUCTURES, editedDataStructures);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();
@@ -99,6 +113,9 @@ public class UniqueModuleListTest {
     @Test
     public void setModuleEditedModuleHasDifferentIdentitySuccess() {
         uniqueModuleList.add(DATA_STRUCTURES);
+        Module editedDataStructures = new ModuleBuilder(DATA_STRUCTURES)
+                .withCode(DISCRETE_MATH.getCode().value)
+                .build();
         uniqueModuleList.setModule(DATA_STRUCTURES, DISCRETE_MATH);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();
         expectedUniqueModuleList.add(DISCRETE_MATH);
@@ -116,7 +133,7 @@ public class UniqueModuleListTest {
     @Test
     public void removeNullModuleThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueModuleList.remove(null);
+        uniqueModuleList.remove((Module) null);
     }
 
     @Test

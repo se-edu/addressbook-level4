@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<?import javafx.scene.text.Text?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+
+            <HBox spacing="0" alignment="CENTER_LEFT">
+                <Label fx:id="id" styleClass="cell_title_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="code" text="\$code" styleClass="cell_title_label" />
+            </HBox>
+
+            <StackPane>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label styleClass="cell_small_label" text="CREDITS: "/>
+                    <Label fx:id="credits" styleClass="cell_list_label" text="\$credits" />
+                </HBox>
+                    <Circle fx:id="circle" styleClass="circle_color" fill="rgba(124,240,10,0)" radius="25" ></Circle>
+                    <Label fx:id="grade" styleClass="cell_grade_label" text="\$grade" />
+            </StackPane>
+
+            <FlowPane fx:id="tags" />
+
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label styleClass="cell_small_label" text="SEMESTER: "/>
+                <Label fx:id="semester" styleClass="cell_list_label" text="\$semester" />
+            </HBox>
+
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label styleClass="cell_small_label" text="YEAR: "/>
+                <Label fx:id="year" styleClass="cell_list_label" text="\$year" />
+            </HBox>
+
+
+        </VBox>
+    </GridPane>
+</HBox>
