@@ -3,14 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.VBox?>
+<!-- //@@author jeremyyew-->
 
-
-<VBox fx:id="placeHolder" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" styleClass="cap-panel" alignment="TOP_CENTER"  spacing="15">
+<VBox fx:id="placeHolder" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" styleClass="cap-panel"
+      alignment="TOP_CENTER" spacing="15">
     <padding>
-        <Insets top="15" right="15" bottom="25" left="15" />
+        <Insets top="15" right="15" bottom="25" left="15"/>
     </padding>
     <Text fx:id="currentCapValue" styleClass="cap-value"/>
-    <Text fx:id="currentCapText" styleClass="cap-text"  text="Your CAP"/>
+    <Text fx:id="currentCapText" styleClass="cap-text" text="Your CAP"/>
     <Text fx:id="capGoalValue" styleClass="cap-value"/>
-    <Text fx:id="capGoalText" styleClass="cap-text"  text="CAP Goal" />
+    <Text fx:id="capGoalText" styleClass="cap-text" text="CAP Goal"/>
 </VBox>
