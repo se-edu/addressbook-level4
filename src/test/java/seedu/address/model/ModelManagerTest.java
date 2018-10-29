@@ -9,11 +9,12 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import javafx.collections.ObservableList;
 import org.junit.Rule;
 import org.junit.Test;
+
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.util.ModuleBuilder;
