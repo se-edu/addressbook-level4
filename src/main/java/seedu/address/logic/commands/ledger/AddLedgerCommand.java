@@ -37,23 +37,11 @@ public class AddLedgerCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        logger.info("Printing model internal list from addledgercommand");
-        for (Ledger i : model.getFilteredLedgerList()) {
-            logger.info(i.getDateLedger().getDate());
-        }
         if (model.hasLedger(addLedger)) {
-            logger.info("Has duplicate ledger in model");
             throw new CommandException(MESSAGE_DUPLICATE_LEDGER);
         }
-        logger.info("Adding ledger...");
         model.addLedger(addLedger);
-        logger.info("Added Ledger");
         model.commitAddressBook();
-
-        logger.info("Printing model internal list from addledgercommand after commmit");
-        for (Ledger i : model.getFilteredLedgerList()) {
-            logger.info(i.getDateLedger().getDate());
-        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, addLedger));
     }
 

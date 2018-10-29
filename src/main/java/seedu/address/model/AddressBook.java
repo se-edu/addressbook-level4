@@ -67,7 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the ledger list with {@code ledgers}.
      * {@code ledgers} must not contain duplicate ledgers.
      */
-    public void setLedgers(List<Ledger> ledger) {
+    public void setLedgers(List<Ledger> ledgers) {
         this.ledgers.setLedgers(ledgers);
     }
 
@@ -87,6 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setItems(newData.getItemList());
+        setLedgers(newData.getLedgerList());
     }
 
     //// member-level operations
