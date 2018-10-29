@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalModules.MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP;
 import static seedu.address.testutil.TypicalModules.getModulesWithNonGradeAffectingModules;
@@ -11,11 +10,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.util.ModuleBuilder;
 
 //@@author jeremiah-ang
@@ -65,6 +68,85 @@ public class TranscriptTest {
             .withCompleted(false)
             .noGrade()
             .build();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void assertAdjustMultipleSuccess() {
+        List<Module> modules;
+        Transcript transcript;
+        Module targetedModule;
+
+        modules = new ArrayList<>(Arrays.asList(
+                INCOMPLETE_4MC_A,
+                INCOMPLETE_4MC_B,
+                INCOMPLETE_4MC_C
+        ));
+        transcript = new Transcript();
+        transcript.setModules(modules);
+        transcript.setCapGoal(4.0);
+        targetedModule = INCOMPLETE_4MC_A.updateTargetGrade(4.0);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B"));
+
+        assertTargetGradesEquals(transcript, "A- B+");
+        targetedModule = INCOMPLETE_4MC_B.updateTargetGrade(4.5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B"));
+
+        assertTargetGradesEquals(transcript, "A");
+        targetedModule = INCOMPLETE_4MC_B.adjustGrade(new Grade("B"));
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("A"));
+
+        assertTargetGradesEquals(transcript, "B");
+        targetedModule = INCOMPLETE_4MC_B.adjustGrade(new Grade("A"));
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B-"));
+
+        assertTrue(transcript.isCapGoalImpossible());
+        targetedModule = INCOMPLETE_4MC_B.adjustGrade(new Grade("B-"));
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("A"));
+
+        targetedModule = INCOMPLETE_4MC_C.updateTargetGrade(3.5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("A"));
+        assertTargetGradesEquals(transcript, "");
+    }
+
+    @Test
+    public void assertAdjustWithGradedModuleSuccess() {
+        List<Module> modules = new ArrayList<>(Arrays.asList(
+                INCOMPLETE_4MC_A,
+                INCOMPLETE_4MC_B,
+                INCOMPLETE_4MC_C,
+                GRADE_A_4MC_A,
+                GRADE_A_4MC_B
+        ));
+        Transcript transcript = new Transcript();
+        transcript.setModules(modules);
+        transcript.setCapGoal(4.0);
+        Module targetedModule = INCOMPLETE_4MC_A.updateTargetGrade(3.5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B+"));
+        assertTargetGradesEquals(transcript, "B- B-");
+    }
+
+
+    @Test
+    public void assertAdjustCausesNoMoreTargetModuleSuccess() {
+        List<Module> modules = new ArrayList<>(Arrays.asList(GRADE_A_4MC_A, INCOMPLETE_4MC_A));
+        Transcript transcript = new Transcript();
+        transcript.setModules(modules);
+        transcript.setCapGoal(5);
+        Module targetedModule = INCOMPLETE_4MC_A.updateTargetGrade(5);
+        transcript.adjustModule(targetedModule, new Grade().adjustGrade("B+"));
+        assertTrue(transcript.isCapGoalImpossible());
+    }
+
+    @Test
+    public void assertAdjustNotExistModuleFailure() {
+        List<Module> modules = new ArrayList<>(Arrays.asList(GRADE_A_4MC_A, INCOMPLETE_4MC_A));
+        Transcript transcript = new Transcript();
+        transcript.setModules(modules);
+        thrown.expect(ModuleNotFoundException.class);
+        transcript.adjustModule(new ModuleBuilder().withCode("INVALID").build(), new Grade().adjustGrade("B+"));
+    }
 
     @Test
     public void typicalModulesCapScore() {

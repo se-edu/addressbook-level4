@@ -265,10 +265,20 @@ public class Module {
                 .toString();
     }
 
+    public boolean isAdjusted() {
+        return getGrade().isAdjust();
+    }
+
+    public Module adjustGrade(Grade grade) {
+        return new Module(this, grade.adjustGrade(grade.value));
+    }
+
     //@@author alexkmj
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(code, year, semester, credits, grade, completed);
     }
+
+
 }
