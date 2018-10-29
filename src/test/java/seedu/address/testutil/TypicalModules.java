@@ -161,8 +161,8 @@ public class TypicalModules {
      * @return Module with different Year
      */
     public static Module duplicateWithDifferentYear(Module module) {
-        Year option1 = new Year(1);
-        Year option2 = new Year(2);
+        Year option1 = new Year(YEAR_ONE);
+        Year option2 = new Year(YEAR_TWO);
         Year target = (option1.equals(module.getYear())) ? option2 : option1;
         return duplicateWithDifferentYear(module, target);
     }
@@ -177,6 +177,11 @@ public class TypicalModules {
         return new ModuleBuilder(module).withYear(year.value).build();
     }
 
+    /**
+     * Duplicates Module with Grade adjusted
+     * @param module
+     * @return Module with Grade adjusted
+     */
     public static Module duplicateWithGradesAdjusted(Module module) {
         return module.adjustGrade(module.getGrade());
     }
