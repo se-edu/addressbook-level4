@@ -50,7 +50,10 @@ public class SampleDataTest extends AddressBookSystemTest {
     //assertListMatching(getPersonListPanel(), expectedList);
     //}
 
-    public void transcript_dataFileDoesNotExist_loadSampleData() {
+    /**
+     * Tests if the file at {@code filePath} can load sample data.
+     */
+    public void transcriptDataFileDoesNotExistLoadSampleData() {
         Module[] expectedModule = SampleDataUtil.getSampleModules();
         assertListMatching(getModuleListPanel(), expectedModule);
     }

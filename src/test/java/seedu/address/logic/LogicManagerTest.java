@@ -55,7 +55,7 @@ public class LogicManagerTest {
     */
 
     @Test
-    public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredModuleListModifyListThrowsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredModuleList().remove(0);
     }
