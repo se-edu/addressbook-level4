@@ -226,15 +226,16 @@
 
 .cap-text {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 15pt;
-    -fx-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-fill: goldenrod;
 }
 
 .cap-value {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-weight: bold !important;
-    -fx-font-size: 30pt;
-    -fx-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-fill: goldenrod;
 }
 
 

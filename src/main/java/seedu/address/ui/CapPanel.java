@@ -15,6 +15,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
+import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.Transcript;
 import seedu.address.model.capgoal.CapGoal;
 //@@author jeremyyew
@@ -28,24 +29,20 @@ public class CapPanel extends UiPart<Region> {
 
     private final DoubleProperty currentCapDouble = new SimpleDoubleProperty(0);
     private final StringProperty capGoalString = new SimpleStringProperty("NIL");
-
-    @FXML
-    private Text currentCapText;
-    @FXML
-    private Text capGoalText;
+    
     @FXML
     private Text currentCapValue;
     @FXML
     private Text capGoalValue;
 
-    public CapPanel(Transcript transcript) {
+    public CapPanel(ReadOnlyTranscript transcript) {
         super(FXML);
-        currentCapValue.textProperty().bind(Bindings.convert(currentCapDouble));
-        capGoalValue.textProperty().bind(capGoalString);
+//        currentCapValue.textProperty().bind(Bindings.convert(currentCapDouble));
+//        capGoalValue.textProperty().bind(capGoalString);
 
-        Platform.runLater(() -> currentCapDouble.setValue(transcript.getCap()));
-        CapGoal goal = transcript.getCapGoal();
-        Platform.runLater(() -> capGoalString.setValue(goal.isSet ? String.valueOf(goal.capGoal) : "NIL"));
+//        Platform.runLater(() -> currentCapDouble.setValue(transcript.getCurrentCap()));
+//        CapGoal goal = transcript.getCapGoal();
+//        Platform.runLater(() -> capGoalString.setValue(goal.isSet() ? String.valueOf(goal.getValue()) : "NIL"));
         registerAsAnEventHandler(this);
     }
 
@@ -53,14 +50,10 @@ public class CapPanel extends UiPart<Region> {
     public void handleTranscriptChangedEvent(TranscriptChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
                 "Local transcript data changed, obtaining new cap and cap goal"));
-        try {
-            Transcript transcript = (Transcript) event.data;
-            Platform.runLater(() -> currentCapDouble.setValue(transcript.getCap()));
-            CapGoal goal = transcript.getCapGoal();
-            Platform.runLater(() -> capGoalString.setValue(goal.isSet ? String.valueOf(goal.capGoal) : "NIL"));
-        } catch (Exception e) {
-            logger.info("Error trying to obtain new cap and cap goal:" + e);
-        }
+            ReadOnlyTranscript transcript = event.data;
+//            Platform.runLater(() -> currentCapDouble.setValue(transcript.getCurrentCap()));
+//            CapGoal goal = transcript.getCapGoal();
+//            Platform.runLater(() -> capGoalString.setValue(goal.isSet() ? String.valueOf(goal.getValue()) : "NIL"));
     }
 
 }

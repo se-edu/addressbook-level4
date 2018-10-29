@@ -200,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        //browserPanel.freeResources();
+        // browserPanel.freeResources();
     }
 
     @Subscribe
