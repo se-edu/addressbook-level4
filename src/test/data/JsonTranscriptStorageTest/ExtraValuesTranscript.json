@@ -1,0 +1,82 @@
+{
+  "modules": {
+    "extraValue": "ignore this",
+    "internalList": [
+      {
+        "code": {
+          "value": "CS2102",
+          "extraValue": "ignore this"
+        },
+        "extraValue": "ignore this",
+        "year": {
+          "value": 2
+        },
+        "semester": {
+          "value": "1"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "A+"
+        },
+        "completed": true
+      },
+      {
+        "code": {
+          "value": "CS1231"
+        },
+        "year": {
+          "value": 1
+        },
+        "semester": {
+          "value": "1"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "A+"
+        },
+        "completed": true
+      },
+      {
+        "code": {
+          "value": "CS2103"
+        },
+        "year": {
+          "value": 3
+        },
+        "semester": {
+          "value": "1"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "A+"
+        },
+        "completed": true
+      },
+      {
+        "code": {
+          "value": "CS2030"
+        },
+        "year": {
+          "value": 2
+        },
+        "semester": {
+          "value": "2"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "B"
+        },
+        "completed": true
+      }
+    ]
+  },
+  "extraValue": "ignore this"
+}

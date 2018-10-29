@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTranscript;
+import seedu.address.model.Transcript;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -17,10 +21,64 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
+
+    public static final Module DISCRETE_MATH = new ModuleBuilder().withCode("CS1231")
+        .withYear(1)
+        .withSemester(Semester.SEMESTER_ONE)
+        .withCredit(4)
+        .withGrade("A+")
+        .build();
+
+    public static final Module PROGRAMMING_METHODOLOGY_TWO = new ModuleBuilder().withCode("CS2030")
+        .withYear(2)
+        .withSemester(Semester.SEMESTER_TWO)
+        .withCredit(4)
+        .withGrade("B+")
+        .build();
+
+    public static final Module DATA_STRUCTURES = new ModuleBuilder().withCode("CS2040")
+        .withYear(3)
+        .withSemester(Semester.SEMESTER_SPECIAL_ONE)
+        .withCredit(4)
+        .withGrade("F")
+        .build();
+
+    public static final Module ASKING_QUESTIONS = new ModuleBuilder().withCode("GEQ1000")
+        .withYear(1)
+        .withSemester(Semester.SEMESTER_ONE)
+        .withCredit(4)
+        .withGrade("CS")
+        .build();
+
+    public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
+
+    public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
+        .withYear(3)
+        .withSemester(Semester.SEMESTER_ONE)
+        .withCredit(4)
+        .withGrade("A+")
+        .build();
+
+    public static final Module DATABASE_SYSTEMS = new ModuleBuilder().withCode("CS2102")
+        .withYear(2)
+        .withSemester(Semester.SEMESTER_ONE)
+        .withCredit(4)
+        .withGrade("A+")
+        .build();
+
+    public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder().withCode("CS2102B")
+        .withYear(2)
+        .withSemester(Semester.SEMESTER_ONE)
+        .withCredit(2)
+        .withGrade("A+")
+        .build();
+
+
     public static Person[] getSamplePersons() {
-        return new Person[] {
+        return new Person[]{
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
+                new Address("Blk 30 GePersonylang Street 29, #06-40"),
                 getTagSet("friends")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
@@ -49,12 +107,34 @@ public class SampleDataUtil {
     }
 
     /**
+     * Returns an {@code Transcript} given modules as arguments.
+     */
+    public static ReadOnlyTranscript getTranscriptWithModules(Module... modules) {
+        Transcript tr = new Transcript();
+        for (Module module : modules) {
+            tr.addModule(module);
+        }
+        return tr;
+    }
+
+    public static ReadOnlyTranscript getSampleTranscript() {
+        return getTranscriptWithModules(
+            DISCRETE_MATH,
+            PROGRAMMING_METHODOLOGY_TWO,
+            DATA_STRUCTURES,
+            ASKING_QUESTIONS,
+            SOFTWARE_ENGINEERING,
+            DATABASE_SYSTEMS,
+            DATABASE_SYSTEMS_2MC);
+    }
+
+    /**
      * Returns a tag set containing the list of strings given.
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
+            .map(Tag::new)
+            .collect(Collectors.toSet());
     }
 
 }

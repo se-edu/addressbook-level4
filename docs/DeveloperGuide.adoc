@@ -201,21 +201,17 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram_Transcript.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Transcript data.
+* exposes an unmodifiable `ObservableList<Module>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+* provides filter function to filter `Module` with different kind of `Grade`
 
 [[Design-Storage]]
 === Storage component
@@ -536,7 +532,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [appendix]
 == Target User Profile
-- A NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
+- An NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
 - Prefer desktop apps over other types.
 - Can type fast.
 - Prefers typing over mouse input.
@@ -560,31 +556,30 @@ module I can re-calculate my average.
 or failed it, I can remove it.
 4.  As a user I can edit the marks I’ve entered previously so that I can
 update my CAP.
-5.  As a user, I can enter in a CAP goal so I can track my progress in
-my modules.
-6.  As a user, I can enter a CAP goal so that I can keep track of the
+5.  As a user, I can enter a CAP goal so that I can keep track of the
 progress of my course
-7.  As a user, I can calculate the average mark I need across the
+6.  As a user, I can calculate the average mark I need across the
 modules I’ve entered so I can see what mark I need for each module to
 achieve my CAP goal. +
-8.  As a user, I can enter in predicted grades for modules so I can see
+7.  As a user, I can enter in predicted grades for modules so I can see
 what CAP I would get if I got these grades in my modules.
-9.  As a user, I can close the app and return to modify my entries so I
+8.  As a user, I can close the app and return to modify my entries so I
 can enter my entries incrementally.
 
 *Nice-To-Have*
 
-9. As a user, I can add a module without having to add the code, MCs, or semester taken so that I can quickly calculate CAP without worrying about the modules.
-10. As a user, I can still enter the same modules but get warned first so that I would not mistakenly enter the same module again
-11. As a user, I can import all modules for this semester with NUSMods link so that my data can be consistent with NUSMods.
-12. As a user I can search for a module via keyword or module title, and select it for entering my grade so that I don’t have to remember the module code.
-13. As a user, I can adjust what marks I need for each module to achieve my CAP so I can put more emphasis on certain modules instead of expecting the same grade across all modules.
-14. As a user, I can view my current semester’s module goals and use a GUI to adjust projected grade for each module, and other modules will automatically adjust to compensate, so that I can see easily modify my data to see what grades I need for other modules.
-15. As a user, I can view total current MCs so that i can check if I meet the number of mc I need to graduate
-16. As a user I can see if my CAP Goal is possible so I can check whether it is achievable.
-17. As a user, I can list modules taken by level as an alternative listing mode, so that it is easier to track graduation requirements.
-18. As a user, I can see what the highest possible CAP I can achieve with my current grades is so that I can set an appropriate goal.
-19. As a user, I can see what the minimum grades I need per module is to pass the year with my current grades so that I can see what the minimum about of work I need to do is.
+1. As a user, I can add a module without having to add the code, MCs, or semester taken so that I can quickly calculate CAP without worrying about the modules.
+2. As a user, I can still enter the same modules but get warned first so that I would not mistakenly enter the same module again
+3. As a user, I can import all modules for this semester with NUSMods link so that my data can be consistent with NUSMods.
+4. As a user I can search for a module via keyword or module title, and select it for entering my grade so that I don’t have to remember the module code.
+5. As a user, I can adjust what marks I need for each module to achieve my CAP so I can put more emphasis on certain modules instead of expecting the same grade across all modules.
+6. As a user, I can view my current semester’s module goals and use a GUI to adjust projected grade for each module, and other modules will automatically adjust to compensate, so that I can see easily modify my data to see what grades I need for other modules.
+7. As a user, I can view total current MCs so that i can check if I meet the number of mc I need to graduate
+8. As a user I can see if my CAP Goal is possible so I can check whether it is achievable.
+9. As a user, I can list modules taken by level as an alternative listing mode, so that it is easier to track graduation requirements.
+10. As a user, I can see what the highest possible CAP I can achieve with my current grades is so that I can set an appropriate goal.
+11. As a user, I can see what the minimum grades I need per module is to pass the year with my current grades so that I can see what the minimum about of work I need to do is.
+
 
 *Not-Useful*
 
@@ -595,27 +590,88 @@ can enter my entries incrementally.
 [appendix]
 == Use Cases
 
-=== Use case: Calculate predicted CAP
-  . User enters all modules - modules with grades (previous or target), modules without grades (unknown).
-  . System immediately displays confirmation and current CAP.
+=== Use case: [UC1] Calculating current CAP
 
-=== Use case:  View grades needed to achieve CAP goal (based on previous grades)
-  . Use-Case-B.1.
-  . User enters CAP goal.
-  . User requests for target grade.
-  .. **V1.0:**
-  ... System displays target grades for each module (numeric).
-  .. **V2.0:**
-  ... System displays target grades for each module (numeric and letter).
-  ... User edits target grades.
-  ... System displays new target grades for each module.
+*MSS*
 
-=== Use case:  Save entered module
-  . User enters some modules
-  . System saves the modules
-  . User restarts the application
-  . User list entered modules
-  . System displays saved modules
+1. User enter modules
+2. System recalculates CAP
+3. System displays CAP
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid parameters
+** 1a1. System shows an `Invalid entry` error message
++
+Use case ends.
+
+* 1b. User enters duplicate Module
+** 1b1. System shows an `Duplicate Module` error message
++
+Use case ends
+
+=== Use case: [UC2] View grades needed to achieve CAP goal (based on previous grades)
+
+*MSS*
+
+1. User enter CAP goal
+2. System displays target grades for ungraded modules
++
+Use case ends.
+
+*Extensions*
+
+* 1a. CAP goal is invalid
+** 1a1. System shows an `Invalid CAP Goal` error message
++
+Use case ends.
+
+* 2a. CAP goal is not achievable
+** 2a1. System shows an `Not achievable` error message
++
+Use case ends.
+
+=== Use case: [UC3] Updating target grades
+
+*Pre-condition:* `[UC2]` completed
+
+*MSS*
+
+1. User modify modules entries
+2. System recalculates target grades for ungraded modules
+3. System displays new target grades for ungraded modules
++
+Use case ends.
+
+*Extensions*
+
+* 2a. CAP goal is not achievable with new set of modules
+** 2a1. System shows an `Not achievable` error message
++
+Use case ends.
+
+=== Use case: [UC4] Save entered module
+
+*MSS*
+
+1. User enters module
+2. System saves the modules
++
+Use case ends.
+
+=== Use case: [UC5] Loading saved modules
+
+*Pre-conditions:* `[UC4]` completed
+
+*MSS*
+
+1. User restarts the application
+2. User list entered modules
+3. System displays saved modules
++
+Use case ends
 
 [appendix]
 == Non Functional Requirements

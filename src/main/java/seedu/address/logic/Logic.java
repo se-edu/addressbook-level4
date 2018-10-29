@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,6 +19,10 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    //@@author alexkmj
+    /** Returns an unmodifiable view of the filtered list of modules */
+    ObservableList<Module> getFilteredModuleList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

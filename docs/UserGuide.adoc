@@ -57,7 +57,7 @@ Format: `help`
 === Adding a module: `add`
 
 Adds a module to the cap tracker +
-Format: `add MODULE_CODE YEAR SEMESTER [GRADE]`
+Format: `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`
 
 [TIP]
 A module with grade provided means it has already been completed while a module without grade means it hasn't been taken by the user.
@@ -66,11 +66,6 @@ Examples:
 
 * `add CS2103 1 2 A+`
 * `add CS2103 1 2`
-
-=== Listing all modules : `list`
-
-Shows a list of all modules in the cap tracker. +
-Format: `list`
 
 === Editing a module : `edit`
 
@@ -86,14 +81,17 @@ Format: `edit MODULE_CODE [MODULE_CODE] [YEAR GRADE] [GRADE]`
 Examples:
 
 * `edit CS2103 CS1231 2 1` +
-Edits the module code and year/semester of `CS2103` module to be `CS1231` and `2 1` respectively.
+Edits the module code and year and semester of `CS2103` module to be `CS1231` and `2 1` respectively.
 * `edit CS2103 2 1 CS` +
-Edits the year/semester of `CS2103` module to be `2 1` and grade to `CS`.
+Edits the year and semester of `CS2103` module to be `2 1` and grade to `CS`.
 
 === Deleting a module : `delete`
 
 Deletes the specified module from the cap tracker. +
-Format: `delete MODULE_CODE`
+Format:
+
+* If only one module with the module code exist: `delete MODULE_CODE`
+* Otherwise: `delete MODULE_CODE YEAR SEMESTER`
 
 ****
 * Deletes the module with the specified module code.
@@ -103,11 +101,37 @@ Examples:
 
 * `delete CS2103` +
 Deletes the module CS2103 in the cap tracker.
+* `delete CS2103 1 2`
+Deletes the module CS2103 taken during the second semester of the first year.
+
+=== Setting Cap Goal : `goal`
+
+Set the CAP goal you want to achieve. +
+Format: `goal CAP_GOAL`
+
+****
+* Sets and updates the CAP goal.
+****
+
+Examples:
+
+* `goal 4.5` +
+Update your CAP goal to be 4.5
 
 === Clearing all entries : `clear`
 
 Clears all entries from the cap tracker. +
 Format: `clear`
+
+=== Undoing commands : `undo`
+
+Reverts changes made by the last command given. +
+Format: `undo`
+
+=== Redoing commands : `redo`
+
+Reverts changes made by the undo command. +
+Format: `redo`
 
 === Exiting the program : `exit`
 
