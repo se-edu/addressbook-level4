@@ -6,10 +6,14 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import javafx.util.converter.NumberStringConverter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.Transcript;
@@ -22,36 +26,40 @@ public class CapPanel extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(CapPanel.class);
     private static final String FXML = "CapPanel.fxml";
-
-    private final StringProperty currentCapString = new SimpleStringProperty("Current CAP: 0");
-    private final StringProperty capGoalString = new SimpleStringProperty("CAP Goal: NIL");
+    
+    private final DoubleProperty currentCapDouble = new SimpleDoubleProperty(0);
+    private final StringProperty capGoalString = new SimpleStringProperty("NIL");
 
     @FXML
     private Text currentCapText;
     @FXML
     private Text capGoalText;
+    @FXML
+    private Text currentCapValue;
+    @FXML
+    private Text capGoalValue;
 
     public CapPanel(Transcript transcript) {
         super(FXML);
-        currentCapText.textProperty().bind(currentCapString);
-        capGoalText.textProperty().bind(capGoalString);
-
-        Platform.runLater(() -> currentCapString.setValue("Current cap: " + transcript.getCap()));
+        currentCapValue.textProperty().bind(Bindings.convert(currentCapDouble));
+        capGoalValue.textProperty().bind(capGoalString);
+        
+        Platform.runLater(() -> currentCapDouble.setValue(transcript.getCap()));
         CapGoal goal = transcript.getCapGoal();
-        Platform.runLater(() -> capGoalString.setValue("CAP Goal: " + (goal.isSet ? goal.capGoal : "NIL")));
+        Platform.runLater(() -> capGoalString.setValue(goal.isSet ? String.valueOf(goal.capGoal) : "NIL"));
         registerAsAnEventHandler(this);
     }
 
     @Subscribe
     public void handleTranscriptChangedEvent(TranscriptChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local transcript data changed, calculating new cap"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local transcript data changed, obtaining new cap and cap goal"));
         try {
             Transcript transcript = (Transcript) event.data;
-            Platform.runLater(() -> currentCapString.setValue("Current cap: " + transcript.getCap()));
+            Platform.runLater(() -> currentCapDouble.setValue(transcript.getCap()));
             CapGoal goal = transcript.getCapGoal();
-            Platform.runLater(() -> capGoalString.setValue("CAP Goal: " + (goal.isSet ? goal.capGoal : "NIL")));
+            Platform.runLater(() -> capGoalString.setValue(goal.isSet ? String.valueOf(goal.capGoal) : "NIL"));
         } catch (Exception e) {
-            logger.info("Error trying to calculate new cap:" + e);
+            logger.info("Error trying to obtain new cap and cap goal:" + e);
         }
     }
 
