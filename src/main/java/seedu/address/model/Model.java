@@ -238,7 +238,7 @@ public interface Model {
      * @return return filtered list of module
      */
     static List<Module> filterModulesWithCompleteGrade(List<Module> modules) {
-        return filterModules(modules, Module::isGradeComplete);
+        return filterModules(modules, module -> module.getGrade().isComplete());
     }
 
     /**
@@ -247,7 +247,7 @@ public interface Model {
      * @return return filtered list of module
      */
     static List<Module> filterModulesWithTargetGrade(List<Module> modules) {
-        return filterModules(modules, Module::isGradeTarget);
+        return filterModules(modules, module -> module.getGrade().isTarget());
     }
 
     /**
@@ -256,7 +256,7 @@ public interface Model {
      * @return return filtered list of module
      */
     static List<Module> filterModulesWithAdjustGrade(List<Module> modules) {
-        return filterModules(modules, Module::isGradeAdjust);
+        return filterModules(modules, module -> module.getGrade().isAdjust());
     }
 
     /**
@@ -265,7 +265,7 @@ public interface Model {
      * @return return filtered list of module
      */
     static List<Module> filterModulesWithIncompleteGrade(List<Module> modules) {
-        return filterModules(modules, Module::isGradeIncomplete);
+        return filterModules(modules, module -> module.getGrade().isIncomplete());
     }
 
     /**

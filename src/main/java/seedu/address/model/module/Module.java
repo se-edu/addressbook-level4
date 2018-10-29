@@ -125,35 +125,11 @@ public class Module {
     }
 
     /**
-     * Tells if the Module has a Grade with state COMPLETE
-     * @return true if yes, false otherwise
-     */
-    public boolean isGradeComplete() {
-        return getGrade().isComplete();
-    }
-
-    /**
-     * Tells if the Module has a Grade with state INCOMPLETE
-     * @return true if yes, false otherwise
-     */
-    public boolean isGradeIncomplete() {
-        return getGrade().isIncomplete();
-    }
-
-    /**
      * Tells if the Module has a Grade with state TARGET
      * @return true if yes, false otherwise
      */
-    public boolean isGradeTarget() {
+    public boolean isTargetted() {
         return getGrade().isTarget();
-    }
-
-    /**
-     * Tells if the Module has a Grade with state ADJUST
-     * @return true if yes, false otherwise
-     */
-    public boolean isGradeAdjust() {
-        return getGrade().isAdjust();
     }
 
     //@@author alexkmj
