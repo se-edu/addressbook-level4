@@ -104,13 +104,13 @@ Deletes the module CS2103 in the cap tracker.
 * `delete CS2103 1 2`
 Deletes the module CS2103 taken during the second semester of the first year.
 
-=== Computing CAP : `goal`
+=== Setting Cap Goal : `goal`
 
 Set the CAP goal you want to achieve. +
 Format: `goal CAP_GOAL`
 
 ****
-* Set and Update the CAP goal.
+* Sets and updates the CAP goal.
 ****
 
 Examples:
