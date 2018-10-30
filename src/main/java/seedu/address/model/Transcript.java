@@ -127,13 +127,19 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     //@@author jeremiah-ang
-    /**
-     * Return the current CAP
-     *
-     * @return current cap score
-     */
+    @Override
     public double getCurrentCap() {
         return currentCap;
+    }
+
+    @Override
+    public ObservableList<Module> getCompletedModuleList() {
+        return getModuleList().filtered(Module::hasCompleted);
+    }
+
+    @Override
+    public ObservableList<Module> getIncompleteModuleList() {
+        return getModuleList().filtered(module -> !module.hasCompleted());
     }
 
     private void updateCurrentCap() {
@@ -190,7 +196,7 @@ public class Transcript implements ReadOnlyTranscript {
      *
      * @return list of modules used for CAP calculation
      */
-    public ObservableList<Module> getGradedModulesList() {
+    private ObservableList<Module> getGradedModulesList() {
         return modules.getFilteredModules(this::moduleIsUsedForCapCalculation);
     }
 
@@ -198,7 +204,7 @@ public class Transcript implements ReadOnlyTranscript {
      * Filters for modules that is to be assigned a target grade
      * @return gradedModulesList: a list of modules used for CAP calculation
      */
-    public ObservableList<Module> getTargetableModulesList() {
+    private ObservableList<Module> getTargetableModulesList() {
         return modules.getFilteredModules(Module::isTargetable);
     }
 
@@ -206,8 +212,8 @@ public class Transcript implements ReadOnlyTranscript {
      * Filters for modules that have target grades
      * @return gradedModulesList: a list of modules used for CAP calculation
      */
-    public ObservableList<Module> getTargetedModulesList() {
-        return modules.getFilteredModules(Module::isTargeted);
+    protected ObservableList<Module> getTargetedModulesList() {
+        return modules.getFilteredModules(Module::isTargetted);
     }
 
     /**
@@ -217,13 +223,13 @@ public class Transcript implements ReadOnlyTranscript {
      * @return true if yes, false otherwise
      */
     private boolean moduleIsUsedForCapCalculation(Module module) {
-        return module.hasCompleted() && module.affectsGrade();
+        return module.hasCompleted() && module.isAffectCap();
     }
 
     /**
      * Calls relevant methods when the modules list is updated
      */
-    public void modulesUpdated() {
+    private void modulesUpdated() {
         updateTargetModuleGrades();
         updateCurrentCap();
     }
@@ -231,7 +237,7 @@ public class Transcript implements ReadOnlyTranscript {
     /**
      * Replaces targetable module with an updated target grade
      */
-    public void updateTargetModuleGrades() {
+    private void updateTargetModuleGrades() {
         boolean shouldSkip = !capGoal.isSet();
         if (shouldSkip) {
             return;
@@ -299,6 +305,7 @@ public class Transcript implements ReadOnlyTranscript {
         return FXCollections.observableArrayList(targetModules);
     }
 
+    @Override
     public CapGoal getCapGoal() {
         return capGoal;
     }

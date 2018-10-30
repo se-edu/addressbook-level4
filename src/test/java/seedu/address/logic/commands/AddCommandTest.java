@@ -243,6 +243,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Module> getCompletedModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getIncompleteModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public double getCap() {
             throw new AssertionError("This method should not be called.");
         }

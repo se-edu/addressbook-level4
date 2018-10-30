@@ -11,10 +11,15 @@ import java.util.Arrays;
 
 import org.junit.Rule;
 import org.junit.Test;
+
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.util.ModuleBuilder;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TypicalModules;
 
 public class ModelManagerTest {
     @Rule
@@ -80,5 +85,48 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    //@@author jeremiah-ang
+    @Test
+    public void getCompletedModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getCompletedModuleList().remove(0);
+    }
+
+    @Test
+    public void getIncompleteModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getIncompleteModuleList().remove(0);
+    }
+
+    @Test
+    public void getCompletedModuleListAllCompleted() {
+        Module completed = TypicalModules.DATA_STRUCTURES;
+        Module incomplete = new ModuleBuilder(TypicalModules.DISCRETE_MATH).noGrade().build();
+        modelManager.addModule(completed);
+        modelManager.addModule(incomplete);
+        ObservableList<Module> completedModules = modelManager.getCompletedModuleList();
+        boolean isAllCompleted = true;
+        for (Module module : completedModules) {
+            isAllCompleted = isAllCompleted && module.hasCompleted();
+        }
+
+        assertTrue(isAllCompleted);
+    }
+
+    @Test
+    public void getIncompleteModuleListAllIncomplete() {
+        Module completed = TypicalModules.DATA_STRUCTURES;
+        Module incomplete = new ModuleBuilder(TypicalModules.DISCRETE_MATH).noGrade().build();
+        modelManager.addModule(completed);
+        modelManager.addModule(incomplete);
+        ObservableList<Module> completedModules = modelManager.getIncompleteModuleList();
+        boolean isAllCompleted = false;
+        for (Module module : completedModules) {
+            isAllCompleted = isAllCompleted || module.hasCompleted();
+        }
+
+        assertFalse(isAllCompleted);
     }
 }
