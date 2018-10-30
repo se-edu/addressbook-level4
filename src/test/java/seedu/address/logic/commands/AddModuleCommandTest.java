@@ -231,22 +231,22 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public ObservableList<Module> getCompletedModuleList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Module> getIncompleteModuleList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Module findModule(Code moduleCodeToFind) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Module> getCompletedModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Module adjustModule(Module targetModule, Grade adjustGrade) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getIncompleteModuleList() {
             throw new AssertionError("This method should not be called.");
         }
     }
