@@ -243,4 +243,4 @@ task copyDummySearchPage(type: Copy) {
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
-defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
+defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor', 'shadow'

@@ -5,6 +5,11 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.module.Code;
+import seedu.address.model.module.Credit;
+import seedu.address.model.module.Grade;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
 
 /**
  * Adds a person to the address book.
@@ -13,26 +18,74 @@ public class EditModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
-            + "by the module code. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits the details of the module specified by the module code. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: MODULE_CODE "
-            + "[YEAR] "
-            + "[SEMESTER] "
-            + "[CREDIT] "
-            + "[GRADE] ";
+            + "Parameters: "
+            + "-code MODULE_CODE "
+            + "-year [YEAR] "
+            + "-semester [SEMESTER] "
+            + "-credit [CREDIT] "
+            + "-grade [GRADE] ";
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the transcript.";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one parameter has to be supplied.";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Module already exists.";
 
-    public EditModuleCommand() {
+    private final Code targetCode;
+    private final Year targetYear;
+    private final Semester targetSemester;
+    private final Code newCode;
+    private final Year newYear;
+    private final Semester newSemester;
+    private final Credit newCredit;
+    private final Grade newGrade;
+
+    /**
+     * Prevents the use of empty constructor.
+     */
+    private EditModuleCommand() {
 
     }
 
+    public EditModuleCommand(Code targetCode, Year targetYear, Semester targetSemester,
+            Code newCode, Year newYear, Semester newSemester, Credit newCredit, Grade newGrade) {]
+        requireNonNull(targetCode);
+
+        this.targetCode = targetCode;
+        this.targetYear = targetYear;
+        this.targetSemester = targetSemester;
+        this.newCode = newCode;
+        this.newYear = newYear;
+        this.newSemester = newSemester;
+        this.newCredit = newCredit;
+        this.newGrade = newGrade;
+    }
+
+    /**
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return
+     * @throws CommandException
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        int numOfModule = (int) model.getFilteredModuleList()
+                .stream()
+                .filter(index -> index.getCode().equals(targetCode))
+                .count();
+
+        if (numOfModule == 0) {
+            throw new CommandException("");
+        }
+
+        if (numOfModule > 1 && (targetYear == null || targetSemester == null)) {
+            throw new CommandException("");
+        }
+
 
         return null;
     }
