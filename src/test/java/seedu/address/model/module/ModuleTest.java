@@ -147,7 +147,7 @@ public class ModuleTest {
     @Test
     public void toStringValid() {
         assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 3 Semester: "
-                + "s1 Credits: 4 Grade: F Completed: true"));
+                + "s1 Credits: 4 Grade: F Grade State: COMPLETE Completed: true"));
     }
 
     //@@author jeremiah-ang
