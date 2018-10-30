@@ -5,7 +5,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyTranscript;
-import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
