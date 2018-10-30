@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import seedu.address.model.ledger.exceptions.DuplicateLedgerException;
 import seedu.address.model.ledger.exceptions.LedgerNotFoundException;
+import seedu.address.model.member.Person;
+import seedu.address.model.member.exceptions.DuplicatePersonException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -96,6 +98,15 @@ public class UniqueLedgerList implements Iterable<Ledger> {
     public void setLedgers(UniqueLedgerList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+
+    public void setLedgers(List<Ledger> ledgers) {
+        requireAllNonNull(ledgers);
+        if (!ledgersAreUnique(ledgers)) {
+            throw new DuplicateLedgerException();
+        }
+
+        internalList.setAll(ledgers);
     }
 
     /**

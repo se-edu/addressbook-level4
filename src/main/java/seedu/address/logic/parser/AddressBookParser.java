@@ -8,12 +8,14 @@ import seedu.address.logic.commands.MemberCommand.*;
 import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.ledger.CreditCommand;
 import seedu.address.logic.commands.ledger.DebitCommand;
+import seedu.address.logic.commands.ledger.DeleteLedgerCommand;
 import seedu.address.logic.commands.ledger.OpenLedgerCommand;
 import seedu.address.logic.parser.Member.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.ledger.AddLedgerCommandParser;
 import seedu.address.logic.parser.ledger.CreditCommandParser;
 import seedu.address.logic.parser.ledger.DebitCommandParser;
+import seedu.address.logic.parser.ledger.DeleteLedgerCommandParser;
 import seedu.address.model.Model;
 
 import java.util.logging.Logger;
@@ -96,8 +98,10 @@ public class AddressBookParser {
             return new AddItemCommandParser().parse(arguments);
 
         case AddLedgerCommand.COMMAND_WORD:
-            logger.info("Parsing");
-            return new AddLedgerCommandParser().parse(arguments,model);
+            return new AddLedgerCommandParser().parse(arguments);
+
+        case DeleteLedgerCommand.COMMAND_WORD:
+            return new DeleteLedgerCommandParser().parse(arguments);
 
         case DeleteItemCommand.COMMAND_WORD: case DeleteItemCommand.COMMAND_ALIAS:
             return new DeleteItemCommandParser().parse(arguments);
