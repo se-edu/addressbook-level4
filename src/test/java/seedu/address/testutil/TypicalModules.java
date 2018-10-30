@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
 import seedu.address.model.util.ModuleBuilder;
 
 //@@author alexkmj
@@ -152,4 +153,37 @@ public class TypicalModules {
         return affectingModules;
     }
     // TODO: getTypicalAddressBook()
+
+    //@@author jeremiah-ang
+    /**
+     * Duplicates Module with different Year
+     * @param module
+     * @return Module with different Year
+     */
+    public static Module duplicateWithDifferentYear(Module module) {
+        Year option1 = new Year(YEAR_ONE);
+        Year option2 = new Year(YEAR_TWO);
+        Year target = (option1.equals(module.getYear())) ? option2 : option1;
+        return duplicateWithDifferentYear(module, target);
+    }
+
+    /**
+     * Duplicates Module with different Year
+     * @param module
+     * @param year
+     * @return Module with different Year
+     */
+    public static Module duplicateWithDifferentYear(Module module, Year year) {
+        return new ModuleBuilder(module).withYear(year.value).build();
+    }
+
+    /**
+     * Duplicates Module with Grade adjusted
+     * @param module
+     * @return Module with Grade adjusted
+     */
+    public static Module duplicateWithGradesAdjusted(Module module) {
+        return module.adjustGrade(module.getGrade());
+    }
+    //@@ author
 }
