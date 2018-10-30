@@ -13,14 +13,14 @@
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-text-fill: green;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: green;
     -fx-opacity: 1;
 }
 
@@ -123,14 +123,75 @@
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
+
+
+/*@author josephambe */
+.cell_title_label {
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
+    /*-fx-stroke: white;*/
+}
+
+
+/*@author josephambe */
+.cell_list_label {
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: lightblue;
+    /*-fx-stroke: white;*/
+}
+
+/*@author josephambe */
+.cell_grade_label {
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: red;
+    /*-fx-stroke: red;*/
+}
+
+
+/*author Amber Joseph*/
+.circle_color {
+    -fx-stroke: "greenyellow";
+    -fx-stroke-width: 5;
+    /*-fx-position-shape: true;*/
+}
+
+/*author Amber Joseph*/
+.circle_color2 {
+    -fx-stroke: "red";
+    -fx-stroke-width: 5;
+    /*-fx-position-shape: true;*/
+}
+
+/*author josephambe */
+.cell_appName_label {
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: goldenrod;
+}
+
+/*author josephambe */
+.cell_capPanel_title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: goldenrod;
+}
+
 
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
@@ -144,14 +205,15 @@
 
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
 
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: orange;
+
 }
 
 .result-display .label {
@@ -198,8 +260,9 @@
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
     -fx-opacity: 0.9;
+    -fx-text-fill: lightblue;
+
 }
 
 .menu .left-container {

@@ -66,4 +66,16 @@ public class LogicManager extends ComponentManager implements Logic {
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
     }
+
+    @Override
+    public ObservableList<Module> getCompletedModuleList() {
+        return model.getCompletedModuleList();
+    }
+
+    @Override
+    public ObservableList<Module> getIncompleteModuleList() {
+        return model.getIncompleteModuleList();
+    }
+
+
 }
