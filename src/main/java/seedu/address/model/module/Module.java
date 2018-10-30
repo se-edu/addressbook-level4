@@ -132,6 +132,14 @@ public class Module {
         return getGrade().isTarget();
     }
 
+    public boolean isAdjusted() {
+        return getGrade().isAdjust();
+    }
+
+    public Module adjustGrade(Grade grade) {
+        return new Module(this, grade.adjustGrade(grade.value));
+    }
+
     //@@author alexkmj
     /**
      * Returns the module code.
@@ -260,17 +268,11 @@ public class Module {
                 .append(getCredits())
                 .append(" Grade: ")
                 .append(getGrade())
+                .append(" Grade State: ")
+                .append(getGrade().state)
                 .append(" Completed: ")
                 .append(hasCompleted())
                 .toString();
-    }
-
-    public boolean isAdjusted() {
-        return getGrade().isAdjust();
-    }
-
-    public Module adjustGrade(Grade grade) {
-        return new Module(this, grade.adjustGrade(grade.value));
     }
 
     //@@author alexkmj

@@ -71,6 +71,7 @@ public class Transcript implements ReadOnlyTranscript {
         requireNonNull(newData);
 
         setModules(newData.getModuleList());
+        setCapGoal(newData.getCapGoal());
     }
 
     //// module-level operations
@@ -287,7 +288,7 @@ public class Transcript implements ReadOnlyTranscript {
         double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
 
-        if (unitScoreToAchieve > 5) {
+        if (unitScoreToAchieve <= 0 || unitScoreToAchieve > 5) {
             return null;
         }
         if (targetableModules.isEmpty()) {
@@ -316,6 +317,10 @@ public class Transcript implements ReadOnlyTranscript {
     @Override
     public CapGoal getCapGoal() {
         return capGoal;
+    }
+
+    private void setCapGoal(CapGoal capGoal) {
+        this.capGoal = capGoal;
     }
 
     public void setCapGoal(double capGoal) {
