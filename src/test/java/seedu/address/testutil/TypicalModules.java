@@ -22,7 +22,7 @@ public class TypicalModules {
     public static final String CODE_DATABASE_SYSTEMS_REDUCED = "CS2102B";
     public static final String CODE_DATA_STRUCTURES = "CS2040";
     public static final String CODE_DISCRETE_MATH = "CS1231";
-    public static final String CODE_SOFTWARE_ENGINEERING = "CS1231";
+    public static final String CODE_SOFTWARE_ENGINEERING = "CS2103";
     public static final String CODE_PROGRAMMING_METHODOLOGY = "CS2030";
 
     public static final int YEAR_ONE = 1;
