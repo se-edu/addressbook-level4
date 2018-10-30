@@ -46,6 +46,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane capPanelPlaceholder;
+
+    @FXML
     private StackPane moduleListPanelPlaceholder;
 
     @FXML
@@ -124,8 +127,8 @@ public class MainWindow extends UiPart<Stage> {
         ModuleListPanel2 moduleListPanelTwo = new ModuleListPanel2(logic.getIncompleteModuleList());
         moduleListPanelPlaceholderTwo.getChildren().add(moduleListPanelTwo.getRoot());
 
-        //capPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //capPanelPlaceholder.getChildren().add(capPanel.getRoot());
+        CapPanel capPanel = new CapPanel(logic.getTranscript());
+        capPanelPlaceholder.getChildren().add(capPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -197,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        //browserPanel.freeResources();
+        // browserPanel.freeResources();
     }
 
     @Subscribe
