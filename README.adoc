@@ -1,4 +1,4 @@
-= Address Book (Level 4)
+= ClubHub
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2113-AY1819S1-T09-3/main[image:https://travis-ci.org/CS2113-AY1819S1-T09-3/main.svg?branch=master[Build Status]
@@ -14,13 +14,8 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* This is a desktop ClubHub application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is a Java sample application intended for National University of Singapore (NUS) students managing their Co-Curricular Activity (CCA).
 
 == Site Map
 
@@ -32,8 +27,7 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* This application is built on the sample application https://github.com/nusCS2113-AY1819S1/addressbook-level4[Address Book (Level 4)]
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]

@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddItemCommand;
+import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.MemberCommand.*;
 import seedu.address.logic.commands.ledger.AddLedgerCommand;
@@ -12,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.ledger.AddLedgerCommandParser;
 import seedu.address.logic.parser.ledger.CreditCommandParser;
 import seedu.address.logic.parser.ledger.DebitCommandParser;
+import seedu.address.model.Model;
 
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -25,13 +28,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  */
 public class AddressBookParser {
 
-
-    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
-
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
 
     /**
      * Parses user input into command for execution.
@@ -40,7 +42,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, Model model) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -90,11 +92,18 @@ public class AddressBookParser {
             return new RedoCommand();
 
         case AddItemCommand.COMMAND_WORD:
+            logger.info("Parsing");
             return new AddItemCommandParser().parse(arguments);
 
         case AddLedgerCommand.COMMAND_WORD:
             logger.info("Parsing");
-            return new AddLedgerCommandParser().parse(arguments);
+            return new AddLedgerCommandParser().parse(arguments,model);
+
+        case DeleteItemCommand.COMMAND_WORD: case DeleteItemCommand.COMMAND_ALIAS:
+            return new DeleteItemCommandParser().parse(arguments);
+
+        case EditItemCommand.COMMAND_WORD: case EditItemCommand.COMMAND_ALIAS:
+            return new EditItemCommandParser().parse(arguments);
 
         case UndoAllCommand.COMMAND_WORD:
             return new UndoAllCommand();

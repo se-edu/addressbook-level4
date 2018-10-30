@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= ClubHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2113-AY1819S1-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-3`      Since: `Sep 2018`      Licence: `NUS`
 
 == Introduction
 
@@ -286,7 +286,7 @@ Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
 delete a new member to the member list. +
 Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
 
-=== Inventory: `openInventory`s
+=== Inventory: `openItems`
 
 ==== Adding an item: `addItem`
 Adds an Item with its quantity, category, and location to the ItemList. +
@@ -296,9 +296,9 @@ Format: `addItem ITEM_NAME QUANTITY CATEGORY LOCATION`
 Shows the list of Items and their quantities. +
 Format: `listItems`
 
-==== Removing an item: `removeItem`
-Removes a specified quantity of an Item in the ItemList. +
-Format: `removeItem ITEM_NAME QUANTITY`
+==== Deleting an item: `deleteItem`
+Deletes the specified Item in the ItemList. +
+Format: `deleteItem INDEX`
 
 ==== Sorting items: `sortItemList`
 Sorts the ItemList by name, quantity, category, or location. +
