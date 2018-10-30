@@ -138,6 +138,23 @@ Format: `redo`
 Exits the program. +
 Format: `exit`
 
+=== Adjusting target goals: `adjust`
+
+Adjust a generated target grade of a module +
+Format:
+
+* Module code is unique: `adjust MODULE_CODE GRADE`
+* Otherwise: `adjust MODULE_CODE YEAR SEM GRADE`
+
+Examples:
+
+* `adjust CS2103 A` +
+Adjusts the grade with module code CS2103 to have grade A
+
+* `adjust CS2103 1 1 A` +
+Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
+
+
 === Saving the data
 
 CAP tracker data are saved in the hard disk automatically after any command that changes the data. +

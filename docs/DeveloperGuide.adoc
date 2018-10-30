@@ -167,11 +167,11 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel`, 'ModuleListPanel' etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter`, `BrowserPanel`, 'ModuleListPanel' etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component uses JavaFX UI 'DarkTheme' to draw different text, sizes, fonts, and colours from. The actual data displayed in the UI is called using a sample transcript which is created through the Module and Transcript classes. The values themselves are abstracted from the '.fxml' files so the UI display can be easily updated.
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -231,7 +231,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save Transcript data in json format and read it back.
+* `ReadOnlyTranscript` uses custom `JsonTranscriptDeserializer` to enable `JsonUtil.readJsonFile` to deserialize a `json` file into a `ReadOnlyTranscript`.
 
 [[Design-Commons]]
 === Common classes
