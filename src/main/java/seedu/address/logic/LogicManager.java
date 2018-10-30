@@ -59,6 +59,8 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableSet<Ledger> getFilteredLedgerSet() {
         return model.getFilteredLedgerSet();
+    }
+
     public ObservableList<Item> getFilteredItemList() {
         return model.getFilteredItemList();
     }

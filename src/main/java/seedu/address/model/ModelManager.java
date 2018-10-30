@@ -184,6 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableSet<Ledger> getFilteredLedgerSet() {
         Set<Ledger> filteredLedgers2 = new HashSet<>(filteredLedgers);
         return FXCollections.unmodifiableObservableSet((ObservableSet<Ledger>) filteredLedgers2);
+    }
     public ObservableList<Item> getFilteredItemList() {
         logger.info("Filtered list observed");
         logger.info("Size : " + Integer.toString(filteredItems.size()));
