@@ -103,7 +103,7 @@ public class Module {
      * Tells if this module will affect the calculation of CAP
      * @return true if yes false otherwise.
      */
-    public boolean affectsGrade() {
+    public boolean isAffectCap() {
         return getGrade().affectsCap();
     }
 
@@ -128,7 +128,7 @@ public class Module {
      * Tells if the Module has a Grade with state TARGET
      * @return true if yes, false otherwise
      */
-    public boolean isTargeted() {
+    public boolean isTargetted() {
         return getGrade().isTarget();
     }
 
