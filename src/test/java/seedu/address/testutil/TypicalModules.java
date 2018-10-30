@@ -15,56 +15,82 @@ import seedu.address.model.util.ModuleBuilder;
  */
 public class TypicalModules {
     // Manually added
-
     public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
 
-    public static final Module DISCRETE_MATH = new ModuleBuilder().withCode("CS1231")
-            .withYear(1)
+    public static final String CODE_ASKING_QUESTIONS = "GEQ1000";
+    public static final String CODE_DATABASE_SYSTEMS = "CS2102";
+    public static final String CODE_DATABASE_SYSTEMS_REDUCED = "CS2102B";
+    public static final String CODE_DATA_STRUCTURES = "CS2040";
+    public static final String CODE_DISCRETE_MATH = "CS1231";
+    public static final String CODE_SOFTWARE_ENGINEERING = "CS1231";
+    public static final String CODE_PROGRAMMING_METHODOLOGY = "CS2030";
+
+    public static final int YEAR_ONE = 1;
+    public static final int YEAR_TWO = 2;
+    public static final int YEAR_THREE = 3;
+
+    public static final String GRADE_A_PLUS = "A+";
+    public static final String GRADE_B_PLUS = "B+";
+    public static final String GRADE_F = "F";
+    public static final String GRADE_CS = "CS";
+
+    public static final int CREDIT_TWO = 2;
+    public static final int CREDIT_FOUR = 4;
+
+    public static final Module DISCRETE_MATH = new ModuleBuilder()
+            .withCode(CODE_DISCRETE_MATH)
+            .withYear(YEAR_ONE)
             .withSemester(Semester.SEMESTER_ONE)
-            .withCredit(4)
-            .withGrade("A+")
+            .withCredit(CREDIT_FOUR)
+            .withGrade(GRADE_A_PLUS)
             .build();
 
-    public static final Module PROGRAMMING_METHODOLOGY_TWO = new ModuleBuilder().withCode("CS2030")
-            .withYear(2)
+    public static final Module PROGRAMMING_METHODOLOGY_TWO = new ModuleBuilder()
+            .withCode(CODE_PROGRAMMING_METHODOLOGY)
+            .withYear(YEAR_TWO)
             .withSemester(Semester.SEMESTER_TWO)
-            .withCredit(4)
-            .withGrade("B+")
+            .withCredit(CREDIT_FOUR)
+            .withGrade(GRADE_B_PLUS)
             .build();
 
-    public static final Module DATA_STRUCTURES = new ModuleBuilder().withCode("CS2040")
-            .withYear(3)
+    public static final Module DATA_STRUCTURES = new ModuleBuilder()
+            .withCode(CODE_DATA_STRUCTURES)
+            .withYear(YEAR_THREE)
             .withSemester(Semester.SEMESTER_SPECIAL_ONE)
-            .withCredit(4)
-            .withGrade("F")
+            .withCredit(CREDIT_FOUR)
+            .withGrade(GRADE_F)
             .build();
 
-    public static final Module ASKING_QUESTIONS = new ModuleBuilder().withCode("GEQ1000")
-            .withYear(1)
+    public static final Module ASKING_QUESTIONS = new ModuleBuilder()
+            .withCode(CODE_ASKING_QUESTIONS)
+            .withYear(YEAR_ONE)
             .withSemester(Semester.SEMESTER_ONE)
-            .withCredit(4)
-            .withGrade("CS")
+            .withCredit(CREDIT_FOUR)
+            .withGrade(GRADE_CS)
             .build();
 
-    public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
-            .withYear(3)
+    public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder()
+            .withCode(CODE_SOFTWARE_ENGINEERING)
+            .withYear(YEAR_THREE)
             .withSemester(Semester.SEMESTER_ONE)
-            .withCredit(4)
-            .withGrade("A+")
+            .withCredit(CREDIT_FOUR)
+            .withGrade(GRADE_A_PLUS)
             .build();
 
-    public static final Module DATABASE_SYSTEMS = new ModuleBuilder().withCode("CS2102")
-            .withYear(2)
+    public static final Module DATABASE_SYSTEMS = new ModuleBuilder()
+            .withCode(CODE_DATABASE_SYSTEMS)
+            .withYear(YEAR_TWO)
             .withSemester(Semester.SEMESTER_ONE)
-            .withCredit(4)
-            .withGrade("A+")
+            .withCredit(CREDIT_FOUR)
+            .withGrade(GRADE_A_PLUS)
             .build();
 
-    public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder().withCode("CS2102B")
-            .withYear(2)
+    public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder()
+            .withCode(CODE_DATABASE_SYSTEMS_REDUCED)
+            .withYear(YEAR_TWO)
             .withSemester(Semester.SEMESTER_ONE)
-            .withCredit(2)
-            .withGrade("A+")
+            .withCredit(CREDIT_TWO)
+            .withGrade(GRADE_A_PLUS)
             .build();
 
     /**
