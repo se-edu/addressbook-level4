@@ -231,12 +231,12 @@ public class AddModuleCommandTest {
         }
 
         @Override
-        public ObservableList<Module> getCompletedModuleList() {
+        public Module findModule(Code moduleCodeToFind) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Module findModule(Code moduleCodeToFind) {
+        public ObservableList<Module> getCompletedModuleList() {
             throw new AssertionError("This method should not be called.");
         }
 
