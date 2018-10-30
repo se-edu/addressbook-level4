@@ -231,7 +231,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save Transcript data in json format and read it back.
+* `ReadOnlyTranscript` uses custom `JsonTranscriptDeserializer` to enable `JsonUtil.readJsonFile` to deserialize a `json` file into a `ReadOnlyTranscript`.
 
 [[Design-Commons]]
 === Common classes
