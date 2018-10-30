@@ -36,10 +36,6 @@ public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscri
         Transcript transcript = new Transcript();
         JsonNode node = jp.getCodec().readTree(jp);
         try {
-            JsonNode capGoal = node.get("capGoal");
-            if (!capGoal.isMissingNode()) {
-                transcript.setCapGoal(capGoal.path("value").doubleValue());
-            }
             Iterator<JsonNode> elements = node.get("modules").get("internalList").elements();
             while (elements.hasNext()) {
                 JsonNode element = elements.next();
@@ -52,6 +48,11 @@ public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscri
                 boolean completed = element.path("completed").booleanValue();
                 Module module = new Module(code, year, semester, credits, grade, completed);
                 transcript.addModule(module);
+            }
+
+            JsonNode capGoal = node.get("capGoal");
+            if (!capGoal.isMissingNode()) {
+                transcript.setCapGoal(capGoal.path("value").doubleValue());
             }
             return transcript;
         } catch (NullPointerException e) {

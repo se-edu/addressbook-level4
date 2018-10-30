@@ -250,6 +250,7 @@ public class Transcript implements ReadOnlyTranscript {
             makeCapGoalImpossible();
             return;
         }
+        makeCapGoalPossible();
         replaceTargetModules(targetableModules, newTargetModules);
     }
 
@@ -288,7 +289,7 @@ public class Transcript implements ReadOnlyTranscript {
         double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
 
-        if (unitScoreToAchieve <= 0 || unitScoreToAchieve > 5) {
+        if (unitScoreToAchieve > 5) {
             return null;
         }
         if (targetableModules.isEmpty()) {
@@ -297,7 +298,7 @@ public class Transcript implements ReadOnlyTranscript {
 
         Module newTargetModule;
         for (Module targetedModule : sortedTargetableModules) {
-            if (unitScoreToAchieve == 0.5) {
+            if (unitScoreToAchieve <= 0.5) {
                 unitScoreToAchieve = 1.0;
             }
             newTargetModule = targetedModule.updateTargetGrade(unitScoreToAchieve);
@@ -329,10 +330,18 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
-     * Sets the value as something impossible
+     * Sets the capGoal impossible
      */
     private void makeCapGoalImpossible() {
         capGoal = capGoal.makeIsImpossible();
+    }
+
+    /**
+     * Sets the capGoal as possible
+     */
+    private void makeCapGoalPossible() {
+        assert capGoal.getValue() > 0;
+        capGoal = new CapGoal(capGoal.getValue());
     }
 
     /**
