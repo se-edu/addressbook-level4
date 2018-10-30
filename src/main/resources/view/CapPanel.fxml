@@ -13,7 +13,7 @@
     </padding>
     <HBox HBox.hgrow="ALWAYS" spacing="100" alignment="CENTER">
         <VBox spacing="4" alignment="CENTER">
-            <Text fx:id="currentCapValue" styleClass="cap-value"/>
+            <Text fx:id="currentCapValue" styleClass="cap-value" />
             <Text fx:id="currentCapText" styleClass="cap-text" text="Your CAP"/>
         </VBox>
         <VBox spacing="4" alignment="CENTER">

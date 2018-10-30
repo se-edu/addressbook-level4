@@ -323,7 +323,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public double getCap() {
-        double cap = round(versionedTranscript.getCurrentCap(),1);
+        double cap = round(versionedTranscript.getCurrentCap(), 1);
         return cap;
         //return versionedTranscript.getCurrentCap();
     }

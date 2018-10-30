@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;

@@ -130,7 +130,7 @@ public class Transcript implements ReadOnlyTranscript {
     //@@author jeremiah-ang
     @Override
     public double getCurrentCap() {
-        return round(currentCap,1);
+        return round(currentCap, 1);
     }
 
     private static double round (double value, int precision) {
