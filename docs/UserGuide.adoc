@@ -18,25 +18,30 @@ By: `T13-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-CAPTracker is for those students who prefer to use a desktop app for calculating and managing their CAP. More importantly CAPTracker is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CAPTracker is the ideal application to calculate your current CAP, and predict what grades you need in modules you haven’t taken to achieve your ideal CAP. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CAPTracker is for students who wants to use a desktop app for calculating and managing their CAP
+(Cumulative Average Point). More importantly CAPTracker is *optimized for those who prefer to work
+with a CLI (Command Line Interface)* while still having the benefits of a Graphical User Interface
+(GUI). If you can type fast, CAPTracker is the ideal application for calculating your current CAP,
+and predicting grades needed to achieve your ideal CAP in modules that hasn't been taken.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `10` or later installed in your Computer.
 .  Download the latest `captracker.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your CAP Tracker.
+.  Copy the file to the folder you would want to use as the home folder for your CAP Tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some commands you can try:
 
-* *`list`* : lists all modules
-* **`add`**`CS2103 1 2 A+` : adds a module `CS2103` to the CAP Tracker.
-* **`delete`**`CS2103` : deletes a the module `CS2103` from CAP Tracker
-* *`exit`* : exits the app
+* **`c_add`**`CS2103 2 1 4 A+` : Adds a module `CS2103` worth `4` MCs taken in Semester `1` as a
+Year `2` student.
+* **`c_delete`**`CS2103` : Deletes `CS2103` from CAPTracker.
+* *`exit`* : Exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,68 +51,93 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add MODULE_CODE YEAR SEMESTER [GRADE]` is a parameter which can be used as add CS2103 1 2 A+.
-* Items in square brackets are optional e.g `add MODULE_CODE YEAR SEMESTER [GRADE]` can be used as `add CS2103 1 2 A+` or as `add CS2103 1 2`
+* Words in `UPPER_CASE` are the parameters to be replaced and supplied by the user. +
+e.g. `c_add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
+`c_add CS2103 2 1 4 A+`.
+* Items in square brackets are optional. +
+e.g. `c_add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
+`c_add CS2103 2 1 4 A+` or +
+`c_add CS2103 2 1 4`
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a module: `add`
+=== Adding a module: `c_add`
 
-Adds a module to the cap tracker +
-Format: `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`
+Adds a module to CapTracker +
+Case 1: Module hasn't been taken yet +
+Format: `c_add MODULE_CODE YEAR SEMESTER CREDIT` +
+Case 2: Module already taken +
+Format: `c_add MODULE_CODE YEAR SEMESTER CREDIT GRADE`
 
 [TIP]
-A module with grade provided means it has already been completed while a module without grade means it hasn't been taken by the user.
+A module with grade provided means it has already been completed while a module without grade means
+it hasn't been taken by the user.
 
 Examples:
 
-* `add CS2103 1 2 A+`
-* `add CS2103 1 2`
-
-=== Editing a module : `edit`
-
-Edits an existing module in the cap tracker. +
-Format: `edit MODULE_CODE [MODULE_CODE] [YEAR GRADE] [GRADE]`
+* `c_add CS2103 2 1 A+`
+* `c_add CS2103 2 1`
 
 ****
-* Edits the module with the specified `MODULE_CODE`. The module must exist.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* Adding of a module that would lead to two modules sharing the same `Code`, `Year`, and `Semester`
+is not allowed.
+****
+
+=== Editing a module : `c_edit`
+
+Edits fields of a particular module entry in the CAPTracker. +
+Case 1: Only one module entry have the specified module code. +
+Format: `c_edit MODULE_CODE [-code MODULE_CODE] [-year YEAR] [-semester SEMESTER] [-credit CREDIT] [-grade GRADE]` +
+Case 2: Multiple module entry have the specified module code. (Retook the module) +
+Format: `c_edit MODULE_CODE YEAR SEMESTER [-code MODULE_CODE] [-year YEAR] [-semester SEMESTER] [-credit CREDIT] [-grade GRADE]`
+
+****
+* Targeted module entry have to exist in the CAPTracker before editing it.
+* `Year` and `Semester` of the targeted entry must be specified if there exist multiple entries with
+the same module `Code`.
+* At least one of the module's field has to be edited.
+* The edit cannot lead to two modules sharing the same module `Code`, `Year`, and `Semester`.
 ****
 
 Examples:
 
-* `edit CS2103 CS1231 2 1` +
-Edits the module code and year and semester of `CS2103` module to be `CS1231` and `2 1` respectively.
-* `edit CS2103 2 1 CS` +
-Edits the year and semester of `CS2103` module to be `2 1` and grade to `CS`.
+* `c_edit CS2103 -grade A+` +
+Change grade of CS2103 to A+.
+* `c_edit CS2103 -code CS2103T -credit 2` +
+Change the module code and credit of CS2103 to CS2103T and 2 respecitively.
+* `c_edit CS2103 3 2 -semester 1` +
+Change the semester of CS2103 taken in year 3 semester 2 to 1. In this case, CS2103 was retaken and
+cap tracker has multiple entries of it.
 
-=== Deleting a module : `delete`
 
-Deletes the specified module from the cap tracker. +
+=== Deleting a module : `c_delete`
+
+Deletes a module from the cap tracker. +
 Format:
 
-* If only one module with the module code exist: `delete MODULE_CODE`
-* Otherwise: `delete MODULE_CODE YEAR SEMESTER`
+* Only one module entry with the module code exist: `c_delete MODULE_CODE`
+* Multiple module entries with the same module code exist: `c_delete MODULE_CODE YEAR SEMESTER`
 
 ****
-* Deletes the module with the specified module code.
+* Targeted module entry have to exist in the CAPTracker before deleting it.
+* `Year` and `Semester` of the targeted entry must be specified if there exist multiple entries with
+  the same module `Code`.
 ****
 
 Examples:
 
-* `delete CS2103` +
-Deletes the module CS2103 in the cap tracker.
-* `delete CS2103 1 2`
-Deletes the module CS2103 taken during the second semester of the first year.
+* `c_delete CS2103` +
+Delete CS2103 from the cap tracker.
+* `c_delete CS2103 1 2` +
+Delete CS2103 taken during the second semester of the first year.
 
-=== Setting Cap Goal : `goal`
+=== Setting Cap Goal : `c_goal`
 
 Set the CAP goal you want to achieve. +
-Format: `goal CAP_GOAL`
+Format: `c_goal CAP_GOAL`
 
 ****
 * Sets and updates the CAP goal.
@@ -115,23 +145,24 @@ Format: `goal CAP_GOAL`
 
 Examples:
 
-* `goal 4.5` +
-Update your CAP goal to be 4.5
+* `c_goal 4.5` +
+Update your CAP goal to 4.5
 
-=== Clearing all entries : `clear`
 
-Clears all entries from the cap tracker. +
-Format: `clear`
+=== Calculate Cap : `c_cap`
 
-=== Undoing commands : `undo`
+Calculate current CAP +
+Format: `c_cap`
+
+=== Undoing commands : `c_undo`
 
 Reverts changes made by the last command given. +
-Format: `undo`
+Format: `c_undo`
 
-=== Redoing commands : `redo`
+=== Redoing commands : `c_redo`
 
 Reverts changes made by the undo command. +
-Format: `redo`
+Format: `c_redo`
 
 === Exiting the program : `exit`
 
@@ -157,21 +188,37 @@ Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
 
 === Saving the data
 
-CAP tracker data are saved in the hard disk automatically after any command that changes the data. +
+CAPTracker data are saved in the hard disk automatically whenever there is a command that leads to
+change in the data. +
 There is no need to save manually.
 
 == FAQ
 
 *Q*: I entered the wrong grade into my module. How do I change it? +
-*A*: Use the `edit` command to input the correct information of the module - `edit MODULE_CODE [MODULE_CODE] [YEAR SEMESTER] [GRADE]`
+*A*: Use the `c_edit` command to input the correct information for the module +
+`c_edit MODULE_CODE -grade ACTUAL_GRADE`
 
 == Command Summary
 
-* *Add* `add MODULE_CODE YEAR SEMESTER [GRADE]` +
-e.g. `add CS2103 1 2 A+`
-* *Delete* : `delete MODULE_CODE` +
-e.g. `delete CS2103`
-* *Edit* : `edit MODULE_CODE [MODULE_CODE] [YEAR GRADE] [GRADE]` +
-e.g. `edit CS2103 2 1 CS`
-* *List* : `list`
+* *Add* +
+`c_add MODULE_CODE YEAR SEMESTER [GRADE]` +
+e.g. `c_add CS2103 2 1 4 A+`
+* *Edit* : +
+`c_edit [-code MODULE_CODE] [-year YEAR] [-semester SEMESTER] [-credit CREDIT] [-grade GRADE]` +
+e.g. `c_edit CS2103 -grade A+`
+or +
+`c_edit YEAR SEMESTER [-code MODULE_CODE] [-year YEAR] [-semester SEMESTER] [-credit CREDIT] [-grade GRADE]`+
+e.g. `c_edit CS2103 2 1 -grade A+`
+* *Delete* : +
+`c_delete MODULE_CODE` +
+e.g. `c_delete CS2103` +
+or +
+`c_delete MODULE_CODE [YEAR SEMESTER]` +
+e.g. `c_delete CS2103 1 2` +
+* *Goal* : `c_goal CAP_GOAL` +
+e.g. `c_goal 4.5`
+* *Cap* : `c_cap`
+* *Undo* : `c_undo`
+* *Redo* : `c_redo`
 * *Help* : `help`
+* *Exit* : `exit`
