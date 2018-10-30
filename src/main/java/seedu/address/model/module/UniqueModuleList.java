@@ -196,6 +196,34 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.filtered(predicate);
     }
 
+    /**
+     * Finds Module that isSameModule as moduleToFind
+     * @param moduleToFind
+     * @return the Module that matches; null if not matched
+     */
+    public Module find(Module moduleToFind) {
+        for (Module module: internalList) {
+            if (module.isSameModule(moduleToFind)) {
+                return module;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds the first instance of the module that has the same moduleCodeToFind
+     * @param moduleCodeToFind
+     * @return module that return true; null if not matched
+     */
+    public Module find(Code moduleCodeToFind) {
+        for (Module module: internalList) {
+            if (module.getCode().equals(moduleCodeToFind)) {
+                return module;
+            }
+        }
+        throw new ModuleNotFoundException();
+    }
+
     //@@author
     /**
      * Returns the iterator of the internal list.
