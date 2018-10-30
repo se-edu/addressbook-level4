@@ -77,8 +77,8 @@ public class DeleteModuleCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasMultipleInstances(targetCode) &&
-                (targetYear == null || targetSemester == null)) {
+        if (model.hasMultipleInstances(targetCode)
+                && (targetYear == null || targetSemester == null)) {
             throw new CommandException(Messages.MESSAGE_MULTIPLE_INSTANCES_FOUND);
         }
 
