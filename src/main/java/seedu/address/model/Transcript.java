@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -272,22 +273,25 @@ public class Transcript implements ReadOnlyTranscript {
      */
     private ObservableList<Module> calculateNewTargetModuleGrade(ObservableList<Module> targetableModules) {
         List<Module> targetModules = new ArrayList<>();
-        if (targetableModules.isEmpty()) {
-            return FXCollections.observableArrayList(targetModules);
-        }
-
         ObservableList<Module> gradedModules = getGradedModulesList();
+        ObservableList<Module> adjustedModules = getAdjustedModulesList();
         ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
                 Comparator.comparingInt(Module::getCreditsValue));
 
         double totalUngradedModuleCredit = calculateTotalModuleCredit(sortedTargetableModules);
-        double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
-        double currentTotalPoint = calculateTotalModulePoint(gradedModules);
+        double totalMc = calculateTotalModuleCredit(gradedModules)
+                + calculateTotalModuleCredit(adjustedModules) + totalUngradedModuleCredit;
+        double currentTotalPoint = calculateTotalModulePoint(gradedModules)
+                + calculateTotalModulePoint(adjustedModules);
 
         double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+
         if (unitScoreToAchieve > 5) {
             return null;
+        }
+        if (targetableModules.isEmpty()) {
+            return FXCollections.observableArrayList(targetModules);
         }
 
         Module newTargetModule;
@@ -303,6 +307,10 @@ public class Transcript implements ReadOnlyTranscript {
         }
 
         return FXCollections.observableArrayList(targetModules);
+    }
+
+    private ObservableList<Module> getAdjustedModulesList() {
+        return modules.getFilteredModules(Module::isAdjusted);
     }
 
     @Override
@@ -330,6 +338,42 @@ public class Transcript implements ReadOnlyTranscript {
         return capGoal.isImpossible();
     }
 
+    /**
+     * Finds module that matches module to find with isSameModule
+     * @param moduleToFind
+     * @return the Module that matches; null if not matched
+     */
+    public Module findModule(Module moduleToFind) {
+        return modules.find(moduleToFind);
+    }
+
+    /**
+     * Finds the first instance of the module that has the same moduleCodeToFind
+     * @param moduleCodeToFind
+     * @return module that return true; null if not matched
+     */
+    public Module findModule(Code moduleCodeToFind) {
+        return modules.find(moduleCodeToFind);
+    }
+
+    /**
+     * Adjust the target Module to the desired Grade
+     * @param targetModule
+     * @param adjustGrade
+     * @return adjusted Module
+     */
+    public Module adjustModule(Module targetModule, Grade adjustGrade) {
+        requireNonNull(targetModule);
+        requireNonNull(adjustGrade);
+
+        Module adjustedModule = targetModule.adjustGrade(adjustGrade);
+        //TODO: Use updateModule when fixed
+        modules.remove(targetModule);
+        modules.add(adjustedModule);
+        modulesUpdated();
+        return adjustedModule;
+    }
+
     //@@author
     //// util methods
 
@@ -355,5 +399,4 @@ public class Transcript implements ReadOnlyTranscript {
     public int hashCode() {
         return modules.hashCode();
     }
-
 }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -239,4 +240,26 @@ public interface Model {
      * TODO: REMOVE
      */
     void commitAddressBook();
+
+    /**
+     * Finds the module that isSameModule as moduleToFind
+     * @param moduleToFind
+     * @return module that return true with isSameModule; null if not matched
+     */
+    Module findModule(Module moduleToFind);
+
+    /**
+     * Finds the first instance of the module that has the same moduleCodeToFind
+     * @param moduleCodeToFind
+     * @return module that return true; null if not matched
+     */
+    Module findModule(Code moduleCodeToFind);
+
+    /**
+     * Adjust the target Module to the desired Grade
+     * @param targetModule
+     * @param adjustGrade
+     * @return adjusted Module
+     */
+    Module adjustModule(Module targetModule, Grade adjustGrade);
 }
