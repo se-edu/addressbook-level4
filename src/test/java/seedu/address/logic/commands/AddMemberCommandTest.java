@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.MemberCommand.AddMemberCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -170,6 +171,11 @@ public class AddMemberCommandTest {
 
         @Override
         public ObservableList<Ledger> getFilteredLedgerList() {
+            return null;
+        }
+
+        @Override
+        public ObservableSet<Ledger> getFilteredLedgerSet() {
             return null;
         }
 
