@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -37,6 +38,7 @@ public class CapPanel extends UiPart<Region> {
 
     public CapPanel(ReadOnlyTranscript transcript) {
         super(FXML);
+
         currentCapValue.textProperty().bind(Bindings.convert(currentCapDouble));
         capGoalValue.textProperty().bind(capGoalString);
 
