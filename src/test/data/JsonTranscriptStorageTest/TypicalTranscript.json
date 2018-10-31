@@ -1,4 +1,9 @@
 {
+  "capGoal": {
+    "value": 4.0,
+    "isSet": true,
+    "isImpossible": false
+  },
   "modules": {
     "internalList": [
       {
@@ -15,7 +20,8 @@
           "value": 4
         },
         "grade": {
-          "value": "A+"
+          "value": "A+",
+          "state": "ADJUST"
         },
         "completed": true
       },
@@ -33,7 +39,8 @@
           "value": 4
         },
         "grade": {
-          "value": "B+"
+          "value": "B+",
+          "state": "TARGET"
         },
         "completed": true
       },
@@ -51,7 +58,8 @@
           "value": 4
         },
         "grade": {
-          "value": "F"
+          "value": "F",
+          "state": "COMPLETE"
         },
         "completed": true
       }

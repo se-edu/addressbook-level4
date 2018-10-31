@@ -71,6 +71,7 @@ public class Transcript implements ReadOnlyTranscript {
         requireNonNull(newData);
 
         setModules(newData.getModuleList());
+        setCapGoal(newData.getCapGoal());
     }
 
     //// module-level operations
@@ -249,6 +250,7 @@ public class Transcript implements ReadOnlyTranscript {
             makeCapGoalImpossible();
             return;
         }
+        makeCapGoalPossible();
         replaceTargetModules(targetableModules, newTargetModules);
     }
 
@@ -296,7 +298,7 @@ public class Transcript implements ReadOnlyTranscript {
 
         Module newTargetModule;
         for (Module targetedModule : sortedTargetableModules) {
-            if (unitScoreToAchieve == 0.5) {
+            if (unitScoreToAchieve <= 0.5) {
                 unitScoreToAchieve = 1.0;
             }
             newTargetModule = targetedModule.updateTargetGrade(unitScoreToAchieve);
@@ -318,16 +320,28 @@ public class Transcript implements ReadOnlyTranscript {
         return capGoal;
     }
 
+    private void setCapGoal(CapGoal capGoal) {
+        this.capGoal = capGoal;
+    }
+
     public void setCapGoal(double capGoal) {
         this.capGoal = new CapGoal(capGoal);
         updateTargetModuleGrades();
     }
 
     /**
-     * Sets the value as something impossible
+     * Sets the capGoal impossible
      */
     private void makeCapGoalImpossible() {
         capGoal = capGoal.makeIsImpossible();
+    }
+
+    /**
+     * Sets the capGoal as possible
+     */
+    private void makeCapGoalPossible() {
+        assert capGoal.getValue() > 0;
+        capGoal = new CapGoal(capGoal.getValue());
     }
 
     /**

@@ -23,7 +23,7 @@ public class CapGoal {
     }
 
     public CapGoal(double value, boolean isImpossible) {
-        isSet = true;
+        isSet = (value > 0);
         this.value = value;
         this.isImpossible = isImpossible;
     }

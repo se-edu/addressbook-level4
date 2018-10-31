@@ -1,4 +1,9 @@
 {
+  "capGoal": {
+    "value": 4.0,
+    "isSet": true,
+    "isImpossible": false
+  },
   "modules": {
     "extraValue": "ignore this",
     "internalList": [
@@ -18,7 +23,8 @@
           "value": 4
         },
         "grade": {
-          "value": "A+"
+          "value": "A+",
+          "state": "COMPLETE"
         },
         "completed": true
       },
@@ -36,7 +42,8 @@
           "value": 4
         },
         "grade": {
-          "value": "A+"
+          "value": "A+",
+          "state": "COMPLETE"
         },
         "completed": true
       },
@@ -54,7 +61,8 @@
           "value": 4
         },
         "grade": {
-          "value": "A+"
+          "value": "A+",
+          "state": "COMPLETE"
         },
         "completed": true
       },
@@ -72,7 +80,8 @@
           "value": 4
         },
         "grade": {
-          "value": "B"
+          "value": "B",
+          "state": "COMPLETE"
         },
         "completed": true
       }

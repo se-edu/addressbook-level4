@@ -90,7 +90,7 @@ public class Grade {
      * Creates a new {@code Grade} object with value grade and State COMPLETE
      */
     public Grade(String grade) {
-        this(grade.toUpperCase(), State.COMPLETE);
+        this(grade.toUpperCase(), (EMPTY_VALUE.equals(grade)) ? State.INCOMPLETE : State.COMPLETE);
     }
 
     /**
@@ -123,6 +123,15 @@ public class Grade {
         checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
         value = mapPointToValue(point);
         this.state = state;
+    }
+
+    /**
+     * Constructs an {@code Grade} from String values of value and state
+     * @param value
+     * @param state
+     */
+    public Grade(String value, String state) {
+        this(value, State.valueOf(state));
     }
 
     /**
