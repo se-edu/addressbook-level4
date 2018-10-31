@@ -38,16 +38,23 @@ public class Ledger {
 
 
         if (otherLedger.getDateLedger().getDate().equals(this.getDateLedger().getDate())) {
-            logger.info("Same ledger");
-            logger.info(otherLedger.getDateLedger().getDate() + " " + this.getDateLedger().getDate());
             return true;
         }
 
+        /*
         return otherLedger != null
-                && otherLedger.getDateLedger().getDate().equals(getDateLedger().getDate());
+                && otherLedger.getDateLedger().getDate().equals(this.getDateLedger().getDate());
+        */
 
+        return false;
+    }
 
-        //return false;
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Date: ")
+                .append(getDateLedger().getDate());
+        return builder.toString();
     }
 
 }
