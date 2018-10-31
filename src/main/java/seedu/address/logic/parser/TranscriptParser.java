@@ -14,6 +14,8 @@ import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.RedoModuleCommand;
+import seedu.address.logic.commands.UndoModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author alexkmj
@@ -58,6 +60,10 @@ public class TranscriptParser {
             return new EditModuleCommandParser().parse(arguments);
         case GoalCommand.COMMAND_WORD:
             return new GoalCommandParser().parse(arguments);
+        case RedoModuleCommand.COMMAND_WORD:
+            return new RedoModuleCommand();
+        case UndoModuleCommand.COMMAND_WORD:
+            return new UndoModuleCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
