@@ -12,12 +12,10 @@
         <Insets top="5" right="10" bottom="5" left="10"/>
     </padding>
     <HBox HBox.hgrow="ALWAYS" spacing="100" alignment="CENTER">
-        <!--<Label styleClass="cell_capPanel_title" text="CURRENT CAP: " textFill="goldenrod"/>-->
         <VBox spacing="4" alignment="CENTER">
-            <Text fx:id="currentCapValue" styleClass="cap-value"/>
+            <Text fx:id="currentCapValue" styleClass="cap-value" />
             <Text fx:id="currentCapText" styleClass="cap-text" text="Your CAP"/>
         </VBox>
-        <!--<Label styleClass="cell_capPanel_title" text="YOUR CAPGOAL: " textFill="goldenrod" />-->
         <VBox spacing="4" alignment="CENTER">
             <Text fx:id="capGoalValue" styleClass="cap-value"/>
             <Text fx:id="capGoalText" styleClass="cap-text" text="CAP Goal"/>
