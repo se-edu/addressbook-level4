@@ -311,9 +311,9 @@ Format: `deleteItem INDEX`
 
 Examples:
 
-* `delete 2` +
+* `deleteItem 2` +
 Deletes the 2nd item in ItemList.
-* `delete 13` +
+* `deleteItem 13` +
 Deletes the 13th item in ItemList.
 
 ==== Edit an item: `editItem`
