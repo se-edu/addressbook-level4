@@ -323,14 +323,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public double getCap() {
-        double cap = round(versionedTranscript.getCurrentCap(), 1);
-        return cap;
-        //return versionedTranscript.getCurrentCap();
-    }
-
-    private static double round (double value, int precision) {
-        int scale = (int) Math.pow(10, precision);
-        return (double) Math.round(value * scale) / scale;
+        return versionedTranscript.getCurrentCap();
     }
 
     @Override

@@ -130,13 +130,9 @@ public class Transcript implements ReadOnlyTranscript {
     //@@author jeremiah-ang
     @Override
     public double getCurrentCap() {
-        return round(currentCap, 1);
+        return currentCap;
     }
 
-    private static double round (double value, int precision) {
-        int scale = (int) Math.pow(10, precision);
-        return (double) Math.round(value * scale) / scale;
-    }
     @Override
     public ObservableList<Module> getCompletedModuleList() {
         return getModuleList().filtered(Module::hasCompleted);
