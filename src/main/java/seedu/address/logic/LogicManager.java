@@ -38,7 +38,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
 
-            Command command = addressBookParser.parseCommand(commandText,model);
+            Command command = addressBookParser.parseCommand(commandText);
             return command.execute(model, history);
 
         } finally {
@@ -61,6 +61,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredLedgerSet();
     }
 
+    @Override
     public ObservableList<Item> getFilteredItemList() {
         return model.getFilteredItemList();
     }
