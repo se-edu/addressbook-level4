@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,6 +30,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    public static final String PREFIX = "-";
 
     //@@author alexkmj
     /**
@@ -98,6 +102,26 @@ public class ParserUtil {
                     + "Number of arguments should be "
                     + allowedNumOfArgs);
         }
+    }
+
+    //@@author alexkmj
+    /**
+     * Maps arguments according to their prefixes.
+     */
+    public static Map<String, String> mapArgs(String[] args) {
+        Map<String, String> argsMap = new HashMap<>();
+
+        for (int index = 0; index < args.length; index++) {
+            if (args[index].startsWith(PREFIX)
+                    && (index + 1 < args.length)) {
+                String key = args[index].substring(1);
+                String value = args[++index];
+
+                argsMap.put(key, value);
+            }
+        }
+
+        return argsMap;
     }
 
     //@@author alexkmj

@@ -11,6 +11,7 @@ import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.logic.commands.CapCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteModuleCommand;
+import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RedoModuleCommand;
@@ -55,6 +56,8 @@ public class TranscriptParser {
             return new CapCommand();
         case DeleteModuleCommand.COMMAND_WORD:
             return new DeleteModuleCommandParser().parse(arguments);
+        case EditModuleCommand.COMMAND_WORD:
+            return new EditModuleCommandParser().parse(arguments);
         case GoalCommand.COMMAND_WORD:
             return new GoalCommandParser().parse(arguments);
         case RedoModuleCommand.COMMAND_WORD:

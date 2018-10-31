@@ -1,5 +1,7 @@
 package seedu.address.model.util;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;
 import seedu.address.model.module.Grade;
@@ -52,7 +54,19 @@ public class ModuleBuilder {
      * Sets the {@code Code} of the {@code Module} that we are building.
      */
     public ModuleBuilder withCode(String code) {
+        requireNonNull(code);
+
         this.code = new Code(code);
+        return withCode(this.code);
+    }
+
+    /**
+     * Sets the {@code Code} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withCode(Code code) {
+        requireNonNull(code);
+
+        this.code = code;
         return this;
     }
 
@@ -60,7 +74,19 @@ public class ModuleBuilder {
      * Sets the {@code Year} of the {@code Module} that we are building.
      */
     public ModuleBuilder withYear(int year) {
+        requireNonNull(year);
+
         this.year = new Year(year);
+        return withYear(this.year);
+    }
+
+    /**
+     * Sets the {@code Year} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withYear(Year year) {
+        requireNonNull(year);
+
+        this.year = year;
         return this;
     }
 
@@ -68,7 +94,19 @@ public class ModuleBuilder {
      * Sets the {@code Semester} of the {@code Module} that we are building.
      */
     public ModuleBuilder withSemester(String semester) {
+        requireNonNull(semester);
+
         this.semester = new Semester(semester);
+        return withSemester(this.semester);
+    }
+
+    /**
+     * Sets the {@code Semester} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withSemester(Semester semester) {
+        requireNonNull(semester);
+
+        this.semester = semester;
         return this;
     }
 
@@ -76,7 +114,19 @@ public class ModuleBuilder {
      * Sets the {@code Credit} of the {@code Module} that we are building.
      */
     public ModuleBuilder withCredit(int credit) {
+        requireNonNull(credit);
+
         this.credit = new Credit(credit);
+        return withCredit(this.credit);
+    }
+
+    /**
+     * Sets the {@code Credit} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withCredit(Credit credit) {
+        requireNonNull(credit);
+
+        this.credit = credit;
         return this;
     }
 
@@ -85,6 +135,14 @@ public class ModuleBuilder {
      */
     public ModuleBuilder withGrade(String grade) {
         this.grade = new Grade(grade);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Grade} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withGrade(Grade grade) {
+        this.grade = grade;
         return this;
     }
 

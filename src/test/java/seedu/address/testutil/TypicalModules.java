@@ -29,6 +29,8 @@ public class TypicalModules {
     public static final int YEAR_ONE = 1;
     public static final int YEAR_TWO = 2;
     public static final int YEAR_THREE = 3;
+    public static final int YEAR_FOUR = 4;
+    public static final int YEAR_FIVE = 5;
 
     public static final String GRADE_A_PLUS = "A+";
     public static final String GRADE_B_PLUS = "B+";
