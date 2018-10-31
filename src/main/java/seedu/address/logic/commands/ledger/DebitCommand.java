@@ -24,7 +24,7 @@ public class DebitCommand extends Command {
 
     public static final String COMMAND_WORD = "debit";
 
-    public static final String MESSAGE_DEBIT_ACCOUNT_SUCCESS = "New amount: %1$s";
+    public static final String MESSAGE_DEBIT_ACCOUNT_SUCCESS = "New amount for date %2$s is $%1$s";
 
     private DateLedger dateLedger;
 
@@ -78,6 +78,6 @@ public class DebitCommand extends Command {
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
+        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, editedLedger.getAccount(), editedLedger.getDateLedger().getDate()));
     }
 }

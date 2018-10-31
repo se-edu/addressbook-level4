@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -46,7 +47,7 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
-        <ScrollPane>
+        <StackPane>
           <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
@@ -54,14 +55,12 @@
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-
           <VBox fx:id="ledgerList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="ledgerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-
           <VBox fx:id="eventList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
@@ -77,7 +76,7 @@
           </VBox>
 
         </SplitPane>
-        </ScrollPane>
+        </StackPane>
         <StackPane fx:id="browserPlaceholder" prefWidth="340" prefHeight="200" >
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
