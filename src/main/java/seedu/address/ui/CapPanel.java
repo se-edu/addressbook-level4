@@ -41,7 +41,7 @@ public class CapPanel extends UiPart<Region> {
         currentCapValue.textProperty().bind(Bindings.convert(currentCapDouble));
         capGoalValue.textProperty().bind(capGoalString);
 
-        Platform.runLater(() -> currentCapDouble.setValue(round(transcript.getCurrentCap(),1)));
+        Platform.runLater(() -> currentCapDouble.setValue(round(transcript.getCurrentCap(), 1)));
         CapGoal goal = transcript.getCapGoal();
         Platform.runLater(() -> capGoalString.setValue(goal.isSet() ? String.valueOf(goal.getValue()) : "NIL"));
         registerAsAnEventHandler(this);
