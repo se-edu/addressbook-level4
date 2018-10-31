@@ -43,6 +43,7 @@ public class DebitCommand extends Command {
 
         List<Ledger> lastShownList = model.getFilteredLedgerList();
 
+        Ledger initialLedger = null;
         Ledger ledgerToEdit = new Ledger(dateLedger, new Account(toSub));
         Ledger editedLedger;
 
@@ -66,14 +67,14 @@ public class DebitCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);
         }
 
-        //ledgerToEdit.getAccount().debit(toSub);
+        initialLedger = ledgerToEdit;
 
         //editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
 
         editedLedger = new Ledger(dateLedger,
-                new Account(Double.valueOf(ledgerToEdit.getAccount().getBalance()) - toSub));
+                new Account(Double.parseDouble(initialLedger.getAccount().getBalance()) - toSub));
 
-        model.updateLedger(ledgerToEdit, editedLedger);
+        model.updateLedger(initialLedger, editedLedger);
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
