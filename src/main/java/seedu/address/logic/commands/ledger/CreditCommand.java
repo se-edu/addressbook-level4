@@ -63,7 +63,7 @@ public class CreditCommand extends Command {
 
             k = false;
 
-            if (i.getDateLedger().getDate().equals(dateLedger.getDate())){
+            if (i.getDateLedger().getDate().equals(dateLedger.getDate())) {
 
                 ledgerToEdit = initialLedger = i;
                 k = true;

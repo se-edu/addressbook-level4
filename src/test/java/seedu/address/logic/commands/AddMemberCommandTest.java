@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.MemberCommand.AddMemberCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -174,6 +175,11 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public ObservableSet<Ledger> getFilteredLedgerSet() {
+            return null;
+        }
+
+        @Override
         public ObservableList<Item> getFilteredItemList() {
             return null;
         }
@@ -268,7 +274,7 @@ public class AddMemberCommandTest {
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
-        @Override
+        @Override 
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);

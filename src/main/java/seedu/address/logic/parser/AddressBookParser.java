@@ -44,7 +44,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, Model model) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -74,6 +74,12 @@ public class AddressBookParser {
 
         case FindMajorCommand.COMMAND_WORD: case FindMajorCommand.COMMAND_ALIAS:
             return new FindMajorCommandParser().parse(arguments);
+
+        case FindPhoneCommand.COMMAND_WORD: case FindPhoneCommand.COMMAND_ALIAS:
+            return new FindPhoneCommandParser().parse(arguments);
+
+        case FindPostalcodeCommand.COMMAND_WORD: case FindPostalcodeCommand.COMMAND_ALIAS:
+            return new FindPostalcodeCommandParser().parse(arguments);
 
         case ListMemberCommand.COMMAND_WORD: case ListMemberCommand.COMMAND_ALIAS:
             return new ListMemberCommand();

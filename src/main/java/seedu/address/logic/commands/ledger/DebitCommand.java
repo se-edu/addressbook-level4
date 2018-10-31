@@ -70,12 +70,15 @@ public class DebitCommand extends Command {
         initialLedger = ledgerToEdit;
         initialLedger.getAccount().debit(toSub);
 
-        editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
+        //editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
+
+        editedLedger = new Ledger(dateLedger,
+                new Account(Double.valueOf(ledgerToEdit.getAccount().getBalance()) - toSub));
 
         model.updateLedger(initialLedger, editedLedger);
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, ledgerToEdit.getAccount()));
+        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
     }
 }

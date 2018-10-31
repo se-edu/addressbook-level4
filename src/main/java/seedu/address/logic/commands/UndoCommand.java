@@ -29,6 +29,7 @@ public class UndoCommand extends Command {
 
         model.undoAddressBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         return new CommandResult(MESSAGE_SUCCESS);
