@@ -50,4 +50,12 @@ public class Ledger {
         //return false;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Date: ")
+                .append(getDateLedger().getDate());
+        return builder.toString();
+    }
+
 }
