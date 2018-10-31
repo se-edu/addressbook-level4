@@ -24,38 +24,61 @@ public class DeleteModuleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module identified by the module code.\n"
-            + "Parameters: MODULE_CODE [YEAR] [SEMESTER]\n"
+            + "Parameters: MODULE_CODE [YEAR SEMESTER]\n"
             + "Example: " + COMMAND_WORD + " CS2103";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module";
-    public static final String MESSAGE_MODULE_NOT_EXIST =
-            "This module does not exist in the transcript";
 
     private final Code targetCode;
     private final Year targetYear;
     private final Semester targetSemester;
 
+    /**
+     * Prevents instantiation of empty constructor.
+     */
     private DeleteModuleCommand() {
         targetCode = null;
         targetYear = null;
         targetSemester = null;
     }
 
+    /**
+     * Sets the targeted code set to {@code targetCode} in the argument.
+     * @param targetCode the code used to identify the module to be deleted
+     */
     public DeleteModuleCommand(Code targetCode) {
         this(targetCode, null, null);
     }
 
+    /**
+     * Sets the targeted code, targeted year, and targeted semester to {@code targetCode},
+     * {@code targetYear}, {@code targetSemester} in the argument.
+     * @param targetCode the code used to identify the module to be deleted
+     * @param targetYear the year used to identify the module to be deleted
+     * @param targetSemester the semester used to identify the module to be deleted
+     */
     public DeleteModuleCommand(Code targetCode, Year targetYear, Semester targetSemester) {
         this.targetCode = targetCode;
         this.targetYear = targetYear;
         this.targetSemester = targetSemester;
     }
 
+    /**
+     * Attempts to delete a module entry from the transcript. Throws {@code CommandException} if
+     * year and semester wasn't provided and multiple entries of module with the same module code
+     * exist or when no entry of such module exist.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return Message which says that the execution was successful
+     * @throws CommandException exception thrown when command cannot be executed properly
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasMultipleInstances(targetCode) && targetYear == null) {
+        if (model.hasMultipleInstances(targetCode)
+                && (targetYear == null || targetSemester == null)) {
             throw new CommandException(Messages.MESSAGE_MULTIPLE_INSTANCES_FOUND);
         }
 
