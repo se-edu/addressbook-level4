@@ -29,7 +29,7 @@ public class CreditCommand extends Command {
 
     public static final String COMMAND_WORD = "credit";
 
-    public static final String MESSAGE_CREDIT_ACCOUNT_SUCCESS = "New amount: %1$s";
+    public static final String MESSAGE_CREDIT_ACCOUNT_SUCCESS = "New amount for date %2$s is $%1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "Credits the amount in a date ledger. Parameters: " +
             "/d[Date DD/MM] /b[$Balance]";
@@ -87,6 +87,6 @@ public class CreditCommand extends Command {
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
+        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, editedLedger.getAccount(), editedLedger.getDateLedger()));
     }
 }

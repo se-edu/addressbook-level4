@@ -22,7 +22,7 @@ public class Account {
     }
 
     public String getBalance() {
-        return (value.toString());
+        return value.toString();
     }
 
     public void credit (Double amount) {
