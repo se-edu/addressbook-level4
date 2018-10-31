@@ -284,6 +284,27 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+==== Locating members by phone number: `findmajor`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `findmajor KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `computer` will match `Computer`
+* The order of the keywords does not matter. e.g. `Engineering computer` will match `Computer engineering`
+* Only the name is searched.
+* Majors matching at least one keyword will be returned e.g ` Computer Engineering` will be listed when `Engineering` is searched
+* Only full words will be matched e.g. `Compute` will not match `Computer`
+****
+
+Examples:
+
+* `findmajor Computer Engineering` +
+Returns member whose major is `Computer Engineering`
+* `findmajor Engineering` +
+Returns members whose major contains the keyword `Engineering`
+
+
 ==== Locating members by phone number: `findphone`
 
 Finds persons whose names contain any of the given keywords. +
