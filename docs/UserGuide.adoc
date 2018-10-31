@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= ClubHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2113-AY1819S1-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-3`      Since: `Sep 2018`      Licence: `NUS`
 
 == Introduction
 
@@ -57,83 +57,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
-
-Adds a person to the ClubHub +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 === Listing all persons : `list`
 
 Shows a list of all persons in the ClubHub. +
 Format: `list`
 
-=== Editing a person : `edit`
 
-Edits an existing person in the ClubHub. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from ClubHub. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in ClubHub.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
 
 === Selecting a person : `select`
 
@@ -248,7 +178,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == Main Features
 
-=== Calendar: `openCalendar`
+=== Calendar:
 
 ==== List events: `listEvents`
 Lists all the events sorted by date. +
@@ -266,27 +196,154 @@ Format: `changeEvent EVENT_NAME to EVENT_NAME EVENT_DATE EVENT_LOCATION EVENT_DE
 Deletes an event from the calendar. +
 Format: `deleteEvent EVENT_NAME`.
 
-=== Finances: `openFinances`
 
-==== Adding a record: `addRecord`
-Adds a record to the log. +
-Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
+=== Accounts:
 
-==== Deleting a record: `deleteRecord`
-Deletes a record from the log. +
-Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
 
-=== Members: `openMembers`
+The accounts features a ledger column to record the spending of the club
+on any date in the form of DD/MM. There are 4 basic commands allowing the user to
+add or delete a ledger, and to credit or debit money from any date in the
+list of records.
 
-==== Adding a member: `addMember`
-Adds a new member to the member list. +
-Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
+==== Adding a ledger: `addLedger`
+Adds a ledger to the ledger column. +
+Format: `addLedger d/[DD/MM]`
 
-==== deleting a member: `deleteMember`
-delete a new member to the member list. +
-Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
+Example: `addLedger d/ 10/10`
 
-=== Inventory: `openInventory`s
+==== Deleting a ledger: `deleteLedger`
+Deletes a ledger from the log. +
+Format: `deleteLedger d/[DD/MM]`
+
+Example: `deleteLedger d/ 10/10`
+
+==== Crediting a ledger: `credit`
+Increase the balance of a ledger on a date indicated. +
+Format: `credit d/[DD/MM] b/[NUM]`
+
+Example: `credit d/ 10/10 b/ 100`
+
+==== Debiting a ledger: `credit`
+Decrease the balance of a ledger on a date indicated. +
+Format: `debit d/[DD/MM] b/[NUM]`
+
+Example: `debit d/ 10/10 b/ 100`
+
+=== Members:
+
+==== Adding a member: `addmember`
+
+Adds a person to the ClubHub +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/POSTALCODE m/MAJOR [t/TAG]...`
+
+[TIP]
+A person can have any number of tags (including 0)
+
+Examples:
+
+* `addmember n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 c/609653 m/Computer engineering t/friends t/owesMoney`
+
+
+==== Editing a member : `editmember`
+
+Edits an existing person in the ClubHub. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/POSTALCODE] [m/MAJOR] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== Locating members by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+==== Locating members by phone number: `findphone`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `findphone KEYWORD [MORE_KEYWORDS]`
+
+****
+* The order of the keywords does not matter.
+* Only the phone number is searched.
+* Only full numbers will be matched e.g. `9723` will not match `97233234`
+
+****
+
+Examples:
+
+* `findphone 97233234` +
+Returns member whose phone number is `97233234`
+* `findphone 97233234 84280511` +
+Returns members whose phone numbers are`97233234 or 84280511'
+
+==== Locating members by postalcode: `findpostalcode`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `findpostalcode KEYWORD [MORE_KEYWORDS]`
+
+****
+* The order of the keywords does not matter.
+* Only the postalcode is searched.
+* Only full numbers will be matched e.g. `609` will not match `609653`
+
+****
+
+Examples:
+
+* `findpostalcode 609653` +
+Returns member whose postalcode is `609653`
+* `findpostalcode 609653 555555` +
+Returns members whose postalcodes are `97233234 or 84280511`
+
+==== Deleting a member : `delete`
+
+Deletes the specified person from ClubHub. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in ClubHub.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+
+=== Inventory:
 
 ==== Adding an item: `addItem`
 Adds an Item with its quantity, category, and location to the ItemList. +
@@ -296,9 +353,9 @@ Format: `addItem ITEM_NAME QUANTITY CATEGORY LOCATION`
 Shows the list of Items and their quantities. +
 Format: `listItems`
 
-==== Removing an item: `removeItem`
-Removes a specified quantity of an Item in the ItemList. +
-Format: `removeItem ITEM_NAME QUANTITY`
+==== Deleting an item: `deleteItem`
+Deletes the specified Item in the ItemList. +
+Format: `deleteItem INDEX`
 
 ==== Sorting items: `sortItemList`
 Sorts the ItemList by name, quantity, category, or location. +

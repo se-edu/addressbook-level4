@@ -18,7 +18,7 @@ public class Ledger {
     private final DateLedger dateLedger;
 
     public Ledger(DateLedger dateLedger, Account account) {
-        requireAllNonNull(dateLedger);
+        requireAllNonNull(dateLedger, account);
         this.account = account;
         this.dateLedger = dateLedger;
     }
@@ -35,11 +35,26 @@ public class Ledger {
      * Returns true if both ledgers have the same date.
      */
     public boolean isSameLedger(Ledger otherLedger) {
+
+
         if (otherLedger.getDateLedger().getDate().equals(this.getDateLedger().getDate())) {
-            logger.info("Same ledger");
             return true;
         }
+
+        /*
+        return otherLedger != null
+                && otherLedger.getDateLedger().getDate().equals(this.getDateLedger().getDate());
+        */
+
         return false;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Date: ")
+                .append(getDateLedger().getDate());
+        return builder.toString();
     }
 
 }

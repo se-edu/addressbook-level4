@@ -14,6 +14,7 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.ledger.CreditCommand.MESSAGE_CREDIT_ACCOUNT_SUCCESS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LEDGERS;
 
 /**
  * Decreases the value of balance in the ledger
@@ -25,9 +26,9 @@ public class DebitCommand extends Command {
 
     public static final String MESSAGE_DEBIT_ACCOUNT_SUCCESS = "New amount: %1$s";
 
-    private final DateLedger dateLedger;
+    private DateLedger dateLedger;
 
-    private final Double toSub;
+    private Double toSub;
 
     public DebitCommand (DateLedger date, Double amount) {
         requireNonNull(date);
@@ -42,25 +43,41 @@ public class DebitCommand extends Command {
 
         List<Ledger> lastShownList = model.getFilteredLedgerList();
 
+        Ledger initialLedger = null;
         Ledger ledgerToEdit = new Ledger(dateLedger, new Account(toSub));
         Ledger editedLedger;
 
-        for (int i = 0; i < lastShownList.size(); i++) {
-            Ledger compare = lastShownList.get(i);
-            if (compare.getDateLedger() == dateLedger){
-                ledgerToEdit = compare;
-            } else {
-                throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);
+        boolean k = false;
+
+        for (Ledger i : lastShownList) {
+
+            k = false;
+
+            if (i.getDateLedger().getDate().equals(dateLedger.getDate())){
+
+                ledgerToEdit = i;
+                k = true;
+                break;
+
             }
+
         }
 
-        ledgerToEdit.getAccount().debit(toSub);
+        if (!k) {
+            throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);
+        }
 
-        editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
+        initialLedger = ledgerToEdit;
 
-        model.updateLedger(ledgerToEdit, editedLedger);
+        //editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
+
+        editedLedger = new Ledger(dateLedger,
+                new Account(Double.parseDouble(initialLedger.getAccount().getBalance()) - toSub));
+
+        model.updateLedger(initialLedger, editedLedger);
+        model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, ledgerToEdit.getAccount()));
+        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
     }
 }

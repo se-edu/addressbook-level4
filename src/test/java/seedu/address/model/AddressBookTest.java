@@ -17,12 +17,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.collections.ObservableSet;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.member.Person;
 import seedu.address.model.member.exceptions.DuplicatePersonException;
@@ -135,6 +138,16 @@ public class AddressBookTest {
 
         @Override
         public ObservableList<Ledger> getLedgerList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Item> getItemList() {
+            return null;
+        }
+
+        @Override
+        public ObservableSet<Ledger> getLedgerSet() {
             return null;
         }
     }

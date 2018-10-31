@@ -2,6 +2,10 @@ package seedu.address.model.item;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+
 /**
  * Represents an Item in the inventory.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -9,30 +13,38 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Item {
 
     // Identity fields
-    private final String itemName;
+    private final ItemName itemName;
+    private final ItemQuantity itemQuantity;
+
+    private final Logger logger = LogsCenter.getLogger(Item.class);
 
     /**
      * Every field must be present and not null.
      */
-    public Item(String itemName) {
+    public Item(ItemName itemName, ItemQuantity itemQuantity) {
         requireAllNonNull(itemName);
         this.itemName = itemName;
+        this.itemQuantity = itemQuantity;
     }
 
-    public String getItemName() {
+    public ItemName getItemName() {
         return itemName;
     }
 
+    public ItemQuantity getItemQuantity() {
+        return itemQuantity;
+    }
+
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both items have the same ItemName
      */
-    public boolean isSameItem(seedu.address.model.item.Item otherItem) {
-        if (otherItem == this) {
+    public boolean isSameItem(Item otherItem) {
+        if (otherItem.getItemName() == itemName) {
+            logger.info("Same item");
             return true;
         }
 
-        return otherItem != null
+        return otherItem.getItemName() != null
                 && otherItem.getItemName().equals(getItemName());
     }
 
@@ -46,12 +58,20 @@ public class Item {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.item.Item)) {
+        if (!(other instanceof Item)) {
             return false;
         }
 
-        seedu.address.model.item.Item otherItem = (seedu.address.model.item.Item) other;
+        Item otherItem = (Item) other;
         return otherItem.getItemName().equals(getItemName());
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getItemName())
+                .append(" ItemQuantity: ")
+                .append(getItemQuantity());
+        return builder.toString();
+    }
 }

@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "darylnigel",
+      "displayName": "DAR...WEI",
+      "authorNames": ["darylnigel", "Daryl Nigel Lim En Wei"]
+    },
+    {
+      "githubId": "Hyukiejun",
+      "displayName": "PAR...YUK",
+      "authorNames": ["Hyukiejun"]
+    },
+    {
+      "githubId": "AllenZB",
+      "displayName": "ZHA... BO",
+      "authorNames": ["AllenZB"]
+    },
+    {
+      "githubId": "Za-yn",
+      "displayName": "ZHU...UAN",
+      "authorNames": ["Za-yn"]
+    }
+  ]
+}

@@ -1,17 +1,22 @@
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddItemCommand;
+import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.MemberCommand.*;
 import seedu.address.logic.commands.ledger.AddLedgerCommand;
 import seedu.address.logic.commands.ledger.CreditCommand;
 import seedu.address.logic.commands.ledger.DebitCommand;
+import seedu.address.logic.commands.ledger.DeleteLedgerCommand;
 import seedu.address.logic.commands.ledger.OpenLedgerCommand;
 import seedu.address.logic.parser.Member.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.ledger.AddLedgerCommandParser;
 import seedu.address.logic.parser.ledger.CreditCommandParser;
 import seedu.address.logic.parser.ledger.DebitCommandParser;
+import seedu.address.logic.parser.ledger.DeleteLedgerCommandParser;
+import seedu.address.model.Model;
 
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -25,13 +30,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  */
 public class AddressBookParser {
 
-
-    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
-
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
 
     /**
      * Parses user input into command for execution.
@@ -71,6 +75,12 @@ public class AddressBookParser {
         case FindMajorCommand.COMMAND_WORD: case FindMajorCommand.COMMAND_ALIAS:
             return new FindMajorCommandParser().parse(arguments);
 
+        case FindPhoneCommand.COMMAND_WORD: case FindPhoneCommand.COMMAND_ALIAS:
+            return new FindPhoneCommandParser().parse(arguments);
+
+        case FindPostalcodeCommand.COMMAND_WORD: case FindPostalcodeCommand.COMMAND_ALIAS:
+            return new FindPostalcodeCommandParser().parse(arguments);
+
         case ListMemberCommand.COMMAND_WORD: case ListMemberCommand.COMMAND_ALIAS:
             return new ListMemberCommand();
 
@@ -90,11 +100,20 @@ public class AddressBookParser {
             return new RedoCommand();
 
         case AddItemCommand.COMMAND_WORD:
+            logger.info("Parsing");
             return new AddItemCommandParser().parse(arguments);
 
         case AddLedgerCommand.COMMAND_WORD:
-            logger.info("Parsing");
             return new AddLedgerCommandParser().parse(arguments);
+
+        case DeleteLedgerCommand.COMMAND_WORD:
+            return new DeleteLedgerCommandParser().parse(arguments);
+
+        case DeleteItemCommand.COMMAND_WORD: case DeleteItemCommand.COMMAND_ALIAS:
+            return new DeleteItemCommandParser().parse(arguments);
+
+        case EditItemCommand.COMMAND_WORD: case EditItemCommand.COMMAND_ALIAS:
+            return new EditItemCommandParser().parse(arguments);
 
         case UndoAllCommand.COMMAND_WORD:
             return new UndoAllCommand();

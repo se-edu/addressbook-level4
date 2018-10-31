@@ -11,6 +11,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.ledger.Account;
 import seedu.address.model.ledger.DateLedger;
 import seedu.address.model.ledger.Ledger;
@@ -33,25 +34,23 @@ public class AddLedgerCommandParser implements Parser<AddLedgerCommand> {
      */
 
     public AddLedgerCommand parse(String args) throws ParseException {
-        logger.info("Still parsing...");
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-        /*
-        if(!arePrefixesPresent(argMultimap, PREFIX_DATE) || argMultimap.getPreamble().isEmpty()) {
+
+        if(!arePrefixesPresent(argMultimap, PREFIX_DATE) /*|| argMultimap.getPreamble().isEmpty()*/) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLedgerCommand.MESSAGE_USAGE));
         }
-        */
-        logger.info("Parsed");
+
+
         DateLedger date = ParserUtil.parseDateLedger(argMultimap.getValue(PREFIX_DATE).get());
         //Account account = ParserUtil.parseBalance(Double.parseDouble(argMultimap.getValue(PREFIX_BALANCE).get()));
-        logger.info("Creating new Ledger");
-        Ledger ledger = new Ledger(date, new Account(0.0));
-        logger.info("Created new ledger");
 
+        Ledger ledger = new Ledger(date, new Account(0.0));
         return new AddLedgerCommand(ledger);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
 }

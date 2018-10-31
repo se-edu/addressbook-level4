@@ -2,6 +2,7 @@ package seedu.address.model.ledger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.model.ledger.exceptions.DuplicateLedgerException;
 import seedu.address.model.ledger.exceptions.LedgerNotFoundException;
 
@@ -25,6 +26,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class UniqueLedgerList implements Iterable<Ledger> {
 
     private final ObservableList<Ledger> internalList = FXCollections.observableArrayList();
+    private final ObservableSet<Ledger> internalList2 = FXCollections.observableSet();
 
     /**
 
@@ -32,14 +34,6 @@ public class UniqueLedgerList implements Iterable<Ledger> {
      */
     public boolean contains(Ledger toCheck) {
         requireNonNull(toCheck);
-
-        /*
-        for (int i = 0; i < internalList.size(); i++) {
-            if (toCheck.getDateLedger().getDate().equals(internalList.get(i).getDateLedger().getDate())) {
-                return true;
-            }
-        }
-        */
         return internalList.stream().anyMatch(toCheck::isSameLedger);
     }
 
@@ -49,10 +43,12 @@ public class UniqueLedgerList implements Iterable<Ledger> {
      */
     public void add(Ledger toAdd) {
         requireNonNull(toAdd);
+
         if (contains(toAdd)) {
             throw new DuplicateLedgerException();
         }
         internalList.add(toAdd);
+        internalList2.add(toAdd);
     }
 
     public void setDate(Ledger target, Ledger editedDate) {
@@ -89,6 +85,15 @@ public class UniqueLedgerList implements Iterable<Ledger> {
         internalList.setAll(replacement.internalList);
     }
 
+    public void setLedgers(List<Ledger> ledgers) {
+        requireAllNonNull(ledgers);
+        if (!ledgersAreUnique(ledgers)) {
+            throw new DuplicateLedgerException();
+        }
+
+        internalList.setAll(ledgers);
+    }
+
     /**
      * Replaces the ledger {@code target} in the list with {@code editedLedger}.
      * {@code target} must exist in the list.
@@ -99,7 +104,7 @@ public class UniqueLedgerList implements Iterable<Ledger> {
         DateLedger dateTarget = target.getDateLedger();
         int index = -1;
         for (int i = 0; i < internalList.size(); i++) {
-            if (dateTarget == internalList.get(i).getDateLedger()) {
+            if (dateTarget.getDate().equals(internalList.get(i).getDateLedger().getDate())) {
                 index = i;
             }
         }
@@ -118,6 +123,10 @@ public class UniqueLedgerList implements Iterable<Ledger> {
      */
     public ObservableList<Ledger> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    public ObservableSet<Ledger> asUnmodifiableObservableSet() {
+        return FXCollections.unmodifiableObservableSet(internalList2);
     }
 
     @Override

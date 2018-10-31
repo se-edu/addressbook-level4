@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import seedu.address.model.item.Item;
+import seedu.address.model.item.UniqueItemList;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.ledger.UniqueLedgerList;
 import seedu.address.model.member.Person;
@@ -20,6 +23,7 @@ import seedu.address.model.tag.Tag;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueLedgerList ledgers;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -30,12 +34,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        ledgers = new UniqueLedgerList();
     }
 
-    private final UniqueLedgerList ledgers;
+    private final UniqueItemList items;
 
     {
-        ledgers = new UniqueLedgerList();
+        items = new UniqueItemList();
     }
 
     public AddressBook() {}
@@ -62,8 +67,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the ledger list with {@code ledgers}.
      * {@code ledgers} must not contain duplicate ledgers.
      */
-    public void setLedgers(List<Ledger> ledger) {
+    public void setLedgers(List<Ledger> ledgers) {
         this.ledgers.setLedgers(ledgers);
+    }
+
+    /**
+     * Replaces the contents of the item list with {@code items}.
+     * {@code items} must not contain duplicate items.
+     */
+    public void setItems(List<Item> items) {
+        this.items.setItems(items);
     }
 
     /**
@@ -73,6 +86,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setItems(newData.getItemList());
+        setLedgers(newData.getLedgerList());
     }
 
     //// member-level operations
@@ -88,9 +103,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a ledger with the same date as {@code ledger} exists in the club book
      */
-    public boolean hasLedger(Ledger ledger){
+    public boolean hasLedger(Ledger ledger) {
         requireNonNull(ledger);
         return ledgers.contains(ledger);
+    }
+
+    /**
+     * Returns true if an item with the same ItemName as {@code item} exists in the club book
+     */
+    public boolean hasItem(Item item) {
+        requireNonNull(item);
+        return items.contains(item);
     }
 
     /**
@@ -104,7 +127,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a ledger to the club book
      */
-
     public void addLedger(Ledger ledger) {
         ledgers.add(ledger);
     }
@@ -115,13 +137,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds an item to the club book
+     */
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeItem(Item item) {
+        requireNonNull(item);
+        items.remove(item);
+    }
+
+    /**
      * Replaces the given member {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The member identity of {@code editedPerson} must not be the same as another existing member in the address book.
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
     }
 
@@ -131,12 +168,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the address book.
+     * The ItemName of {@code editedItem} must not be the same as another existing item in the item list.
+     */
+    public void updateItem(Item target, Item editedItem) {
+        requireNonNull(editedItem);
+        items.setItem(target, editedItem);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
         persons.remove(key);
     }
+
     /**
      * Removes {@code tag} from {@code member} in this {@code AddressBook}.
      */
@@ -149,7 +197,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         Person newPerson = new Person(person.getName(),
-                person.getPhone(), person.getEmail(), person.getAddress(), person.getPostalcode(), person.getMajor(), newTags);
+                person.getPhone(), person.getEmail(), person.getAddress(), person.getPostalcode(),
+                person.getMajor(), newTags);
 
         updatePerson(person, newPerson);
     }
@@ -174,6 +223,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Ledger> getLedgerList() {
         return ledgers.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableSet<Ledger> getLedgerSet() {
+        return ledgers.asUnmodifiableObservableSet();
+
+    }
+
+    @Override
+    public ObservableList<Item> getItemList() {
+        return items.asUnmodifiableObservableList();
     }
 
     @Override

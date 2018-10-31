@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.MemberCommand.AddMemberCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -139,6 +140,11 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public boolean hasItem(Item item) {
+            return false;
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -154,6 +160,11 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public void updateItem(Item target, Item editedItem) {
+
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -164,12 +175,27 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public ObservableSet<Ledger> getFilteredLedgerSet() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Item> getFilteredItemList() {
+            return null;
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredLedgerList(Predicate<Ledger> predicate) {
+
+        }
+
+        @Override
+        public void updateFilteredItemList(Predicate<Item> predicate) {
 
         }
 
