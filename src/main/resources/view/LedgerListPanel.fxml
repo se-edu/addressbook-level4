@@ -3,6 +3,14 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.StackPane?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <StackPane prefWidth="Infinity" VBox.vgrow="ALWAYS" prefHeight="NaN">
+    <Text textAlignment="CENTER" text="Ledger" fill="aqua" style="-fx-font-size: 25">
+    </Text>
+  </StackPane>
+  <StackPane minHeight="20">
+  </StackPane>
   <ListView fx:id="ledgerListView" VBox.vgrow="ALWAYS" />
 </VBox>

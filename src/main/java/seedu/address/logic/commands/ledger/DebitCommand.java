@@ -24,7 +24,7 @@ public class DebitCommand extends Command {
 
     public static final String COMMAND_WORD = "debit";
 
-    public static final String MESSAGE_DEBIT_ACCOUNT_SUCCESS = "New amount: %1$s";
+    public static final String MESSAGE_DEBIT_ACCOUNT_SUCCESS = "New amount for date %2$s is $%1$s";
 
     private DateLedger dateLedger;
 
@@ -43,6 +43,7 @@ public class DebitCommand extends Command {
 
         List<Ledger> lastShownList = model.getFilteredLedgerList();
 
+        Ledger initialLedger = null;
         Ledger ledgerToEdit = new Ledger(dateLedger, new Account(toSub));
         Ledger editedLedger;
 
@@ -66,17 +67,17 @@ public class DebitCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_LEDGER_DISPLAYED_DATE);
         }
 
-        //ledgerToEdit.getAccount().debit(toSub);
+        initialLedger = ledgerToEdit;
 
         //editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
 
         editedLedger = new Ledger(dateLedger,
-                new Account(Double.valueOf(ledgerToEdit.getAccount().getBalance()) - toSub));
+                new Account(Double.parseDouble(initialLedger.getAccount().getBalance()) - toSub));
 
-        model.updateLedger(ledgerToEdit, editedLedger);
+        model.updateLedger(initialLedger, editedLedger);
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
+        return new CommandResult(String.format(MESSAGE_DEBIT_ACCOUNT_SUCCESS, editedLedger.getAccount(), editedLedger.getDateLedger().getDate()));
     }
 }

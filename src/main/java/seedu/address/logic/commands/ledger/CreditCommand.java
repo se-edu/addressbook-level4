@@ -29,7 +29,7 @@ public class CreditCommand extends Command {
 
     public static final String COMMAND_WORD = "credit";
 
-    public static final String MESSAGE_CREDIT_ACCOUNT_SUCCESS = "New amount: %1$s";
+    public static final String MESSAGE_CREDIT_ACCOUNT_SUCCESS = "New amount for date %2$s is $%1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "Credits the amount in a date ledger. Parameters: " +
             "/d[Date DD/MM] /b[$Balance]";
@@ -53,6 +53,7 @@ public class CreditCommand extends Command {
 
         List<Ledger> lastShownList = model.getFilteredLedgerList();
 
+        Ledger initialLedger = null;
         Ledger ledgerToEdit = new Ledger(dateLedger, new Account(toAdd));
         Ledger editedLedger;
 
@@ -64,7 +65,7 @@ public class CreditCommand extends Command {
 
             if (i.getDateLedger().getDate().equals(dateLedger.getDate())) {
 
-                ledgerToEdit = i;
+                ledgerToEdit = initialLedger = i;
                 k = true;
                 break;
 
@@ -79,15 +80,13 @@ public class CreditCommand extends Command {
 
         //ledgerToEdit.getAccount().credit(toAdd);
 
-        //editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
+        editedLedger = new Ledger(dateLedger, new Account(toAdd + Double.parseDouble(ledgerToEdit.getAccount()
+                .getBalance())));
 
-        editedLedger = new Ledger(dateLedger,
-                new Account(toAdd + Double.valueOf(ledgerToEdit.getAccount().getBalance())));
-
-        model.updateLedger(ledgerToEdit, editedLedger);
+        model.updateLedger(initialLedger, editedLedger);
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
+        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, editedLedger.getAccount(), editedLedger.getDateLedger()));
     }
 }

@@ -42,10 +42,10 @@ public class LedgerCard extends UiPart<Region> {
     public LedgerCard(Ledger ledger, int displayedIndex) {
         super(FXML);
         this.ledger = ledger;
-        id.setText(displayedIndex + ". ");
+        //id.setText(null);
         //date.setText("Hello");
-        date.setText(ledger.getDateLedger().getDate());
-        balance.setText(ledger.getAccount().getBalance());
+        date.setText("Date: " + ledger.getDateLedger().getDate());
+        balance.setText("  Balance: $" + ledger.getAccount().getBalance());
     }
 
     @Override

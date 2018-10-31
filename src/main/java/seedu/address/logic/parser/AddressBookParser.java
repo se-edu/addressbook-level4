@@ -75,6 +75,12 @@ public class AddressBookParser {
         case FindMajorCommand.COMMAND_WORD: case FindMajorCommand.COMMAND_ALIAS:
             return new FindMajorCommandParser().parse(arguments);
 
+        case FindPhoneCommand.COMMAND_WORD: case FindPhoneCommand.COMMAND_ALIAS:
+            return new FindPhoneCommandParser().parse(arguments);
+
+        case FindPostalcodeCommand.COMMAND_WORD: case FindPostalcodeCommand.COMMAND_ALIAS:
+            return new FindPostalcodeCommandParser().parse(arguments);
+
         case ListMemberCommand.COMMAND_WORD: case ListMemberCommand.COMMAND_ALIAS:
             return new ListMemberCommand();
 
