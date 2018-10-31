@@ -147,7 +147,7 @@ public class EditModuleCommand extends Command {
                 .get();
 
         Module editedModule = new ModuleBuilder(currentModule)
-                .withCode(targetCode == newCode ? targetCode : newCode)
+                .withCode(newCode == null ? currentModule.getCode() : newCode)
                 .withYear(newYear == null ? currentModule.getYear() : newYear)
                 .withSemester(newSemester == null ? currentModule.getSemester() : newSemester)
                 .withCredit(newCredit == null ? currentModule.getCredits() : newCredit)
