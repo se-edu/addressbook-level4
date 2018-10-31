@@ -53,9 +53,9 @@ public class CapPanel extends UiPart<Region> {
         ReadOnlyTranscript transcript = event.data;
         Platform.runLater(() -> currentCapDouble.setValue(transcript.getCurrentCap()));
         CapGoal goal = transcript.getCapGoal();
-        Platform.runLater(() -> capGoalString.setValue(
-                goal.isSet() ? String.valueOf(goal.getValue()) + (goal.isImpossible() ? " (Impossible)" : "")
-                        : "NIL"));
+        String goalValue = (goal.isSet()) ? goal.getValue() + "" : "NIL";
+        String goalIsImpossible = (goal.isSet() && goal.isImpossible()) ? " (Impossible)" : "";
+        Platform.runLater(() -> capGoalString.setValue(String.format("%s%s", goalValue, goalIsImpossible)));
     }
 
 }
