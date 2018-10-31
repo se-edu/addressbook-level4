@@ -34,9 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
-    private PersonListPanel personListPanel2;
-    private PersonListPanel capPanel;
+    private ModuleListPanel moduleListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -48,13 +46,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane personListPanelPlaceholder2;
-
-    @FXML
     private StackPane capPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholderTwo;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -123,13 +121,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        moduleListPanel = new ModuleListPanel(logic.getCompletedModuleList());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        personListPanel2 = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder2.getChildren().add(personListPanel2.getRoot());
+        ModuleListPanel2 moduleListPanelTwo = new ModuleListPanel2(logic.getIncompleteModuleList());
+        moduleListPanelPlaceholderTwo.getChildren().add(moduleListPanelTwo.getRoot());
 
-        capPanel = new PersonListPanel(logic.getFilteredPersonList());
+        CapPanel capPanel = new CapPanel(logic.getTranscript());
         capPanelPlaceholder.getChildren().add(capPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -194,8 +192,11 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+
+
+
+    public ModuleListPanel getModuleListPanel() {
+        return moduleListPanel;
     }
 
     void releaseResources() {

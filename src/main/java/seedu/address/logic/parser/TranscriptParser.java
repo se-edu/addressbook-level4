@@ -7,8 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddModuleCommand;
+import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.logic.commands.CapCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -39,12 +41,16 @@ public class TranscriptParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord")
-                .replaceFirst("c_", "");
+        final String commandWord = matcher.group("commandWord").replaceFirst("c_", "");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
+        case AdjustCommand.COMMAND_WORD:
+            return new AdjustCommandParser().parse(arguments);
+        case DeleteModuleCommand.COMMAND_WORD:
+            return new DeleteModuleCommandParser().parse(arguments);
         case CapCommand.COMMAND_WORD:
             return new CapCommand();
         case GoalCommand.COMMAND_WORD:

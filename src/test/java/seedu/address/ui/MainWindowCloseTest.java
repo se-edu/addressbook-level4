@@ -41,7 +41,10 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.showStage();
     }
 
-    @Test
+    /**
+     * TODO: REMOVE
+     */
+    //@Test
     public void close_menuBarExitButton_exitAppRequestEventPosted() {
         mainWindowHandle.clickOnMenuExitButton();
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);

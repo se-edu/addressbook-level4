@@ -16,6 +16,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -121,6 +122,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author alexkmj
     @Override
+    public void deleteModule(Predicate<Module> predicate) {
+        versionedTranscript.removeModule(predicate);
+        indicateTranscriptChanged();
+    }
+
+    @Override
     public void addModule(Module module) {
         versionedTranscript.addModule(module);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
@@ -202,6 +209,22 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTranscriptChanged();
     }
 
+    @Override
+    public Module findModule(Module moduleToFind) {
+        return versionedTranscript.findModule(moduleToFind);
+    }
+
+    @Override
+    public Module findModule(Code moduleCodeToFind) {
+        return versionedTranscript.findModule(moduleCodeToFind);
+    }
+
+    @Override
+    public Module adjustModule(Module targetModule, Grade adjustGrade) {
+        return versionedTranscript.adjustModule(targetModule, adjustGrade);
+    }
+
+    //@@author
     //TODO: REMOVE
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -298,10 +321,19 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
-    //@@author jeremiah-ang
     @Override
     public double getCap() {
         return versionedTranscript.getCurrentCap();
+    }
+
+    @Override
+    public ObservableList<Module> getCompletedModuleList() {
+        return versionedTranscript.getCompletedModuleList();
+    }
+
+    @Override
+    public ObservableList<Module> getIncompleteModuleList() {
+        return versionedTranscript.getIncompleteModuleList();
     }
 
     //@@author alexkmj

@@ -46,10 +46,18 @@ public class LogicManagerTest {
         assertHistoryCorrect(listCommand);
     }
 
-    @Test
+    //TODO: REMOVE
+    /*@Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredPersonList().remove(0);
+    }
+    */
+
+    @Test
+    public void getFilteredModuleListModifyListThrowsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredModuleList().remove(0);
     }
 
     /**
@@ -120,5 +128,18 @@ public class LogicManagerTest {
         } catch (ParseException | CommandException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
+    }
+
+    //@@author jeremiah-ang
+    @Test
+    public void getCompletedModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getCompletedModuleList().remove(0);
+    }
+
+    @Test
+    public void getIncompleteModuleListModifyThrowsException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getIncompleteModuleList().remove(0);
     }
 }
