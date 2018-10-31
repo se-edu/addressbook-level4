@@ -112,6 +112,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteLedger(Ledger ledger) {
         versionedAddressBook.removeLedger(ledger);
+        updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
+        indicateAddressBookChanged();
     }
 
     @Override
