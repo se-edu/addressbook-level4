@@ -414,7 +414,7 @@ Remove Ledger uses the same concept ut instead starts with looking for the Ledge
 that the member model has.
 * The segmentation of the arguments allow for them to be used individually when needed.
 
-=== AddItem/DeleteItem feature
+=== ItemList
 ==== Current Implementation
 
 The AddItem/DeleteItem mechanism is facilitated by `AddressBook`.

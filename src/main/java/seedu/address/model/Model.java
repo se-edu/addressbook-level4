@@ -109,6 +109,7 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered ledger set */
     ObservableSet<Ledger> getFilteredLedgerSet();
+
     /** Returns an unmodifiable view of the filtered item list */
     ObservableList<Item> getFilteredItemList();
 

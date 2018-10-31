@@ -9,6 +9,8 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.sun.xml.bind.annotation.OverrideAnnotationOf;
+
 import javafx.beans.property.ReadOnlySetWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -187,6 +189,8 @@ public class ModelManager extends ComponentManager implements Model {
         Set<Ledger> filteredLedgers2 = new HashSet<>(filteredLedgers);
         return FXCollections.unmodifiableObservableSet((ObservableSet<Ledger>) filteredLedgers2);
     }
+
+    @Override
     public ObservableList<Item> getFilteredItemList() {
         logger.info("Filtered list observed");
         logger.info("Size : " + Integer.toString(filteredItems.size()));
