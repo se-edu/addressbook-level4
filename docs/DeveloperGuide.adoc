@@ -435,7 +435,7 @@ date of the ledgers in the list, comparing them to find one to edit.
 that the member model has.
 * The segmentation of the arguments allow for them to be used individually when needed.
 
-=== AddItem/DeleteItem feature
+=== ItemList
 ==== Current Implementation
 
 The AddItem/DeleteItem mechanism is facilitated by `AddressBook`.

@@ -363,27 +363,54 @@ Deletes the 2nd person in ClubHub.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-
-=== Inventory:
+=== ItemList
 
 ==== Adding an item: `addItem`
-Adds an Item with its quantity, category, and location to the ItemList. +
-Format: `addItem ITEM_NAME QUANTITY CATEGORY LOCATION`
 
-==== Listing items: `listItems`
-Shows the list of Items and their quantities. +
-Format: `listItems`
+Adds a item to the ItemList +
+Format: `addItem n/ITEM_NAME q/ITEM_QUANTITY`
+
+Examples:
+
+* `addItem n/Basketball q/7`
+* `addItem n/Chairs q/2`
 
 ==== Deleting an item: `deleteItem`
-Deletes the specified Item in the ItemList. +
+
+Deletes the specified item from ItemList. +
 Format: `deleteItem INDEX`
 
-==== Sorting items: `sortItemList`
-Sorts the ItemList by name, quantity, category, or location. +
-Format: `sortItemListByName` +
-Format: `sortItemListByQuantity` +
-Format: `sortItemListByCategory` +
-Format: `sortItemListByLocation` +
+****
+* Deletes the item at the specified `INDEX`.
+* The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `deleteItem 2` +
+Deletes the 2nd item in ItemList.
+* `deleteItem 13` +
+Deletes the 13th item in ItemList.
+
+==== Edit an item: `editItem`
+
+Edits an existing item in the ItemList.
+Format: `editItem INDEX [n/ITEM_NAME] [q/ITEM_QUANTITY]...`
+
+****
+* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editItem 2 q/1` +
+Edits the quantity of the 2nd item to be `1`.
+* `editItem 1 `n/Soccer Balls q/4` +
+Edits the name and quantity of the 1st item to be `Soccer Balls` and `6` respectively.
+
 
 == FAQ
 
