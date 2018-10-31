@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LEDGERS;
 
 /**
  * Increases the value of balance in the ledger
@@ -52,6 +53,7 @@ public class CreditCommand extends Command {
 
         List<Ledger> lastShownList = model.getFilteredLedgerList();
 
+        Ledger initialLedger = null;
         Ledger ledgerToEdit = new Ledger(dateLedger, new Account(toAdd));
         Ledger editedLedger;
 
@@ -61,9 +63,9 @@ public class CreditCommand extends Command {
 
             k = false;
 
-            if (i.getDateLedger().getDate().equals(dateLedger.getDate())){
+            if (i.getDateLedger().getDate().equals(dateLedger.getDate())) {
 
-                ledgerToEdit = i;
+                ledgerToEdit = initialLedger = i;
                 k = true;
                 break;
 
@@ -76,13 +78,15 @@ public class CreditCommand extends Command {
         }
 
 
-        ledgerToEdit.getAccount().credit(toAdd);
+        //ledgerToEdit.getAccount().credit(toAdd);
 
-        editedLedger = new Ledger(dateLedger, ledgerToEdit.getAccount());
+        editedLedger = new Ledger(dateLedger, new Account(toAdd + Double.parseDouble(ledgerToEdit.getAccount()
+                .getBalance())));
 
-        model.updateLedger(ledgerToEdit, editedLedger);
+        model.updateLedger(initialLedger, editedLedger);
+        model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, ledgerToEdit.getAccount()));
+        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
     }
 }

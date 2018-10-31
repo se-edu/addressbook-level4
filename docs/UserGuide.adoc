@@ -196,15 +196,38 @@ Format: `changeEvent EVENT_NAME to EVENT_NAME EVENT_DATE EVENT_LOCATION EVENT_DE
 Deletes an event from the calendar. +
 Format: `deleteEvent EVENT_NAME`.
 
-=== Finances:
 
-==== Adding a record: `addRecord`
-Adds a record to the log. +
-Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
+=== Accounts:
 
-==== Deleting a record: `deleteRecord`
-Deletes a record from the log. +
-Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
+
+The accounts features a ledger column to record the spending of the club
+on any date in the form of DD/MM. There are 4 basic commands allowing the user to
+add or delete a ledger, and to credit or debit money from any date in the
+list of records.
+
+==== Adding a ledger: `addLedger`
+Adds a ledger to the ledger column. +
+Format: `addLedger d/[DD/MM]`
+
+Example: `addLedger d/ 10/10`
+
+==== Deleting a ledger: `deleteLedger`
+Deletes a ledger from the log. +
+Format: `deleteLedger d/[DD/MM]`
+
+Example: `deleteLedger d/ 10/10`
+
+==== Crediting a ledger: `credit`
+Increase the balance of a ledger on a date indicated. +
+Format: `credit d/[DD/MM] b/[NUM]`
+
+Example: `credit d/ 10/10 b/ 100`
+
+==== Debiting a ledger: `credit`
+Decrease the balance of a ledger on a date indicated. +
+Format: `debit d/[DD/MM] b/[NUM]`
+
+Example: `debit d/ 10/10 b/ 100`
 
 === Members:
 

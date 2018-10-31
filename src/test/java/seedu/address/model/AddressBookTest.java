@@ -24,6 +24,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import seedu.address.model.item.Item;
 import seedu.address.model.ledger.Ledger;
 import seedu.address.model.member.Person;
