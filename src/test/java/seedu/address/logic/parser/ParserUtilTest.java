@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import static seedu.address.testutil.TypicalModules.ASKING_QUESTIONS;
 import static seedu.address.testutil.TypicalModules.CODE_ASKING_QUESTIONS;
-import static seedu.address.testutil.TypicalModules.CREDIT_TWO;
-import static seedu.address.testutil.TypicalModules.YEAR_ONE;
-import static seedu.address.testutil.TypicalModules.YEAR_TWO;
-import static seedu.address.testutil.TypicalModules.YEAR_THREE;
-import static seedu.address.testutil.TypicalModules.YEAR_FOUR;
 import static seedu.address.testutil.TypicalModules.YEAR_FIVE;
+import static seedu.address.testutil.TypicalModules.YEAR_FOUR;
+import static seedu.address.testutil.TypicalModules.YEAR_ONE;
+import static seedu.address.testutil.TypicalModules.YEAR_THREE;
+import static seedu.address.testutil.TypicalModules.YEAR_TWO;
 
 import java.util.Map;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -73,9 +73,9 @@ public class ParserUtilTest {
     public void validateParseArgsMap() throws Exception {
         String[] tokenized = {"random", "-a", "a", "random", "-b", "b", "-c", "c"};
         Map<String, String> argsMap = ParserUtil.mapArgs(tokenized);
-        argsMap.get("a").equals("a");
-        argsMap.get("b").equals("b");
-        argsMap.get("c").equals("c");
+        assertEquals(argsMap.get("a"), "a");
+        assertEquals(argsMap.get("b"), "b");
+        assertEquals(argsMap.get("c"), "c");
     }
 
     @Test
