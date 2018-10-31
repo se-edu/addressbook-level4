@@ -114,7 +114,7 @@ public class ParserUtil {
             if (args[index].startsWith(PREFIX)
                     && (index + 1 < args.length)) {
                 String key = args[index].substring(1);
-                String value = args[index++];
+                String value = args[++index];
 
                 argsMap.put(key, value);
             }

@@ -27,18 +27,19 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
         validateNumOfArgs(tokenizedArgs, 2, 13);
 
+        System.out.println(tokenizedArgs[0]);
         Code targetCode = ParserUtil.parseCode(tokenizedArgs[0]);
 
-        Year targetYear = args.startsWith(PREFIX)
+        Year targetYear = tokenizedArgs[1].startsWith(PREFIX)
                 ? null
                 : ParserUtil.parseYear(tokenizedArgs[1]);
 
-        Semester targetSemester = args.startsWith(PREFIX)
+        Semester targetSemester = targetYear == null
                 ? null
                 : ParserUtil.parseSemester(tokenizedArgs[2]);
 
         Map<String, String> argsMap = ParserUtil.mapArgs(tokenizedArgs);
-
+        argsMap.forEach((x, y) -> System.out.println(x + " " + y));
         Code newCode = argsMap.containsKey("code")
                 ? ParserUtil.parseCode(argsMap.get("code"))
                 : null;
