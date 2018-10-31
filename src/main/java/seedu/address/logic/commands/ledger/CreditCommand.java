@@ -87,6 +87,6 @@ public class CreditCommand extends Command {
         model.updateFilteredLedgerList(PREDICATE_SHOW_ALL_LEDGERS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, ledgerToEdit.getAccount()));
+        return new CommandResult(String.format(MESSAGE_CREDIT_ACCOUNT_SUCCESS, editedLedger.getAccount()));
     }
 }

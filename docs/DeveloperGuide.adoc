@@ -371,8 +371,18 @@ The users need to type openCalendar, and then type the corresponding command.
 Inside the parser package, we have the corresponding CommandParser. For example, addEventParser. What does the parser do is it divides the information typed in into several parts, which are name, venue, date, and description.
 After that, the AddEventCommand will store the parts into an EventList.
 
-=== Add/Remove Ledger feature
-==== Current Implementation
+=== Ledger
+As of v1.3, the core commands dealing with Ledgers are `addLedger`, `deleteLedger`,
+`credit` and `debit`. In addition, the common commands such as `undo` and `redo`
+applies to manipulating the data in the Ledger.
+
+Bugs: +
+1. Wrong exception thrown when not entering the correct value for balance fir credit and
+debit +
+2. Balance in ledgers not displaying '$' symbol and 2 decimal places for cents at the front of the amount of money.
+
+==== Add/Remove Ledger feature
+===== Current Implementation
 The add/remove mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an AddLedger and RemoveLedger method.
 
 * `AddressBook#addLedger()` -- Adds a ledger object to the UniqueLedgerList.
@@ -382,9 +392,9 @@ These operations are exposed in the `Model` interface as `Model#addLedger` and `
 
 Below is a scenario of how a user adds a ledger into the club book.
 
-Step 1. The user inputs the command addledger \d `[date]` \b `[balance]` into the command box.
+Step 1. The user inputs the command addLedger /d `[date]` /b `[balance]` into the command box.
 
-Step 2. The commandbox ui will then create a Logic object which parses the command to ascertain that it is an addLedger command.
+Step 2. The commandBox ui will then create a Logic object which parses the command to ascertain that it is an addLedger command.
 
 Step 3. The AddressBookParser will then parse the command to create a new addLedgerParser object.
 
@@ -402,6 +412,17 @@ Perhaps instead of using a for loop to loop through the entire UniqueLedgerList,
 finding duplicates while maintaining the function of searching using objects instead of index.
 
 Remove Ledger uses the same concept ut instead starts with looking for the Ledger in the UniqueLedgerList instead.
+
+==== Credit/Debit feature
+The Credit/Debit mechanism is facilitated by `CreditCommand` and `DebitCommand`.
+They extend `Command` by overriding and implementing the execute method. +
+
+The unique way of implementing this feature is that instead of crediting or debiting
+the ledgers in the list using the index, we can directly perform these operations on the dates
+themselves. +
+
+This is done by implementing a `for` loop to loop through the `UniqueLedgerList` to get the
+date of the ledgers in the list, comparing them to find one to edit.
 
 ===  Member
 * As of V1.2, member adding and deleting functionality have been added.

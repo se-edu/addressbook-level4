@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import seedu.address.model.ledger.exceptions.DuplicateLedgerException;
 import seedu.address.model.ledger.exceptions.LedgerNotFoundException;
-import seedu.address.model.member.Person;
-import seedu.address.model.member.exceptions.DuplicatePersonException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -36,20 +34,7 @@ public class UniqueLedgerList implements Iterable<Ledger> {
      */
     public boolean contains(Ledger toCheck) {
         requireNonNull(toCheck);
-
-        /*
-        for (Ledger i  : internalList) {
-            logger.info("To check date :" + toCheck.getDateLedger().getDate());
-            logger.info("Ledger in internal list date : " + i.getDateLedger().getDate());
-            if (toCheck.getDateLedger().getDate().equals(i.getDateLedger().getDate())) {
-                return true;
-            }
-        }
-
-        return false;
-        */
-        //return internalList.stream().anyMatch(toCheck::isSameLedger);
-        return internalList2.stream().anyMatch(toCheck::isSameLedger);
+        return internalList.stream().anyMatch(toCheck::isSameLedger);
     }
 
     /**
@@ -62,7 +47,7 @@ public class UniqueLedgerList implements Iterable<Ledger> {
         if (contains(toAdd)) {
             throw new DuplicateLedgerException();
         }
-        internalList.add(internalList.size(), toAdd);
+        internalList.add(toAdd);
         internalList2.add(toAdd);
     }
 
