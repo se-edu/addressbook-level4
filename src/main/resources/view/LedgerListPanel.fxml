@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <StackPane prefWidth="Infinity" VBox.vgrow="ALWAYS" prefHeight="NaN">
-    <Text textAlignment="CENTER" text="Ledger" fill="aqua" style="-fx-font-size: 25">
+    <Text textAlignment="CENTER" text="Club Account" fill="aqua" style="-fx-font-size: 25">
     </Text>
   </StackPane>
   <StackPane minHeight="20">
