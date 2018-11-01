@@ -13,6 +13,8 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ScrollBar?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -48,7 +50,8 @@
           </padding>
         </StackPane>
         <StackPane>
-          <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+          <ScrollPane fitToHeight="true">
+            <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
@@ -76,6 +79,7 @@
           </VBox>
 
         </SplitPane>
+          </ScrollPane>
         </StackPane>
         <StackPane fx:id="browserPlaceholder" prefWidth="340" prefHeight="200" >
           <padding>
