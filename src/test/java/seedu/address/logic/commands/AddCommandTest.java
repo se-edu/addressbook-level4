@@ -94,7 +94,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
