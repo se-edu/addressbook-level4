@@ -22,10 +22,6 @@ public class UserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public void setGuiSettings(double width, double height, int x, int y) {
-        guiSettings = new GuiSettings(width, height, x, y);
-    }
-
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
