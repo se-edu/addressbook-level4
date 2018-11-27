@@ -11,12 +11,8 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs {
 
-    private GuiSettings guiSettings;
+    private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-
-    public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0);
-    }
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
