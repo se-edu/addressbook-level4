@@ -41,8 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        versionedAddressBook.resetData(addressBook);
         indicateAddressBookChanged();
     }
 
