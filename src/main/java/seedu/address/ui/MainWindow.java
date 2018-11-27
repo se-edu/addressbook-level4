@@ -18,7 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.ReadOnlyUserPrefs;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
-    private UserPrefs prefs;
+    private ReadOnlyUserPrefs prefs;
     private HelpWindow helpWindow;
 
     @FXML
@@ -58,7 +58,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, ReadOnlyUserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the default size based on user preferences.
      */
-    private void setWindowDefaultSize(UserPrefs prefs) {
+    private void setWindowDefaultSize(ReadOnlyUserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
