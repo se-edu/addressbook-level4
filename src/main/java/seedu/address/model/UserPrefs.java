@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -15,10 +17,11 @@ public class UserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     public GuiSettings getGuiSettings() {
-        return guiSettings == null ? new GuiSettings() : guiSettings;
+        return guiSettings;
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
+        requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
     }
 
@@ -41,7 +44,7 @@ public class UserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return Objects.equals(guiSettings, o.guiSettings)
+        return guiSettings.equals(o.guiSettings)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath);
     }
 
