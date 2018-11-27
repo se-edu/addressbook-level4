@@ -12,8 +12,10 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    /**
+     * Replaces address book data with the data in {@code addressBook}.
+     */
+    void setAddressBook(ReadOnlyAddressBook addressBook);
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
