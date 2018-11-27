@@ -30,6 +30,7 @@ public class UserPrefs {
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
+        requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
     }
 
@@ -45,7 +46,7 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath);
     }
 
     @Override
