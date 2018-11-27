@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Person with an invalid phone field -->
-<person>
-    <name>Hans Muster</name>
-    <phone>9482asf424</phone>
-    <email>hans@example</email>
-    <address>4th street</address>
-    <tagged>friends</tagged>
-</person>
