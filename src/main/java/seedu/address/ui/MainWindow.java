@@ -18,7 +18,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
-import seedu.address.model.ReadOnlyUserPrefs;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -37,7 +36,6 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
-    private ReadOnlyUserPrefs prefs;
     private HelpWindow helpWindow;
 
     @FXML
@@ -58,18 +56,17 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, ReadOnlyUserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.config = config;
-        this.prefs = prefs;
 
         // Configure the UI
         setTitle(config.getAppTitle());
-        setWindowDefaultSize(prefs);
+        setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
         registerAsAnEventHandler(this);
@@ -128,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
@@ -144,14 +141,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the default size based on user preferences.
+     * Sets the default size based on {@code guiSettings}.
      */
-    private void setWindowDefaultSize(ReadOnlyUserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
 
