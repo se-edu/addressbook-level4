@@ -56,9 +56,8 @@ public class JsonAddressBookStorageTest {
         thrown.expect(DataConversionException.class);
         readAddressBook("notJsonFormatAddressBook.json");
 
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         */
+        // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
+        // That means you should not have more than one exception test in one method
     }
 
     @Test
@@ -79,22 +78,22 @@ public class JsonAddressBookStorageTest {
         AddressBook original = getTypicalAddressBook();
         JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
 
-        //Save in new file and read back
+        // Save in new file and read back
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
-        //Modify data, overwrite exiting file, and read back
+        // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
-        //Save and read without specifying file path
+        // Save and read without specifying file path
         original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); //file path not specified
+        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
+        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));
 
     }
@@ -122,6 +121,4 @@ public class JsonAddressBookStorageTest {
         thrown.expect(NullPointerException.class);
         saveAddressBook(new AddressBook(), null);
     }
-
-
 }
