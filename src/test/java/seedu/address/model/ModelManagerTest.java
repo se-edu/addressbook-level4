@@ -59,7 +59,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setGuiSettings() {
+    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
