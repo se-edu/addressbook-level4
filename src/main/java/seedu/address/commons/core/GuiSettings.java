@@ -13,9 +13,9 @@ public class GuiSettings implements Serializable {
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
 
-    private double windowWidth;
-    private double windowHeight;
-    private Point windowCoordinates;
+    private final double windowWidth;
+    private final double windowHeight;
+    private final Point windowCoordinates;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
@@ -38,7 +38,7 @@ public class GuiSettings implements Serializable {
     }
 
     public Point getWindowCoordinates() {
-        return windowCoordinates;
+        return windowCoordinates != null ? new Point(windowCoordinates) : null;
     }
 
     @Override
