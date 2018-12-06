@@ -49,8 +49,6 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected UserPrefs userPrefs;
-
 
     @Override
     public void init() throws Exception {
@@ -61,7 +59,7 @@ public class MainApp extends Application {
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        userPrefs = initPrefs(userPrefsStorage);
+        UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
@@ -188,7 +186,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
-            storage.saveUserPrefs(userPrefs);
+            storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
