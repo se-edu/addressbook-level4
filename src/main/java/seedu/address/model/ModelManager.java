@@ -4,9 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
@@ -14,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
@@ -169,6 +176,57 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+    //=========== Selected person ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Person> selectedPersonProperty() {
+        return selectedPerson;
+    }
+
+    @Override
+    public Person getSelectedPerson() {
+        return selectedPerson.getValue();
+    }
+
+    @Override
+    public void setSelectedPerson(Person person) {
+        if (person != null && !filteredPersons.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedPerson.setValue(person);
+    }
+
+    /**
+     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}
+     */
+    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+        if (selectedPerson.getValue() == null) {
+            return;
+        }
+
+        Person newSelectedPerson = selectedPerson.getValue();
+        while (change.next()) {
+            if (change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(newSelectedPerson)) {
+                // Update selectedPerson to its new value
+                int index = change.getRemoved().indexOf(newSelectedPerson);
+                newSelectedPerson = change.getAddedSubList().get(index);
+            } else {
+                // If selectedPerson was removed, select the person that came before it in the list
+                // (or clear the selection if there is no such person)
+                boolean isRemoved = change.getRemoved().stream().anyMatch(newSelectedPerson::isSamePerson);
+                if (isRemoved) {
+                    newSelectedPerson = change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null;
+                    if (newSelectedPerson == null) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        selectedPerson.setValue(newSelectedPerson);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -185,7 +243,8 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
 }

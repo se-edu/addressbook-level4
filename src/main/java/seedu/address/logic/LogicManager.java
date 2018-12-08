@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.GuiSettings;
@@ -65,5 +66,15 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ReadOnlyProperty<Person> selectedPersonProperty() {
+        return model.selectedPersonProperty();
+    }
+
+    @Override
+    public void setSelectedPerson(Person person) {
+        model.setSelectedPerson(person);
     }
 }
