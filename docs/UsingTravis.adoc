@@ -10,7 +10,6 @@ Travis CI can run the projects' tests automatically whenever new code is pushed 
 The current Travis CI set up performs the following things whenever someone push code to the repo:
 
 * Runs the `./gradlew clean headless allTests coverage coveralls -i` command (see <<UsingGradle#, UsingGradle>> for more details on what this command means).
-* Automatically retries the build up to 3 times if a task fails.
 * Renders documentation from asciidoc to html and automatically publishes them using GitHub Pages.
 * Runs additional link:#repository-wide-checks[repository-wide checks].
 
