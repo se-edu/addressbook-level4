@@ -143,8 +143,7 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-text-fill: black;
+    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .result-display {
@@ -161,6 +160,8 @@
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
+    -fx-padding: 4px;
+    -fx-pref-height: 30px;
 }
 
 .status-bar-with-border {

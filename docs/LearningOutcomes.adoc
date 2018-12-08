@@ -109,7 +109,7 @@ Note <<UsingGradle#, how the AddressBook app uses Gradle to automate build tasks
 
 === Exercise: Use gradle to manage dependencies
 
-* Note how the build script `build.gradle` file manages third party dependencies such as ControlsFx. Update that file to manage a third-party library dependency.
+* Note how the build script `build.gradle` file manages third party dependencies such as Jackson. Update that file to manage a third-party library dependency.
 
 
 '''

@@ -6,12 +6,11 @@ import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import org.controlsfx.control.StatusBar;
-
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -39,9 +38,9 @@ public class StatusBarFooter extends UiPart<Region> {
     private static final String FXML = "StatusBarFooter.fxml";
 
     @FXML
-    private StatusBar syncStatus;
+    private Label syncStatus;
     @FXML
-    private StatusBar saveLocationStatus;
+    private Label saveLocationStatus;
 
 
     public StatusBarFooter(Path saveLocation) {
