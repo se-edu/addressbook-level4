@@ -56,16 +56,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.config = config;
 
         // Configure the UI
-        setTitle(config.getAppTitle());
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
@@ -134,10 +132,6 @@ public class MainWindow extends UiPart<Stage> {
 
     void hide() {
         primaryStage.hide();
-    }
-
-    private void setTitle(String appTitle) {
-        primaryStage.setTitle(appTitle);
     }
 
     /**

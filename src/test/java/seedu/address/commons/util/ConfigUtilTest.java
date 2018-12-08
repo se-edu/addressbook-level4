@@ -74,7 +74,6 @@ public class ConfigUtilTest {
 
     private Config getTypicalConfig() {
         Config config = new Config();
-        config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath(Paths.get("preferences.json"));
         return config;
@@ -109,7 +108,6 @@ public class ConfigUtilTest {
         assertEquals(original, readBack);
 
         //Try saving when the file exists
-        original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
         ConfigUtil.saveConfig(original, configFilePath);
         readBack = ConfigUtil.readConfig(configFilePath).get();

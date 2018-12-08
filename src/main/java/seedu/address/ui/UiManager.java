@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
@@ -32,13 +31,11 @@ public class UiManager extends ComponentManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
-    private Config config;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config) {
+    public UiManager(Logic logic) {
         super();
         this.logic = logic;
-        this.config = config;
     }
 
     @Override
@@ -49,7 +46,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, logic);
+            mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
