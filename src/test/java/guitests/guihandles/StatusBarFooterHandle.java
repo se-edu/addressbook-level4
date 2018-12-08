@@ -1,8 +1,7 @@
 package guitests.guihandles;
 
-import org.controlsfx.control.StatusBar;
-
 import javafx.scene.Node;
+import javafx.scene.control.Labeled;
 
 /**
  * A handle for the {@code StatusBarFooter} at the footer of the application.
@@ -13,8 +12,8 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     private static final String SYNC_STATUS_ID = "#syncStatus";
     private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
 
-    private final StatusBar syncStatusNode;
-    private final StatusBar saveLocationNode;
+    private final Labeled syncStatusNode;
+    private final Labeled saveLocationNode;
 
     private String lastRememberedSyncStatus;
     private String lastRememberedSaveLocation;
