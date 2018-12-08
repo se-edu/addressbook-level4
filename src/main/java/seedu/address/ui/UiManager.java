@@ -60,7 +60,6 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         logic.setGuiSettings(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
