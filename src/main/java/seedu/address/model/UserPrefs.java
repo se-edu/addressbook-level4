@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -9,25 +11,40 @@ import seedu.address.commons.core.GuiSettings;
 /**
  * Represents User's preferences.
  */
-public class UserPrefs {
+public class UserPrefs implements ReadOnlyUserPrefs {
 
-    private GuiSettings guiSettings;
+    private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
-    public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0);
+    /**
+     * Creates a {@code UserPrefs} with default values.
+     */
+    public UserPrefs() {}
+
+    /**
+     * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
+     */
+    public UserPrefs(ReadOnlyUserPrefs userPrefs) {
+        this();
+        resetData(userPrefs);
+    }
+
+    /**
+     * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
+     */
+    public void resetData(ReadOnlyUserPrefs newUserPrefs) {
+        requireNonNull(newUserPrefs);
+        setGuiSettings(newUserPrefs.getGuiSettings());
+        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
-        return guiSettings == null ? new GuiSettings() : guiSettings;
+        return guiSettings;
     }
 
-    public void updateLastUsedGuiSetting(GuiSettings guiSettings) {
+    public void setGuiSettings(GuiSettings guiSettings) {
+        requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
-    }
-
-    public void setGuiSettings(double width, double height, int x, int y) {
-        guiSettings = new GuiSettings(width, height, x, y);
     }
 
     public Path getAddressBookFilePath() {
@@ -35,6 +52,7 @@ public class UserPrefs {
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
+        requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
     }
 
@@ -49,8 +67,8 @@ public class UserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+        return guiSettings.equals(o.guiSettings)
+                && addressBookFilePath.equals(o.addressBookFilePath);
     }
 
     @Override
@@ -61,7 +79,7 @@ public class UserPrefs {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings.toString());
+        sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
     }

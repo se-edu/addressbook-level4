@@ -6,15 +6,16 @@ import java.util.Objects;
 
 /**
  * A Serializable class that contains the GUI settings.
+ * Guarantees: immutable.
  */
 public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
 
-    private Double windowWidth;
-    private Double windowHeight;
-    private Point windowCoordinates;
+    private final double windowWidth;
+    private final double windowHeight;
+    private final Point windowCoordinates;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
@@ -22,22 +23,22 @@ public class GuiSettings implements Serializable {
         windowCoordinates = null; // null represent no coordinates
     }
 
-    public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
     }
 
-    public Double getWindowWidth() {
+    public double getWindowWidth() {
         return windowWidth;
     }
 
-    public Double getWindowHeight() {
+    public double getWindowHeight() {
         return windowHeight;
     }
 
     public Point getWindowCoordinates() {
-        return windowCoordinates;
+        return windowCoordinates != null ? new Point(windowCoordinates) : null;
     }
 
     @Override
@@ -51,10 +52,9 @@ public class GuiSettings implements Serializable {
 
         GuiSettings o = (GuiSettings) other;
 
-        return Objects.equals(windowWidth, o.windowWidth)
-                && Objects.equals(windowHeight, o.windowHeight)
-                && Objects.equals(windowCoordinates.x, o.windowCoordinates.x)
-                && Objects.equals(windowCoordinates.y, o.windowCoordinates.y);
+        return windowWidth == o.windowWidth
+                && windowHeight == o.windowHeight
+                && Objects.equals(windowCoordinates, o.windowCoordinates);
     }
 
     @Override
