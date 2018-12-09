@@ -80,7 +80,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
-            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {

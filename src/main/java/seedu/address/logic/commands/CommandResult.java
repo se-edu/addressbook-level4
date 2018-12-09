@@ -7,10 +7,13 @@ import static java.util.Objects.requireNonNull;
  */
 public class CommandResult {
 
-    public final String feedbackToUser;
+    private final String feedbackToUser;
 
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
     }
 
+    public String getFeedbackToUser() {
+        return feedbackToUser;
+    }
 }

@@ -98,7 +98,7 @@ public class LogicManagerTest {
         try {
             CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
-            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException | ParseException e) {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
@@ -116,7 +116,7 @@ public class LogicManagerTest {
             CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
             String expectedMessage = String.format(
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
-            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
