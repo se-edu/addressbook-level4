@@ -1,15 +1,12 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,19 +19,20 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private final Logic logic;
+    private final CommandExecutor commandExecutor;
+    private final List<String> history;
     private ListElementPointer historySnapshot;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(Logic logic) {
+    public CommandBox(CommandExecutor commandExecutor, List<String> history) {
         super(FXML);
-        this.logic = logic;
+        this.commandExecutor = commandExecutor;
+        this.history = history;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        historySnapshot = new ListElementPointer(logic.getHistory());
+        historySnapshot = new ListElementPointer(history);
     }
 
     /**
@@ -100,20 +98,13 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            CommandResult commandResult = logic.execute(commandTextField.getText());
+            commandExecutor.execute(commandTextField.getText());
             initHistory();
             historySnapshot.next();
-            // process result of the command
             commandTextField.setText("");
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            raise(new NewResultAvailableEvent(commandResult.getFeedbackToUser()));
-
         } catch (CommandException | ParseException e) {
             initHistory();
-            // handle command failure
             setStyleToIndicateCommandFailure();
-            logger.info("Invalid command: " + commandTextField.getText());
-            raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
 
@@ -121,7 +112,7 @@ public class CommandBox extends UiPart<Region> {
      * Initializes the history snapshot.
      */
     private void initHistory() {
-        historySnapshot = new ListElementPointer(logic.getHistory());
+        historySnapshot = new ListElementPointer(history);
         // add an empty string to represent the most-recent end of historySnapshot, to be shown to
         // the user if she tries to navigate past the most-recent end of the historySnapshot.
         historySnapshot.add("");
@@ -145,6 +136,19 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * Represents a function that can execute commands.
+     */
+    @FunctionalInterface
+    public interface CommandExecutor {
+        /**
+         * Executes the command and returns the result.
+         *
+         * @see seedu.address.logic.Logic#execute(String)
+         */
+        CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
 }
