@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,7 +10,6 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 
@@ -22,10 +19,6 @@ import seedu.address.logic.Logic;
 public class UiManager extends ComponentManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
-
-    public static final String FILE_OPS_ERROR_DIALOG_STAGE_TITLE = "File Op Error";
-    public static final String FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE = "Could not save data";
-    public static final String FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE = "Could not save data to file";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
@@ -54,11 +47,6 @@ public class UiManager extends ComponentManager implements Ui {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
-    }
-
-    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
-        final String content = details + ":\n" + cause.toString();
-        showAlertDialogAndWait(AlertType.ERROR, FILE_OPS_ERROR_DIALOG_STAGE_TITLE, description, content);
     }
 
     private Image getImage(String imagePath) {
@@ -96,12 +84,4 @@ public class UiManager extends ComponentManager implements Ui {
         System.exit(1);
     }
 
-    //==================== Event Handling Code ===============================================================
-
-    @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE,
-                event.exception);
-    }
 }

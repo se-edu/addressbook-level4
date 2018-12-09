@@ -16,7 +16,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -90,17 +89,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         versionedAddressBook.resetData(addressBook);
-        indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
-    }
-
-    /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
     @Override
@@ -112,14 +105,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
     }
 
     @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -127,7 +118,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
-        indicateAddressBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -162,13 +152,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoAddressBook() {
         versionedAddressBook.undo();
-        indicateAddressBookChanged();
     }
 
     @Override
     public void redoAddressBook() {
         versionedAddressBook.redo();
-        indicateAddressBookChanged();
     }
 
     @Override
