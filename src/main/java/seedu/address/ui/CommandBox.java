@@ -9,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,7 +34,7 @@ public class CommandBox extends UiPart<Region> {
         this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        historySnapshot = logic.getHistorySnapshot();
+        historySnapshot = new ListElementPointer(logic.getHistory());
     }
 
     /**
@@ -122,7 +121,7 @@ public class CommandBox extends UiPart<Region> {
      * Initializes the history snapshot.
      */
     private void initHistory() {
-        historySnapshot = logic.getHistorySnapshot();
+        historySnapshot = new ListElementPointer(logic.getHistory());
         // add an empty string to represent the most-recent end of historySnapshot, to be shown to
         // the user if she tries to navigate past the most-recent end of the historySnapshot.
         historySnapshot.add("");
