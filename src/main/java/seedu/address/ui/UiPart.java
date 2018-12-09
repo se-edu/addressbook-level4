@@ -7,8 +7,6 @@ import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import seedu.address.MainApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
@@ -58,22 +56,6 @@ public abstract class UiPart<T> {
      */
     public T getRoot() {
         return fxmlLoader.getRoot();
-    }
-
-    /**
-     * Raises the event via {@link EventsCenter#post(BaseEvent)}
-     * @param event
-     */
-    protected void raise(BaseEvent event) {
-        EventsCenter.getInstance().post(event);
-    }
-
-    /**
-     * Registers the object as an event handler at the {@link EventsCenter}
-     * @param handler usually {@code this}
-     */
-    protected void registerAsAnEventHandler(Object handler) {
-        EventsCenter.getInstance().registerHandler(handler);
     }
 
     /**
