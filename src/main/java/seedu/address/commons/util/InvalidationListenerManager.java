@@ -14,16 +14,6 @@ public class InvalidationListenerManager {
     private final ArrayList<InvalidationListener> listeners = new ArrayList<>();
 
     /**
-     * Indicates that listeners are currently being called via {@link #callListeners(Observable)}.
-     * Since any changes to the listeners list should only take effect on the next invocation of the method,
-     * the listeners list should not be modified directly.
-     * Instead, the listeners list should first be copied to tempListeners,
-     * and any modification should be done on tempListeners.
-     */
-    private boolean areListenersBeingCalled;
-    private ArrayList<InvalidationListener> tempListeners;
-
-    /**
      * Calls {@link InvalidationListener#invalidated(Observable)} on all added listeners.
      * Any modifications to the listeners list during the invocation of this method
      * will only take effect on the next invocation of this method.
@@ -31,19 +21,12 @@ public class InvalidationListenerManager {
      * @param observable The {@code Observable} that became invalid.
      */
     public void callListeners(Observable observable) {
-        try {
-            areListenersBeingCalled = true;
-            for (InvalidationListener listener : listeners) {
-                listener.invalidated(observable);
-            }
-        } finally {
-            areListenersBeingCalled = false;
-        }
+        // Make a copy of listeners such that any modifications to the listeners list during
+        // the invocation of this method will only take effect on the next invocation of this method.
+        ArrayList<InvalidationListener> listenersCopy = new ArrayList<>(listeners);
 
-        if (tempListeners != null) {
-            listeners.clear();
-            listeners.addAll(tempListeners);
-            tempListeners = null;
+        for (InvalidationListener listener : listenersCopy) {
+            listener.invalidated(observable);
         }
     }
 
@@ -53,14 +36,7 @@ public class InvalidationListenerManager {
      */
     public void addListener(InvalidationListener listener) {
         requireNonNull(listener);
-        if (areListenersBeingCalled) {
-            if (tempListeners == null) {
-                tempListeners = new ArrayList<>(listeners);
-            }
-            tempListeners.add(listener);
-        } else {
-            listeners.add(listener);
-        }
+        listeners.add(listener);
     }
 
     /**
@@ -70,14 +46,7 @@ public class InvalidationListenerManager {
      */
     public void removeListener(InvalidationListener listener) {
         requireNonNull(listener);
-        if (areListenersBeingCalled) {
-            if (tempListeners == null) {
-                tempListeners = new ArrayList<>(listeners);
-            }
-            tempListeners.remove(listener);
-        } else {
-            listeners.remove(listener);
-        }
+        listeners.remove(listener);
     }
 
 }
