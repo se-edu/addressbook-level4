@@ -71,21 +71,31 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the result message matches {@code expectedMessage} <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+            CommandResult expectedCommandResult, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
-            assertEquals(expectedMessage, result.getFeedbackToUser());
+            assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+            String expectedMessage, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
 
     /**
