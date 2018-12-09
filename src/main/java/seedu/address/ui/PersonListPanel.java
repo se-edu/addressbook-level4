@@ -36,7 +36,7 @@ public class PersonListPanel extends UiPart<Region> {
             logger.fine("Selected person changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected person,
-            // otherwise we will get an infinite loop.
+            // otherwise we would have an infinite loop.
             if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }

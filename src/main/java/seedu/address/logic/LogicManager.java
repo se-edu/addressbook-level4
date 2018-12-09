@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified
+        // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 

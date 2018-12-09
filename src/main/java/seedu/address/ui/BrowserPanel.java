@@ -37,7 +37,7 @@ public class BrowserPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Load person page when selected person changes
+        // Load person page when selected person changes.
         selectedPerson.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();

@@ -184,34 +184,32 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}
+     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
      */
     private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
-        if (selectedPerson.getValue() == null) {
-            return;
-        }
-
-        Person newSelectedPerson = selectedPerson.getValue();
         while (change.next()) {
-            if (change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(newSelectedPerson)) {
-                // Update selectedPerson to its new value
-                int index = change.getRemoved().indexOf(newSelectedPerson);
-                newSelectedPerson = change.getAddedSubList().get(index);
-            } else {
-                // If selectedPerson was removed, select the person that came before it in the list
-                // (or clear the selection if there is no such person)
-                boolean isRemoved = change.getRemoved().stream().anyMatch(newSelectedPerson::isSamePerson);
-                if (isRemoved) {
-                    newSelectedPerson = change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null;
-                    if (newSelectedPerson == null) {
-                        break;
-                    }
-                }
+            if (selectedPerson.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedPerson.getValue());
+            if (wasSelectedPersonReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedPerson.getValue());
+                selectedPerson.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+            if (wasSelectedPersonRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
-
-        selectedPerson.setValue(newSelectedPerson);
     }
 
     @Override

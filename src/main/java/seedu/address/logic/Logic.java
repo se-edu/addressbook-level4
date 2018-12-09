@@ -56,14 +56,15 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the index of the selected person in the filtered person list.
+     * Selected person in the filtered person list.
+     * null if no person is selected.
      *
      * @see seedu.address.model.Model#selectedPersonProperty()
      */
     ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
-     * Sets the index of the selected person in the filtered person list.
+     * Sets the selected person in the filtered person list.
      *
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
