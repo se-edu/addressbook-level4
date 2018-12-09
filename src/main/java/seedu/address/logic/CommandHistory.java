@@ -2,21 +2,19 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.LinkedList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Stores the history of commands executed.
  */
 public class CommandHistory {
-    private LinkedList<String> userInputHistory;
+    private final ObservableList<String> userInputHistory = FXCollections.observableArrayList();
 
-    public CommandHistory() {
-        userInputHistory = new LinkedList<>();
-    }
+    public CommandHistory() {}
 
     public CommandHistory(CommandHistory commandHistory) {
-        userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
+        userInputHistory.addAll(commandHistory.userInputHistory);
     }
 
     /**
@@ -28,10 +26,10 @@ public class CommandHistory {
     }
 
     /**
-     * Returns a defensive copy of {@code userInputHistory}.
+     * Returns an unmodifiable view of {@code userInputHistory}.
      */
-    public List<String> getHistory() {
-        return new LinkedList<>(userInputHistory);
+    public ObservableList<String> getHistory() {
+        return FXCollections.unmodifiableObservableList(userInputHistory);
     }
 
     @Override

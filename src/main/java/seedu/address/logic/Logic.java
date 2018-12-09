@@ -25,8 +25,11 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
-    ListElementPointer getHistorySnapshot();
+    /**
+     * Returns an unmodifiable view of the list of commands entered by the user.
+     * The list is ordered from the least recent command to the most recent command.
+     */
+    ObservableList<String> getHistory();
 
     /**
      * Returns the user prefs' address book file path.

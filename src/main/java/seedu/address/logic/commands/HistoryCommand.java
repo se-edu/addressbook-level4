@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -20,7 +20,7 @@ public class HistoryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
-        List<String> previousCommands = history.getHistory();
+        ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
 
         if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
