@@ -29,7 +29,6 @@ import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -75,7 +74,6 @@ public abstract class AddressBookSystemTest {
     @After
     public void tearDown() {
         setupHelper.tearDownStage();
-        EventsCenter.clearSubscribers();
     }
 
     /**
