@@ -15,8 +15,12 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -124,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(logic);
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -170,6 +174,24 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    /**
+     * Executes the command and returns the result.
+     *
+     * @see seedu.address.logic.Logic#execute(String)
+     */
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            raise(new NewResultAvailableEvent(commandResult.getFeedbackToUser()));
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            raise(new NewResultAvailableEvent(e.getMessage()));
+            throw e;
+        }
     }
 
     @Subscribe
