@@ -6,7 +6,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collections;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
@@ -15,11 +17,16 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.
  */
 public class MainWindowCloseTest extends GuiUnitTest {
+    @Rule
+    public final TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private MainWindow mainWindow;
     private EmptyMainWindowHandle mainWindowHandle;
@@ -27,9 +34,12 @@ public class MainWindowCloseTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
+        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
+        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
+        StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager()));
+            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });
