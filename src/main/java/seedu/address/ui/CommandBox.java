@@ -102,7 +102,7 @@ public class CommandBox extends UiPart<Region> {
         if (commandTextField.getText().equals("")) {
             return;
         }
-        
+
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
             initHistory();
