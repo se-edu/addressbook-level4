@@ -28,10 +28,12 @@ Note how the <<DeveloperGuide#architecture, Developer Guide>> describes the high
 
 == Use Event-Driven Programming `[LO-EventDriven]`
 
-Note how the <<DeveloperGuide#architecture, Developer Guide>> uses events to communicate with components without needing a direct coupling. Also note how the link:{repoURL}/src/main/java/seedu/address/commons/core/index/EventsCenter.java[`EventsCenter.java`] acts as an event dispatcher to facilitate communication between event creators and event consumers.
+The JavaFX framework, which this code base uses for its UI, uses _events_ to communicate user input (such as mouse movement and button presses) to interested _event consumers_.
+The JavaFX event loop acts as an _event dispatcher_ to transmit events to event consumers.
 
 *Resources*
 
+* https://docs.oracle.com/javase/8/javafx/events-tutorial/events.htm[JavaFX: Handling Events]
 * https://se-edu.github.io/se-book/architecture/architecturalStyles/eventDriven/[se-edu/se-book: Design: Architecture: Architecture Styles: Event-Driven Architectural Style]
 
 '''
@@ -219,7 +221,10 @@ Here are some example design patterns used in the code base.
 * *Singleton Pattern* : link:{repoURL}/src/main/java/seedu/address/commons/core/EventsCenter.java[`EventsCenter.java`] is Singleton class. Its single instance can be accessed using the `EventsCenter.getInstance()` method.
 * *Facade Pattern* : link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager.java`] is not only shielding the internals of the Storage component from outsiders, it is mostly redirecting method calls to its internal components (i.e. minimal logic in the class itself). Therefore, `StorageManager` can be considered a Facade class.
 * *Command Pattern* : The link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command.java`] and its sub classes implement the Command Pattern.
-* *Observer Pattern* : The <<DeveloperGuide#events-driven-nature-of-the-design, event driven mechanism>> used by this code base employs the Observer pattern. For example, objects that are interested in events need to have the `@Subscribe` annotation in the class (this is similar to implementing an `\<<Observer>>` interface) and register with the `EventsCenter`. When something noteworthy happens, an event is raised and the `EventsCenter` notifies all relevant subscribers. Unlike in the Observer pattern in which the `\<<Observable>>` class is notifying all `\<<Observer>>` objects, here the `\<<Observable>>` classes simply raises an event and the `EventsCenter` takes care of the notifications.
+* *Observer Pattern*: The code base uses JavaFX's https://docs.oracle.com/javase/8/javafx/api/javafx/beans/value/ObservableValue.html[`ObservableValue`] interface to allow objects to watch for changes in data.
+This interface is an implementation of the Observer pattern.
+Objects that are interested in changes to an `ObservableValue` can register a listener via `ObservableValue#addListener(...)`.
+When the value represented by the `ObservableValue` changes, it will notify all registered listeners.
 * *MVC Pattern* :
 ** The 'View' part of the application is mostly in the `.fxml` files in the `src/main/resources/view` folder.
 ** `Model` component contains the 'Model'. However, note that it is possible to view the `Logic` as the model because it hides the `Model` behind it and the view has to go through the `Logic` to access the `Model`.
