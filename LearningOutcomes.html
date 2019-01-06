@@ -55,13 +55,17 @@
 <h2 id="use-event-driven-programming-code-lo-eventdriven-code"><a class="link" href="#use-event-driven-programming-code-lo-eventdriven-code">2. Use Event-Driven Programming <code>[LO-EventDriven]</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Note how the <a href="DeveloperGuide.html#architecture">Developer Guide</a> uses events to communicate with components without needing a direct coupling. Also note how the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/commons/core/index/EventsCenter.java"><code>EventsCenter.java</code></a> acts as an event dispatcher to facilitate communication between event creators and event consumers.</p>
+<p>The JavaFX framework, which this code base uses for its UI, uses <em>events</em> to communicate user input (such as mouse movement and button presses) to interested <em>event consumers</em>.
+The JavaFX event loop acts as an <em>event dispatcher</em> to transmit events to event consumers.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resources</strong></p>
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p><a href="https://docs.oracle.com/javase/8/javafx/events-tutorial/events.htm">JavaFX: Handling Events</a></p>
+</li>
 <li>
 <p><a href="https://se-edu.github.io/se-book/architecture/architecturalStyles/eventDriven/">se-edu/se-book: Design: Architecture: Architecture Styles: Event-Driven Architectural Style</a></p>
 </li>
@@ -430,7 +434,10 @@ class gives some examples of how to use <em>Equivalence Partitions</em>, <em>Bou
 <p><strong>Command Pattern</strong> : The <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/logic/commands/Command.java"><code>Command.java</code></a> and its sub classes implement the Command Pattern.</p>
 </li>
 <li>
-<p><strong>Observer Pattern</strong> : The <a href="DeveloperGuide.html#events-driven-nature-of-the-design">event driven mechanism</a> used by this code base employs the Observer pattern. For example, objects that are interested in events need to have the <code>@Subscribe</code> annotation in the class (this is similar to implementing an <code>&lt;&lt;Observer&gt;&gt;</code> interface) and register with the <code>EventsCenter</code>. When something noteworthy happens, an event is raised and the <code>EventsCenter</code> notifies all relevant subscribers. Unlike in the Observer pattern in which the <code>&lt;&lt;Observable&gt;&gt;</code> class is notifying all <code>&lt;&lt;Observer&gt;&gt;</code> objects, here the <code>&lt;&lt;Observable&gt;&gt;</code> classes simply raises an event and the <code>EventsCenter</code> takes care of the notifications.</p>
+<p><strong>Observer Pattern</strong>: The code base uses JavaFX&#8217;s <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/beans/value/ObservableValue.html"><code>ObservableValue</code></a> interface to allow objects to watch for changes in data.
+This interface is an implementation of the Observer pattern.
+Objects that are interested in changes to an <code>ObservableValue</code> can register a listener via <code>ObservableValue#addListener(&#8230;&#8203;)</code>.
+When the value represented by the <code>ObservableValue</code> changes, it will notify all registered listeners.</p>
 </li>
 <li>
 <p><strong>MVC Pattern</strong> :</p>
@@ -542,4 +549,4 @@ class gives some examples of how to use <em>Equivalence Partitions</em>, <em>Bou
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-12-14 11:23:31 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-01-06 15:43:39 UTC</div></div></div></body></html>

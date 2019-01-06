@@ -345,13 +345,11 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </ul>
 </div>
 <div class="paragraph">
-<p><a href="#Design-Commons"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.</p>
+<p><a href="#Design-Commons"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:</p>
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p><code>EventsCenter</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google&#8217;s Event Bus library</a>) is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</p>
-</li>
 <li>
 <p><code>LogsCenter</code> : Used by many classes to write log messages to the App&#8217;s log file.</p>
 </li>
@@ -398,48 +396,15 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </div>
 <div class="title">Figure 2. Class Diagram of the Logic Component</div>
 </div>
-<h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
+<h4 id="how-the-architecture-components-interact-with-each-other" class="discrete">How the architecture components interact with each other</h4>
 <div class="paragraph">
-<p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>delete 1</code>.</p>
+<p>The <em>Sequence Diagram</em> below shows how the components interact with each other for the scenario where the user issues the command <code>delete 1</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/SDforDeletePerson.png" alt="SDforDeletePerson" width="800">
 </div>
-<div class="title">Figure 3. Component interactions for <code>delete 1</code> command (part 1)</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Address Book data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/SDforDeletePersonEventHandling.png" alt="SDforDeletePersonEventHandling" width="800">
-</div>
-<div class="title">Figure 4. Component interactions for <code>delete 1</code> command (part 2)</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Note how the event is propagated through the <code>EventsCenter</code> to the <code>Storage</code> and <code>UI</code> without <code>Model</code> having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
-</td>
-</tr>
-</table>
+<div class="title">Figure 3. Component interactions for <code>delete 1</code> command</div>
 </div>
 <div class="paragraph">
 <p>The sections below give more details of each component.</p>
@@ -451,7 +416,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/UiClassDiagram.png" alt="UiClassDiagram" width="800">
 </div>
-<div class="title">Figure 5. Structure of the UI Component</div>
+<div class="title">Figure 4. Structure of the UI Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
@@ -471,10 +436,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>Executes user commands using the <code>Logic</code> component.</p>
 </li>
 <li>
-<p>Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.</p>
-</li>
-<li>
-<p>Responds to events raised from various parts of the App and updates the UI accordingly.</p>
+<p>Listens for changes to <code>Model</code> data so that the UI can be updated with the modified data.</p>
 </li>
 </ul>
 </div>
@@ -485,7 +447,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800">
 </div>
-<div class="title">Figure 6. Structure of the Logic Component</div>
+<div class="title">Figure 5. Structure of the Logic Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
@@ -500,10 +462,13 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</p>
 </li>
 <li>
-<p>The command execution can affect the <code>Model</code> (e.g. adding a person) and/or raise events.</p>
+<p>The command execution can affect the <code>Model</code> (e.g. adding a person).</p>
 </li>
 <li>
 <p>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>Ui</code>.</p>
+</li>
+<li>
+<p>In addition, the <code>CommandResult</code> object can also instruct the <code>Ui</code> to perform certain actions, such as displaying help to the user.</p>
 </li>
 </ol>
 </div>
@@ -514,7 +479,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/DeletePersonSdForLogic.png" alt="DeletePersonSdForLogic" width="800">
 </div>
-<div class="title">Figure 7. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
 </div>
 </div>
 <div class="sect2">
@@ -523,7 +488,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
 </div>
-<div class="title">Figure 8. Structure of the Model Component</div>
+<div class="title">Figure 7. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
@@ -568,7 +533,7 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <div class="content">
 <img src="images/StorageClassDiagram.png" alt="StorageClassDiagram" width="800">
 </div>
-<div class="title">Figure 9. Structure of the Storage Component</div>
+<div class="title">Figure 8. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -914,7 +879,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 10. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 9. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -2309,4 +2274,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-12-14 11:23:31 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-01-06 15:43:39 UTC</div></div></div></body></html>
