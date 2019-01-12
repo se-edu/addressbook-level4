@@ -44,9 +44,17 @@ public class Address {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && value.equals(((Address) other).value)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Address)) {
+            return false;
+        }
+
+        Address otherAddress = (Address) other;
+        return value.equals(otherAddress.value);
     }
 
     @Override

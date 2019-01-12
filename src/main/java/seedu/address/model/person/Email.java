@@ -54,9 +54,17 @@ public class Email {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && value.equals(((Email) other).value)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Email)) {
+            return false;
+        }
+
+        Email otherEmail = (Email) other;
+        return value.equals(otherEmail.value);
     }
 
     @Override

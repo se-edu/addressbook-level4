@@ -49,12 +49,13 @@ public class AppParameters {
             return true;
         }
 
+        // instanceof handles nulls
         if (!(other instanceof AppParameters)) {
             return false;
         }
 
         AppParameters otherAppParameters = (AppParameters) other;
-        return Objects.equals(getConfigPath(), otherAppParameters.getConfigPath());
+        return Objects.equals(configPath, otherAppParameters.configPath);
     }
 
     @Override

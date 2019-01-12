@@ -37,14 +37,15 @@ public class Config {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)) { //this handles null as well.
+
+        // instanceof handles nulls
+        if (!(other instanceof Config)) {
             return false;
         }
 
-        Config o = (Config) other;
-
-        return Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
+        Config otherConfig = (Config) other;
+        return Objects.equals(logLevel, otherConfig.logLevel)
+                && Objects.equals(userPrefsFilePath, otherConfig.userPrefsFilePath);
     }
 
     @Override

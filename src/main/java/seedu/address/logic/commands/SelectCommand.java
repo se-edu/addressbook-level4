@@ -48,8 +48,16 @@ public class SelectCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof SelectCommand)) {
+            return false;
+        }
+
+        SelectCommand otherSelectCommand = (SelectCommand) other;
+        return targetIndex.equals(otherSelectCommand.targetIndex);
     }
 }

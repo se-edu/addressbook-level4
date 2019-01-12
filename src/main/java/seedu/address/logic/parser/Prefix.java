@@ -25,15 +25,17 @@ public class Prefix {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Prefix)) {
-            return false;
-        }
-        if (obj == this) {
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
         }
 
-        Prefix otherPrefix = (Prefix) obj;
-        return otherPrefix.getPrefix().equals(getPrefix());
+        // instanceof handles nulls
+        if (!(other instanceof Prefix)) {
+            return false;
+        }
+
+        Prefix otherPrefix = (Prefix) other;
+        return prefix.equals(otherPrefix.prefix);
     }
 }

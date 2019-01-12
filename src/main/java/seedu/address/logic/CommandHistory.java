@@ -35,20 +35,18 @@ public class CommandHistory {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof CommandHistory)) {
+        if (!(other instanceof CommandHistory)) {
             return false;
         }
 
-        // state check
-        CommandHistory other = (CommandHistory) obj;
-        return userInputHistory.equals(other.userInputHistory);
+        CommandHistory otherCommandHistory = (CommandHistory) other;
+        return userInputHistory.equals(otherCommandHistory.userInputHistory);
     }
 
     @Override
