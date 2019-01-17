@@ -12,6 +12,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '2.0.3'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.5'
 }
 
 if (JavaVersion.current() == JavaVersion.VERSION_1_10
@@ -229,6 +230,11 @@ task deployOfflineDocs(type: Copy) {
         include 'images/*'
         include 'HelpWindow.html'
     }
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.base', 'javafx.fxml', 'javafx.web']
+    version = "11.0.+"
 }
 
 deployOfflineDocs.dependsOn asciidoctor
