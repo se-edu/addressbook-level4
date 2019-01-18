@@ -6,7 +6,6 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-:warning-caption: :warning:
 endif::[]
 
 https://gradle.org/[Gradle] is a build automation tool. It can automate build-related tasks such as
@@ -77,7 +76,6 @@ Runs the code style check for the test code base
 
 The set of code style rules implemented can be found in `config/checkstyle/checkstyle.xml`. To enable _exceptions_ to code styles, add in the comment `//CODESTYLE.OFF: RuleName` at the start of the section and `//CODESTYLE.ON: RuleName` at the end of the section.
 
-[[Running-Tests]]
 == Running Tests
 
 * **`allTests`** +
@@ -89,10 +87,6 @@ Runs all non-GUI tests in the `seedu.address`
 package
 * **`headless`** +
 Sets the test mode as _headless_. The mode is effective for that Gradle run only so it should be combined with other test tasks.
-+
-[WARNING]
-JDK `10` on Windows will fail to run tests in headless mode due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
 
 Here are some examples:
 
