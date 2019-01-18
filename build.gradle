@@ -14,24 +14,11 @@ plugins {
     id 'application'
 }
 
-if (JavaVersion.current() == JavaVersion.VERSION_1_10
-        && System.getProperty('os.name').startsWith('Windows')) {
-    logger.warn('''\
-        ==============================================================================
-        *********************************** WARNING **********************************
-        ==============================================================================
-        You seem to be running Gradle with JDK 10 on Windows.
-        JDK 10 on Windows will fail to run tests in headless mode due to a JavaFX bug.
-        You are highly recommended to use JDK 9!
-        ==============================================================================
-        '''.stripIndent())
-}
-
 // Specifies the entry point of the application
 mainClassName = 'seedu.address.MainApp'
 
-sourceCompatibility = JavaVersion.VERSION_1_9
-targetCompatibility = JavaVersion.VERSION_1_9
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -63,15 +50,12 @@ dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: '19.0'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
-    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
-        exclude group: 'org.testfx', module: 'testfx-internal-java8'
-    }
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion
     testImplementation group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
-    testRuntimeOnly group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
-    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: '8u76-b04'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
