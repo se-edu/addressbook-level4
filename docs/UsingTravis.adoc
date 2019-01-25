@@ -101,7 +101,7 @@ Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis sc
 .  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
    Suggested change: Remove the codacy badge from `README`.
 .  Wait for Travis CI to finish running the build on your new commit.
-.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level4/`. You should see your `README` file displayed.
+.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level35/`. You should see your `README` file displayed.
 
 == Repository-wide checks
 

@@ -7,7 +7,7 @@
 :sectnumlevels: 1
 :imagesDir: images
 :stylesDir: stylesheets
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/se-edu/addressbook-level35/tree/master
 
 After studying this code and completing the corresponding exercises, you should be able to,
 
@@ -118,7 +118,7 @@ Note <<UsingGradle#, how the AddressBook app uses Gradle to automate build tasks
 
 == Use Continuous Integration `[LO-ContinuousIntegration]`
 
-Note <<UsingTravis#, how the AddressBook app uses Travis to perform Continuous Integration>>. (https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]])
+Note <<UsingTravis#, how the AddressBook app uses Travis to perform Continuous Integration>>. (https://travis-ci.org/se-edu/addressbook-level35[image:https://travis-ci.org/se-edu/addressbook-level35.svg?branch=master[Build Status]])
 
 *Resources*
 
@@ -133,7 +133,7 @@ Note <<UsingTravis#, how the AddressBook app uses Travis to perform Continuous I
 
 == Use Code Coverage `[LO-CodeCoverage]`
 
-Note how our CI server <<UsingTravis#, Travis uses Coveralls to report code coverage>>. (https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]) After <<UsingCoveralls#, setting up Coveralls>> for your project, you can visit Coveralls website to find details about the coverage of code pushed to your repo. https://coveralls.io/github/se-edu/addressbook-level4?branch=master[Here] is an example.
+Note how our CI server <<UsingTravis#, Travis uses Coveralls to report code coverage>>. (https://coveralls.io/github/se-edu/addressbook-level35?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level35/badge.svg?branch=master[Coverage Status]]) After <<UsingCoveralls#, setting up Coveralls>> for your project, you can visit Coveralls website to find details about the coverage of code pushed to your repo. https://coveralls.io/github/se-edu/addressbook-level35?branch=master[Here] is an example.
 
 *Resources*
 
@@ -262,8 +262,8 @@ Note how this project uses the http://checkstyle.sourceforge.net/[CheckStyle] st
 
 == Do Code Reviews `[LO-CodeReview]`
 
-* Note how some PRs in this project have been reviewed by other developers. Here is an https://github.com/se-edu/addressbook-level4/pull/147[example].
-* Also note how we have used https://www.codacy.com[Codacy] to do automate some part of the code review workload (https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]])
+* Note how some PRs in this project have been reviewed by other developers. Here is an https://github.com/se-edu/addressbook-level35/pull/147[example].
+* Also note how we have used https://www.codacy.com[Codacy] to do automate some part of the code review workload (https://www.codacy.com/app/damith/addressbook-level35?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level35&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]])
 
 
 === Exercise: Review a PR
