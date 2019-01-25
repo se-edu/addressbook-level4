@@ -16,7 +16,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -27,12 +26,8 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -45,11 +40,10 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
@@ -60,7 +54,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        addCommand.execute(modelStub);
     }
 
     @Test

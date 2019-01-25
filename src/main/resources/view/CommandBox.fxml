@@ -4,6 +4,6 @@
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" onKeyPressed="#handleKeyPress" promptText="Enter command here..."/>
+  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."/>
 </StackPane>
 

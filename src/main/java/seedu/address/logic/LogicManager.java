@@ -26,14 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        history = new CommandHistory();
         addressBookParser = new AddressBookParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
@@ -46,12 +44,8 @@ public class LogicManager implements Logic {
         addressBookModified = false;
 
         CommandResult commandResult;
-        try {
-            Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(model, history);
-        } finally {
-            history.add(commandText);
-        }
+        Command command = addressBookParser.parseCommand(commandText);
+        commandResult = command.execute(model);
 
         if (addressBookModified) {
             logger.info("Address book modified, saving to file.");
@@ -73,11 +67,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
-    }
-
-    @Override
-    public ObservableList<String> getHistory() {
-        return history.getHistory();
     }
 
     @Override

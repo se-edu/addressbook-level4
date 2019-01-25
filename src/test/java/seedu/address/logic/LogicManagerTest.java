@@ -20,7 +20,6 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -59,21 +58,18 @@ public class LogicManagerTest {
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistoryCorrect(invalidCommand);
     }
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);
     }
 
     @Test
     public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(listCommand);
     }
 
     @Test
@@ -94,7 +90,6 @@ public class LogicManagerTest {
         expectedModel.commitAddressBook();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(addCommand);
     }
 
     @Test
@@ -156,21 +151,6 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-    }
-
-    /**
-     * Asserts that the result display shows all the {@code expectedCommands} upon the execution of
-     * {@code HistoryCommand}.
-     */
-    private void assertHistoryCorrect(String... expectedCommands) {
-        try {
-            CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
-            String expectedMessage = String.format(
-                    HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
-            assertEquals(expectedMessage, result.getFeedbackToUser());
-        } catch (ParseException | CommandException e) {
-            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
-        }
     }
 
     /**

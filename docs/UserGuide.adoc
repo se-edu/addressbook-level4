@@ -139,16 +139,6 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
@@ -233,6 +223,5 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
-* *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

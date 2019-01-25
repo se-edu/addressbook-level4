@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -72,56 +71,48 @@ public class CommandTestUtil {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
-     * - the {@code actualModel} matches {@code expectedModel} <br>
-     * - the {@code actualCommandHistory} remains unchanged.
+     * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            CommandResult expectedCommandResult, Model expectedModel) {
-        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
+            Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
-            assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged <br>
-     * - {@code actualCommandHistory} remains unchanged.
+     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
-
         try {
-            command.execute(actualModel, actualCommandHistory);
+            command.execute(actualModel);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
