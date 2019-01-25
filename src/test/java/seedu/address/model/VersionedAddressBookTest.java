@@ -3,7 +3,6 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -15,6 +14,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.Assert;
 
 public class VersionedAddressBookTest {
 
@@ -154,7 +154,7 @@ public class VersionedAddressBookTest {
     public void undo_singleAddressBook_throwsNoUndoableStateException() {
         VersionedAddressBook versionedAddressBook = prepareAddressBookList(emptyAddressBook);
 
-        assertThrows(VersionedAddressBook.NoUndoableStateException.class, versionedAddressBook::undo);
+        Assert.assertThrows(VersionedAddressBook.NoUndoableStateException.class, versionedAddressBook::undo);
     }
 
     @Test
@@ -163,7 +163,7 @@ public class VersionedAddressBookTest {
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
 
-        assertThrows(VersionedAddressBook.NoUndoableStateException.class, versionedAddressBook::undo);
+        Assert.assertThrows(VersionedAddressBook.NoUndoableStateException.class, versionedAddressBook::undo);
     }
 
     @Test
@@ -196,7 +196,7 @@ public class VersionedAddressBookTest {
     public void redo_singleAddressBook_throwsNoRedoableStateException() {
         VersionedAddressBook versionedAddressBook = prepareAddressBookList(emptyAddressBook);
 
-        assertThrows(VersionedAddressBook.NoRedoableStateException.class, versionedAddressBook::redo);
+        Assert.assertThrows(VersionedAddressBook.NoRedoableStateException.class, versionedAddressBook::redo);
     }
 
     @Test
@@ -204,7 +204,7 @@ public class VersionedAddressBookTest {
         VersionedAddressBook versionedAddressBook = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
-        assertThrows(VersionedAddressBook.NoRedoableStateException.class, versionedAddressBook::redo);
+        Assert.assertThrows(VersionedAddressBook.NoRedoableStateException.class, versionedAddressBook::redo);
     }
 
     @Test
