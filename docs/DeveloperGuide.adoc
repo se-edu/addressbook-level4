@@ -229,8 +229,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
+=== [Proposed] Undo/Redo feature
+==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
