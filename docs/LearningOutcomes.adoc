@@ -107,7 +107,7 @@ Note <<UsingGradle#, how the AddressBook app uses Gradle to automate build tasks
 
 === Exercise: Use gradle to run tasks
 
-* Use gradle to do these tasks: Run all tests in headless mode, build the jar file.
+* Use gradle to do these tasks: Run all tests, build the jar file.
 
 === Exercise: Use gradle to manage dependencies
 
@@ -187,30 +187,6 @@ public void execute_invalidCommandFormat_throwsParseException() {
 
 * Write a unit test for a high-level method somewhere in the code base (or a new method you wrote).
 * Write an integration test for the same method.
-
-'''
-
-== Write System Tests `[LO-SystemTesting]`
-
-Note how tests below `src/test/java/systemtests` package (e.g link:{repoURL}/src/test/java/systemtests/AddCommandSystemTest.java[`AddCommandSystemTest.java`]) are system tests because they test the entire system end-to-end.
-
-*Resources*
-
-* https://se-edu.github.io/se-book/testing/testingTypes/[se-edu/se-book: QA: Testing: Testing Types]
-
-=== Exercise: Write more system tests
-
-* Write system tests for the new features you add.
-
-'''
-
-== Automate GUI Testing `[LO-AutomateGuiTesting]`
-
-Note how this project uses TextFX library to automate GUI testing, including <<DeveloperGuide#headless-gui-testing, _headless_ GUI testing>>.
-
-=== Exercise: Write more automated GUI tests
-
-* Covered by `[LO-SystemTesting]`
 
 '''
 

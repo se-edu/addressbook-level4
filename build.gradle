@@ -42,7 +42,6 @@ test {
 }
 
 dependencies {
-    String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
@@ -50,12 +49,8 @@ dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: '19.0'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
-    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion
-    testImplementation group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
-
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
-    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: '8u76-b04'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
@@ -95,22 +90,7 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
-task(guiTests)
-task(nonGuiTests)
-
-// Run `test` task if `guiTests` or `nonGuiTests` is specified
-guiTests.dependsOn test
-nonGuiTests.dependsOn test
-
-task(allTests)
-
-// `allTests` implies both `guiTests` and `nonGuiTests`
-allTests.dependsOn guiTests
-allTests.dependsOn nonGuiTests
-
 test {
-    systemProperty 'testfx.setup.timeout', '60000'
-
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
 
@@ -125,47 +105,7 @@ test {
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
-
-    doFirst {
-        boolean runGuiTests = gradle.taskGraph.hasTask(guiTests)
-        boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
-
-        if (!runGuiTests && !runNonGuiTests) {
-            runGuiTests = true
-            runNonGuiTests = true
-        }
-
-        if (runNonGuiTests) {
-            test.include 'seedu/address/**'
-        }
-
-        if (runGuiTests) {
-            test.include 'systemtests/**'
-            test.include 'seedu/address/ui/**'
-        }
-
-        if (!runGuiTests) {
-            test.exclude 'seedu/address/ui/**'
-        }
-    }
 }
-
-task headless {
-    doLast {
-        println 'Setting headless mode properties.'
-        test {
-            systemProperties = [
-                'testfx.robot': 'glass',
-                'testfx.headless': 'true',
-                'prism.order': 'sw',
-                'prism.text': 't2k',
-            ]
-        }
-    }
-}
-
-// Makes sure that headless properties are set before running tests
-test.mustRunAfter headless
 
 asciidoctor {
     backends 'html5'
@@ -218,4 +158,4 @@ task deployOfflineDocs(type: Copy) {
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
-defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
+defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'

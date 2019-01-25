@@ -7,7 +7,7 @@ https://www.appveyor.com/[AppVeyor] is a _Continuous Integration_ platform for G
 
 AppVeyor can run the project's tests automatically whenever new code is pushed to the repo. This ensures that existing functionality and features have not been broken on Windows by the changes.
 
-The current AppVeyor setup runs `gradlew.bat headless allTests` whenever someone pushes code to the repo.
+The current AppVeyor setup runs `gradlew.bat test` whenever someone pushes code to the repo.
 
 If you would like to customize your AppVeyor build further, you can learn more about AppVeyor from the https://www.appveyor.com/docs/[AppVeyor Documentation].
 
