@@ -15,24 +15,11 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.5'
 }
 
-if (JavaVersion.current() == JavaVersion.VERSION_1_10
-        && System.getProperty('os.name').startsWith('Windows')) {
-    logger.warn('''\
-        ==============================================================================
-        *********************************** WARNING **********************************
-        ==============================================================================
-        You seem to be running Gradle with JDK 10 on Windows.
-        JDK 10 on Windows will fail to run tests in headless mode due to a JavaFX bug.
-        You are highly recommended to use JDK 9!
-        ==============================================================================
-        '''.stripIndent())
-}
-
 // Specifies the entry point of the application
 mainClassName = 'seedu.address.Main'
 
-sourceCompatibility = JavaVersion.VERSION_1_9
-targetCompatibility = JavaVersion.VERSION_1_9
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
