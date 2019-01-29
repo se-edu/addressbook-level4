@@ -9,16 +9,17 @@ plugins {
     id 'jacoco'
     id 'checkstyle'
     id 'com.github.kt3k.coveralls' version '2.4.0'
-    id 'com.github.johnrengelman.shadow' version '2.0.3'
+    id 'com.github.johnrengelman.shadow' version '4.0.2'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.5'
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.MainApp'
+mainClassName = 'seedu.address.Main'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -26,7 +27,8 @@ repositories {
 }
 
 checkstyle {
-    toolVersion = '8.1'
+    toolVersion = '8.16'
+    configDir = file("$rootProject.projectDir/config/checkstyle")
 }
 
 jacocoTestReport {
@@ -41,9 +43,34 @@ test {
     useJUnitPlatform()
 }
 
+def currentOS = org.gradle.internal.os.OperatingSystem.current()
+def platform
+def firstOtherPlatform
+def secondOtherPlatform
+if (currentOS.isWindows()) {
+    platform = 'win'
+    firstOtherPlatform = 'mac'
+    secondOtherPlatform = 'linux'
+} else if (currentOS.isLinux()) {
+    platform = 'linux'
+    firstOtherPlatform = 'mac'
+    secondOtherPlatform = 'win'
+} else if (currentOS.isMacOsX()) {
+    platform = 'mac'
+    firstOtherPlatform = 'win'
+    secondOtherPlatform = 'linux'
+}
+
 dependencies {
-    String testFxVersion = '4.0.12-alpha'
+    String testFxVersion = '4.0.15-alpha'
     String jUnitVersion = '5.1.0'
+
+    compile "org.openjfx:javafx-graphics:11:${platform}"
+    compile "org.openjfx:javafx-graphics:11:${firstOtherPlatform}"
+    compile "org.openjfx:javafx-graphics:11:${secondOtherPlatform}"
+    compile "org.openjfx:javafx-web:11:${platform}"
+    compile "org.openjfx:javafx-web:11:${firstOtherPlatform}"
+    compile "org.openjfx:javafx-web:11:${secondOtherPlatform}"
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -55,7 +82,8 @@ dependencies {
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
-    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: '8u76-b04'
+    testRuntimeOnly group: 'org.testfx', name: 'testfx-internal-java9', version: '4.0.12-alpha'
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
@@ -66,18 +94,14 @@ shadowJar {
     destinationDir = file("${buildDir}/jar/")
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.8.1'
-}
-
 task coverage(type: JacocoReport) {
-    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(sourceSets.main.output)
-    executionData = files(jacocoTestReport.executionData)
+    getSourceDirectories().from(files(sourceSets.main.allSource.srcDirs))
+    getClassDirectories().from(files(sourceSets.main.output))
+    getExecutionData().from(files(jacocoTestReport.executionData))
     afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
+        getClassDirectories().from(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*.jar'])
-        })
+        }))
     }
     reports {
         html.enabled = true
@@ -157,7 +181,6 @@ task headless {
             systemProperties = [
                 'testfx.robot': 'glass',
                 'testfx.headless': 'true',
-                'prism.order': 'sw',
                 'prism.text': 't2k',
             ]
         }
@@ -213,6 +236,11 @@ task deployOfflineDocs(type: Copy) {
         include 'images/*'
         include 'HelpWindow.html'
     }
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.base', 'javafx.fxml', 'javafx.web']
+    version = "11.0.+"
 }
 
 deployOfflineDocs.dependsOn asciidoctor
