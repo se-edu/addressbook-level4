@@ -62,7 +62,7 @@ if (currentOS.isWindows()) {
 }
 
 dependencies {
-    String testFxVersion = '4.0.12-alpha'
+    String testFxVersion = '4.0.15-alpha'
     String jUnitVersion = '5.1.0'
 
     compile "org.openjfx:javafx-graphics:11:${platform}"
@@ -84,8 +84,8 @@ dependencies {
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
-    testRuntimeOnly group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
-    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
+    testRuntimeOnly group: 'org.testfx', name: 'testfx-internal-java9', version: '4.0.12-alpha'
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
@@ -183,7 +183,6 @@ task headless {
             systemProperties = [
                 'testfx.robot': 'glass',
                 'testfx.headless': 'true',
-                'prism.order': 'sw',
                 'prism.text': 't2k',
             ]
         }
