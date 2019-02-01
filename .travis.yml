@@ -1,7 +1,9 @@
 language: java
 matrix:
   include:
-    - jdk: oraclejdk11
+    - jdk:
+      - oraclejdk8
+      - oraclejdk11
 
 script: >-
     ./config/travis/run-checks.sh &&
@@ -13,6 +15,11 @@ deploy:
   script: ./config/travis/deploy_github_pages.sh
   on:
     branch: master
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
