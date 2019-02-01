@@ -12,7 +12,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '4.0.2'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.5'
 }
 
 // Specifies the entry point of the application
@@ -65,12 +64,17 @@ dependencies {
     String testFxVersion = '4.0.15-alpha'
     String jUnitVersion = '5.1.0'
 
+    compile "org.openjfx:javafx-base:11:${platform}"
+    compile "org.openjfx:javafx-controls:11:${platform}"
+    compile "org.openjfx:javafx-fxml:11:${platform}"
     compile "org.openjfx:javafx-graphics:11:${platform}"
-    compile "org.openjfx:javafx-graphics:11:${firstOtherPlatform}"
-    compile "org.openjfx:javafx-graphics:11:${secondOtherPlatform}"
+    compile "org.openjfx:javafx-media:11:${platform}"
     compile "org.openjfx:javafx-web:11:${platform}"
-    compile "org.openjfx:javafx-web:11:${firstOtherPlatform}"
-    compile "org.openjfx:javafx-web:11:${secondOtherPlatform}"
+
+    compileOnly "org.openjfx:javafx-graphics:11:${firstOtherPlatform}"
+    compileOnly "org.openjfx:javafx-graphics:11:${secondOtherPlatform}"
+    compileOnly "org.openjfx:javafx-web:11:${firstOtherPlatform}"
+    compileOnly "org.openjfx:javafx-web:11:${secondOtherPlatform}"
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -236,11 +240,6 @@ task deployOfflineDocs(type: Copy) {
         include 'images/*'
         include 'HelpWindow.html'
     }
-}
-
-javafx {
-    modules = [ 'javafx.controls', 'javafx.base', 'javafx.fxml', 'javafx.web']
-    version = "11.0.+"
 }
 
 deployOfflineDocs.dependsOn asciidoctor
