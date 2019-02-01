@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,18 +116,13 @@ public class CommandTestUtil {
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
-        try {
-            command.execute(actualModel, actualCommandHistory);
-            throw new AssertionError("The expected CommandException was not thrown.");
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
-            assertEquals(expectedCommandHistory, actualCommandHistory);
-        }
-    }
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, actualCommandHistory));
+        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
+        assertEquals(expectedCommandHistory, actualCommandHistory);
 
+    }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.

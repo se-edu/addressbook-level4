@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
@@ -15,7 +16,6 @@ import java.nio.file.Path;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddCommand;
@@ -34,12 +34,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
-
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
@@ -70,7 +66,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() {
+    public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
@@ -93,28 +89,30 @@ public class LogicManagerTest {
         expectedModel.addPerson(expectedPerson);
         expectedModel.commitAddressBook();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
     /**
      * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
      * Also confirms that {@code expectedModel} is as specified.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * @see #assertCommandFailure(String, Class, String, Model)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel) {
-        assertCommandBehavior(null, inputCommand, expectedMessage, expectedModel);
+    private void assertCommandSuccess(String inputCommand, String expectedMessage,
+                                      Model expectedModel) throws Exception {
+        CommandResult result = logic.execute(inputCommand);
+        assertEquals(expectedMessage, result.getFeedbackToUser());
+        assertEquals(model, expectedModel);
     }
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
@@ -122,7 +120,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
@@ -130,31 +128,20 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
-     * @see #assertCommandBehavior(Class, String, String, Model)
+     * @see #assertCommandFailure(String, Class, String, Model)
      */
-    private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
+    private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
+        assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
     /**
-     * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
-     * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal model manager data are same as those in the {@code expectedModel} <br>
-     *      - {@code expectedModel}'s address book was saved to the storage file.
+     * Executes the command, confirms that the exception is thrown and that the result message and model is correct.
      */
-    private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
-                                           String expectedMessage, Model expectedModel) {
-
-        try {
-            CommandResult result = logic.execute(inputCommand);
-            assertEquals(expectedException, null);
-            assertEquals(expectedMessage, result.getFeedbackToUser());
-        } catch (CommandException | ParseException e) {
-            assertEquals(expectedException, e.getClass());
-            assertEquals(expectedMessage, e.getMessage());
-        }
-
+    private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
+                                      String expectedMessage, Model expectedModel) {
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
 
