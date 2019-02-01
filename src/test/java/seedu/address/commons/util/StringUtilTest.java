@@ -1,21 +1,14 @@
 package seedu.address.commons.util;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.FileNotFoundException;
-import java.util.Optional;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class StringUtilTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     //---------------- Tests for isUnsignedPositiveInteger --------------------------------------
 
@@ -63,31 +56,25 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        assertExceptionThrown(NullPointerException.class, "typical sentence", null, Optional.empty());
-    }
-
-    private void assertExceptionThrown(Class<? extends Throwable> exceptionClass, String sentence, String word,
-            Optional<String> errorMessage) {
-        thrown.expect(exceptionClass);
-        errorMessage.ifPresent(message -> thrown.expectMessage(message));
-        StringUtil.containsWordIgnoreCase(sentence, word);
+        assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsWordIgnoreCase("typical sentence", null));
     }
 
     @Test
     public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
-        assertExceptionThrown(IllegalArgumentException.class, "typical sentence", "  ",
-                Optional.of("Word parameter cannot be empty"));
+        assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
+            -> StringUtil.containsWordIgnoreCase("typical scenario", "  "));
     }
 
     @Test
     public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
-        assertExceptionThrown(IllegalArgumentException.class, "typical sentence", "aaa BBB",
-                Optional.of("Word parameter should be a single word"));
+        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
+            -> StringUtil.containsWordIgnoreCase("typical scenario", "aaa BBB"));
     }
 
     @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertExceptionThrown(NullPointerException.class, null, "abc", Optional.empty());
+        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc"));
     }
 
     /*
@@ -145,15 +132,13 @@ public class StringUtilTest {
 
     @Test
     public void getDetails_exceptionGiven() {
-        assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
-                   containsString("java.io.FileNotFoundException: file not found"));
+        assertTrue(StringUtil.getDetails(new FileNotFoundException("file not found"))
+            .contains("java.io.FileNotFoundException: file not found"));
     }
 
     @Test
     public void getDetails_nullGiven_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        StringUtil.getDetails(null);
+        assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
-
 
 }
