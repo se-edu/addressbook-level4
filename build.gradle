@@ -2,6 +2,7 @@
 // For more details take a look at the Java Quickstart chapter in the Gradle
 // user guide available at http://gradle.org/docs/5.0/userguide/tutorial_java_projects.html
 
+import org.apache.commons.lang.SystemUtils
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
@@ -42,19 +43,18 @@ test {
     useJUnitPlatform()
 }
 
-def currentOS = org.gradle.internal.os.OperatingSystem.current()
 def platform
 def firstOtherPlatform
 def secondOtherPlatform
-if (currentOS.isWindows()) {
+if (SystemUtils.IS_OS_WINDOWS) {
     platform = 'win'
     firstOtherPlatform = 'mac'
     secondOtherPlatform = 'linux'
-} else if (currentOS.isLinux()) {
+} else if (SystemUtils.IS_OS_LINUX) {
     platform = 'linux'
     firstOtherPlatform = 'mac'
     secondOtherPlatform = 'win'
-} else if (currentOS.isMacOsX()) {
+} else if (SystemUtils.IS_OS_MAC) {
     platform = 'mac'
     firstOtherPlatform = 'win'
     secondOtherPlatform = 'linux'
