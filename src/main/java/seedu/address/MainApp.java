@@ -32,7 +32,7 @@ import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
 /**
- * The main entry point to the application.
+ * Runs the application.
  */
 public class MainApp extends Application {
 
@@ -181,7 +181,7 @@ public class MainApp extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void initialize(String[] args) {
+        Application.launch(MainApp.class, args);
     }
 }
