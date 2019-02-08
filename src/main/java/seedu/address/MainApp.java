@@ -32,7 +32,7 @@ import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
 /**
- * The main entry point to the application.
+ * Runs the application.
  */
 public class MainApp extends Application {
 
@@ -179,9 +179,5 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
