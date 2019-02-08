@@ -2,6 +2,7 @@
 // For more details take a look at the Java Quickstart chapter in the Gradle
 // user guide available at http://gradle.org/docs/4.8.1/userguide/tutorial_java_projects.html
 
+import org.apache.commons.lang.SystemUtils
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
@@ -41,9 +42,25 @@ test {
     useJUnitPlatform()
 }
 
+def platform
+if (SystemUtils.IS_OS_WINDOWS) {
+    platform = 'win'
+} else if (SystemUtils.IS_OS_LINUX) {
+    platform = 'linux'
+} else if (SystemUtils.IS_OS_MAC) {
+    platform = 'mac'
+}
+
 dependencies {
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
+
+    compile "org.openjfx:javafx-base:11:${platform}"
+    compile "org.openjfx:javafx-controls:11:${platform}"
+    compile "org.openjfx:javafx-fxml:11:${platform}"
+    compile "org.openjfx:javafx-graphics:11:${platform}"
+    compile "org.openjfx:javafx-media:11:${platform}"
+    compile "org.openjfx:javafx-web:11:${platform}"
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
