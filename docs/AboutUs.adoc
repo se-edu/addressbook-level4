@@ -9,7 +9,7 @@ _{The dummy content given below serves as a placeholder to be used by future for
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
-== Project Team
+== The Project Team
 
 === John Doe
 image::damithc.jpg[width="150", align="left"]
