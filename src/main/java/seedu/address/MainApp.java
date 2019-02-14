@@ -33,6 +33,7 @@ import seedu.address.ui.UiManager;
 
 /**
  * The main entry point to the application.
+ * testing pushed commit, should be linked to Travis build
  */
 public class MainApp extends Application {
 
