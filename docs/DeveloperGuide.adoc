@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team M11-3`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -234,16 +234,41 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Toggle feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The toggle feature is facilitated by `FlashCards`.
+It is stored internally and implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `FlashCards#n()` -- (next) Opens the next flash card in line.
+* `FlashCards#p()` -- (previous) Restore the previous flash card.
+* `FlashCards#s()` -- (skip) Skip the current flash card and move on to the next. The flash card skipped will move to the back of the line.
+* `FlashCards#c()` -- (change) Closes the flash cards in the current subject and move on to the next subject selected/in line.
+
+=== Modes of Quizzing feature
+==== Current Implementation
+
+The Modes of Quizzing feature is facilitated by `FlashCards`.
+For each subject the user has, he/she can create flash cards specifically for the topic. The user can also choose the testing mode he/she wishes to be tested on. These are the different modes available:
+
+* `"Subject" Knowledge Testing Mode` 
+-- From the pool of flash cards under the selected subject, the user will choose the number of flash cards and there will be a mixture of frequency levels from the subject pool. This mode will focus on a specific subject and can be used for revision before mini quizzes held in school.
+
+* `"Focus" Subject Testing Mode` 
+-- This mode will be largely focused on weaker concepts and cards with higher frequency of being chosen from the database “FlashCards”. The frequency level can be toggled in this mode for the user to focus more on weaker concepts or strengthen their concepts. This mode is encouraged when exam dates are drawing near.
+
+* `"Random" Mass Testing Mode` 
+-- After selecting the number of cards to be tested, random flash cards will be chosen from the database “FlashCards” with varying frequency for the user to quiz himself/herself. This mode is encouraged if the user has free time or to pass time when travelling.
+
+=== Shelf-Life of FlashCards
+==== Current Implementation
+
+The user can determine how long the flash cards will exist in the database “FlashCards”. 
+The following operations are available:
+* `FlashCards#clearall()` -- Clears the entire database.
+* `FlashCards#clear()` -- Clears a specific subject when in "Subject" Knowledge Testing Mode.
+
+For easier modes of implementation, the user can also choose to set a date whereby the flash cards would be unavailable thereafter. For example, in the event where the user knows the specific exam date for the selected subject, he/she can set the exam date under the “Subject Details” and the flash cards will be available for another month after the exam before the auto deletion function is activated.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
@@ -811,13 +836,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* (Mainly) Secondary School students
+* Has a need to memorise notes across different subjects
+* Prefer digital notes over paper and pen
+* Reasonably comfortable with using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: 
+
+* Digitizes notes for each subject
+* One-stop platform to get all one's notes for different subjects
+* Help with the memorisation of notes through the use of flash cards (e.g. before exams)
+* Organised one's notes in one platform
 
 [appendix]
 == User Stories
@@ -827,25 +856,33 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |New User |See usage instructions |Refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |New User |Create a new account |Only see flash cards and subjects that are related and customised for me 
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |User |Login |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |User |Add a new flash card |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |User |Edit a flash card |Change my mistakes
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |User |Delete a flash card |Remove notes that I no longer need
+
+|`* * *` |User |List flash cards categorized by subjects |Have an overview of the flash cards I currently have
+
+|`* * *` |User |Find a flash card |Locate the flash card i need without going through the entire list
+
+|`* *` |User |Categorize each flash card by importance |Prioritise which information to study/memorise first
+
+|`* *` |User |Retrieve a recently deleted flash card |Retrieve the flash card which I might have accidentally deleted
 |=======================================================================
 
-_{More to be added}_
+_{More to be added in future versions of the developer guide}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FlashCards` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
