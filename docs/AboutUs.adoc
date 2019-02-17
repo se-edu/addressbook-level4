@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Sharad Kochhar
-image::
+image::sharadk1234.jpg[width="150", align="left"]
 {empty}[http://github.com/sharadk1234[github]] [<<Sharad Kochhar#, portfolio>>]
 
 Role: Developer +
