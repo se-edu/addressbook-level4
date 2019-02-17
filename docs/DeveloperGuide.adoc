@@ -885,32 +885,114 @@ _{More to be added in future versions of the developer guide}_
 (For all use cases below, the *System* is the `FlashCards` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Create Account
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User enters a new username
+2.  FlashCards creates a new User Account
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Username is taken
+** 1a1. FlashCards prints error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Login
+
+*MSS*
+
+1.  User enters username
+2.  FlashCards retrieves all relevant data for user account
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+[none]
+* 1a. Account not found
+** 1a1. FlashCards prints error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Adding a Flash Card
+
+*MSS*
+
+1.  User enters subject and data to add as a flash card
+2.  FlashCards displays the flash card that was just added
++
+Use case ends.
+
+[discrete]
+=== Use case: Editing a Flash Card
+
+*MSS*
+
+1.  User enters the subject of the flash card to be edited
+2.  FlashCards displays a list of flash cards belonging to the same subject
+3.  User selects the index of the flash card to edit
+4.  FlashCards prompts for new data
+5. User enters new data
+6. FlashCards displays the updated flash card
++
+Use case ends.
+
+[discrete]
+=== Use case: Deleting a Flash Card
+
+*MSS*
+
+1.  User enters the subject of the flash card to be deleted
+2.  FlashCards displays a list of flash cards belonging to the same subject
+3.  User selects the index of the flash card to delete
+4.  FlashCards displays the updated list of flash cards
++
+Use case ends.
+
+[discrete]
+=== Use case: Listing all Flash Cards categorized by Subjects
+
+*MSS*
+
+1.  FlashCards displays an indexed list of flash cards categorized by subjects 
++
+Use case ends.
+
+[discrete]
+=== Use case: Finding a Flash Card
+
+*MSS*
+
+1.  User enters a keyword
+2.  FlashCards displays all flash cards that contains the given keyword
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Keyword not found
++
+Use case ends.
+
+[discrete]
+=== Use case: Clear all Data of a particular User
+
+*MSS*
+
+1.  User enters clear command
+2.  FlashCards clears all flash cards of the user
++
+Use case ends.
+
+_{More use cases to be added in future versions of the developer guide}_
 
 [appendix]
 == Non Functional Requirements
@@ -918,6 +1000,24 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+=== Performance Requirement
+The product will have a high performance speed of less than 2 seconds.
+
+=== Interface Requirement
+The product will have a simple and user-friendly interface, making it easy even for new users using our application.
+
+=== Portability Requirement
+The product can be used through both laptop and smartphone allowing users to use them on the go.
+
+=== Operational Requirement
+The system is capable of categorizing the cards based on the subjects and allows easy access to cards when searching for one.
+
+=== Technical Requirement 
+The system should work on common operating systems such as Mac OS, Windows, Linux and Solaris platform.
+
+=== Constraints
+The system is built on Java 9 and it is advisable to use it with the recommended version of Java 9. When used on a newer/older version of Java, the user might not be able to enjoy the full benefits of the application.
 
 _{More to be added}_
 
