@@ -11,46 +11,42 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Jeremy Loye
+image::jeremyloye.png[width="150", align="left"]
+{empty}[https://github.com/JeremyLoye[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Code quality, Team lead
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Louise Lee
+image::geezlouisee.png[width="150", align="left"]
+{empty}[http://github.com/geezlouisee[github]]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Deliverables and deadlines, integration
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Eugene Yong
+image::eugeneyl.png[width="150", align="left"]
+{empty}[http://github.com/eugeneyl[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Testing
+
+'''
+
+=== Jia Xuan
+image::kjiaxuan.png[width="150", align="left"]
+{empty}[http://github.com/kjiaxuan[github]]
+
+Role: Scheduling and tracking
+
+'''
+
+=== Jack Chen
+image::jackimaru96.png[width="150", align="left"]
+{empty}[http://github.com/Jackimaru96[github]]
+
+Role: Documentation
 
 '''
