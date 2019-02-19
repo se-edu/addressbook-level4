@@ -1,6 +1,6 @@
 // Gradle Configuration File
 // For more details take a look at the Java Quickstart chapter in the Gradle
-// user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
+// user guide available at http://gradle.org/docs/5.0/userguide/tutorial_java_projects.html
 
 import org.apache.commons.lang.SystemUtils
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -94,6 +94,10 @@ shadowJar {
     archiveName = 'addressbook.jar'
 
     destinationDir = file("${buildDir}/jar/")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '5.0'
 }
 
 task coverage(type: JacocoReport) {
