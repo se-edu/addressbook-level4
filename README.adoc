@@ -18,7 +18,7 @@ endif::[]
 Have you ever faced the problem of not having a place to store all the information you search online or the notes you take? With our application, The Infinity Machine, you can now store and retrieve textual information such as research material efficiently. it also allows you to apply custom made tags and descriptions for easy categorization, search and retrieval.
 
 == Target Users
-Intended for tech-savvy university students who love to use the CLI and wish to organize and
+Intended for tech-savvy university students or researchers who love to use the CLI and wish to organize and
 tag research information or any other data that they may wish to store.
 
 == Site Map
