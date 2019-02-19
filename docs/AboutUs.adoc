@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::damithc.jpg[width="150", align="left"]
 {empty}[https://github.com/case141[github]]
 
-Role: X (to be changed)
+Role: X (to be changed) +
 Responsibilities: X
 
 '''
@@ -22,7 +22,7 @@ Responsibilities: X
 image::lejolly.jpg[width="150", align="left"]
 {empty}[https://github.com/DarrenDragonLee[github]]
 
-Role: X 
+Role: X +
 Responsibilities: X
 
 '''
@@ -31,7 +31,7 @@ Responsibilities: X
 image::yijinl.jpg[width="150", align="left"]
 {empty}[https://github.com/fterhl[github]] 
 
-Role: X
+Role: X +
 Responsibilities: X
 
 '''
@@ -40,7 +40,7 @@ Responsibilities: X
 image::m133225.jpg[width="150", align="left"]
 {empty}[https://github.com/suriruhani[github]]
 
-Role: X
+Role: X +
 Responsibilities: X
 
 '''
@@ -49,7 +49,7 @@ Responsibilities: X
 image::yl_coder.jpg[width="150", align="left"]
 {empty}[https://github.com/DoItTomorrow[github]]
 
-Role: X
+Role: X +
 Responsibilities: X
 
 '''
