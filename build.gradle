@@ -43,12 +43,20 @@ test {
 }
 
 def platform
+def firstOtherPlatform
+def secondOtherPlatform
 if (SystemUtils.IS_OS_WINDOWS) {
     platform = 'win'
+    firstOtherPlatform = 'mac'
+    secondOtherPlatform = 'linux'
 } else if (SystemUtils.IS_OS_LINUX) {
     platform = 'linux'
+    firstOtherPlatform = 'mac'
+    secondOtherPlatform = 'win'
 } else if (SystemUtils.IS_OS_MAC) {
     platform = 'mac'
+    firstOtherPlatform = 'win'
+    secondOtherPlatform = 'linux'
 }
 
 dependencies {
@@ -61,6 +69,11 @@ dependencies {
     compile "org.openjfx:javafx-graphics:11:${platform}"
     compile "org.openjfx:javafx-media:11:${platform}"
     compile "org.openjfx:javafx-web:11:${platform}"
+
+    compile "org.openjfx:javafx-graphics:11:${firstOtherPlatform}"
+    compile "org.openjfx:javafx-graphics:11:${secondOtherPlatform}"
+    compile "org.openjfx:javafx-web:11:${firstOtherPlatform}"
+    compile "org.openjfx:javafx-web:11:${secondOtherPlatform}"
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
