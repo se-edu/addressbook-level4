@@ -43,12 +43,20 @@ test {
 }
 
 def platform
+def firstOtherPlatform
+def secondOtherPlatform
 if (SystemUtils.IS_OS_WINDOWS) {
     platform = 'win'
+    firstOtherPlatform = 'mac'
+    secondOtherPlatform = 'linux'
 } else if (SystemUtils.IS_OS_LINUX) {
     platform = 'linux'
+    firstOtherPlatform = 'mac'
+    secondOtherPlatform = 'win'
 } else if (SystemUtils.IS_OS_MAC) {
     platform = 'mac'
+    firstOtherPlatform = 'win'
+    secondOtherPlatform = 'linux'
 }
 
 dependencies {
@@ -62,6 +70,11 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafxVersion, classifier: platform
     implementation group: 'org.openjfx', name: 'javafx-media', version: javafxVersion, classifier: platform
     implementation group: 'org.openjfx', name: 'javafx-web', version: javafxVersion, classifier: platform
+
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafxVersion, classifier: firstOtherPlatform
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafxVersion, classifier: secondOtherPlatform
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javafxVersion, classifier: firstOtherPlatform
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javafxVersion, classifier: secondOtherPlatform
 
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
