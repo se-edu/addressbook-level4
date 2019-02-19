@@ -20,12 +20,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `8`* (revision `1.8.0_201` or later)
-+
-[NOTE]
-Only JDK 8 is supported. +
-This app will not work with later major JDK releases such as JDK 9, 10, 11, etc.
-+
+. *JDK `11`* or above
 . *IntelliJ* IDE
 +
 [NOTE]
@@ -881,7 +876,7 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `8` (revision `1.8.0_201` or higher) installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
