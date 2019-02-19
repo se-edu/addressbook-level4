@@ -22,8 +22,8 @@ public abstract class GuiUnitTest {
         }
     }
 
-    @Rule
-    public final UiPartRule uiPartRule = new UiPartRule();
+    @RegisterExtension
+    public final UiPartExtension uiPartExtension = new UiPartExtension();
 
     protected final GuiRobot guiRobot = new GuiRobot();
 

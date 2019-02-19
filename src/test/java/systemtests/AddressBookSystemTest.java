@@ -55,8 +55,11 @@ public abstract class AddressBookSystemTest {
         }
     }
 
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
+    @RegisterExtension
+    public static ClockExtension clockExtension = new ClockExtension();
+
+    private static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
+    private static final Path PREF_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
