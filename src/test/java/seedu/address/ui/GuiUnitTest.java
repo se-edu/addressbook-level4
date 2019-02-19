@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.Optional;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.junit.Rule;
 
 import guitests.GuiRobot;
@@ -18,12 +17,6 @@ public abstract class GuiUnitTest {
     public final UiPartRule uiPartRule = new UiPartRule();
 
     protected final GuiRobot guiRobot = new GuiRobot();
-
-    static {
-        if (SystemUtils.IS_OS_WINDOWS) {
-            System.load("C:\\Windows\\System32\\WindowsCodecs.dll");
-        }
-    }
 
     /**
      * Retrieves the {@code query} node owned by the {@code rootNode}.

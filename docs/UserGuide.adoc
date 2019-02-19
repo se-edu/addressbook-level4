@@ -22,10 +22,10 @@ AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for mana
 
 == Quick Start
 
-.  Ensure you have Java `11` (revision `11.0.1` or later) installed in your Computer.
+.  Ensure you have Java `11` or above installed in your Computer.
 +
 [NOTE]
-Only JDK 11 is supported. +
+Only JDK 11 and above are supported. +
 This app will not work with earlier major JDK releases such as JDK 8, 9, 10.
 +
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].

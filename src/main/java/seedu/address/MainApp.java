@@ -180,8 +180,4 @@ public class MainApp extends Application {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
     }
-
-    public static void initialize(String[] args) {
-        Application.launch(MainApp.class, args);
-    }
 }

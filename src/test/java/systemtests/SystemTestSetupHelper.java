@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
@@ -19,9 +18,11 @@ public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
 
+    // This is a workaround to solve headless test failure on Windows OS
+    // Refer to https://github.com/javafxports/openjdk-jfx/issues/66 for more details.
     static {
-        if (SystemUtils.IS_OS_WINDOWS) {
-            System.load("C:\\Windows\\System32\\WindowsCodecs.dll");
+        if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+            System.loadLibrary("WindowsCodecs");
         }
     }
 
