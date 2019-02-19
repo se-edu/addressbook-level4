@@ -17,8 +17,8 @@ plugins {
 // Specifies the entry point of the application
 mainClassName = 'seedu.address.Main'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -74,7 +74,7 @@ dependencies {
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
-    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: '8u76-b04'
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
