@@ -22,12 +22,7 @@ AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for mana
 
 == Quick Start
 
-.  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
-+
-[NOTE]
-Only Java 8 is supported. +
-This app will not work with later major Java releases such as Java 9, 10, 11, etc.
-+
+.  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
