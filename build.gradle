@@ -2,17 +2,7 @@
 // For more details take a look at the Java Quickstart chapter in the Gradle
 // user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
 
-import org.apache.commons.lang3.SystemUtils
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
-    }
-}
 
 plugins {
     id 'java'
@@ -51,25 +41,29 @@ test {
     useJUnitPlatform()
 }
 
-String platform = SystemUtils.IS_OS_WINDOWS ? 'win'
-    : SystemUtils.IS_OS_LINUX ? 'linux'
-    : SystemUtils.IS_OS_MAC ? 'mac'
-    : null
-if (platform == null) {
-    throw new RuntimeException('The current OS is not supported.')
-}
-
 dependencies {
     String testFxVersion = '4.0.15-alpha'
     String jUnitVersion = '5.1.0'
     String javaFxVersion = '11'
 
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: platform
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: platform
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: platform
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: platform
-    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: platform
-    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: platform
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
