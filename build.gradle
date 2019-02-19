@@ -1,6 +1,6 @@
 // Gradle Configuration File
 // For more details take a look at the Java Quickstart chapter in the Gradle
-// user guide available at http://gradle.org/docs/5.0/userguide/tutorial_java_projects.html
+// user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
 
 import org.apache.commons.lang.SystemUtils
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -97,13 +97,13 @@ shadowJar {
 }
 
 task coverage(type: JacocoReport) {
-    getSourceDirectories().from(files(sourceSets.main.allSource.srcDirs))
-    getClassDirectories().from(files(sourceSets.main.output))
-    getExecutionData().from(files(jacocoTestReport.executionData))
+    sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from files(sourceSets.main.output)
+    executionData.from files(jacocoTestReport.executionData)
     afterEvaluate {
-        getClassDirectories().from(files(classDirectories.files.collect {
+        classDirectories.from files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*.jar'])
-        }))
+        })
     }
     reports {
         html.enabled = true
