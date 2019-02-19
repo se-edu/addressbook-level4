@@ -14,14 +14,6 @@ import seedu.address.ui.UiPart;
 public class UiPartRule extends StageRule {
     private static final String[] CSS_FILES = {"view/DarkTheme.css", "view/Extensions.css"};
 
-    // This is a workaround to solve headless test failure on Windows OS
-    // Refer to https://github.com/javafxports/openjdk-jfx/issues/66 for more details.
-    static {
-        if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-            System.loadLibrary("WindowsCodecs");
-        }
-    }
-
     public void setUiPart(final UiPart<? extends Parent> uiPart) {
         try {
             FxToolkit.setupScene(() -> {

@@ -18,14 +18,6 @@ public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
 
-    // This is a workaround to solve headless test failure on Windows OS
-    // Refer to https://github.com/javafxports/openjdk-jfx/issues/66 for more details.
-    static {
-        if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-            System.loadLibrary("WindowsCodecs");
-        }
-    }
-
     /**
      * Sets up a new {@code TestApp} and returns it.
      */

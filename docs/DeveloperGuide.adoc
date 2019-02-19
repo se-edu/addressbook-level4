@@ -21,11 +21,6 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 === Prerequisites
 
 . *JDK `11`* or above
-+
-[NOTE]
-Only JDK 11 and above are supported. +
-This app will not work with earlier major JDK releases such as JDK 8, 9, 10.
-+
 . *IntelliJ* IDE
 +
 [NOTE]
