@@ -33,6 +33,9 @@
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
 
+    <!-- Required for SuppressionCommentFilter to work -->
+    <module name="FileContentsHolder"/>
+
     <!-- Required to allow exceptions in code style -->
     <module name="SuppressionCommentFilter">
       <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
