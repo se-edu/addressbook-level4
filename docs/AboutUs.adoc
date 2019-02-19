@@ -13,7 +13,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::damithc.jpg[width="150", align="left"]
 {empty}[https://github.com/case141[github]]
 
-Role: Project Advisor
+Role: X (to be changed)
+Responsibilities: X
 
 '''
 
@@ -21,7 +22,7 @@ Role: Project Advisor
 image::lejolly.jpg[width="150", align="left"]
 {empty}[https://github.com/DarrenDragonLee[github]]
 
-Role: X (to be changed)
+Role: X 
 Responsibilities: X
 
 '''
