@@ -98,13 +98,13 @@ shadowJar {
 }
 
 task coverage(type: JacocoReport) {
-    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(sourceSets.main.output)
-    executionData = files(jacocoTestReport.executionData)
+    getSourceDirectories().from(files(sourceSets.main.allSource.srcDirs))
+    getClassDirectories().from(files(sourceSets.main.output))
+    getExecutionData().from(files(jacocoTestReport.executionData))
     afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
+        getClassDirectories().from(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*.jar'])
-        })
+        }))
     }
     reports {
         html.enabled = true
