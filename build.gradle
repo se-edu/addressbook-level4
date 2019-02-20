@@ -61,7 +61,7 @@ if (SystemUtils.IS_OS_WINDOWS) {
 }
 
 dependencies {
-    String testFxVersion = '4.0.12-alpha'
+    String testFxVersion = '4.0.15-alpha'
     String jUnitVersion = '5.1.0'
 
     compile "org.openjfx:javafx-base:11:${platform}"
