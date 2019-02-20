@@ -9,7 +9,7 @@ plugins {
     id 'jacoco'
     id 'checkstyle'
     id 'com.github.kt3k.coveralls' version '2.4.0'
-    id 'com.github.johnrengelman.shadow' version '4.0.4'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
 }
@@ -66,11 +66,11 @@ shadowJar {
 }
 
 task coverage(type: JacocoReport) {
-    getSourceDirectories().from(files(sourceSets.main.allSource.srcDirs))
-    getClassDirectories().from(files(sourceSets.main.output))
-    getExecutionData().from(files(jacocoTestReport.executionData))
+    sourceDirectories.from(files(sourceSets.main.allSource.srcDirs))
+    classDirectories.from(files(sourceSets.main.output))
+    executionData.from(files(jacocoTestReport.executionData))
     afterEvaluate {
-        getClassDirectories().from(files(classDirectories.files.collect {
+        classDirectories.from(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*.jar'])
         }))
     }
