@@ -183,7 +183,6 @@ task headless {
             systemProperties = [
                 'testfx.robot': 'glass',
                 'testfx.headless': 'true',
-                'prism.order': 'sw',
                 'prism.text': 't2k',
             ]
         }
