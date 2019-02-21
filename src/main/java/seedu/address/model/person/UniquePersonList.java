@@ -49,6 +49,13 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns the size of the current selected address book
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
@@ -76,6 +83,13 @@ public class UniquePersonList implements Iterable<Person> {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
+        }
+    }
+
+    public void removeAll(List<Person> personList) {
+
+        for(Person person : personList) {
+            remove(person);
         }
     }
 

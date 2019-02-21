@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -134,6 +135,23 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtering Processes =======================================================================
+
+    @Override
+    public void clearFilter() {
+        versionedAddressBook.clearFilter();
+    }
+
+    @Override
+    public void filterAnd(String name, String phone, String email, String address, String[] tagList) {
+        versionedAddressBook.filterAnd(name, phone, email, address, tagList);
+    }
+
+    @Override
+    public void filterOr(String name, String phone, String email, String address, String[] tagList) {
+        versionedAddressBook.filterOr(name, phone, email, address, tagList);
     }
 
     //=========== Undo/Redo =================================================================================
