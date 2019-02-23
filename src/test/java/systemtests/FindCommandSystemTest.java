@@ -1,8 +1,8 @@
 package systemtests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.FindCommand.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.logic.parser.AddressBookParser.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
