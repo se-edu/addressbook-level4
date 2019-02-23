@@ -37,6 +37,13 @@ public class AppParametersTest {
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
+    @Test
+    public void toStringMethod() {
+        AppParameters appParameters = new AppParameters();
+        String expected = AppParameters.class.getCanonicalName() + "{configPath=" + appParameters.getConfigPath() + "}";
+        assertEquals(expected, new AppParameters().toString());
+    }
+
     private static class ParametersStub extends Application.Parameters {
         private Map<String, String> namedParameters = new HashMap<>();
 

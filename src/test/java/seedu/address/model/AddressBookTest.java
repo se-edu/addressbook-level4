@@ -104,6 +104,12 @@ public class AddressBookTest {
         assertEquals(0, counter.get());
     }
 
+    @Test
+    public void toStringMethod() {
+        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        assertEquals(expected, addressBook.toString());
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */

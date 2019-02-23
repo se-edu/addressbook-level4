@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 
+import seedu.address.commons.util.ToStringBuilder;
+
 /**
  * A Serializable class that contains the GUI settings.
  * Guarantees: immutable.
@@ -64,10 +66,10 @@ public class GuiSettings implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Width : " + windowWidth + "\n");
-        sb.append("Height : " + windowHeight + "\n");
-        sb.append("Position : " + windowCoordinates);
-        return sb.toString();
+        return new ToStringBuilder(this)
+                .add("windowWidth", windowWidth)
+                .add("windowHeight", windowHeight)
+                .add("windowCoordinates", windowCoordinates)
+                .toString();
     }
 }

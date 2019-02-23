@@ -5,6 +5,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
+import seedu.address.commons.util.ToStringBuilder;
+
 /**
  * Config values used by the app
  */
@@ -54,10 +56,10 @@ public class Config {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Current log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
-        return sb.toString();
+        return new ToStringBuilder(this)
+                .add("logLevel", logLevel)
+                .add("userPrefsFilePath", userPrefsFilePath)
+                .toString();
     }
 
 }

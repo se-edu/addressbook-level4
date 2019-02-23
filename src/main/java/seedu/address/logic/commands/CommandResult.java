@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.commons.util.ToStringBuilder;
+
 /**
  * Represents the result of a command execution.
  */
@@ -66,6 +68,15 @@ public class CommandResult {
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("feedbackToUser", feedbackToUser)
+                .add("showHelp", showHelp)
+                .add("exit", exit)
+                .toString();
     }
 
 }

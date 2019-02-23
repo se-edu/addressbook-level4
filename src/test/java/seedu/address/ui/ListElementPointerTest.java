@@ -104,6 +104,14 @@ public class ListElementPointerTest {
         assertFalse(firstPointer.equals(firstPointerCopy));
     }
 
+    @Test
+    public void toStringMethod() {
+        pointer = new ListElementPointer(pointerElements);
+        String expected = ListElementPointer.class.getCanonicalName() + "{list=" + pointerElements + ", index="
+                + (pointerElements.size() - 1) + "}";
+        assertEquals(expected, pointer.toString());
+    }
+
     /**
      * Asserts that {@code pointer#hasNext()} returns true and the return value
      * of {@code pointer#next()} equals to {@code element}.

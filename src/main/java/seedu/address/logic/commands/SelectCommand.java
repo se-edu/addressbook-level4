@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -51,5 +52,12 @@ public class SelectCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof SelectCommand // instanceof handles nulls
                 && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetIndex", targetIndex)
+                .toString();
     }
 }

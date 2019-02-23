@@ -51,4 +51,13 @@ public class CommandResultTest {
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
     }
+
+    @Test
+    public void toStringMethod() {
+        CommandResult commandResult = new CommandResult("feedback");
+        String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
+                + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
+                + ", exit=" + commandResult.isExit() + "}";
+        assertEquals(expected, commandResult.toString());
+    }
 }

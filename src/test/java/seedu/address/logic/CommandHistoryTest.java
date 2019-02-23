@@ -76,4 +76,10 @@ public class CommandHistoryTest {
         // different values -> returns different hashcode
         assertNotEquals(commandHistoryWithA.hashCode(), commandHistoryWithB.hashCode());
     }
+
+    @Test
+    public void toStringMethod() {
+        String expected = CommandHistory.class.getCanonicalName() + "{history=" + history.getHistory() + "}";
+        assertEquals(expected, history.toString());
+    }
 }

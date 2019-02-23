@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -83,6 +84,14 @@ public class SelectCommandTest {
 
         // different person -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index index = Index.fromOneBased(1);
+        SelectCommand selectCommand = new SelectCommand(index);
+        String expected = SelectCommand.class.getCanonicalName() + "{targetIndex=" + index + "}";
+        assertEquals(expected, selectCommand.toString());
     }
 
     /**

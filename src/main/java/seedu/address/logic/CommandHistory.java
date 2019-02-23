@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Stores the history of commands executed.
@@ -53,5 +54,12 @@ public class CommandHistory {
     @Override
     public int hashCode() {
         return history.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("history", history)
+                .toString();
     }
 }
