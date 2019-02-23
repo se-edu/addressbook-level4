@@ -37,7 +37,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
 
         return getAllCardNodes().stream()
                 .map(PersonCardHandle::new)
-                .filter(handle -> handle.equals(selectedPersonList.get(0)))
+                .filter(handle -> handle.contentMatches(selectedPersonList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
@@ -104,7 +104,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     public PersonCardHandle getPersonCardHandle(int index) {
         return getAllCardNodes().stream()
                 .map(PersonCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
+                .filter(handle -> handle.contentMatches(getPerson(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
