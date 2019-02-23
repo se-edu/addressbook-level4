@@ -1,9 +1,9 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -90,7 +90,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      * Asserts that the help window is open, and closes it after checking.
      */
     private void assertHelpWindowOpen() {
-        assertTrue(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
+        assertTrue(HelpWindowHandle.isWindowPresent(), ERROR_MESSAGE);
         guiRobot.pauseForHuman();
 
         new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
@@ -101,7 +101,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      * Asserts that the help window isn't open.
      */
     private void assertHelpWindowNotOpen() {
-        assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
+        assertFalse(HelpWindowHandle.isWindowPresent(), ERROR_MESSAGE);
     }
 
 }
