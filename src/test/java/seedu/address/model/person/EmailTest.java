@@ -59,4 +59,24 @@ public class EmailTest {
         assertTrue(Email.isValidEmail("peter_jack@very-very-very-long-example.com")); // long domain name
         assertTrue(Email.isValidEmail("if.you.dream.it_you.can.do.it@example.com")); // long local part
     }
+
+    @Test
+    public void equals() {
+        Email email = new Email("valid@email");
+
+        // same values -> returns true
+        assertTrue(email.equals(new Email("valid@email")));
+
+        // same object -> returns true
+        assertTrue(email.equals(email));
+
+        // null -> returns false
+        assertFalse(email.equals(null));
+
+        // different types -> returns false
+        assertFalse(email.equals(5.0f));
+
+        // different values -> returns false
+        assertFalse(email.equals(new Email("other.valid@email")));
+    }
 }
