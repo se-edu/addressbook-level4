@@ -121,7 +121,6 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
         assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
         assertEquals(expectedCommandHistory, actualCommandHistory);
-
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the

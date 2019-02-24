@@ -20,7 +20,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.junit.jupiter.api.io.TempDir;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -37,6 +36,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -49,11 +49,8 @@ public abstract class AddressBookSystemTest {
     @RegisterExtension
     public static ClockExtension clockExtension = new ClockExtension();
 
-    @TempDir
-    public static Path tempDir;
-
-    private static final String SAVE_FILENAME_FOR_TESTING = "sampleData.json";
-    private static final String PREF_LOCATION_FOR_TESTING = "pref_testing.json";
+    private static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
+    private static final Path PREF_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
@@ -72,7 +69,7 @@ public abstract class AddressBookSystemTest {
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(),
-                getPreferenceFileLocation());
+                getPrefFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -95,11 +92,11 @@ public abstract class AddressBookSystemTest {
      * Returns the directory of the data file.
      */
     protected Path getDataFileLocation() {
-        return tempDir.resolve(SAVE_FILENAME_FOR_TESTING);
+        return SAVE_LOCATION_FOR_TESTING;
     }
 
-    protected Path getPreferenceFileLocation() {
-        return tempDir.resolve(PREF_LOCATION_FOR_TESTING);
+    protected Path getPrefFileLocation() {
+        return PREF_LOCATION_FOR_TESTING;
     }
 
     public MainWindowHandle getMainWindowHandle() {

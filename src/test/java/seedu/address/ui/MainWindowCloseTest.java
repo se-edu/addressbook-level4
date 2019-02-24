@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.DirectoryInitUtil.createTemporaryFileInFolder;
 
 import java.nio.file.Path;
 import java.util.Collections;
@@ -37,9 +36,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
     @BeforeEach
     public void setUp() throws Exception {
         JsonAddressBookStorage jsonAddressBookStorage =
-                new JsonAddressBookStorage(createTemporaryFileInFolder(temporaryFolder));
-        JsonUserPrefsStorage jsonUserPrefsStorage =
-                new JsonUserPrefsStorage(createTemporaryFileInFolder(temporaryFolder));
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;

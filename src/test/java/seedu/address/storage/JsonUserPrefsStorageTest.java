@@ -3,14 +3,12 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.DirectoryInitUtil.initializeTemporaryDirectory;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -25,10 +23,6 @@ public class JsonUserPrefsStorageTest {
     @TempDir
     public Path testFolder;
 
-    @BeforeEach
-    public void setUp() {
-        initializeTemporaryDirectory(TEST_DATA_FOLDER, testFolder);
-    }
 
     @Test
     public void readUserPrefs_nullFilePath_throwsNullPointerException() {
@@ -36,7 +30,7 @@ public class JsonUserPrefsStorageTest {
     }
 
     private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
-        Path prefsFilePath = testFolder.resolve(userPrefsFileInTestDataFolder);
+        Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
         return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
     }
 
@@ -48,6 +42,12 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void readUserPrefs_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
+    }
+
+    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
+        return userPrefsFileInTestDataFolder != null
+                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
+                : null;
     }
 
     @Test
@@ -93,7 +93,7 @@ public class JsonUserPrefsStorageTest {
      */
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
-            new JsonUserPrefsStorage(testFolder.resolve(prefsFileInTestDataFolder))
+            new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
                     .saveUserPrefs(userPrefs);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file", ioe);

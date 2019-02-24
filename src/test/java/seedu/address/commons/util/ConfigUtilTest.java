@@ -3,7 +3,6 @@ package seedu.address.commons.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.DirectoryInitUtil.initializeTemporaryDirectory;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -22,13 +20,9 @@ public class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
+
     @TempDir
     public Path tempDir;
-
-    @BeforeEach
-    public void setUp() {
-        initializeTemporaryDirectory(TEST_DATA_FOLDER, tempDir);
-    }
 
     @Test
     public void read_null_throwsNullPointerException() {
@@ -76,7 +70,7 @@ public class ConfigUtilTest {
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
-        Path configFilePath = tempDir.resolve(configFileInTestDataFolder);
+        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return ConfigUtil.readConfig(configFilePath);
     }
 
@@ -109,8 +103,14 @@ public class ConfigUtilTest {
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
-        Path configFilePath = tempDir.resolve(configFileInTestDataFolder);
+        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         ConfigUtil.saveConfig(config, configFilePath);
+    }
+
+    private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
+        return configFileInTestDataFolder != null
+                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
+                                  : null;
     }
 
 
