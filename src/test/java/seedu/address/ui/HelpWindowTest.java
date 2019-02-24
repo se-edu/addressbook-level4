@@ -8,8 +8,8 @@ import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
 
 import java.net.URL;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
@@ -20,7 +20,7 @@ public class HelpWindowTest extends GuiUnitTest {
     private HelpWindow helpWindow;
     private HelpWindowHandle helpWindowHandle;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         guiRobot.interact(() -> helpWindow = new HelpWindow());
         FxToolkit.registerStage(helpWindow::getRoot);

@@ -2,8 +2,7 @@ package seedu.address.model.tag;
 
 import static seedu.address.testutil.Assert.assertThrows;
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 
 public class TagTest {
 
