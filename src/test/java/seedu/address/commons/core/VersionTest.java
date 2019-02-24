@@ -29,7 +29,7 @@ public class VersionTest {
         assertEquals(19, version.getMajor());
         assertEquals(10, version.getMinor());
         assertEquals(20, version.getPatch());
-        assertTrue(version.isEarlyAccess());
+        assertEquals(true, version.isEarlyAccess());
     }
 
     @Test

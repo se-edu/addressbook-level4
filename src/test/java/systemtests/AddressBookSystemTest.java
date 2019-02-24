@@ -46,15 +46,14 @@ import seedu.address.ui.CommandBox;
  * for test verification.
  */
 public abstract class AddressBookSystemTest {
+    @RegisterExtension
+    public static ClockExtension clockExtension = new ClockExtension();
 
     @TempDir
     public static Path tempDir;
 
     public static final String SAVE_FILENAME_FOR_TESTING = "sampleData.json";
-    public static final String CONFIG_FILENAME_FOR_TESTING = "pref_testing.json";
-
-    @RegisterExtension
-    public static ClockExtension clockExtension = new ClockExtension();
+    protected static final String DEFAULT_CONFIG_LOCATION_FOR_TESTING = "pref_testing.json";
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
@@ -72,7 +71,7 @@ public abstract class AddressBookSystemTest {
     @BeforeEach
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(), getConfigFileLOcation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(), getConfigFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -98,8 +97,8 @@ public abstract class AddressBookSystemTest {
         return tempDir.resolve(SAVE_FILENAME_FOR_TESTING);
     }
 
-    protected Path getConfigFileLOcation() {
-        return tempDir.resolve(CONFIG_FILENAME_FOR_TESTING);
+    protected Path getConfigFileLocation() {
+        return tempDir.resolve(DEFAULT_CONFIG_LOCATION_FOR_TESTING);
     }
 
     public MainWindowHandle getMainWindowHandle() {

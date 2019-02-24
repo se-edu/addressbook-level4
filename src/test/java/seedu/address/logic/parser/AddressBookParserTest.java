@@ -9,12 +9,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -46,8 +46,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertParseSuccess(ClearCommand.class, ClearCommand.COMMAND_WORD);
-        assertParseSuccess(ClearCommand.class, ClearCommand.COMMAND_WORD + " 3");
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
     @Test
@@ -68,36 +68,41 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_exit() throws Exception {
-        assertParseSuccess(ExitCommand.class, ExitCommand.COMMAND_WORD);
-        assertParseSuccess(ExitCommand.class, ExitCommand.COMMAND_WORD + " 3");
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + String.join(" ", keywords));
+                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
-        assertParseSuccess(HelpCommand.class, HelpCommand.COMMAND_WORD);
-        assertParseSuccess(HelpCommand.class, HelpCommand.COMMAND_WORD + " 3");
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     @Test
     public void parseCommand_history() throws Exception {
-        assertParseSuccess(HistoryCommand.class, HistoryCommand.COMMAND_WORD);
-        assertParseSuccess(HistoryCommand.class, HistoryCommand.COMMAND_WORD + " 3");
+        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3") instanceof HistoryCommand);
 
-        assertParseFailure(ParseException.class, MESSAGE_UNKNOWN_COMMAND, "histories");
+        try {
+            parser.parseCommand("histories");
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
+        }
     }
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertParseSuccess(ListCommand.class, ListCommand.COMMAND_WORD);
-        assertParseSuccess(ListCommand.class, ListCommand.COMMAND_WORD + " 3");
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
     @Test
@@ -109,32 +114,24 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
-        assertParseSuccess(RedoCommand.class, RedoCommand.COMMAND_WORD);
-        assertParseSuccess(RedoCommand.class, "redo 1");
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
     }
 
     @Test
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
-        assertParseSuccess(UndoCommand.class, UndoCommand.COMMAND_WORD);
-        assertParseSuccess(UndoCommand.class, "undo 3");
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
-        assertParseFailure(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), "");
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() throws Exception {
-        assertParseFailure(ParseException.class, MESSAGE_UNKNOWN_COMMAND, "unknownCommand");
-    }
-
-    private void assertParseSuccess(Class<? extends Command> commandClass, String command) throws Exception {
-        assertTrue(commandClass.isInstance(parser.parseCommand(command)));
-    }
-
-    private void assertParseFailure(Class<? extends Throwable> errorClass, String message, String command) {
-        assertThrows(errorClass, message, () -> parser.parseCommand(command));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }

@@ -48,6 +48,7 @@ public class ConfigUtilTest {
 
     @Test
     public void read_fileInOrder_successfullyRead() throws DataConversionException {
+
         Config expected = getTypicalConfig();
 
         Config actual = read("TypicalConfig.json").get();

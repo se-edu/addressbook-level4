@@ -18,8 +18,7 @@ public class Assert {
         Assertions.assertThrows(expectedType, executable);
     }
 
-    /**
-     * Asserts that the {@code executable} throws the {@code expectedType} Exception with the
+    /** Asserts that the {@code executable} throws the {@code expectedType} Exception with the
      * {@code expectedMessage} message. If there's no need for the verification of the exception's error
      * message, call {@code assertThrows(Class<? extends Throwable>, Executable)} instead.
      * {@see assertThrows(Class<? extends Throwable>, Executable}}
@@ -29,5 +28,4 @@ public class Assert {
         Throwable thrownException = Assertions.assertThrows(expectedType, executable);
         Assertions.assertEquals(expectedMessage, thrownException.getMessage());
     }
-
 }
