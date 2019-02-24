@@ -23,7 +23,6 @@ public class JsonUserPrefsStorageTest {
     @TempDir
     public Path testFolder;
 
-
     @Test
     public void readUserPrefs_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readUserPrefs(null));

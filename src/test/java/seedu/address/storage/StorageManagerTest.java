@@ -33,7 +33,6 @@ public class StorageManagerTest {
         return testFolder.resolve(fileName);
     }
 
-
     @Test
     public void prefsReadSave() throws Exception {
         /*

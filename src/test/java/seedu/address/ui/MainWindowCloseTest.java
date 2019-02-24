@@ -25,7 +25,6 @@ import seedu.address.storage.StorageManager;
  * Contains tests for closing of the {@code MainWindow}.
  */
 public class MainWindowCloseTest extends GuiUnitTest {
-
     @TempDir
     public Path temporaryFolder;
 

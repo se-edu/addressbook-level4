@@ -25,7 +25,6 @@ public class JsonAddressBookStorageTest {
     @TempDir
     public Path testFolder;
 
-
     @Test
     public void readAddressBook_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readAddressBook(null));
