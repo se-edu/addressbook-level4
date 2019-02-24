@@ -16,7 +16,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
 /**
@@ -25,20 +24,15 @@ import systemtests.ModelHelper;
  */
 public class TestApp extends MainApp {
 
-    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
-
-    protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
-            TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
-    protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Path saveFileLocation = null;
+    protected Path configFileLocation = null;
 
-    public TestApp() {
-    }
-
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation, Path configFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
+        this.configFileLocation = configFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
@@ -54,7 +48,7 @@ public class TestApp extends MainApp {
     @Override
     protected Config initConfig(Path configFilePath) {
         Config config = super.initConfig(configFilePath);
-        config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
+        config.setUserPrefsFilePath(configFileLocation);
         return config;
     }
 
