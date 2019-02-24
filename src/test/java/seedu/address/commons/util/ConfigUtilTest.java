@@ -10,20 +10,26 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.testutil.DirectoryInitUtil;
 
 public class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
+    @TempDir
+    public Path tempDir;
 
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @BeforeEach
+    public void setUp() throws IOException {
+        DirectoryInitUtil.initializeTemporaryDirectory(TEST_DATA_FOLDER, tempDir);
+
+    }
 
     @Test
     public void read_null_throwsNullPointerException() {
@@ -42,7 +48,6 @@ public class ConfigUtilTest {
 
     @Test
     public void read_fileInOrder_successfullyRead() throws DataConversionException {
-
         Config expected = getTypicalConfig();
 
         Config actual = read("TypicalConfig.json").get();
@@ -71,7 +76,7 @@ public class ConfigUtilTest {
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
-        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
+        Path configFilePath = TEST_DATA_FOLDER.resolve(configFileInTestDataFolder);
         return ConfigUtil.readConfig(configFilePath);
     }
 
@@ -89,7 +94,7 @@ public class ConfigUtilTest {
     public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
-        Path configFilePath = testFolder.getRoot().toPath().resolve("TempConfig.json");
+        Path configFilePath = tempDir.resolve("TempConfig.json");
 
         //Try writing when the file doesn't exist
         ConfigUtil.saveConfig(original, configFilePath);
@@ -104,15 +109,8 @@ public class ConfigUtilTest {
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
-        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
+        Path configFilePath = TEST_DATA_FOLDER.resolve(configFileInTestDataFolder);
         ConfigUtil.saveConfig(config, configFilePath);
     }
-
-    private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
-        return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
-    }
-
 
 }
