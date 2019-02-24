@@ -1,14 +1,13 @@
 package seedu.address.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.URL;
+import java.nio.file.Path;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import javafx.fxml.FXML;
 import seedu.address.MainApp;
@@ -22,11 +21,8 @@ public class UiPartTest {
     private static final String VALID_FILE_WITH_FX_ROOT_PATH = "UiPartTest/validFileWithFxRoot.fxml";
     private static final TestFxmlObject VALID_FILE_ROOT = new TestFxmlObject("Hello World!");
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path testFolder;
 
     @Test
     public void constructor_nullFileUrl_throwsNullPointerException() {
@@ -36,7 +32,7 @@ public class UiPartTest {
 
     @Test
     public void constructor_missingFileUrl_throwsAssertionError() throws Exception {
-        URL missingFileUrl = new URL(testFolder.getRoot().toURI().toURL(), MISSING_FILE_PATH);
+        URL missingFileUrl = new URL(testFolder.toUri().toURL(), MISSING_FILE_PATH);
         Assert.assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl));
         Assert.assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl, new Object()));
     }
@@ -82,7 +78,7 @@ public class UiPartTest {
     private URL getTestFileUrl(String testFilePath) {
         String testFilePathInView = "/view/" + testFilePath;
         URL testFileUrl = MainApp.class.getResource(testFilePathInView);
-        assertNotNull(testFilePathInView + " does not exist.", testFileUrl);
+        assertNotNull(testFileUrl, testFilePathInView + " does not exist.");
         return testFileUrl;
     }
 

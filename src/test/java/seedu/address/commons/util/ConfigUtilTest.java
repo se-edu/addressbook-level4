@@ -1,7 +1,8 @@
 package seedu.address.commons.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -9,28 +10,30 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.testutil.DirectoryInitUtil;
 
 public class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    @TempDir
+    public Path tempDir;
 
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @BeforeEach
+    public void setUp() throws IOException {
+        DirectoryInitUtil.initializeTemporaryDirectory(TEST_DATA_FOLDER, tempDir);
+
+    }
 
     @Test
-    public void read_null_throwsNullPointerException() throws DataConversionException {
-        thrown.expect(NullPointerException.class);
-        read(null);
+    public void read_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> read(null));
     }
 
     @Test
@@ -39,19 +42,12 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_notJsonFormat_exceptionThrown() throws DataConversionException {
-
-        thrown.expect(DataConversionException.class);
-        read("NotJsonFormatConfig.json");
-
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         */
+    public void read_notJsonFormat_exceptionThrown() {
+        assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
     }
 
     @Test
     public void read_fileInOrder_successfullyRead() throws DataConversionException {
-
         Config expected = getTypicalConfig();
 
         Config actual = read("TypicalConfig.json").get();
@@ -80,27 +76,25 @@ public class ConfigUtilTest {
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
-        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
+        Path configFilePath = TEST_DATA_FOLDER.resolve(configFileInTestDataFolder);
         return ConfigUtil.readConfig(configFilePath);
     }
 
     @Test
-    public void save_nullConfig_throwsNullPointerException() throws IOException {
-        thrown.expect(NullPointerException.class);
-        save(null, "SomeFile.json");
+    public void save_nullConfig_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
     }
 
     @Test
-    public void save_nullFile_throwsNullPointerException() throws IOException {
-        thrown.expect(NullPointerException.class);
-        save(new Config(), null);
+    public void save_nullFile_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> save(new Config(), null));
     }
 
     @Test
     public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
-        Path configFilePath = testFolder.getRoot().toPath().resolve("TempConfig.json");
+        Path configFilePath = tempDir.resolve("TempConfig.json");
 
         //Try writing when the file doesn't exist
         ConfigUtil.saveConfig(original, configFilePath);
@@ -115,15 +109,8 @@ public class ConfigUtilTest {
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
-        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
+        Path configFilePath = TEST_DATA_FOLDER.resolve(configFileInTestDataFolder);
         ConfigUtil.saveConfig(config, configFilePath);
     }
-
-    private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
-        return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
-    }
-
 
 }

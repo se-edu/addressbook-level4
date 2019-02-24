@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.net.URL;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
@@ -18,10 +18,10 @@ public class BrowserPanelTest extends GuiUnitTest {
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedPerson));
-        uiPartRule.setUiPart(browserPanel);
+        uiPartExtension.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
     }

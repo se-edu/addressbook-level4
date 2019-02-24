@@ -1,9 +1,9 @@
 package systemtests;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -16,10 +16,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.io.TempDir;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -45,8 +46,15 @@ import seedu.address.ui.CommandBox;
  * for test verification.
  */
 public abstract class AddressBookSystemTest {
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
+
+    @TempDir
+    public static Path tempDir;
+
+    public static final String SAVE_FILENAME_FOR_TESTING = "sampleData.json";
+    public static final String CONFIG_FILENAME_FOR_TESTING = "pref_testing.json";
+
+    @RegisterExtension
+    public static ClockExtension clockExtension = new ClockExtension();
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
@@ -56,22 +64,22 @@ public abstract class AddressBookSystemTest {
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
 
-    @BeforeClass
+    @BeforeAll
     public static void setupBeforeClass() {
         SystemTestSetupHelper.initialize();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(), getConfigFileLOcation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         setupHelper.tearDownStage();
     }
@@ -87,7 +95,11 @@ public abstract class AddressBookSystemTest {
      * Returns the directory of the data file.
      */
     protected Path getDataFileLocation() {
-        return TestApp.SAVE_LOCATION_FOR_TESTING;
+        return tempDir.resolve(SAVE_FILENAME_FOR_TESTING);
+    }
+
+    protected Path getConfigFileLOcation() {
+        return tempDir.resolve(CONFIG_FILENAME_FOR_TESTING);
     }
 
     public MainWindowHandle getMainWindowHandle() {
@@ -126,7 +138,7 @@ public abstract class AddressBookSystemTest {
         rememberStates();
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
-        clockRule.setInjectedClockToCurrentTime();
+        clockExtension.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
 
@@ -255,11 +267,11 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * {@code ClockExtension#getInjectedClock()}, while the save location remains the same.
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
+        String timestamp = new Date(clockExtension.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());

@@ -1,40 +1,42 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
+import seedu.address.testutil.DirectoryInitUtil;
 
 public class JsonUserPrefsStorageTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    @TempDir
+    public Path testFolder;
 
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @BeforeEach
+    public void setUp() throws IOException {
+        DirectoryInitUtil.initializeTemporaryDirectory(TEST_DATA_FOLDER, testFolder);
+    }
 
     @Test
     public void readUserPrefs_nullFilePath_throwsNullPointerException() throws DataConversionException {
-        thrown.expect(NullPointerException.class);
-        readUserPrefs(null);
+        assertThrows(NullPointerException.class, () -> readUserPrefs(null));
     }
 
     private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
-        Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
+        Path prefsFilePath = testFolder.resolve(userPrefsFileInTestDataFolder);
         return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
     }
 
@@ -45,18 +47,7 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_notJsonFormat_exceptionThrown() throws DataConversionException {
-        thrown.expect(DataConversionException.class);
-        readUserPrefs("NotJsonFormatUserPrefs.json");
-
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         */
-    }
-
-    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
-        return userPrefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
-                : null;
+        assertThrows(DataConversionException.class, () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
     }
 
     @Test
@@ -89,14 +80,12 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void savePrefs_nullPrefs_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        saveUserPrefs(null, "SomeFile.json");
+        assertThrows(NullPointerException.class, () -> saveUserPrefs(null, "SomeFile.json"));
     }
 
     @Test
     public void saveUserPrefs_nullFilePath_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        saveUserPrefs(new UserPrefs(), null);
+        assertThrows(NullPointerException.class, () -> saveUserPrefs(new UserPrefs(), null));
     }
 
     /**
@@ -104,7 +93,7 @@ public class JsonUserPrefsStorageTest {
      */
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
-            new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
+            new JsonUserPrefsStorage(testFolder.resolve(prefsFileInTestDataFolder))
                     .saveUserPrefs(userPrefs);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file", ioe);
@@ -117,7 +106,7 @@ public class JsonUserPrefsStorageTest {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 
-        Path pefsFilePath = testFolder.getRoot().toPath().resolve("TempPrefs.json");
+        Path pefsFilePath = testFolder.resolve("TempPrefs.json");
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
 
         //Try writing when the file doesn't exist

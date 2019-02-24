@@ -11,7 +11,7 @@ import seedu.address.ui.UiPart;
 /**
  * Provides an isolated stage to test an individual {@code UiPart}.
  */
-public class UiPartRule extends StageRule {
+public class UiPartExtension {
     private static final String[] CSS_FILES = {"view/DarkTheme.css", "view/Extensions.css"};
 
     public void setUiPart(final UiPart<? extends Parent> uiPart) {
