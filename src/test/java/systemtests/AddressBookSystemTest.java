@@ -20,6 +20,7 @@ import org.junit.ClassRule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.io.TempDir;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -48,6 +49,12 @@ public abstract class AddressBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
+    @TempDir
+    public static Path tempDir;
+
+    public static final String SAVE_FILENAME_FOR_TESTING = "sampleData.json";
+    public static final String CONFIG_FILENAME_FOR_TESTING = "pref_testing.json";
+
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
@@ -64,7 +71,7 @@ public abstract class AddressBookSystemTest {
     @BeforeEach
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(), getConfigFileLOcation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -87,7 +94,11 @@ public abstract class AddressBookSystemTest {
      * Returns the directory of the data file.
      */
     protected Path getDataFileLocation() {
-        return TestApp.SAVE_LOCATION_FOR_TESTING;
+        return tempDir.resolve(SAVE_FILENAME_FOR_TESTING);
+    }
+
+    protected Path getConfigFileLOcation() {
+        return tempDir.resolve(CONFIG_FILENAME_FOR_TESTING);
     }
 
     public MainWindowHandle getMainWindowHandle() {
