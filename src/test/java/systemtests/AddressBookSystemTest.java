@@ -16,10 +16,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -56,12 +56,12 @@ public abstract class AddressBookSystemTest {
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
 
-    @BeforeClass
+    @BeforeAll
     public static void setupBeforeClass() {
         SystemTestSetupHelper.initialize();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
@@ -71,7 +71,7 @@ public abstract class AddressBookSystemTest {
         assertApplicationStartingStateIsCorrect();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         setupHelper.tearDownStage();
     }

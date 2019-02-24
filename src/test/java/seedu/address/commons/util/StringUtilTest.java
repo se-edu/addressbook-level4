@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.FileNotFoundException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {
 

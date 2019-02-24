@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
