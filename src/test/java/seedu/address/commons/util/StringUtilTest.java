@@ -17,10 +17,10 @@ public class StringUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    //---------------- Tests for isUnsignedPositiveInteger --------------------------------------
+    //---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
 
     @Test
-    public void isUnsignedPositiveInteger() {
+    public void isNonZeroUnsignedInteger() {
 
         // EP: empty strings
         assertFalse(StringUtil.isNonZeroUnsignedInteger("")); // Boundary value
