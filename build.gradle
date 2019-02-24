@@ -49,7 +49,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion
-    testImplementation group: 'org.testfx', name: 'testfx-junit5', version: testFxVersion
+    testImplementation group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 

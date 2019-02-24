@@ -24,7 +24,7 @@ public class Assert {
      * If there's no need for the verification of the exception's error message, call
      * {@link #assertThrows(Class, Executable)} instead.
      *
-     * {@see #assertThrows(Class, Executable)}
+     * @see #assertThrows(Class, Executable)
      */
     public static void assertThrows(Class<? extends Throwable> expectedType, String expectedMessage,
             Executable executable) {
