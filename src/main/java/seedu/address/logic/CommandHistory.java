@@ -9,14 +9,13 @@ import javafx.collections.ObservableList;
  * Stores the history of commands executed.
  */
 public class CommandHistory {
-    private final ObservableList<String> userInputHistory = FXCollections.observableArrayList();
-    private final ObservableList<String> unmodifiableUserInputHistory =
-            FXCollections.unmodifiableObservableList(userInputHistory);
+    private final ObservableList<String> history = FXCollections.observableArrayList();
+    private final ObservableList<String> unmodifiableHistory = FXCollections.unmodifiableObservableList(history);
 
     public CommandHistory() {}
 
     public CommandHistory(CommandHistory commandHistory) {
-        userInputHistory.addAll(commandHistory.userInputHistory);
+        history.addAll(commandHistory.history);
     }
 
     /**
@@ -24,14 +23,14 @@ public class CommandHistory {
      */
     public void add(String userInput) {
         requireNonNull(userInput);
-        userInputHistory.add(userInput);
+        history.add(userInput);
     }
 
     /**
-     * Returns an unmodifiable view of {@code userInputHistory}.
+     * Returns an unmodifiable view of {@code history}.
      */
     public ObservableList<String> getHistory() {
-        return unmodifiableUserInputHistory;
+        return unmodifiableHistory;
     }
 
     @Override
@@ -48,11 +47,11 @@ public class CommandHistory {
 
         // state check
         CommandHistory other = (CommandHistory) obj;
-        return userInputHistory.equals(other.userInputHistory);
+        return history.equals(other.history);
     }
 
     @Override
     public int hashCode() {
-        return userInputHistory.hashCode();
+        return history.hashCode();
     }
 }
