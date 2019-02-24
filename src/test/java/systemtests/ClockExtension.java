@@ -4,9 +4,9 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 import seedu.address.ui.StatusBarFooter;
 
@@ -16,31 +16,18 @@ import seedu.address.ui.StatusBarFooter;
  * At the end of the test, the rule restores the original clock.
  * @see Clock#fixed(Instant, ZoneId)
  */
-public class ClockRule implements TestRule {
+public class ClockExtension implements BeforeEachCallback, AfterEachCallback {
     private Clock injectedClock;
     private final Clock originalClock = StatusBarFooter.getClock();
 
-    protected void before() {
-        setInjectedClockToCurrentTime();
-    }
-
-    protected void after() {
+    @Override
+    public void afterEach(ExtensionContext context) throws Exception {
         StatusBarFooter.setClock(originalClock);
     }
 
     @Override
-    public Statement apply(final Statement base, final Description description) {
-        return new Statement() {
-            @Override
-            public void evaluate() throws Throwable {
-                before();
-                try {
-                    base.evaluate();
-                } finally {
-                    after();
-                }
-            }
-        };
+    public void beforeEach(ExtensionContext context) throws Exception {
+        setInjectedClockToCurrentTime();
     }
 
     public Clock getInjectedClock() {
@@ -54,4 +41,5 @@ public class ClockRule implements TestRule {
         injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         StatusBarFooter.setClock(injectedClock);
     }
+
 }
