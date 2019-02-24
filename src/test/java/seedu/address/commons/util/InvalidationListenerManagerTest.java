@@ -2,7 +2,7 @@ package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleObjectProperty;
