@@ -11,7 +11,7 @@ import java.nio.file.Path;
 public class DirectoryInitUtil {
 
     /**
-     * Initialise a temporary directory by copying all files from {@code sourceDir} to {@code tempDir}.
+     * Initialize a temporary directory by copying all files from {@code sourceDir} to {@code tempDir}.
      * Files copied will mirror the directory structure of {@code sourceDir}.
      */
     public static void initializeTemporaryDirectory(Path sourceDir, Path tempDir) {
@@ -68,7 +68,7 @@ public class DirectoryInitUtil {
     }
 
     /**
-     * Creates a temporary file with a randomized filename in the {@code tempDir}
+     * Creates a temporary file with a randomized filename in the {@code tempDir}.
      */
     public static Path createTemporaryFileInFolder(Path tempDir) {
         return createTemporaryFileInFolder(tempDir, "");
