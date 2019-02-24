@@ -102,8 +102,10 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
-     * Also confirms that {@code expectedModel} is as specified.
+     * Executes the command and confirms that
+     * - no exceptions are thrown
+     * - the feedback message is equal to {@code expectedMessage}.
+     * - the internal model manager state is the same as that in {@code expectedModel}.
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
@@ -140,7 +142,11 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command, confirms that the exception is thrown and that the result message and model is correct.
+     * Executes the command and confirms that
+     * - the {@code expectedException} is thrown
+     * - the resulting error message is equal to {@code expectedMessage}
+     * - the internal model manager state is the same as that in {@code expectedModel}.
+     * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {

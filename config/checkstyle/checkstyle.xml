@@ -229,7 +229,7 @@
     <module name="VisibilityModifier">
       <property name="protectedAllowed" value="true"/>
       <property name="allowPublicFinalFields" value="true"/>
-      <property name="ignoreAnnotationCanonicalNames" value="RegisterExtension, TempDir, VisibleForTesting" />
+      <property name="ignoreAnnotationCanonicalNames" value="RegisterExtension, TempDir"/>
     </module>
 
     <!--
