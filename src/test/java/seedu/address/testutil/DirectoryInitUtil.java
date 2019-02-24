@@ -51,7 +51,7 @@ public class DirectoryInitUtil {
             Files.copy(source.toPath(), target.toPath());
         } catch (IOException ioe) {
             throw new AssertionError("Failed to copy file from " + source.getPath()
-                + " to " + target.getPath() + ". Error: " + ioe.getMessage());
+                    + " to " + target.getPath() + ". Error: " + ioe.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class DirectoryInitUtil {
             return Files.createTempFile(tempDir, prefix, "");
         } catch (IOException e) {
             throw new AssertionError("Failed to create temporary file in directory " + tempDir
-                + ". Error:" + e.getMessage());
+                    + ". Error:" + e.getMessage());
         }
     }
 

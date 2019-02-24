@@ -18,7 +18,7 @@ public class VersionTest {
     @Test
     public void versionParsing_wrongVersionString_throwIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () ->
-            Version.fromString("This is not a version string")
+                Version.fromString("This is not a version string")
         );
     }
 
@@ -131,7 +131,7 @@ public class VersionTest {
     }
 
     private void verifyVersionParsedCorrectly(String versionString,
-                                              int major, int minor, int patch, boolean isEarlyAccess) {
+            int major, int minor, int patch, boolean isEarlyAccess) {
         assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
     }
 }

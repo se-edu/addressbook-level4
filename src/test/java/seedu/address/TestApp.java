@@ -26,13 +26,13 @@ public class TestApp extends MainApp {
 
     private Supplier<ReadOnlyAddressBook> initialDataSupplier;
     private Path saveFileLocation;
-    private Path configFileLocation;
+    private Path prefFileLocation;
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation, Path configFileLocation) {
+    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation, Path prefFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
-        this.configFileLocation = configFileLocation;
+        this.prefFileLocation = prefFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
@@ -48,7 +48,7 @@ public class TestApp extends MainApp {
     @Override
     protected Config initConfig(Path configFilePath) {
         Config config = super.initConfig(configFilePath);
-        config.setUserPrefsFilePath(configFileLocation);
+        config.setUserPrefsFilePath(prefFileLocation);
         return config;
     }
 

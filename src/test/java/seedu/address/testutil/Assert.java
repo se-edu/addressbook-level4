@@ -26,7 +26,7 @@ public class Assert {
      * {@see assertThrows(Class<? extends Throwable>, Executable)}
      */
     public static void assertThrows(Class<? extends Throwable> expectedType, String expectedMessage,
-                                    Executable executable) {
+            Executable executable) {
         Throwable thrownException = Assertions.assertThrows(expectedType, executable);
         Assertions.assertEquals(expectedMessage, thrownException.getMessage());
     }

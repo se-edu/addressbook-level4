@@ -53,7 +53,7 @@ public abstract class AddressBookSystemTest {
     public static Path tempDir;
 
     private static final String SAVE_FILENAME_FOR_TESTING = "sampleData.json";
-    private static final String CONFIG_LOCATION_FOR_TESTING = "pref_testing.json";
+    private static final String PREF_LOCATION_FOR_TESTING = "pref_testing.json";
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
@@ -71,7 +71,8 @@ public abstract class AddressBookSystemTest {
     @BeforeEach
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(), getConfigFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(),
+                getPreferenceFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -97,8 +98,8 @@ public abstract class AddressBookSystemTest {
         return tempDir.resolve(SAVE_FILENAME_FOR_TESTING);
     }
 
-    protected Path getConfigFileLocation() {
-        return tempDir.resolve(CONFIG_LOCATION_FOR_TESTING);
+    protected Path getPreferenceFileLocation() {
+        return tempDir.resolve(PREF_LOCATION_FOR_TESTING);
     }
 
     public MainWindowHandle getMainWindowHandle() {
