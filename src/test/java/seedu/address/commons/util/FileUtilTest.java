@@ -12,7 +12,8 @@ public class FileUtilTest {
     @Test
     public void isValidPath() {
         // valid path
-        assertTrue(FileUtil.isValidPath("valid/file/path"));
+        assertTrue(FileUtil.isValidPath("valid/file/path")); //Linux
+        assertTrue(FileUtil.isValidPath("valid\\file\\path")); //Windows
 
         // invalid path
         assertFalse(FileUtil.isValidPath("a\0"));
