@@ -15,6 +15,7 @@ public class Prefix {
         return prefix;
     }
 
+    @Override
     public String toString() {
         return getPrefix();
     }
