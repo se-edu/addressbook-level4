@@ -24,7 +24,7 @@ public class StorageManagerTest {
     private StorageManager storageManager;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(createTemporaryFileInFolder(testFolder, "ab"));
         JsonUserPrefsStorage userPrefsStorage =

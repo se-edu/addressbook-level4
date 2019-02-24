@@ -44,7 +44,7 @@ public class LogicManagerTest {
     private Logic logic;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(createTemporaryFileInFolder(temporaryFolder));
         JsonUserPrefsStorage userPrefsStorage =
@@ -75,7 +75,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
+    public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(createTemporaryFileInFolder(temporaryFolder));

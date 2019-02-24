@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
 /**
  * A set of helper methods to manage temporary directories.
@@ -14,47 +14,63 @@ public class DirectoryInitUtil {
      * Initialise a temporary directory by copying all files from {@code sourceDir} to {@code tempDir}.
      * Files copied will mirror the directory structure of {@code sourceDir}.
      */
-    public static void initializeTemporaryDirectory(Path sourceDir, Path tempDir) throws IOException {
-        Files
-            .walk(sourceDir)
-            .forEach(filePath -> copyFileToTempDir(filePath, sourceDir, tempDir));
+    public static void initializeTemporaryDirectory(Path sourceDir, Path tempDir) {
+        copyRecursively(sourceDir.toFile(), tempDir.toFile());
     }
 
     /**
-     * Helper method to copy a file located at {@code filePath} to {@code tempDir}, mirroring the directory structure
-     * of {@code sourceDir}.
+     * Helper method to copy a {@code source} file to a {@code target} file.
+     * If {@code source} is a directory, all files in {@code source} will be copied recursively to {@code target}.
      */
-    private static void copyFileToTempDir(Path filePath, Path sourceDir, Path tempDir) {
-        Path newPath = calculateNewPath(filePath, sourceDir, tempDir);
-        try {
-            Files.copy(filePath, newPath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new AssertionError("Failed to copy " + filePath + " from source directory " + sourceDir
-                    + " to temporary directory " + tempDir + ". Error: " + e.getMessage());
+    private static void copyRecursively(File source, File target) {
+        if (source.isDirectory()) {
+            copyDirectoryRecursively(source, target);
+        } else {
+            copyFile(source, target);
         }
     }
 
     /**
-     * Given an {@code origin} folder and a {@code filePath} within the folder, returns the path of
-     * the new file if {@code filePath} were to be copied to the {@code destination} folder
-     * while maintaining the same directory structure.
+     * Helper method to recursively copy all contents of a {@code source} directory to a {@code target} directory.
+     * The {@code target} directory file structure will mirror that of the {@code source} directory.
      */
-    private static Path calculateNewPath(Path filePath, Path origin, Path destination) {
-        Path relativePath = origin.relativize(filePath);
-        return destination.resolve(relativePath);
+    private static void copyDirectoryRecursively(File source, File target) {
+        target.mkdir();
+        for (String child: source.list()) {
+            copyRecursively(new File(source, child), new File(target, child));
+        }
+    }
+
+    /**
+     * Helper method to copy a single file located from {@code source} to {@code target}.
+     * This is a wrapper method over Files#copy, to throw an AssertionError instead of an IOException so that
+     * calling methods do not need to repeatedly check for IOException.
+     */
+    private static void copyFile(File source, File target) {
+        try {
+            Files.copy(source.toPath(), target.toPath());
+        } catch (IOException ioe) {
+            throw new AssertionError("Failed to copy file from " + source.getPath()
+                + " to " + target.getPath() + ". Error: " + ioe.getMessage());
+        }
     }
 
     /**
      * Creates a temporary file with a randomized filename prefixed by {@code prefix} in the {@code tempDir}.
      */
-    public static Path createTemporaryFileInFolder(Path tempDir, String prefix) throws IOException {
-        return Files.createTempFile(tempDir, prefix, "");
+    public static Path createTemporaryFileInFolder(Path tempDir, String prefix) {
+        try {
+            return Files.createTempFile(tempDir, prefix, "");
+        } catch (IOException e) {
+            throw new AssertionError("Failed to create temporary file in directory " + tempDir
+                + ". Error:" + e.getMessage());
+        }
     }
 
     /**
      * Creates a temporary file with a randomized filename in the {@code tempDir}
      */
-    public static Path createTemporaryFileInFolder(Path tempDir) throws IOException {
+    public static Path createTemporaryFileInFolder(Path tempDir) {
         return createTemporaryFileInFolder(tempDir, "");
     }
 }

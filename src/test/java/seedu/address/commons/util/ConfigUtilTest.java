@@ -26,7 +26,7 @@ public class ConfigUtilTest {
     public Path tempDir;
 
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() {
         initializeTemporaryDirectory(TEST_DATA_FOLDER, tempDir);
     }
 
