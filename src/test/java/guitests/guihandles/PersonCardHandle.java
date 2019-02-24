@@ -3,8 +3,6 @@ package guitests.guihandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.ImmutableMultiset;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -80,8 +78,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getAddress().equals(person.getAddress().value)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
+                && getTags().equals(person.getTags().stream()
                         .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+                        .sorted()
+                        .collect(Collectors.toList()));
     }
 }
