@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.Assert;
 
