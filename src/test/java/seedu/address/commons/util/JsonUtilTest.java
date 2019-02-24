@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -17,13 +17,13 @@ import seedu.address.testutil.SerializableTestClass;
 public class JsonUtilTest {
 
     @TempDir
-    public Path tempDir;
+    public static Path tempDir;
 
-    private Path serialisationFile;
+    private static Path serializationFile;
 
-    @BeforeEach
-    public void setUp() {
-        serialisationFile = tempDir.resolve("serialize.json");
+    @BeforeAll
+    public static void setUp() {
+        serializationFile = tempDir.resolve("serialize.json");
     }
 
     @Test
@@ -31,17 +31,17 @@ public class JsonUtilTest {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 
-        JsonUtil.serializeObjectToJsonFile(serialisationFile, serializableTestClass);
+        JsonUtil.serializeObjectToJsonFile(serializationFile, serializableTestClass);
 
-        assertEquals(FileUtil.readFromFile(serialisationFile), SerializableTestClass.JSON_STRING_REPRESENTATION);
+        assertEquals(FileUtil.readFromFile(serializationFile), SerializableTestClass.JSON_STRING_REPRESENTATION);
     }
 
     @Test
     public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
-        FileUtil.writeToFile(serialisationFile, SerializableTestClass.JSON_STRING_REPRESENTATION);
+        FileUtil.writeToFile(serializationFile, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = JsonUtil
-                .deserializeObjectFromJsonFile(serialisationFile, SerializableTestClass.class);
+                .deserializeObjectFromJsonFile(serializationFile, SerializableTestClass.class);
 
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());

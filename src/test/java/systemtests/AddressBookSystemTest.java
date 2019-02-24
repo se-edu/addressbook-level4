@@ -52,8 +52,8 @@ public abstract class AddressBookSystemTest {
     @TempDir
     public static Path tempDir;
 
-    public static final String SAVE_FILENAME_FOR_TESTING = "sampleData.json";
-    protected static final String DEFAULT_CONFIG_LOCATION_FOR_TESTING = "pref_testing.json";
+    private static final String SAVE_FILENAME_FOR_TESTING = "sampleData.json";
+    private static final String CONFIG_LOCATION_FOR_TESTING = "pref_testing.json";
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
@@ -98,7 +98,7 @@ public abstract class AddressBookSystemTest {
     }
 
     protected Path getConfigFileLocation() {
-        return tempDir.resolve(DEFAULT_CONFIG_LOCATION_FOR_TESTING);
+        return tempDir.resolve(CONFIG_LOCATION_FOR_TESTING);
     }
 
     public MainWindowHandle getMainWindowHandle() {

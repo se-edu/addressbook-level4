@@ -24,9 +24,9 @@ import systemtests.ModelHelper;
  */
 public class TestApp extends MainApp {
 
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
-    protected Path saveFileLocation = null;
-    protected Path configFileLocation = null;
+    private Supplier<ReadOnlyAddressBook> initialDataSupplier;
+    private Path saveFileLocation;
+    private Path configFileLocation;
 
     public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation, Path configFileLocation) {
         super();

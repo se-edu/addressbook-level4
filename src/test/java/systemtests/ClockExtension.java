@@ -41,5 +41,4 @@ public class ClockExtension implements BeforeEachCallback, AfterEachCallback {
         injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         StatusBarFooter.setClock(injectedClock);
     }
-
 }

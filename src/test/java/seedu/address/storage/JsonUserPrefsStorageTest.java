@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.DirectoryInitUtil.initializeTemporaryDirectory;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,7 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.DirectoryInitUtil;
 
 public class JsonUserPrefsStorageTest {
 
@@ -27,7 +27,7 @@ public class JsonUserPrefsStorageTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        DirectoryInitUtil.initializeTemporaryDirectory(TEST_DATA_FOLDER, testFolder);
+        initializeTemporaryDirectory(TEST_DATA_FOLDER, testFolder);
     }
 
     @Test
