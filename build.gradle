@@ -65,10 +65,6 @@ shadowJar {
     destinationDir = file("${buildDir}/jar/")
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.8.1'
-}
-
 task coverage(type: JacocoReport) {
     sourceDirectories = files(sourceSets.main.allSource.srcDirs)
     classDirectories =  files(sourceSets.main.output)
