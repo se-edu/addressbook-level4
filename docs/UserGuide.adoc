@@ -118,6 +118,7 @@ is included in the filtered version.
 * All the people that are included in the filtering will be returned.
 * All the operations, that change the content of the address book also clears every single filter.
 * After one filtering, the filtered address book can be filtered again.
+
 ****
 
 Example:
@@ -135,7 +136,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-    ****
+
+****
 
 Examples:
 
@@ -153,6 +155,7 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
+
 ****
 
 Examples:
@@ -170,9 +173,11 @@ Selects the person identified by the index number used in the displayed person l
 Format: `select INDEX`
 
 ****
+
 * Selects the person and loads the Google search page the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
+
 ****
 
 Examples:
