@@ -119,7 +119,7 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 
 ****
 
-Example:
+Examples:
 * `filter or p/91234567/p e/johndoe@example.com/e`
 Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com
 * `filter and n/ale/n a/abcd/a`
