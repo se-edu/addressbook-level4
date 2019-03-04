@@ -111,10 +111,8 @@ Format: `filter or/and [n/NAME/n] [p/PHONE/p] ...`
 * The filtering is case insensitive. e.g `hans` will match `Hans`
 * Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
 e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
-* or Usage: According to the conditions written, if at least one of them passes with the regarding person in the address book, the person
-is included in the filtered version.
-* and Usage: According to the conditions written, if every single one of them passes with the regarding person in the address book, the person
-is included in the filtered version.
+* or Usage: According to the conditions written, if at least one of them passes with the regarding person in the address book, the person is included in the filtered version.
+* and Usage: According to the conditions written, if every single one of them passes with the regarding person in the address book, the person is included in the filtered version.
 * All the people that are included in the filtering will be returned.
 * All the operations, that change the content of the address book also clears every single filter.
 * After one filtering, the filtered address book can be filtered again.
