@@ -119,6 +119,22 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== Sorting persons: `sort`
+
+Sorts persons by method described by the given keywords. +
+Format: `sort KEYWORD`
+
+****
+* The Alphabetical Sort is case sensitive. e.g `Alex` will come before `adam`
+* The Alphabetical Sort is by first name. e.g. `Adam Smith` will come before `Shaun Adams`
+* Only the name is searched.
+****
+
+Examples:
+
+* `sort alphabetical` +
+Returns the people in order alphabetical order of their names with new index numbers.
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -256,6 +272,10 @@ e.g. `delete 3`
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Sort* : `sort KEYWORD` +
+e.g. `sort alphabetical`
+
+""
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
