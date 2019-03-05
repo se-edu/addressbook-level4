@@ -845,8 +845,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user with many persons in the address book |redo the operation what he/she just did |prevent false undo operations in the address book
 
-|`* *` |user with many persons in the address book |undo the operation what he/she just did |prevent false updates in the address book
-
 |`* *` |user with many persons in the address book |see the education level, technical skills and experience of the persons |choose persons regarding more information given.
 
 |=======================================================================
