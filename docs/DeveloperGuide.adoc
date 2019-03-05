@@ -802,15 +802,20 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
-== Product Scope
+== Product Scope - Target user profile
 
-*Target user profile*:
+*General Needs*:
 
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+
+*Special Needs*:
+
+* this is an application for recruitment agency specifically
+* the commands (filtering, sorting, deleting, adding etc.) and tags (education, experience etc.) are designed for applicants
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
@@ -832,7 +837,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`* *` |user with many persons in the address book |filter persons by any of the properties | see which persons are fit into the criterion
+
+|`* *` |user with many persons in the address book |undo the operation what he/she just did |prevent false updates in the address book
+
+|`* *` |user with many persons in the address book |redo the operation what he/she just did |prevent false undo operations in the address book
+
+|`* *` |user with many persons in the address book |see the education level, technical skills and experience of the persons |choose persons regarding more information given.
+
 |=======================================================================
 
 _{More to be added}_
@@ -844,8 +858,6 @@ _{More to be added}_
 
 [discrete]
 === Use case: Delete person
-
-*MSS*
 
 1.  User requests to list persons
 2.  AddressBook shows a list of persons
@@ -868,12 +880,102 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add person
+
+1.  User requests to add a new person with entering information about the new person
+2.  AddressBook adds the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given information format is invalid
++
+
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+[none]
+* 2b. All the necessary information is not given.
+
++
+
+[none]
+** 2b1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Filter person with and
+
+1.  User requests to filter address book with entering conditions to filter
+2.  AddressBook filters the persons that passes with all the conditions and prints those.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given information format is invalid
++
+
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
 
 [appendix]
+
+[discrete]
+=== Use case: Filter person with or
+
+1.  User requests to filter address book with entering conditions to filter
+2.  AddressBook filters the persons that passes with at least one of the conditions and prints those.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given information format is invalid
++
+
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+[appendix]
+
+[discrete]
+=== Use case: Filter clearing
+
+1.  User requests to clear all the filtering in the address book.
+2.  Filtering is cleared and all the people in the book is printed.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort address book by name
+
+1.  User requests to sort address book by name
+2.  The address book is printed in a sorted order with respect to the names.
++
+Use case ends.
+
+
+[appendix]
+
+
+[appendix]
+
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `8` (revision `1.8.0_201` or higher) installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` (revision `1.9.4` or higher) installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 

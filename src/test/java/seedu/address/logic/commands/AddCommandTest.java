@@ -188,6 +188,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void clearFilter() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void filterAnd(String name, String phone, String email, String address, String[] tagList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void filterOr(String name, String phone, String email, String address, String[] tagList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }

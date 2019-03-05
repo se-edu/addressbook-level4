@@ -99,6 +99,32 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+=== Clearing the filter in the address book: `filter clear`
+It clears all the filters on the address book. +
+Format: `filter clear`
+
+=== Filtering the address book: `filter`
+It filters the current address book regarding the existing entities of every single person (name, phone, email, address or tags). +
+Format: `filter or/and [n/NAME/n] [p/PHONE/p] ...`
+
+****
+* The filtering is case insensitive. e.g `hans` will match `Hans`
+* Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
+e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
+* or Usage: According to the conditions written, if at least one of them passes with the regarding person in the address book, the person is included in the filtered version.
+* and Usage: According to the conditions written, if every single one of them passes with the regarding person in the address book, the person is included in the filtered version.
+* All the people that are included in the filtering will be returned.
+* All the operations, that change the content of the address book also clears every single filter.
+* After one filtering, the filtered address book can be filtered again.
+
+****
+
+Examples:
+* `filter or p/91234567/p e/johndoe@example.com/e`
+Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com
+* `filter and n/ale/n a/abcd/a`
+Returns the people, whose name contains ale or whose address contains abcd
+
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
@@ -110,6 +136,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
 ****
 
 Examples:
@@ -118,6 +145,23 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+
+=== Sorting persons: `sort`
+
+Sorts persons by method described by the given keywords. +
+Format: `sort KEYWORD`
+
+****
+* The Alphabetical Sort is case sensitive. e.g `Alex` will come before `adam`
+* The Alphabetical Sort is by first name. e.g. `Adam Smith` will come before `Shaun Adams`
+* Only the name is searched.
+****
+
+Examples:
+
+* `sort alphabetical` +
+Returns the people in order alphabetical order of their names with new index numbers.
+
 
 === Deleting a person : `delete`
 
@@ -128,6 +172,7 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
+
 ****
 
 Examples:
@@ -145,9 +190,11 @@ Selects the person identified by the index number used in the displayed person l
 Format: `select INDEX`
 
 ****
+
 * Selects the person and loads the Google search page the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
+
 ****
 
 Examples:
@@ -256,6 +303,8 @@ e.g. `delete 3`
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Sort* : `sort KEYWORD` +
+e.g. `sort alphabetical`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +

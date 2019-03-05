@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -110,6 +111,23 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Clears the filter and makes the printed address book equal to
+     * the whole storage address book
+     */
+    void clearFilter();
+
+    /**
+     * Applies filtering and chooses the persons that pass all the conditions
+     */
+    void filterAnd(String name, String phone, String email, String address, String[] tagList);
+
+    /**
+     * Applies filtering and chooses the persons that pass at least one of the conditions
+     */
+    void filterOr(String name, String phone, String email, String address, String[] tagList);
+
 
     /**
      * Selected person in the filtered person list.
