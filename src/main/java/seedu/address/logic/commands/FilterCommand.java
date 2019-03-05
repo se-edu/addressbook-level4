@@ -26,14 +26,17 @@ public class FilterCommand extends Command{
     private String email;
     private String[] tagList;
     private String address;
+    
+    private boolean isFilterCleared;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " once/or/and " + "[prefix/text/prefix] \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " clear/or/and " + "[prefix/text/prefix] \n"
             + "Examples: \n"
             + COMMAND_WORD + " or  " + "p/91234567/p " + "e/johndoe@example.com/e" + " --> SAVES THE FILTER. IF ONE OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
             + COMMAND_WORD + " and " + "p/91234567/p " + "e/johndoe@example.com/e" + " --> SAVES THE FILTER. IF ALL OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
             + COMMAND_WORD + " clear \n" + " --> Clears all the filtering made previously.";
 
     public static final String MESSAGE_FILTER_PERSON_SUCCESS = "The Address Book is filtered.";
+    public static final String MESSAGE_CLEAR_FILTER_PERSON_SUCCESS = "The Address Book is cleared from all the filters.";
     public static final String MESSAGE_NOT_FILTERED = "Filtering is not successful!";
 
 
@@ -46,6 +49,7 @@ public class FilterCommand extends Command{
         phone = criterion[1];
         email = criterion[2];
         address = criterion[3];
+        isFilterCleared = false;
 
         if(criterion[4] != null) {
             String tags = criterion[4].trim().replaceAll(" +", " ");
@@ -74,7 +78,15 @@ public class FilterCommand extends Command{
 
         try {
             ProcessCommand(model);
-            return new CommandResult(MESSAGE_FILTER_PERSON_SUCCESS);
+            
+            if(isFilterCleared) {
+                isFilterCleared = false;
+                return new CommandResult(MESSAGE_CLEAR_FILTER_PERSON_SUCCESS);
+            }
+
+            else {
+                return new CommandResult(MESSAGE_FILTER_PERSON_SUCCESS);
+            }
         }
         catch(Exception e) {
             return new CommandResult(MESSAGE_NOT_FILTERED);
