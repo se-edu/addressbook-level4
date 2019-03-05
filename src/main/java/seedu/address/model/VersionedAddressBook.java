@@ -38,6 +38,9 @@ public class VersionedAddressBook extends AddressBook {
      * Restores the address book to its previous state.
      */
     public void undo() {
+
+        this.clearFilter();
+        // TODO: Implement undo for filtering processes
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
@@ -49,6 +52,9 @@ public class VersionedAddressBook extends AddressBook {
      * Restores the address book to its previously undone state.
      */
     public void redo() {
+
+        this.clearFilter();
+        // TODO: Implement redo for filtering processes
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
