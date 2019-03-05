@@ -12,7 +12,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
-    /* Sort-Word definitions*/
-    public static final SortWord SORTWORD_AGE = new SortWord("age");
-    public static final SortWord SORTWORD_ALPHABETICAL = new SortWord("alphabetical");
 }
