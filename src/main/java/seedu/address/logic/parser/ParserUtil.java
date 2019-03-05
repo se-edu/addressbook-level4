@@ -121,4 +121,15 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String sortWord} into a {@code SortWord}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static SortWord parseSortWord(String sortWord) throws ParseException {
+        requireNonNull(sortWord);
+        String trimmedSortWord = sortWord.trim();
+        return new SortWord(trimmedSortWord);
+    }
+
 }
