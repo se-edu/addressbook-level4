@@ -114,8 +114,13 @@ e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/
 * or Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 * and Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 * All the people that are included in the filtering will be returned.
-* All the operations, that change the content of the applicant pool also clears every single filter.
-* After one filtering, the filtered applicant pool can be filtered again.
+* All the operations, that change the content of the address book also clears every single filter.
+* After one filtering, the filtered address book can be filtered again.
+****
+
+TO DO:
+* filtering is not redone or undone with undo and redo commands, this will be implemented in v1.2
+* filtering is not implemented for tag criteria. This will also be added in v1.2
 
 ****
 
