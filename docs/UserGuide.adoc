@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Recruit Me - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,21 +12,21 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w16-4/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Recruit Me is an application for keeping all your company's applicants in a concise and organized format for easy searching designed to help you find the best candidates.
 
 == Quick Start
 
-.  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
+.  Ensure you have Java `9` (revision `9.01` or later) installed in your Computer.
 +
 [NOTE]
-Only Java 8 is supported. +
-This app will not work with later major Java releases such as Java 9, 10, 11, etc.
+Only Java 9 is supported. +
+
 +
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
@@ -52,8 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/NAME [skill/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[skill/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `skill/Java`, `skill/Excel skill/leadership` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -63,59 +63,59 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a candidate to Recruit Me +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [skill/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A candidate can have any number of skill tags (including 0)
 
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com a/Newgate Prison p/1234567 skill/knitting`
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all candidates in Recruit Me. +
 Format: `list`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing candidate in Recruit Me. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [skill/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* You can remove all the person's tags by typing `skill/` without specifying any tags after it.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `edit 2 n/Betsy Crower skill/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Clearing the filter in the address book: `filter clear`
-It clears all the filters on the address book. +
+=== Clearing the filter in Recruit Me: `filter clear`
+It clears all the filters in the applicant pool. +
 Format: `filter clear`
 
-=== Filtering the address book: `filter`
-It filters the current address book regarding the existing entities of every single person (name, phone, email, address or tags). +
+=== Filtering Recruit Me: `filter`
+It filters the current applicant pool regarding the existing entities of every single person (name, phone, email, address or skills). +
 Format: `filter or/and [n/NAME/n] [p/PHONE/p] ...`
 
 ****
 * The filtering is case insensitive. e.g `hans` will match `Hans`
 * Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
 e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
-* or Usage: According to the conditions written, if at least one of them passes with the regarding person in the address book, the person is included in the filtered version.
-* and Usage: According to the conditions written, if every single one of them passes with the regarding person in the address book, the person is included in the filtered version.
+* or Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* and Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 * All the people that are included in the filtering will be returned.
-* All the operations, that change the content of the address book also clears every single filter.
-* After one filtering, the filtered address book can be filtered again.
+* All the operations, that change the content of the applicant pool also clears every single filter.
+* After one filtering, the filtered applicant pool can be filtered again.
 
 ****
 
@@ -170,7 +170,7 @@ Format: `delete INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed applicant pool.
 * The index *must be a positive integer* 1, 2, 3, ...
 
 ****
@@ -179,14 +179,14 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the applicant pool.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
 === Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the person identified by the index number used in the displayed applicant pool. +
 Format: `select INDEX`
 
 ****
@@ -219,12 +219,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the applicant pool to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the applicant pool's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -268,7 +268,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the applicant pool. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -278,7 +278,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Applicant data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -290,16 +290,16 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous application folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [skill/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 skill/Java skill/leadership`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [skill/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
