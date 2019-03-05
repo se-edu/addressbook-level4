@@ -19,7 +19,7 @@ endif::[]
 * It is a Java application that is intended for a company looking to recruit new employees.
 * Employer is able to find applicants that meet the needs of the company.
 * In Version 1.1:
-** Tag usage for multiple categories: technical skills, professional skills, experience level.
+** Refactoring of Tag Class
 ** Basic implementation of filtering system will be added to the application, that filters the contacts according to one of their properties.
 ** Parameters for each contact to include valuable information for clients in their profile: Education, Grade point average.
 ** A general method for sorting a data set with the structure used in.
