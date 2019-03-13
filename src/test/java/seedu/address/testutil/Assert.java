@@ -30,13 +30,4 @@ public class Assert {
         Throwable thrownException = Assertions.assertThrows(expectedType, executable);
         Assertions.assertEquals(expectedMessage, thrownException.getMessage());
     }
-
-    /**
-     * Represents a function which does not return anything and may throw an exception.
-     */
-    @FunctionalInterface
-    public interface VoidCallable {
-        void call() throws Exception;
-    }
-
 }
