@@ -1,7 +1,5 @@
 package seedu.address.commons.util;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -145,8 +143,8 @@ public class StringUtilTest {
 
     @Test
     public void getDetails_exceptionGiven() {
-        assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
-                   containsString("java.io.FileNotFoundException: file not found"));
+        assertTrue(StringUtil.getDetails(new FileNotFoundException("file not found"))
+            .contains("java.io.FileNotFoundException: file not found"));
     }
 
     @Test
