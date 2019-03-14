@@ -2,28 +2,27 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
-
-import seedu.address.testutil.Assert;
 
 public class EmailTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Email(null));
+        assertThrows(NullPointerException.class, () -> new Email(null));
     }
 
     @Test
     public void constructor_invalidEmail_throwsIllegalArgumentException() {
         String invalidEmail = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
+        assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
     }
 
     @Test
     public void isValidEmail() {
         // null email
-        Assert.assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
+        assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
 
         // blank email
         assertFalse(Email.isValidEmail("")); // empty string
