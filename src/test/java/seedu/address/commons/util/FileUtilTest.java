@@ -2,10 +2,9 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
-
-import seedu.address.testutil.Assert;
 
 public class FileUtilTest {
 
@@ -18,7 +17,7 @@ public class FileUtilTest {
         assertFalse(FileUtil.isValidPath("a\0"));
 
         // null path -> throws NullPointerException
-        Assert.assertThrows(NullPointerException.class, () -> FileUtil.isValidPath(null));
+        assertThrows(NullPointerException.class, () -> FileUtil.isValidPath(null));
     }
 
 }
