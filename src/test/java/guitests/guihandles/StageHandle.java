@@ -1,7 +1,7 @@
 package guitests.guihandles;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Optional;
 import java.util.logging.Logger;
