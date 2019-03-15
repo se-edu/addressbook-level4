@@ -1,6 +1,6 @@
 package seedu.address.commons.util;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
