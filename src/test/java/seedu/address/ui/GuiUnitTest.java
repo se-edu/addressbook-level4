@@ -2,19 +2,23 @@ package seedu.address.ui;
 
 import java.util.Optional;
 
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
-import seedu.address.ui.testutil.UiPartRule;
+import seedu.address.ui.testutil.StageExtension;
+import seedu.address.ui.testutil.UiPartExtension;
 
 /**
  * A GUI unit test class for AddressBook.
  */
+@ExtendWith(StageExtension.class)
 public abstract class GuiUnitTest {
-    @Rule
-    public final UiPartRule uiPartRule = new UiPartRule();
+
+    @RegisterExtension
+    public final UiPartExtension uiPartExtension = new UiPartExtension();
 
     protected final GuiRobot guiRobot = new GuiRobot();
 
