@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
@@ -18,13 +18,13 @@ public class PersonCardTest extends GuiUnitTest {
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(personWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
+        uiPartExtension.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
         Person personWithTags = new PersonBuilder().build();
         personCard = new PersonCard(personWithTags, 2);
-        uiPartRule.setUiPart(personCard);
+        uiPartExtension.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
     }
 
