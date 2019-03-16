@@ -1,15 +1,15 @@
 package seedu.address.ui;
 
-import static org.junit.Assume.assumeFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
 
 import java.net.URL;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
@@ -20,7 +20,7 @@ public class HelpWindowTest extends GuiUnitTest {
     private HelpWindow helpWindow;
     private HelpWindowHandle helpWindowHandle;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         guiRobot.interact(() -> helpWindow = new HelpWindow());
         FxToolkit.registerStage(helpWindow::getRoot);
@@ -56,7 +56,7 @@ public class HelpWindowTest extends GuiUnitTest {
         // stage2.isFocused() returns true. However, as reported in the bug report,
         // both stage1.isFocused() and stage2.isFocused() returns true,
         // which fails the test.
-        assumeFalse("Test skipped in headless mode: Window focus behavior is buggy.", guiRobot.isHeadlessMode());
+        assumeFalse(guiRobot.isHeadlessMode(), "Test skipped in headless mode: Window focus behavior is buggy.");
         guiRobot.interact(helpWindow::show);
 
         // Focus on another stage to remove focus from the helpWindow
