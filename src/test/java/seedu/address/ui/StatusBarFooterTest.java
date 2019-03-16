@@ -12,10 +12,10 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.model.AddressBook;
@@ -31,22 +31,22 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private StatusBarFooterHandle statusBarFooterHandle;
     private final AddressBook addressBook = new AddressBook();
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() {
         // inject fixed clock
         StatusBarFooter.setClock(injectedClock);
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDownAfterClass() {
         // restore original clock
         StatusBarFooter.setClock(originalClock);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION, addressBook);
-        uiPartRule.setUiPart(statusBarFooter);
+        uiPartExtension.setUiPart(statusBarFooter);
 
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
     }
