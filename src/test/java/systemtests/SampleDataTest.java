@@ -7,13 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
 
 public class SampleDataTest extends AddressBookSystemTest {
+
+    @TempDir
+    public Path tempDir;
+
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
@@ -27,7 +31,7 @@ public class SampleDataTest extends AddressBookSystemTest {
      */
     @Override
     protected Path getDataFileLocation() {
-        Path filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
+        Path filePath = tempDir.resolve("SomeFileThatDoesNotExist1234567890.xml");
         deleteFileIfExists(filePath);
         return filePath;
     }
