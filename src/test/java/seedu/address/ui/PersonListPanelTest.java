@@ -10,7 +10,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
@@ -96,7 +96,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     private void initUi(ObservableList<Person> backingList) {
         PersonListPanel personListPanel =
                 new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
-        uiPartRule.setUiPart(personListPanel);
+        uiPartExtension.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
                 PersonListPanelHandle.PERSON_LIST_VIEW_ID));
