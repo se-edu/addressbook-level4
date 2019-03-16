@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
@@ -24,7 +24,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
     private CommandBoxHandle commandBoxHandle;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         CommandBox commandBox = new CommandBox(commandText -> {
             history.add(commandText);
@@ -35,7 +35,7 @@ public class CommandBoxTest extends GuiUnitTest {
         }, history);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
                 CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
-        uiPartRule.setUiPart(commandBox);
+        uiPartExtension.setUiPart(commandBox);
 
         defaultStyleOfCommandBox = new ArrayList<>(commandBoxHandle.getStyleClass());
 
