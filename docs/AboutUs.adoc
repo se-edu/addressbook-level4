@@ -23,7 +23,7 @@ image::yuqi.png[width="150", align="left"]
 {empty}[https://github.com/wongyuqi[github]]
 
 Role: Developer +
-Responsibilities: User Guide, Implementing Timer Feature
+Responsibilities: User Guide, Implementing Timer Feature and Journal Feature
 
 '''
 
