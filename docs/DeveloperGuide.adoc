@@ -356,6 +356,44 @@ the presence of already made list functions, we decided to stick with the arrayl
 as our team is more familiar with it.
 
 
+=== Expenditure List Feature
+==== Implementation
+* The expenditure list feature is facilitated by `VersionedExpenditureList`.
+ It is stored internally as an ExpenditureListStateList and currentStatePointer.
+ It consists of 4 components:
+** `VersionedExpList#AddPurchase` - Adds a new purchase to the Student Hand Book
+** `VersionedExpList#listExp` - Lists down the existing expenses
+** `VersionedTaskList#deletePurchase` - Deletes an existing Purchase
+** `VersionedExpList#clearExp` - Clears the expenditure list
+
+==== Model
+These operations are exposed in the `Model` interface as:
+
+* `Model#addPurchase()`
+* `Model#listExp()`
+* `Model#deletePurchase()`
+* `Model#clearExp()`
+
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+The Student HandBook will initialize with the initial expenditure list state.
+
+Step 2. The user executes the `addPurchase` command with `addPurchase n/Ice Cream p/$1.50`
+
+Step 3. This command goes through the `AddPurchaseCommandParser` to extract the values of
+the input string and to process it.
+
+Step 4. Once valid, adds to the ArrayList called ExpenditureList.
+
+==== Why is this implemented this way
+Similarly to the task list, we decided to follow the same format as AddressBook for this function, as we can reuse some of the code
+through OOP concepts.
+
+Likewise, an ArrayList seemed the most appropriate for a list function.
+
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
