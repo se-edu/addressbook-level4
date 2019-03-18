@@ -309,6 +309,53 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::dataencryption[]
+=== Task Feature
+==== Implementation
+* The task feature is facilitated by `VersionedTaskList`.
+ It is stored internally as an TaskListStateList and currentStatePointer.
+ It consists of 4 components:
+** `VersionedTaskList#AddTask` - Adds a new task to the Student Hand Book
+** `VersionedTaskList#listTask` - Lists down the existing Tasks
+** `VersionedTaskList#editTask` - Edits an existing Tasks
+** `VersionedTaskList#deleteTask` - Deletes an existing Task
+
+==== Model
+Like the undo/redo feature as listed above, this model of this feature is almost s identical to it, as we felt that we should reuse existing methods and models.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#addTask()`
+* `Model#listTask()`
+* `Model#editTask()`
+* `Model#deleteTask()`
+
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+The Student HandBook will initialize with the initial task list state and the currentStatePointer
+pointing to that single address book state.
+
+Step 2. The user executes the `addTask` command with `addTask n/Update User Documentation d/301219 e/2359`
+
+Step 3. This command goes through the `AddTaskCommandParser` to extract the values of
+the input string and to process it. It also searches for invalid input.
+
+Step 4. Once valid, adds to the ArrayList called TaskList.
+
+==== Why is this implemented this way
+As our task is to add on to an existing product (AddressBook), we decided to follow
+the same format as AddressBook for this function, as we can reuse some of the code
+through OOP concepts.
+
+Also, an ArrayList seemed the most appropriate for a list function.
+
+==== Alternatives considered
+There is consideration for the use of hash map to hold the task list so that
+we can easily implement a tag column. However, due to the lack of time and
+the presence of already made list functions, we decided to stick with the arraylist
+as our team is more familiar with it.
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_

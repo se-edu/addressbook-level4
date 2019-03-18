@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 /**
  * The API of the Model component.
@@ -64,6 +65,10 @@ public interface Model {
      */
     void deletePerson(Person target);
 
+
+    void addTask(Task task);
+
+    public void commitTaskList();
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
@@ -127,4 +132,6 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+
 }

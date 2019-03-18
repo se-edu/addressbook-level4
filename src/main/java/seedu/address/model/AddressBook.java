@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the address-book level
@@ -17,7 +19,9 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -28,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+
     }
 
     public AddressBook() {}
@@ -78,6 +83,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
         indicateModified();
     }
+
+
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
