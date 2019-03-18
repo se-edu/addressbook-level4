@@ -14,6 +14,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.DeadlineDate;
+import seedu.address.model.task.DeadlineTime;
+import seedu.address.model.task.TaskName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -48,6 +51,23 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+    public static TaskName parseTaskName(String name) throws ParseException {
+        requireNonNull(name);
+        return new TaskName(name);
+    }
+
+    public static DeadlineDate parseDeadlineDate(String date) throws ParseException{
+        requireNonNull(date);
+      //  Integer newDate = Integer.parseInt(date);
+        //need to add in commands to check valid deadline date if it is before this date or something
+        return new DeadlineDate(date);
+    }
+
+    public static DeadlineTime parseDeadlineTime(String time) throws ParseException{
+        requireNonNull(time);
+       // Integer newTime = Integer.parseInt(time);
+        return new DeadlineTime(time);
     }
 
     /**
