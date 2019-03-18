@@ -6,7 +6,7 @@ matrix:
 
 script: >-
     ./config/travis/run-checks.sh &&
-    ./gradlew clean checkstyleMain checkstyleTest headless allTests coverage coveralls asciidoctor
+    ./gradlew clean checkstyleMain checkstyleTest headless allTests coverage asciidoctor
 
 deploy:
   skip_cleanup: true
@@ -23,3 +23,6 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
