@@ -4,53 +4,43 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+StudentHandBook was developed by https://github.com/cs2113-ay1819s2-t08-2/main[StudentHandBook] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== TAN WEI SHENG, JEROME
+image::jerome.png[width="150", align="left"]
+{empty}[https://github.com/jayrometan[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Leader, Developer +
+Responsibilities: Developer Guide, Implementing Task Feature
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== WONG YU QI
+image::yuqi.png[width="150", align="left"]
+{empty}[https://github.com/wongyuqi[github]]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: User Guide, Implementing Timer Feature
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== PANG YONG JIA
+image::yongjia.png[width="150", align="left"]
+{empty}[https://github.com/yongjia96[github]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Use Cases, Workout Feature
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== LAUW WEI ZHONG
+image::weizhong.png[width="150", align="left"]
+{empty}[https://github.com/weizhonglauw[github]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Admin Information, Expenditure Tracker Feature
 
 '''
