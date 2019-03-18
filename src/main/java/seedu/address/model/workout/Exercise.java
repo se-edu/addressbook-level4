@@ -20,14 +20,14 @@ public class Exercise {
 
     public Exercise(String exercise) {
         requireNonNull(exercise);
-        checkArgument(isValidName(exercise), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidExercise(exercise), MESSAGE_CONSTRAINTS);
         exerciseName = exercise;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidExercise(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
