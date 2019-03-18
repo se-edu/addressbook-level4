@@ -14,7 +14,7 @@ image::jerome.png[width="150", align="left"]
 {empty}[https://github.com/jayrometan[github]]
 
 Role: Team Leader, Developer +
-Responsibilities: Developer Guide, Implementing Task Feature
+Responsibilities: Developer Guide, Implementing Task Feature, Daily List Feature
 
 '''
 
