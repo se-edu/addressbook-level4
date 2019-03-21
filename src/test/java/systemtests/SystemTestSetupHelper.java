@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
@@ -17,6 +18,12 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
+
+    static {
+        if (SystemUtils.IS_OS_WINDOWS) {
+            System.load("C:\\Windows\\System32\\WindowsCodecs.dll");
+        }
+    }
 
     /**
      * Sets up a new {@code TestApp} and returns it.

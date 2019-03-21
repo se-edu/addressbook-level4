@@ -65,6 +65,7 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-web', version: javafxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-web', version: javafxVersion, classifier: 'linux'
 
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
