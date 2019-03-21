@@ -39,7 +39,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, taskList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
@@ -100,6 +100,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
+    }
+
+    @Override
+    public ReadOnlyTaskList getTaskList() {
+        return versionedTaskList;
     }
 
     @Override
@@ -168,6 +173,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
+
 
     //=========== Undo/Redo =================================================================================
 

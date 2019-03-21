@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicateTaskException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import sun.rmi.runtime.Log;
 
@@ -68,7 +69,8 @@ public class UniqueTaskList implements Iterable<Task>{
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
         if (!tasksAreUnique(tasks)) {
-            Logger.getLogger("duplicate task found setTasks");
+            logger.info("FUCKING DUPLICATE BITCH");
+            throw new DuplicateTaskException();
         }
         internalList.setAll(tasks);
     }
@@ -92,7 +94,7 @@ public class UniqueTaskList implements Iterable<Task>{
 
     private boolean tasksAreUnique(List<Task> tasks){
         for (int i=0;i<tasks.size()-1;i++){
-            for (int j=0;j<tasks.size();j++){
+            for (int j=i+1;j<tasks.size();j++){
                 if (tasks.get(i).isSameTask(tasks.get(j))){
                     return false;
                 }

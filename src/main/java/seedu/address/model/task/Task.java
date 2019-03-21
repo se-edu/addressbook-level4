@@ -17,11 +17,13 @@ public class Task {
     private final TaskName taskName;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Task (TaskName taskName, DeadlineTime deadlineTime, DeadlineDate deadlineDate){
+    public Task (TaskName taskName, DeadlineTime deadlineTime, DeadlineDate deadlineDate
+    , Set<Tag> tags){
         requireAllNonNull(taskName, deadlineTime, deadlineDate);
         this.deadlineDate = deadlineDate;
         this.deadlineTime = deadlineTime;
         this.taskName  = taskName;
+        this.tags.addAll(tags);
     }
 
     public TaskName getTaskName() {

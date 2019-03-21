@@ -5,14 +5,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 public class TaskCard extends UiPart<Region> {
-
-    private static final String FXML = "PersonListCard.fxml";
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String FXML = "TaskListCard.fxml";
 
     public final Task task;
 
@@ -33,9 +35,10 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
+        logger.info("TASK NAME IS " + task.getDeadlineDate());
         name.setText(task.getTaskName().fullName);
-        date.setText(task.getDeadlineDate().DeadlineDate);
-        time.setText(task.getDeadlineTime().DeadlineTime);
+        date.setText(task.getDeadlineDate().value);
+        time.setText(task.getDeadlineTime().value + "HRS");
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

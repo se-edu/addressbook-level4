@@ -32,6 +32,7 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
+    private boolean taskListModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -39,14 +40,17 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
 
+
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
+        model.getTaskList().addListener(observable -> taskListModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
+        taskListModified = false;
 
         CommandResult commandResult;
         try {
@@ -55,7 +59,9 @@ public class LogicManager implements Logic {
         } finally {
             history.add(commandText);
         }
+        if (taskListModified){
 
+        }
         if (addressBookModified) {
             logger.info("Address book modified, saving to file.");
             try {
@@ -71,6 +77,11 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
+    }
+
+    @Override
+    public ReadOnlyTaskList getTaskList(){
+        return model.getTaskList();
     }
 
     @Override
