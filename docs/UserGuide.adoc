@@ -1,24 +1,67 @@
-= User Guide
+= StudentHandBook - User Guide
 :site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
+:repoURL: https://github.com/cs2113-ay1819s2-t08-2/main
 
-This product is not meant for end-users and therefore there is no user-friendly installer.
-Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
+By: `CS2113-AY1819S2-T08-2`      Since: `Mar 2019`      Licence: `MIT`
 
-== Starting the program
+== Introduction
 
-. Find the project pane (usually located at the left side)
-. Open up `src/seedu.StudentHandBook` folder
-. Right click on `Main`
-. Click `Run Main.main()`
-. The GUI should appear in a few seconds
+StudentHandBook is an one stop application made for NUS students to manage and improve their student life.
+More importantly, StudentHandBook is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, StudentHandBook can get your
+contact management tasks done faster than traditional GUI apps. Interested? Jump to Section 2, “Quick Start”
+to get started. Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
 +
-image::UG.png[]
+[NOTE]
+Only Java 8 is supported. +
+This app will not work with later major Java releases such as Java 9, 10, 11, etc.
++
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
+
+* *`list`* : lists all contacts
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g n/NAME [d/DEADLINE_DATE] can be used as n/CS2113 User Guide d/030919 or as n/CS2113 User Guide.
+====
+
 
 == Viewing help : `help`
 
@@ -29,99 +72,250 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
-== Adding to DailyList: `addTask`
+== Daily Task List
 
-Adds a task to the task list. +
-Format: `adddailylist n/TASK d/DEADLINE_Date h/DEADLINE_TIME
+=== Adding a Task : `addTask`
+
+Adds a task to the daily list. +
+Format: `addTask n/TAK d/DEADLINE_DATE h/DEADLINE_TIME`
 
 ****
-Words in `UPPER_CASE` are the parameters.
+Words in `UPPER_CASE` are the parameters. +
+All fields are compulsory +
+TASK contains the name of the TASK +
+DEADLINE_DATE should be in the DDMMYY format +
+DEADLINE_TIME should be in 24HRS
+
 ****
 
 Examples:
 
-* `adddailylist n/Complete CS2113T Assignment d/18/03/2019 h/2359`
+* `addTask n/Complete CS2113T Assignment d/180319 h/2359`
+* `addTask n/Submit Exchange Application d/200319 h/0800`
 
-== View the Daily List : `listTask` [coming soon]
-
-Shows all tasks left on the task list. +
-Format: `listTask`
-
-
-== Deleting from Daily List : `deleteTask` [coming soon]
+=== Delete Task : `deleteTask` [coming soon]
 
 Deletes the specified item off the Task List. Irreversible. +
 Format: `deleteTask INDEX`
 
 ****
-Deletes the item at the specified `INDEX`.
+Words in `UPPER_CASE` are the parameters.
+Deletes the item at the specified `INDEX`. +
+The `INDEX` can be found just by looking at the INDEX of the task displayed in the GUI +
+The `INDEX` must be a positive integer 1,2,3 ...
 ****
 
+Examples:
 
-== Clear Daily List : `editTask` [coming soon]
+* `deleteTask 5` +
+Deletes the task at INDEX 5
 
-Edits the specified task off the Task List. Irreversible +
-Format: `editTask 1 n/Jerome`
+=== Edit Task : `editTask` [coming soon]
 
-== Add Purchase : `addpurchase`
+Edits an existing specified task on the Task List. Irreversible +
+Format: `editTask 1 [n/Jerome] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
 
-Adds a new purchase with its price into Expenditure List. +
-Format: `addpurchase PURCHASENAME v/VALUE`
+****
+Words in `UPPER_CASE` are the parameters.
+Edits the task at the specified INDEX. +
+The index needs to be provided +
+At least one of the optional fields must be provied +
+Existing values will be replaced with the input values +
+DEADLINE_DATE should be in the DDMMYY format +
+DEADLINE_TIME should be in the 24HRS format
+****
 
 Examples:
 
-* `addpurchase Chicken Rice`
-* `addpurchase CS2113T TextBooks`
+* `editTask 2 n/Banana` +
+Change the task name of the task specified at INDEX 2 to Banana.
 
-== View Expenditure List : `addpurchase`
+* `editTask 2 d/300219` +
+Change the deadline date of the task specified at INDEX 2 to 300219.
 
-Shows all purchases made on the Expenditure List. +
-Format: `viewexplist`
+=== Clear Task : `clearTask` [coming soon]
 
-== Delete Purchase : `deletepurchase`
+Clears off all the tasks from the Task List. +
+Format: `clearTask`
 
-Deletes a purchase from the Expenditure List. +
+== Expenditure List
+=== Adding a purchase: `addpurchase`
+
+Adds a new purchase to the expenditure list +
+Format: `addpurchase n/NAME pr/PRICE [t/TAG]...`
+
+****
+* Only SGD currency is supported.
+* You only have to input the value (see example)
+****
+
+Examples:
+
+* `addpurchase n/Ice cream pr/1.50`
+* `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
+
+=== Listing all past expenditures: `explist`
+
+Shows a list of all recorded purchases with the corresponding price in the expenditure list. +
+Format: `explist`
+
+=== Deleting a purchase: `deletepurchase` [coming soon]
+
+Deletes an existing purchase in the expenditure list. +
 Format: `deletepurchase INDEX`
 
-Examples:
+****
+* Deletes the purchase at the specified `INDEX`.
+* The index refers to the index number shown in the displayed expenditure list.
+* The index *must be a positive integer* (1, 2, 3, …) .
+****
 
-* `viewexpenditurelist` +
-`deletedailylist 3` +
-Deletes the 3rd purchase off the Expenditure List.
+Example:
 
-== Find a Purchase : `findpurchase`
+* `explist` +
+`deletepurchase 2` +
+Deletes the 2nd purchase in the expenditure list.
 
-Find a purchase made on the Expenditure List. +
-Format: `findpurchase PURCHASENAME`
+=== Clearing expenditure list: `clearexp` [coming soon]
 
-Examples:
+Clears all past purchases recorded from the expenditure list. +
+Format: `clearexp`
 
-* `findpurchase Chicken Rice` +
-Chicken Rice $3.50
 
-== View Workout : `workout`
+=== Calculating total expenditure for the day: `totalexpday` [coming soon]
 
-View the 5 most recent completed workouts. +
+Views total expenditure for the day +
+Format: `totalexpday DATE`
+
+****
+DATE should be in the DDMMYY format
+****
+
+Example:
+`totalexpday 191218`
+
+=== Set spending limit: `setlimit` [coming soon]
+
+Sets a spending limit for one day to control expenditure. +
+Format: `setlimit VALUE`
+
+****
+* Only SGD currency is supported.
+* You only have to input the value (see example)
+****
+
+Example:
+`setlimit 20.00`
+
+== Habit Tracker
+=== Add desired Habits: `addHabit` [coming soon]
+
+Add habit which you wish to track into your monthly habit tracker. +
+Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'
+
+****
+A calendar of the month is shown, along with previous records of the month.
+****
+
+Example:
+
+* `addHabit d/010119 n/SleepBefore12am a/Done`
+
+
+== Workout Tracker
+=== View workout: `workout`
+
+View the past 5 most recent workout. +
 Format: `workout`
 
-== Record Workout : `record`
+****
+Only the most recent 5 workout will be displayed, older workout will not be shown
 
-Adds a new purchase with its price into Expenditure List. +
-Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
+****
 
 Examples:
 
-* `record e/rightlunges s/5 r/10 t/2mins`
+* `workout`
 
-== Start a Stopwatch : `start`
+=== Record workout : `record`
 
-Start a stopwatch. +
-Format: `start`
+Record your current workout and add them into your workout records. +
+Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
 
-== Stop a Stopwatch : `stop`
+****
+Words in `UPPER_CASE` are the parameters.
+EXERCISE must only contain alphanumeric. +
+SETS, REPS and TIME must only contain integer, and TIME must be in minutes +
+****
 
-Stop the running stopwatch. +
-Format: `stop`
+Examples:
+
+* `record e/SIT UPS s/5 r/20 t/10`
+
+Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
+
+== General Commands
+
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+// tag::undoredo[]
+=== Undoing previous command : `undo`
+
+Restores the address book to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
 
 == Exiting the program : `exit`
 
@@ -130,6 +324,44 @@ Format: `exit`
 
 == Saving the data
 
-Student Handbook data are saved in the hard disk automatically after any command that changes the data.
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
-There is no need to save manually. Student Handbook data are saved in a file called `StudentHandBook.txt` in the project root folder.
+// tag::dataencryption[]
+== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous StudentHandBook folder.
+
+== Command Summary
+
+* *Help* : `help`
+* *Add Task* : `addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME` +
+e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
+* *Add Purchase* : `addpurchase n/NAME pr/PRICE [t/TAG]...` +
+e.g. `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
+* *Expenditure List*: `explist`
+* *View Workout* : `workout`
+* *Record Workout* : `record e/EXERCISE s/SETS r/REPS t/TIME` +
+e.g. `record e/SIT UPS s/5 r/20 t/10`
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *List* : `list`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Select* : `select INDEX` +
+e.g.`select 2`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Clear* : `clear`
+* *Exit* : `exit`
