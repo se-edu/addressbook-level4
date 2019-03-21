@@ -91,6 +91,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+     void updateFilteredTaskList(Predicate<Task> predicate);
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -132,6 +133,14 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    public ObservableList<Task> getFilteredTaskList();
+
+    public ReadOnlyProperty<Task> selectedTaskProperty();
+
+    void setSelectedTask(Task task);
+
+    void setTask(Task target, Task editedTask);
 
 
 }

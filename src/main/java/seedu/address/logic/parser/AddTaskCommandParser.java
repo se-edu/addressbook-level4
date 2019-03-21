@@ -18,7 +18,11 @@ import static seedu.address.logic.parser.CliSyntax.*;
 
 /* Add RemarkCommandParser that knows how to parse two arguments, one index and one with prefix 'r/' */
 public class AddTaskCommandParser implements Parser<AddTaskCommand>{
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    /**
+     * Parses the given {@code String} of arguments in the context of adding something
+     * and returns an ADdTaskCommand object for execution
+     */
+     private final Logger logger = LogsCenter.getLogger(getClass());
     public AddTaskCommand parse(String args) throws ParseException{
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE_DATE, PREFIX_DEADLINE_TIME);

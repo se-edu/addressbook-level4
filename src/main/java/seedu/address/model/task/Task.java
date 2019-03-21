@@ -6,6 +6,7 @@ import seedu.address.model.tag.Tag;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -27,21 +28,53 @@ public class Task {
         return taskName;
     }
 
-    public DeadlineDate getDeadlineDate() { return this.deadlineDate;}
+    public DeadlineDate getDeadlineDate() { return deadlineDate;}
 
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
-    public DeadlineTime getDeadlineTime() { return this.deadlineTime;}
+    public DeadlineTime getDeadlineTime() { return deadlineTime;}
 
-    public boolean isSamePerson(Task otherTask) {
+    public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {
             return true;
         }
 
         return otherTask!= null
                 && otherTask.getTaskName().equals(getTaskName())
-                && (otherTask.getDeadlineDate().equals(getDeadlineDate()) || otherTask.getDeadlineTime().equals(getDeadlineTime()));
+                && (otherTask.getDeadlineDate().equals(getDeadlineDate())
+                || otherTask.getDeadlineTime().equals(getDeadlineTime()));
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Task)) {
+            return false;
+        }
+
+        Task otherTask = (Task) other;
+        return otherTask.getTaskName().equals(getTaskName())
+                && otherTask.getDeadlineTime().equals(getDeadlineTime())
+                && otherTask.getDeadlineDate().equals(getDeadlineDate());
+    }
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(taskName, deadlineDate, deadlineTime, tags);
+    }
+    @Override
+    public String toString(){
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getTaskName())
+                .append(" DeadlineDate: ")
+                .append(getDeadlineDate())
+                .append(" DeadlineTime: ")
+                .append(getDeadlineTime());
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 }

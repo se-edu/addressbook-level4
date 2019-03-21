@@ -16,8 +16,8 @@ public class TaskCard extends UiPart<Region> {
 
     public final Task task;
 
-    @javafx.fxml.FXML
-    private HBox cardPane;
+    @FXML
+    private HBox cardPane2;
     @FXML
     private Label name;
     @FXML
@@ -49,7 +49,7 @@ public class TaskCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof TaskCard)) {
             return false;
         }
 

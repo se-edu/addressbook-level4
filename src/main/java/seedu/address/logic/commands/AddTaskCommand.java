@@ -20,6 +20,10 @@ public class AddTaskCommand extends Command {
 
     private final Task newTask;
 
+    /**
+     *
+     * @param task that is being added.
+     */
     public AddTaskCommand(Task task) {
         requireNonNull(task);
         newTask = task;
@@ -36,6 +40,7 @@ public class AddTaskCommand extends Command {
 //        }
         model.addTask(newTask);
         model.commitTaskList();
+        model.commitAddressBook();
         String toBePrinted = MESSAGE_SUCCESS  + newTask.getTaskName() + " | "
                 + "DEADLINE: " + newTask.getDeadlineDate() + ' ' + newTask.getDeadlineTime() + "HRS";
         return new CommandResult(String.format(toBePrinted, newTask));

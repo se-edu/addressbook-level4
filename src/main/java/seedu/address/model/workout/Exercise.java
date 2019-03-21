@@ -31,10 +31,8 @@ public class Exercise {
         return test.matches(VALIDATION_REGEX);
     }
 
-
     @Override
     public String toString() {
         return exerciseName;
     }
-
 }
