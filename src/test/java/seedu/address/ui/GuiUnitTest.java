@@ -13,6 +13,15 @@ import seedu.address.ui.testutil.UiPartRule;
  * A GUI unit test class for AddressBook.
  */
 public abstract class GuiUnitTest {
+    // TODO: Remove this workaround after using JavaFX version 13 or above
+    // This is a workaround to solve headless test failure on Windows OS
+    // Refer to https://github.com/javafxports/openjdk-jfx/issues/66 for more details.
+    static {
+        if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+            System.loadLibrary("WindowsCodecs");
+        }
+    }
+
     @Rule
     public final UiPartRule uiPartRule = new UiPartRule();
 
