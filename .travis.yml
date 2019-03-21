@@ -5,7 +5,8 @@ matrix:
 
 script: >-
     ./config/travis/run-checks.sh &&
-    ./gradlew clean checkstyleMain checkstyleTest headless allTests coverage coveralls asciidoctor
+    ./gradlew clean checkstyleMain checkstyleTest headless allTests asciidoctor
+    ./gradlew --debug coverage coveralls
 
 deploy:
   skip_cleanup: true
