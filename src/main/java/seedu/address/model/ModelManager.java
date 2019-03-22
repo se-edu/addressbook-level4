@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.task.Task;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,25 +28,28 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
+    private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
+        versionedTaskList = new VersionedTaskList(taskList);
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new TaskList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -113,11 +117,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addTask(Task task){
+        versionedTaskList.addTask(task);
+//        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
     }
+
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -161,6 +173,11 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void commitTaskList(){
+        versionedTaskList.commit();
     }
 
     //=========== Selected person ===========================================================================
