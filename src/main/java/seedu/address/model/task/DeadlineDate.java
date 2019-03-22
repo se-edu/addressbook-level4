@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 public class DeadlineDate {
     public static final String MESSAGE_CONSTRAINTS =  "Date should only be in integers and should not be blank";
-    public final String DeadlineDate;
+    public final String value;
     /**
      * Constructs a {@code Name}.
      *
@@ -14,11 +14,11 @@ public class DeadlineDate {
         requireNonNull(deadlineDate);
         // checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
 //        fullName = name;
-        DeadlineDate = deadlineDate;
+        value = deadlineDate;
     }
     @Override
     public String toString() {
-        return DeadlineDate;
+        return value;
     }
 
 }

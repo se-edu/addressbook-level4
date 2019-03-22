@@ -35,6 +35,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    private Optional<ReadOnlyTaskList> taskListOptional;
 
     @Override
     public void init() throws Exception {
@@ -47,7 +48,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage);
 
         initLogging(config);
 
@@ -65,14 +67,17 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyTaskList> taskListOptional;
         ReadOnlyAddressBook initialData;
-        ReadOnlyTaskList initialTask;
+        ReadOnlyTaskList initialTasks;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
@@ -81,9 +86,24 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        initialTask = new TaskList();
+        try {
+            taskListOptional = storage.readTaskList();
+            if (!taskListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialTasks = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
 
-        return new ModelManager(initialData, userPrefs, initialTask);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialTasks = new TaskList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialTasks = new TaskList();
+        }
+
+
+
+        return new ModelManager(initialData, userPrefs, initialTasks);
     }
 
     private void initLogging(Config config) {
