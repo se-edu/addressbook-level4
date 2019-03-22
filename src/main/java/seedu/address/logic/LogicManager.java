@@ -15,7 +15,9 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
 /**
@@ -30,6 +32,7 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
+    private boolean taskListModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -37,14 +40,17 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
 
+
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
+        model.getTaskList().addListener(observable -> taskListModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
+        taskListModified = false;
 
         CommandResult commandResult;
         try {
@@ -53,7 +59,9 @@ public class LogicManager implements Logic {
         } finally {
             history.add(commandText);
         }
+        if (taskListModified){
 
+        }
         if (addressBookModified) {
             logger.info("Address book modified, saving to file.");
             try {
@@ -72,10 +80,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyTaskList getTaskList(){
+        return model.getTaskList();
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 
+    @Override
+    public ObservableList<Task> getFilteredTaskList() { return model.getFilteredTaskList(); }
     @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
@@ -102,7 +117,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Task> selectedTaskProperty(){
+        return model.selectedTaskProperty();
+    }
+
+    @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
+    }
+
+    @Override
+    public void setSelectedTask(Task task){
+        model.setSelectedTask(task);
     }
 }

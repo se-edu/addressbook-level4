@@ -19,11 +19,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -138,6 +136,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyTaskList getTaskList() {
+            return null;
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -145,6 +148,16 @@ public class AddCommandTest {
         @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTask(Task task) {
+
+        }
+
+        @Override
+        public void commitTaskList() {
+
         }
 
         @Override
@@ -160,6 +173,11 @@ public class AddCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+
         }
 
         @Override
@@ -200,6 +218,26 @@ public class AddCommandTest {
         @Override
         public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            return null;
+        }
+
+        @Override
+        public ReadOnlyProperty<Task> selectedTaskProperty() {
+            return null;
+        }
+
+        @Override
+        public void setSelectedTask(Task task) {
+
+        }
+
+        @Override
+        public void setTask(Task target, Task editedTask) {
+
         }
     }
 

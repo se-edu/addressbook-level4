@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -31,13 +32,14 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, taskList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
@@ -45,6 +47,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
     }
 
@@ -100,6 +103,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyTaskList getTaskList() {
+        return versionedTaskList;
+    }
+
+    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
@@ -129,6 +137,13 @@ public class ModelManager implements Model {
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void setTask(Task target, Task editedTask){
+        requireAllNonNull(target, editedTask);
+
+        versionedTaskList.setTask(target, editedTask);
+    }
+
 
 
     //=========== Filtered Person List Accessors =============================================================
@@ -143,10 +158,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Task> getFilteredTaskList(){
+        return filteredTasks;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate){
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
@@ -188,6 +215,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyProperty<Task> selectedTaskProperty(){
+        return selectedTask;
+    }
+
+    @Override
     public Person getSelectedPerson() {
         return selectedPerson.getValue();
     }
@@ -198,6 +230,11 @@ public class ModelManager implements Model {
             throw new PersonNotFoundException();
         }
         selectedPerson.setValue(person);
+    }
+
+    @Override
+    public void setSelectedTask(Task task){
+        selectedTask.setValue(task);
     }
 
     /**
