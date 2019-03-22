@@ -16,7 +16,7 @@ public class DeadlineTime {
 //    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
 //    public final String fullName;
-    public final String DeadlineTime;
+    public final String value;
     /**
      * Constructs a {@code Name}.
      *
@@ -25,7 +25,7 @@ public class DeadlineTime {
     public DeadlineTime(String deadlineTime) {
         requireNonNull(deadlineTime);
        // checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        DeadlineTime = deadlineTime;
+        value = deadlineTime;
     }
 
 //    /**
@@ -38,7 +38,7 @@ public class DeadlineTime {
 //
     @Override
     public String toString() {
-        return DeadlineTime;
+        return value;
     }
 
 //    @Override
