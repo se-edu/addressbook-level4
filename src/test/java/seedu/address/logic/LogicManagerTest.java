@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddCommand;
@@ -35,12 +34,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
-
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
@@ -100,8 +95,7 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
     /**

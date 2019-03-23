@@ -2,14 +2,11 @@ package seedu.address.commons.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class VersionTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void versionParsing_acceptableVersionString_parsedVersionCorrectly() {
@@ -20,8 +17,7 @@ public class VersionTest {
 
     @Test
     public void versionParsing_wrongVersionString_throwIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        Version.fromString("This is not a version string");
+        assertThrows(IllegalArgumentException.class, () -> Version.fromString("This is not a version string"));
     }
 
     @Test
