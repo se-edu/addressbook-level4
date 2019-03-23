@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,7 +12,6 @@ import java.util.logging.Level;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.Config;
@@ -21,16 +21,13 @@ public class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void read_null_throwsNullPointerException() throws DataConversionException {
-        thrown.expect(NullPointerException.class);
-        read(null);
+    public void read_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> read(null));
     }
 
     @Test
@@ -39,14 +36,8 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_notJsonFormat_exceptionThrown() throws DataConversionException {
-
-        thrown.expect(DataConversionException.class);
-        read("NotJsonFormatConfig.json");
-
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         */
+    public void read_notJsonFormat_exceptionThrown() {
+        assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
     }
 
     @Test
@@ -85,15 +76,13 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void save_nullConfig_throwsNullPointerException() throws IOException {
-        thrown.expect(NullPointerException.class);
-        save(null, "SomeFile.json");
+    public void save_nullConfig_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
     }
 
     @Test
-    public void save_nullFile_throwsNullPointerException() throws IOException {
-        thrown.expect(NullPointerException.class);
-        save(new Config(), null);
+    public void save_nullFile_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> save(new Config(), null));
     }
 
     @Test
