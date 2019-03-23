@@ -12,9 +12,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
@@ -39,20 +37,15 @@ public class ParserUtilTest {
 
     private static final String WHITESPACE = " \t\r\n";
 
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
-
     @Test
-    public void parseIndex_invalidInput_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseIndex("10 a");
+    public void parseIndex_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
     }
 
     @Test
-    public void parseIndex_outOfRangeInput_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        thrown.expectMessage(MESSAGE_INVALID_INDEX);
-        ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
+    public void parseIndex_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -157,15 +150,13 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        ParserUtil.parseTag(null);
+    public void parseTag_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseTag(INVALID_TAG);
+    public void parseTag_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
     }
 
     @Test
@@ -182,15 +173,13 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        ParserUtil.parseTags(null);
+    public void parseTags_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
+    public void parseTags_collectionWithInvalidTags_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
     }
 
     @Test
