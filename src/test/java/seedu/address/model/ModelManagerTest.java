@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -14,9 +15,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -26,8 +25,6 @@ import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private ModelManager modelManager = new ModelManager();
 
@@ -41,8 +38,7 @@ public class ModelManagerTest {
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.setUserPrefs(null);
+        assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
     }
 
     @Test
@@ -61,8 +57,7 @@ public class ModelManagerTest {
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.setGuiSettings(null);
+        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
     }
 
     @Test
@@ -74,8 +69,7 @@ public class ModelManagerTest {
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
     }
 
     @Test
@@ -87,8 +81,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
     }
 
     @Test
@@ -131,14 +124,12 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
+        assertThrows(PersonNotFoundException.class, () -> modelManager.setSelectedPerson(ALICE));
     }
 
     @Test
