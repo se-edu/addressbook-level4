@@ -3,6 +3,7 @@ package seedu.address.commons.core.index;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ public class IndexTest {
     @Test
     public void createOneBasedIndex() {
         // invalid index
-        assertCreateOneBasedFailure(0);
+        assertThrows(IndexOutOfBoundsException.class, () -> Index.fromOneBased(0));
 
         // check equality using the same base
         assertEquals(1, Index.fromOneBased(1).getOneBased());
@@ -25,7 +26,7 @@ public class IndexTest {
     @Test
     public void createZeroBasedIndex() {
         // invalid index
-        assertCreateZeroBasedFailure(-1);
+        assertThrows(IndexOutOfBoundsException.class, () -> Index.fromZeroBased(-1));
 
         // check equality using the same base
         assertEquals(0, Index.fromZeroBased(0).getZeroBased());
@@ -34,39 +35,6 @@ public class IndexTest {
         // convert from zero-based index to one-based index
         assertEquals(1, Index.fromZeroBased(0).getOneBased());
         assertEquals(6, Index.fromZeroBased(5).getOneBased());
-    }
-
-    /**
-     * Executes {@code Index#fromZeroBased(int)} with {@code invalidZeroBasedIndex}, confirms that an
-     * {@code IndexOutOfBoundsException} is thrown.
-     */
-    private void assertCreateZeroBasedFailure(int invalidZeroBasedIndex) {
-        assertCreateFailure(invalidZeroBasedIndex, true);
-    }
-
-    /**
-     * Executes {@code Index#fromOneBased(int)} with {@code invalidOneBasedIndex}, confirms that an
-     * {@code IndexOutOfBoundsException} is thrown.
-     */
-    private void assertCreateOneBasedFailure(int invalidOneBasedIndex) {
-        assertCreateFailure(invalidOneBasedIndex, false);
-    }
-
-    /**
-     * Executes either {@code Index#fromZeroBased(int)} (if it is zero based), or {@code Index#fromOneBased(int)}
-     * (if it is one based), and confirms that an {@code IndexOutOfBoundsException} is thrown.
-     */
-    private void assertCreateFailure(int invalidIndex, boolean isZeroBased) {
-        try {
-            if (isZeroBased) {
-                Index.fromZeroBased(invalidIndex);
-            } else {
-                Index.fromOneBased(invalidIndex);
-            }
-            throw new AssertionError("The expected IndexOutOfBoundsException was not thrown.");
-        } catch (IndexOutOfBoundsException ie) {
-            // expected behaviour
-        }
     }
 
     @Test
