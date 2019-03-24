@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import seedu.address.model.purchase.Purchase;
 
 /**
  * The API of the Model component.
@@ -70,7 +71,7 @@ public interface Model {
 
     void addTask(Task task);
 
-    public void commitTaskList();
+    void commitTaskList();
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
@@ -145,4 +146,54 @@ public interface Model {
     void setTask(Task target, Task editedTask);
 
 
+
+
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
+
+    /**
+     * Replaces expenditure list with the data in {@code expenditureList}.
+     */
+    void setExpenditureList(ReadOnlyExpenditureList expenditureList);
+
+    /** Returns the ExpenditureList */
+    ReadOnlyExpenditureList getExpenditureList();
+
+    /**
+     * Adds the given purchase.
+     */
+    void addPurchase(Purchase purchase);
+
+    /** Returns an unmodifiable view of the filtered purchase list */
+    ObservableList<Purchase> getFilteredPurchaseList();
+
+    /**
+     * Updates the filter of the filtered purchase list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPurchaseList(Predicate<Purchase> predicate);
+
+
+    /**
+     * Saves the current expenditure list state for undo/redo.
+     */
+    void commitExpenditureList();
+
+    /**
+     * Selected purchase in the filtered purchase list.
+     * null if no purchase is selected.
+     */
+    ReadOnlyProperty<Purchase> selectedPurchaseProperty();
+
+    /**
+     * Returns the selected purchase in the filtered purchase list.
+     * null if no purchase is selected.
+     */
+    Purchase getSelectedPurchase();
+
+    /**
+     * Sets the selected purchase in the filtered purchase list.
+     */
+    void setSelectedPurchase(Purchase purchase);
 }
