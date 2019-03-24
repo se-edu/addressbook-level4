@@ -33,7 +33,7 @@ Only Java 8 is supported. +
 This app will not work with later major Java releases such as Java 9, 10, 11, etc.
 +
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your StudentHandBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -73,6 +73,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
 == Daily Task List
+A feature to help you record your tasks at hand with the deadlines, so that you can be task focused and also not leave them undone! +
 
 === Adding a Task : `addTask`
 
@@ -139,6 +140,8 @@ Clears off all the tasks from the Task List. +
 Format: `clearTask`
 
 == Expenditure List
+A list to help you keep track of all your expenses so that you can better manage your finances! +
+
 === Adding a purchase: `addpurchase`
 
 Adds a new purchase to the expenditure list +
@@ -208,6 +211,8 @@ Example:
 `setlimit 20.00`
 
 == Habit Tracker
+Change your lifestyle now by recording an activity regularly to turn it into a habit! +
+
 === Add desired Habits: `addHabit` [coming soon]
 
 Add habit which you wish to track into your monthly habit tracker. +
@@ -223,6 +228,8 @@ Example:
 
 
 == Workout Tracker
+Record your workouts and reps so that you can make the most out of the exercises! +
+
 === View workout: `workout`
 
 View the past 5 most recent workout. +
