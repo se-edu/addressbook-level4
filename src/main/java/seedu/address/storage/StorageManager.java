@@ -28,7 +28,7 @@ public class StorageManager implements Storage {
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage, WorkoutbookStorage workoutBookStorage) {
+                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage, WorkoutBookStorage workoutBookStorage) {
       super();
 
         this.taskListStorage = taskListStorage;
@@ -136,6 +136,7 @@ public class StorageManager implements Storage {
     public void saveExpenditureList(ReadOnlyExpenditureList expenditureList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         expenditureListStorage.saveExpenditureList(expenditureList, filePath);
+    }
 
     // =================WorkoutBook methods =====================================
     @Override
