@@ -15,11 +15,9 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
-import seedu.address.model.purchase.Purchase;
 import seedu.address.storage.Storage;
 
 /**
@@ -35,7 +33,6 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
     private boolean taskListModified;
-    private boolean expenditureListModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -47,7 +44,6 @@ public class LogicManager implements Logic {
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
         model.getTaskList().addListener(observable -> taskListModified = true);
-        model.getExpenditureList().addListener(observable -> expenditureListModified = true);
     }
 
     @Override
@@ -55,7 +51,6 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
         taskListModified = false;
-        expenditureListModified = false;
 
         CommandResult commandResult;
         try {
@@ -67,11 +62,6 @@ public class LogicManager implements Logic {
         if (taskListModified){
 
         }
-
-        if (expenditureListModified) {
-
-        }
-
         if (addressBookModified) {
             logger.info("Address book modified, saving to file.");
             try {
@@ -95,23 +85,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyExpenditureList getExpenditureList(){
-        return model.getExpenditureList();
-    }
-
-    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 
     @Override
     public ObservableList<Task> getFilteredTaskList() { return model.getFilteredTaskList(); }
-
-    @Override
-    public ObservableList<Purchase> getFilteredPurchaseList() {
-        return model.getFilteredPurchaseList();
-    }
-
     @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
@@ -142,12 +121,6 @@ public class LogicManager implements Logic {
         return model.selectedTaskProperty();
     }
 
-
-    @Override
-    public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
-        return model.selectedPurchaseProperty();
-    }
-
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
@@ -156,10 +129,5 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedTask(Task task){
         model.setSelectedTask(task);
-    }
-
-    @Override
-    public void setSelectedPurchase(Purchase purchase) {
-        model.setSelectedPurchase(purchase);
     }
 }

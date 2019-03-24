@@ -18,8 +18,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
-import seedu.address.model.purchase.Purchase;
-import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
@@ -29,38 +27,32 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
-    private final VersionedExpenditureList versionedExpenditureList;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
-    private final FilteredList<Purchase> filteredPurchases;
     private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<Purchase> selectedPurchase = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
-                        ReadOnlyExpenditureList expenditureList) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList) {
         super();
-        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList);
+        requireAllNonNull(addressBook, userPrefs, taskList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedExpenditureList = new VersionedExpenditureList(expenditureList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
-        filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
-        filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList());
+        this(new AddressBook(), new UserPrefs(), new TaskList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -152,37 +144,6 @@ public class ModelManager implements Model {
         versionedTaskList.setTask(target, editedTask);
     }
 
-//=================Expenditure List========================================================================
-
-
-    @Override
-    public void setExpenditureList(ReadOnlyExpenditureList expenditureList) {
-        versionedExpenditureList.resetData(expenditureList);
-    }
-
-    @Override
-    public ReadOnlyExpenditureList getExpenditureList() {
-        return versionedExpenditureList;
-    }
-
-
-    @Override
-    public void addPurchase(Purchase purchase) {
-        versionedExpenditureList.addPurchase(purchase);
-       // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
-    }
-
-    @Override
-    public ObservableList<Purchase> getFilteredPurchaseList() {
-        return filteredPurchases;
-    }
-
-
-    @Override
-    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
-        requireNonNull(predicate);
-        filteredPurchases.setPredicate(predicate);
-    }
 
 
     //=========== Filtered Person List Accessors =============================================================
@@ -213,28 +174,6 @@ public class ModelManager implements Model {
         filteredTasks.setPredicate(predicate);
     }
 
-    @Override
-    public void commitExpenditureList(){
-        versionedExpenditureList.commit();
-    }
-
-    @Override
-    public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
-        return selectedPurchase;
-    }
-
-    @Override
-    public Purchase getSelectedPurchase() {
-        return selectedPurchase.getValue();
-    }
-
-    @Override
-    public void setSelectedPurchase(Purchase purchase) {
-        if (purchase != null && !filteredPurchases.contains(purchase)) {
-            throw new PurchaseNotFoundException();
-        }
-        selectedPurchase.setValue(purchase);
-    }
 
     //=========== Undo/Redo =================================================================================
 
@@ -326,38 +265,6 @@ public class ModelManager implements Model {
             }
         }
     }
-
-
-    /**
-     * Ensures {@code selectedPurchase} is a valid purchase in {@code filteredPurchases}.
-     */
-    private void ensureSelectedPurchaseIsValid(ListChangeListener.Change<? extends Purchase> change) {
-        while (change.next()) {
-            if (selectedPurchase.getValue() == null) {
-                // null is always a valid selected purchase, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedPurchaseReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPurchase.getValue());
-            if (wasSelectedPurchaseReplaced) {
-                // Update selectedPurchase to its new value.
-                int index = change.getRemoved().indexOf(selectedPurchase.getValue());
-                selectedPurchase.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedPurchaseRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPurchase -> selectedPurchase.getValue().isSamePurchase(removedPurchase));
-            if (wasSelectedPurchaseRemoved) {
-                // Select the purchase that came before it in the list,
-                // or clear the selection if there is no such purchase.
-                selectedPurchase.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
-    }
-
-
 
     @Override
     public boolean equals(Object obj) {

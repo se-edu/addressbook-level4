@@ -34,7 +34,6 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private TaskListPanel taskListPanel;
-    private PurchaseListPanel purchaseListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -60,9 +59,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane taskListPanelPlaceholder;
-
-    @FXML
-    private StackPane purchaseListPanelPlaceholder;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -134,10 +130,6 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedTask);
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        purchaseListPanel = new PurchaseListPanel(logic.getFilteredPurchaseList(), logic.selectedPurchaseProperty(),
-                logic::setSelectedPurchase);
-        purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -196,10 +188,6 @@ public class MainWindow extends UiPart<Stage> {
         return taskListPanel;
     }
 
-
-    public PurchaseListPanel getPurchaseListPanel() {
-        return purchaseListPanel;
-    }
     /**
      * Executes the command and returns the result.
      *

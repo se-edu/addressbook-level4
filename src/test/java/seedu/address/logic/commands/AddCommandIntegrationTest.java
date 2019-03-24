@@ -4,7 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,13 +25,13 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTaskList(), getTypicalExpenditureList());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTaskList());
     }
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTaskList(), getTypicalExpenditureList());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTaskList());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 

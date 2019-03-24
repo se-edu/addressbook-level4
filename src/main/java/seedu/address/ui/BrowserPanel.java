@@ -15,7 +15,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
-
 /**
  * The Browser Panel of the App.
  */

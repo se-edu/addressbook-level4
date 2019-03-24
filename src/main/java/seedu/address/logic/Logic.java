@@ -10,10 +10,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
-import seedu.address.model.purchase.Purchase;
 
 /**
  * API of the Logic component
@@ -83,28 +81,5 @@ public interface Logic {
 
      ReadOnlyTaskList getTaskList();
 
-    /**
-     * Returns the ExpenditureList.
-     *
-     * @see seedu.address.model.Model#getExpenditureList()
-     */
-    ReadOnlyExpenditureList getExpenditureList();
 
-    /** Returns an unmodifiable view of the filtered list of purchases */
-    ObservableList<Purchase> getFilteredPurchaseList();
-
-    /**
-     * Selected purchase in the filtered purchase list.
-     * null if no purchase is selected.
-     *
-     * @see seedu.address.model.Model#selectedPurchaseProperty()
-     */
-    ReadOnlyProperty<Purchase> selectedPurchaseProperty();
-
-    /**
-     * Sets the selected person in the filtered purchase list.
-     *
-     * @see seedu.address.model.Model#setSelectedPurchase(Purchase)
-     */
-    void setSelectedPurchase(Purchase purchase);
 }

@@ -5,7 +5,6 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,10 +25,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model =  new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList());
-        expectedModel =  new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList());
+        model =  new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTaskList());
+        expectedModel =  new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTaskList());
     }
 
     @Test

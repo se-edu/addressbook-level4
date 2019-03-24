@@ -75,12 +75,6 @@ public class AddressBookParser {
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
-        case AddPurchaseCommand.COMMAND_WORD:
-            return new AddPurchaseCommandParser().parse(arguments);
-
-            case ExpListCommand.COMMAND_WORD:
-                return new ExpListCommand();
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
 

@@ -21,7 +21,6 @@ import systemtests.ModelHelper;
 
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -96,8 +95,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList());
+        Model copy = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTaskList());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }
