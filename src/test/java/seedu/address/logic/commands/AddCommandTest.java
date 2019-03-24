@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.*;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import seedu.address.model.purchase.Purchase;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -239,6 +240,55 @@ public class AddCommandTest {
         public void setTask(Task target, Task editedTask) {
 
         }
+
+
+        @Override
+        public void addPurchase(Purchase purchase) {
+
+        }
+
+        @Override
+        public void setExpenditureList(ReadOnlyExpenditureList newData) {
+
+        }
+
+        @Override
+        public ReadOnlyExpenditureList getExpenditureList() {
+            return null;
+        }
+
+
+        @Override
+        public ObservableList<Purchase> getFilteredPurchaseList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+
+        }
+
+        @Override
+        public void commitExpenditureList() {
+
+        }
+
+        @Override
+        public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
+            return null;
+        }
+
+        @Override
+        public void setSelectedPurchase(Purchase purchase) {
+
+        }
+
+
+        @Override
+        public Purchase getSelectedPurchase() {
+            return null;
+        }
+
     }
 
     /**

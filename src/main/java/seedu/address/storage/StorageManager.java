@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -21,14 +22,17 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private TaskListStorage taskListStorage;
+    private ExpenditureListStorage expenditureListStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, TaskListStorage taskListStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage) {
         super();
 
         this.taskListStorage = taskListStorage;
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.expenditureListStorage = expenditureListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -104,6 +108,33 @@ public class StorageManager implements Storage {
         taskListStorage.saveTaskList(taskList, filePath);
     }
 
+// ================ Expenditure List methods ==============================
 
+    @Override
+    public Path getExpenditureListFilePath() {
+        return expenditureListStorage.getExpenditureListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyExpenditureList> readExpenditureList() throws DataConversionException, IOException {
+        return readExpenditureList(expenditureListStorage.getExpenditureListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyExpenditureList> readExpenditureList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return expenditureListStorage.readExpenditureList(filePath);
+    }
+
+    @Override
+    public void saveExpenditureList(ReadOnlyExpenditureList expenditureList) throws IOException {
+        saveExpenditureList(expenditureList, expenditureListStorage.getExpenditureListFilePath());
+    }
+
+    @Override
+    public void saveExpenditureList(ReadOnlyExpenditureList expenditureList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        expenditureListStorage.saveExpenditureList(expenditureList, filePath);
+    }
 
 }

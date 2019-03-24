@@ -64,6 +64,14 @@
             <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
+          <VBox fx:id="purchaseList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Expenditure List" textAlignment="CENTER" textOrigin="TOP"  />
+            <StackPane fx:id="purchaseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />

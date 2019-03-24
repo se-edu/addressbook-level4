@@ -17,6 +17,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.DeadlineDate;
 import seedu.address.model.task.DeadlineTime;
 import seedu.address.model.task.TaskName;
+import seedu.address.model.purchase.PurchaseName;
+import seedu.address.model.purchase.Price;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -141,4 +143,31 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    public static PurchaseName parsePurchaseName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedPurchaseName = name.trim();
+        if (!PurchaseName.isValidName(trimmedPurchaseName)) {
+            throw new ParseException(PurchaseName.MESSAGE_CONSTRAINTS);
+        }
+        return new PurchaseName(trimmedPurchaseName);
+    }
+
+
+    /**
+     * Parses a {@code String price} into a {@code Price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
+
+
 }
