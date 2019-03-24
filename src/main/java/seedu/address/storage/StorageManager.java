@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -21,14 +22,16 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private TaskListStorage taskListStorage;
+    private WorkoutBookStorage workoutBookStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, TaskListStorage taskListStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, TaskListStorage taskListStorage, WorkoutBookStorage workoutBookStorage) {
         super();
 
         this.taskListStorage = taskListStorage;
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.workoutBookStorage = workoutBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -92,7 +95,6 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to read data from file: " + filePath);
         return taskListStorage.readTaskList(filePath);
     }
-
     @Override
     public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
         saveTaskList(taskList, taskListStorage.getTaskListFilePath());
@@ -105,5 +107,28 @@ public class StorageManager implements Storage {
     }
 
 
+    // =================WorkoutBook methods =====================================
+    @Override
+    public Path getWorkoutBookFilePath() { return workoutBookStorage.getWorkoutBookFilePath();}
+
+    @Override
+    public Optional<ReadOnlyWorkoutBook> readWorkoutBook() throws DataConversionException, IOException{
+        return readWorkoutBook(workoutBookStorage.getWorkoutBookFilePath());
+    }
+    @Override
+    public Optional<ReadOnlyWorkoutBook> readWorkoutBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return workoutBookStorage.readWorkoutBook(filePath);
+
+    }
+    @Override
+    public void saveWorkoutBook(ReadOnlyWorkoutBook workoutList) throws IOException {
+        saveWorkoutBook(workoutList, workoutBookStorage.getWorkoutBookFilePath());
+    }
+    @Override
+    public void saveWorkoutBook(ReadOnlyWorkoutBook workoutList, Path filePath) throws IOException{
+        logger.fine("Attempting to write to data file: " + filePath);
+        workoutBookStorage.saveWorkoutBook(workoutList, filePath);
+    }
 
 }
