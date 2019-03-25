@@ -42,10 +42,10 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    //public WorkoutBook(ReadOnlyWorkoutBook toBeCopied) {
-      //  this();
-        //resetData(toBeCopied);
-   // }
+    public WorkoutBook(ReadOnlyWorkoutBook toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
 
     //// list overwrite operations
 
@@ -53,19 +53,20 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-   // public void setWorkouts(List<Workout> workouts) {
-     //   this.workouts.setWorkouts(workouts);
-       // indicateModified();
-    //}
+    public void setWorkouts(List<Workout> workouts) {
+        this.workouts.setWorkout(workouts);
+        indicateModified();
+    }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    //public void resetData(ReadOnlyWorkoutBook newData) {
-      //  requireNonNull(newData);
+    public void resetData(ReadOnlyWorkoutBook newData){
+            requireNonNull(newData);
 
-        //setWorkouts(newData.getWorkoutList());
-    //}
+            setWorkouts(newData.getWorkoutList());
+        }
+
 
     //// person-level operations
 

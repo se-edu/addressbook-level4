@@ -72,6 +72,7 @@ public interface Model {
 
     void addTask(Task task);
 
+
     void commitTaskList();
     /**
      * Adds the given person.
@@ -197,4 +198,25 @@ public interface Model {
      * Sets the selected purchase in the filtered purchase list.
      */
     void setSelectedPurchase(Purchase purchase);
+
+
+    void addWorkout(Workout workout);
+
+    void commitWorkoutBook();
+
+    void setSelectedWorkout(Workout workout);
+
+    ReadOnlyProperty<Workout> selectedWorkoutProperty();
+
+    ObservableList<Workout> getFilteredWorkoutList();
+
+    ReadOnlyWorkoutBook getWorkoutList();
+
+    void updateFilteredWorkoutList(Predicate<Workout> predicate);
+
+    void setWorkoutBook(ReadOnlyWorkoutBook workoutBook);
+
+
+
+
 }

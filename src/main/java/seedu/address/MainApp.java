@@ -138,7 +138,7 @@ public class MainApp extends Application {
             initialWorkout = new WorkoutBook();
         }
 
-        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases);
+        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases, initialWorkout);
     }
 
     private void initLogging(Config config) {

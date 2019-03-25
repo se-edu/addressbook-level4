@@ -42,7 +42,7 @@ public class WorkoutList implements Iterable<Workout> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-  //  public void setPerson(Person target, Person editedPerson) {
+  //  public void setWorkout(Workout target, Workout editedPerson) {
     //    requireAllNonNull(target, editedPerson);
 
       //  int index = internalList.indexOf(target);
@@ -77,14 +77,14 @@ public class WorkoutList implements Iterable<Workout> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    //public void setPersons(List<Person> persons) {
-      //  requireAllNonNull(persons);
+    public void setWorkout(List<Workout> workouts) {
+        requireAllNonNull(workouts);
         //if (!personsAreUnique(persons)) {
           //  throw new DuplicatePersonException();
         //}
 
-       // internalList.setAll(persons);
-    //}
+        internalList.setAll(workouts);
+    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

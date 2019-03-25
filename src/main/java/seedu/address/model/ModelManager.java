@@ -19,7 +19,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
+
 import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
+import seedu.address.model.workout.Workout;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
@@ -30,37 +32,44 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedExpenditureList versionedExpenditureList;
+    private final VersionedWorkoutBook versionedWorkoutBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Purchase> filteredPurchases;
+    private final FilteredList<Workout> filteredWorkout;
     private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Purchase> selectedPurchase = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Workout> selectedWorkout = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
-                        ReadOnlyExpenditureList expenditureList) {
+                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook) {
         super();
-        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList);
+        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
+        versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
+
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
+        filteredWorkout = new FilteredList<>(versionedWorkoutBook.getWorkoutList());
         filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
         filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList());
+        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -356,10 +365,55 @@ public class ModelManager implements Model {
             }
         }
     }
-
+    //=================Workout Book========================================================================
 
 
     @Override
+    public void setWorkoutBook(ReadOnlyWorkoutBook workoutBook) {
+        versionedWorkoutBook.resetData(workoutBook);
+    }
+
+    @Override
+    public ReadOnlyWorkoutBook getWorkoutList() {
+        return versionedWorkoutBook;
+    }
+
+
+    @Override
+    public void addWorkout(Workout workout) {
+        versionedWorkoutBook.addWorkout(workout);
+        // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
+    }
+
+    @Override
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        return filteredWorkout;
+    }
+
+
+    @Override
+    public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+        requireNonNull(predicate);
+        filteredWorkout.setPredicate(predicate);
+    }
+    @Override
+    public void commitWorkoutBook() {
+        versionedWorkoutBook.commit();
+    }
+    @Override
+    public void setSelectedWorkout(Workout workout){
+        selectedWorkout.setValue(workout);
+    }
+    @Override
+    public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
+        return selectedWorkout;
+    }
+
+
+
+
+
+        @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -378,5 +432,6 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
+
 
 }
