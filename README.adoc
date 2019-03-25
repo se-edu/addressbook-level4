@@ -21,8 +21,8 @@ endif::[]
 ** Managing finances
 ** Planning and recording workouts
 ** Forming good habits to improve lifestyle
+* Features: Task List, Expenditure List, Workout Book, Habit Tracker and Address Book.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-** Features: Task List, Expenditure List, Workout Book, Habit Tracker and Address Book.
 
 == Site Map
 
