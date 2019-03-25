@@ -13,7 +13,7 @@
 
 <?import javafx.scene.text.Text?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="Student HandBook" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -62,6 +62,14 @@
             </padding>
             <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Task List" textAlignment="CENTER" textOrigin="TOP"  />
             <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="purchaseList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Expenditure List" textAlignment="CENTER" textOrigin="TOP"  />
+            <StackPane fx:id="purchaseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >

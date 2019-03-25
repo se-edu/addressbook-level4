@@ -36,6 +36,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     private Optional<ReadOnlyTaskList> taskListOptional;
+    private Optional<ReadOnlyExpenditureList> expListOptional;
 
     @Override
     public void init() throws Exception {
@@ -49,7 +50,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage);
+        ExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage, expenditureListStorage);
 
         initLogging(config);
 
@@ -68,8 +70,10 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTaskList> taskListOptional;
+        Optional<ReadOnlyExpenditureList> expenditureListOptional;
         ReadOnlyAddressBook initialData;
         ReadOnlyTaskList initialTasks;
+        ReadOnlyExpenditureList initialPurchases;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -102,8 +106,23 @@ public class MainApp extends Application {
         }
 
 
+        try {
+            expenditureListOptional = storage.readExpenditureList();
+            if (!expenditureListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ExpenditureList");
+            }
+            initialPurchases = expenditureListOptional.orElseGet(SampleDataUtil::getSampleExpenditureList);
 
-        return new ModelManager(initialData, userPrefs, initialTasks);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ExpenditureList");
+            initialPurchases = new ExpenditureList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ExpenditureList");
+            initialPurchases = new ExpenditureList();
+        }
+
+
+        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases);
     }
 
     private void initLogging(Config config) {
