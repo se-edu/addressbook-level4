@@ -65,11 +65,21 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
         if (taskListModified){
-
+            logger.info("Task list modified, saving to file.");
+            try {
+                storage.saveTaskList(model.getTaskList());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         if (expenditureListModified) {
-
+            logger.info("Expenditure list modified, saving to file.");
+            try {
+                storage.saveExpenditureList(model.getExpenditureList());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         if (addressBookModified) {
