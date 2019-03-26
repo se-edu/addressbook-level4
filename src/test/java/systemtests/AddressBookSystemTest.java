@@ -50,6 +50,7 @@ public abstract class AddressBookSystemTest {
     public static ClockRule clockRule = new ClockRule();
 
     private static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
+    private static final Path PREF_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
@@ -67,7 +68,8 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation(),
+                getPrefFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -91,6 +93,10 @@ public abstract class AddressBookSystemTest {
      */
     protected Path getDataFileLocation() {
         return SAVE_LOCATION_FOR_TESTING;
+    }
+
+    protected Path getPrefFileLocation() {
+        return PREF_LOCATION_FOR_TESTING;
     }
 
     public MainWindowHandle getMainWindowHandle() {
