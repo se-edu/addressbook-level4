@@ -28,9 +28,6 @@ public class TestApp extends MainApp {
     private Path saveFileLocation;
     private Path configFileLocation;
 
-    public TestApp() {
-    }
-
     public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation, Path configFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
