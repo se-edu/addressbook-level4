@@ -272,10 +272,10 @@ Example:
 `deletepurchase 2` +
 Deletes the 2nd purchase in the expenditure list.
 
-==== Clearing expenditure list: `clearexp` [coming soon]
+==== Clearing expenditure list: `clearexplist`
 
 Clears all past purchases recorded from the expenditure list. +
-Format: `clearexp`
+Format: `clearexplist`
 
 
 ==== Calculating total expenditure for the day: `totalexpday` [coming soon]
@@ -466,6 +466,7 @@ e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
 * *Add Purchase* : `addpurchase n/NAME pr/PRICE [t/TAG]...` +
 e.g. `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
 * *View Purchases*: `explist`
+* *Clear Expenditure List*: `clearexplist`
 * *View Workout* : `workout`
 * *Record Workout* : `record e/EXERCISE s/SETS r/REPS t/TIME` +
 e.g. `record e/SIT UPS s/5 r/20 t/10`
