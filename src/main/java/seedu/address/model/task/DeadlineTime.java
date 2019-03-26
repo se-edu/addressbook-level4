@@ -41,16 +41,16 @@ public class DeadlineTime {
         return value;
     }
 
-//    @Override
-//    public boolean equals(Object other) {
-//        return other == this // short circuit if same object
-//                || (other instanceof TaskName // instanceof handles nulls
-//                && fullName.equals(((TaskName) other).fullName)); // state check
-//    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeadlineTime // instanceof handles nulls
+                && value.equals(((DeadlineTime) other).value)); // state check
+    }
 
-//    @Override
-//    public int hashCode() {
-//        return fullName.hashCode();
-//    }
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 
 }

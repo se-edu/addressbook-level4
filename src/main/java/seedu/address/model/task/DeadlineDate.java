@@ -21,4 +21,15 @@ public class DeadlineDate {
         return value;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeadlineDate // instanceof handles nulls
+                && value.equals(((DeadlineDate) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

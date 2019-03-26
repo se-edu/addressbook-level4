@@ -121,6 +121,7 @@ public class ModelManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
+
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
@@ -136,6 +137,12 @@ public class ModelManager implements Model {
     public void addTask(Task task){
         versionedTaskList.addTask(task);
 //        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasTask(Task task){
+        requireNonNull(task);
+        return versionedTaskList.hasTask(task);
     }
 
     @Override
