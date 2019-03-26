@@ -15,7 +15,7 @@ import seedu.address.model.purchase.Purchase;
  */
 public class PurchaseCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PurchaseListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
