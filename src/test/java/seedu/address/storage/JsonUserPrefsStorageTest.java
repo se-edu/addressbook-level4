@@ -50,12 +50,6 @@ public class JsonUserPrefsStorageTest {
         assertThrows(DataConversionException.class, () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
     }
 
-    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
-        return userPrefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
-                : null;
-    }
-
     @Test
     public void readUserPrefs_fileInOrder_successfullyRead() throws DataConversionException {
         UserPrefs expected = getTypicalUserPrefs();
