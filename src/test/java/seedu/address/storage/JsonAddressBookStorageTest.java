@@ -41,12 +41,6 @@ public class JsonAddressBookStorageTest {
         return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(testFolder.resolve(filePath));
     }
 
-    private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
-        return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
-    }
-
     @Test
     public void read_missingFile_emptyResult() throws Exception {
         assertFalse(readAddressBook("NonExistentFile.json").isPresent());
