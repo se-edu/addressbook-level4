@@ -19,11 +19,11 @@ public class JsonUtilTest {
     @TempDir
     public static Path tempDir;
 
-    private static Path SERIALIZATION_FILE;
+    private static Path serializationFile;
 
     @BeforeAll
     public static void setUp() {
-        SERIALIZATION_FILE = tempDir.resolve("serialize.json");
+        serializationFile = tempDir.resolve("serialize.json");
     }
 
     @Test
@@ -31,17 +31,17 @@ public class JsonUtilTest {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 
-        JsonUtil.serializeObjectToJsonFile(SERIALIZATION_FILE, serializableTestClass);
+        JsonUtil.serializeObjectToJsonFile(serializationFile, serializableTestClass);
 
-        assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.JSON_STRING_REPRESENTATION);
+        assertEquals(FileUtil.readFromFile(serializationFile), SerializableTestClass.JSON_STRING_REPRESENTATION);
     }
 
     @Test
     public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
-        FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
+        FileUtil.writeToFile(serializationFile, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = JsonUtil
-                .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
+                .deserializeObjectFromJsonFile(serializationFile, SerializableTestClass.class);
 
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());
