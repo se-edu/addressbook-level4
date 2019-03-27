@@ -5,17 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
 
 /**
  * Tests JSON Read and Write
  */
 public class JsonUtilTest {
 
-    private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.json");
+    @TempDir
+    public static Path tempDir;
+
+    private static Path SERIALIZATION_FILE;
+
+    @BeforeAll
+    public static void setUp() {
+        SERIALIZATION_FILE = tempDir.resolve("serialize.json");
+    }
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
