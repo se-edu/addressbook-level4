@@ -113,11 +113,5 @@ public class ConfigUtilTest {
         ConfigUtil.saveConfig(config, configFilePath);
     }
 
-    private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
-        return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
-    }
-
 
 }
