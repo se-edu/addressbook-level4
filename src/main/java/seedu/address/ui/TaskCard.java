@@ -35,7 +35,7 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-        logger.info("TASK NAME IS " + task.getDeadlineDate());
+//        logger.info("TASK NAME IS " + task.getDeadlineDate());
         name.setText(task.getTaskName().fullName);
         date.setText(task.getDeadlineDate().value);
         time.setText(task.getDeadlineTime().value + "HRS");

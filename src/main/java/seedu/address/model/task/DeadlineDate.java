@@ -1,21 +1,32 @@
 package seedu.address.model.task;
-
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.model.ModelManager.isValidDate;
 
 public class DeadlineDate {
-    public static final String MESSAGE_CONSTRAINTS =  "Date should only be in integers and should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =  "Date should only contain 6 integers in the ddMMyy format";
     public final String value;
+    public static final String VALIDATION_REGEX = "\\d{6}";
     /**
-     * Constructs a {@code Name}.
-     *
-     * @para time a valid time.
+     * Constructs a {@code DeadlineDate}.
+     * @param deadlineDate a valid date
      */
     public DeadlineDate(String deadlineDate) {
         requireNonNull(deadlineDate);
-        // checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-//        fullName = name;
+        checkArgument(isValidDeadlineDate(deadlineDate), MESSAGE_CONSTRAINTS);
         value = deadlineDate;
     }
+
+    /**
+     *
+     * @param deadlineDate a valid deadlineDate
+     * @return Returns true if a given string is a valid time
+     */
+    public static boolean isValidDeadlineDate(String deadlineDate) {
+        return deadlineDate.matches(VALIDATION_REGEX) && isValidDate(deadlineDate);
+    }
+
+
     @Override
     public String toString() {
         return value;

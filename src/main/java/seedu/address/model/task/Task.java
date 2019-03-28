@@ -44,8 +44,8 @@ public class Task {
         }
 
         return otherTask!= null
-                && otherTask.getTaskName().equals(getTaskName())
-                || (otherTask.getDeadlineDate().equals(getDeadlineDate()) || otherTask.getDeadlineTime().equals(getDeadlineTime()));
+                && otherTask.getTaskName().equals(getTaskName());
+//                || (otherTask.getDeadlineDate().equals(getDeadlineDate()) || otherTask.getDeadlineTime().equals(getDeadlineTime()));
     }
 
     @Override

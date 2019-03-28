@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -20,6 +24,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
+import seedu.address.model.task.exceptions.invalidDateException;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
@@ -57,6 +62,7 @@ public class ModelManager implements Model {
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
         filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
         filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
+
     }
 
     public ModelManager() {
@@ -134,13 +140,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addTask(Task task){
+    public void addTask(Task task) {
         versionedTaskList.addTask(task);
 //        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public boolean hasTask(Task task){
+    public boolean hasTask(Task task) {
         requireNonNull(task);
         return versionedTaskList.hasTask(task);
     }
@@ -153,7 +159,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTask(Task target, Task editedTask){
+    public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
         versionedTaskList.setTask(target, editedTask);
@@ -176,7 +182,7 @@ public class ModelManager implements Model {
     @Override
     public void addPurchase(Purchase purchase) {
         versionedExpenditureList.addPurchase(purchase);
-       // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
+        // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
     }
 
     @Override
@@ -204,7 +210,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Task> getFilteredTaskList(){
+    public ObservableList<Task> getFilteredTaskList() {
         return filteredTasks;
     }
 
@@ -215,13 +221,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Predicate<Task> predicate){
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
 
     @Override
-    public void commitExpenditureList(){
+    public void commitExpenditureList() {
         versionedExpenditureList.commit();
     }
 
@@ -271,7 +277,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitTaskList(){
+    public void commitTaskList() {
         versionedTaskList.commit();
     }
 
@@ -283,7 +289,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyProperty<Task> selectedTaskProperty(){
+    public ReadOnlyProperty<Task> selectedTaskProperty() {
         return selectedTask;
     }
 
@@ -301,7 +307,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setSelectedTask(Task task){
+    public void setSelectedTask(Task task) {
         selectedTask.setValue(task);
     }
 
@@ -365,7 +371,6 @@ public class ModelManager implements Model {
     }
 
 
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -385,5 +390,32 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
+//    ==========================================================
+
+    public static boolean isValidTime(String string) {
+        return isWithinRange(string, 0, 2, 0, 24) &&
+                isWithinRange(string, 2, 4, 0, 60);
+    }
+
+    public static boolean isWithinRange(String string, Integer start, Integer end, Integer min, Integer max) {
+        Integer value = Integer.parseInt(string.substring(start, end));
+        return isInRange(value, min, max);
+    }
+
+    public static boolean isInRange(Integer value, Integer min, Integer max) {
+        return (value >= max || value < min) ? false : true;
+    }
+
+    public static boolean isValidDate(String date) {
+        DateFormat format = new SimpleDateFormat("ddMMyy");
+        format.setLenient(false);
+        try {
+            format.parse(date);
+            return true;
+        } catch (ParseException e) {
+            throw new invalidDateException();
+        }
+    }
+
 
 }
