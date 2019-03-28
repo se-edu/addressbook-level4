@@ -24,7 +24,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
-import seedu.address.model.task.exceptions.invalidDateException;
+import seedu.address.model.task.exceptions.InvalidDateException;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
@@ -391,30 +391,27 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 //    ==========================================================
-
-    public static boolean isValidTime(String string) {
-        return isWithinRange(string, 0, 2, 0, 24) &&
-                isWithinRange(string, 2, 4, 0, 60);
+    public static boolean isValidTime(String string){
+        DateFormat format = new SimpleDateFormat("HHmm");
+        format.setLenient(false);
+        try{
+            format.parse(string);
+        } catch (ParseException e){
+            return false;
+        }
+        return true;
     }
 
-    public static boolean isWithinRange(String string, Integer start, Integer end, Integer min, Integer max) {
-        Integer value = Integer.parseInt(string.substring(start, end));
-        return isInRange(value, min, max);
-    }
-
-    public static boolean isInRange(Integer value, Integer min, Integer max) {
-        return (value >= max || value < min) ? false : true;
-    }
 
     public static boolean isValidDate(String date) {
         DateFormat format = new SimpleDateFormat("ddMMyy");
         format.setLenient(false);
         try {
             format.parse(date);
-            return true;
         } catch (ParseException e) {
-            throw new invalidDateException();
+            return false;
         }
+        return true;
     }
 
 

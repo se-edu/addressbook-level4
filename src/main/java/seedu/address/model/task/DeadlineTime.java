@@ -7,6 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.model.ModelManager.isValidTime;
 
 
+
 public class DeadlineTime {
 
     public static final String MESSAGE_CONSTRAINTS =  "Deadline Time should contain 4 Integers and be in the 24HRS format";
