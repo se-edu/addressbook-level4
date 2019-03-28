@@ -489,10 +489,10 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
 
-**Problem: GUI Tests fails on macOS Mojave, and keyboard and mouse movements are not being simulated.**
+**Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.**
 
-* Reason: From macOS Mojave onwards, applications without `Accessibility` permission cannot simulate keyboard and mouse movements.
-* Solution: Open `System Settings`, click `Settings and Privacy` -> `Privacy` -> `Accessibility`, and grant `Accessibility` permission to `Intellij IDEA`.
+* Reason: From macOS Mojave onwards, applications without `Accessibility` permission cannot simulate certain keyboard and mouse movements.
+* Solution: Open `System Preferences`, click `Security and Privacy` -> `Privacy` -> `Accessibility`, and check the box beside `Intellij IDEA`.
 
 .`Accessibility` permission is granted to `IntelliJ IDEA`
 image::testfx-idea-accessibility-permissions.png[width="600"]
