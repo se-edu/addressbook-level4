@@ -19,6 +19,11 @@ import seedu.address.model.task.DeadlineTime;
 import seedu.address.model.task.TaskName;
 import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.purchase.Price;
+import seedu.address.model.workout.Exercise;
+import seedu.address.model.workout.Sets;
+import seedu.address.model.workout.Reps;
+import seedu.address.model.workout.Time;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -168,6 +173,37 @@ public class ParserUtil {
         }
         return new Price(trimmedPrice);
     }
-
+    public static Exercise parseExercise(String exercise) throws ParseException {
+        requireNonNull(exercise);
+        String trimmedExercise = exercise.trim();
+        if (!Exercise.isValidExercise(trimmedExercise)) {
+            throw new ParseException(Exercise.MESSAGE_CONSTRAINTS);
+        }
+        return new Exercise(trimmedExercise);
+    }
+    public static Sets parseSets(String sets) throws ParseException {
+        requireNonNull(sets);
+        String trimmedSets = sets.trim();
+        if (!Sets.isValidSets(trimmedSets)) {
+            throw new ParseException(Sets.MESSAGE_CONSTRAINTS);
+        }
+        return new Sets(trimmedSets);
+    }
+    public static Reps parseReps(String reps) throws ParseException {
+        requireNonNull(reps);
+        String trimmedReps = reps.trim();
+        if (!Reps.isValidReps(trimmedReps)) {
+            throw new ParseException(Reps.MESSAGE_CONSTRAINTS);
+        }
+        return new Reps(trimmedReps);
+    }
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
+    }
 
 }

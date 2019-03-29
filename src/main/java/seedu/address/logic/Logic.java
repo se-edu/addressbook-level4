@@ -11,9 +11,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.workout.Workout;
 
 /**
  * API of the Logic component
@@ -41,6 +43,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    ObservableList<Workout> getFilteredWorkoutList();
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.
@@ -107,4 +110,15 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPurchase(Purchase)
      */
     void setSelectedPurchase(Purchase purchase);
+
+    ReadOnlyProperty<Workout> selectedWorkoutProperty();
+
+    void setSelectedWorkout(Workout workout);
+
+    ReadOnlyWorkoutBook getWorkoutList();
+
+
+
+
+
 }

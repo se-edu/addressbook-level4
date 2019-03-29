@@ -15,4 +15,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_DEADLINE_DATE = new Prefix("d/");
     public static final Prefix PREFIX_DEADLINE_TIME = new Prefix("h/");
     public static final Prefix PREFIX_PRICE = new Prefix("pr/");
+    public static final Prefix PREFIX_EXERCISE = new Prefix("e/");
+    public static final Prefix PREFIX_SETS = new Prefix("s/");
+    public static final Prefix PREFIX_REPS = new Prefix("r/");
+    public static final Prefix PREFIX_TIME = new Prefix("t/");
 }

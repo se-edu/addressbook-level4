@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path taskListFilePath = Paths.get("data", "tasklist.json");
     private Path expenditureListFilePath = Paths.get("data" , "expenditurelist.json");
+    private Path workoutBookFilePath = Paths.get("data" , "workoutbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -40,6 +41,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setTaskListFilePath(newUserPrefs.getTaskListFilePath());
         setExpenditureListFilePath(newUserPrefs.getExpenditureListFilePath());
+        setWorkoutBookFilePath(newUserPrefs.getWorkoutBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -78,6 +80,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.expenditureListFilePath = expenditureListFilePath;
     }
 
+    public Path getWorkoutBookFilePath() { return workoutBookFilePath;}
+
+    public void setWorkoutBookFilePath (Path workoutBookFilePath) {
+        requireNonNull(workoutBookFilePath);
+        this.workoutBookFilePath = workoutBookFilePath;
+        }
 
     @Override
     public boolean equals(Object other) {
