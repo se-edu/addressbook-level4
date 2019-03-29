@@ -44,10 +44,10 @@ public class Task {
         }
 
         return otherTask!= null
-                && otherTask.getTaskName().equals(getTaskName())
-                && (otherTask.getDeadlineDate().equals(getDeadlineDate())
-                || otherTask.getDeadlineTime().equals(getDeadlineTime()));
+                && otherTask.getTaskName().equals(getTaskName());
+//                || (otherTask.getDeadlineDate().equals(getDeadlineDate()) || otherTask.getDeadlineTime().equals(getDeadlineTime()));
     }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -61,7 +61,8 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getTaskName().equals(getTaskName())
                 && otherTask.getDeadlineTime().equals(getDeadlineTime())
-                && otherTask.getDeadlineDate().equals(getDeadlineDate());
+                && otherTask.getDeadlineDate().equals(getDeadlineDate())
+                && otherTask.getTags().equals(getTags());
     }
     @Override
     public int hashCode() {

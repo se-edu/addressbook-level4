@@ -69,7 +69,7 @@ public class UniqueTaskList implements Iterable<Task>{
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
         if (!tasksAreUnique(tasks)) {
-            logger.info("FUCKING DUPLICATE BITCH");
+//            logger.info("FUCKING DUPLICATE BITCH");
             throw new DuplicateTaskException();
         }
         internalList.setAll(tasks);

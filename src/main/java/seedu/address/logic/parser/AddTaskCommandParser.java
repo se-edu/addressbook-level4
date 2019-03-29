@@ -24,14 +24,14 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand>{
      * Parses the given {@code String} of arguments in the context of adding something
      * and returns an ADdTaskCommand object for execution
      */
-     private final Logger logger = LogsCenter.getLogger(getClass());
+
     public AddTaskCommand parse(String args) throws ParseException{
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE_DATE, PREFIX_DEADLINE_TIME, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DEADLINE_DATE, PREFIX_DEADLINE_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
 
         TaskName taskName = ParserUtil.parseTaskName(argMultimap.getValue(PREFIX_NAME).get());

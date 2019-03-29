@@ -61,11 +61,17 @@ public class ParserUtil {
     }
     public static TaskName parseTaskName(String name) throws ParseException {
         requireNonNull(name);
+        if (!TaskName.isValidName(name)){
+            throw new ParseException(TaskName.MESSAGE_CONSTRAINTS);
+        }
         return new TaskName(name);
     }
 
     public static DeadlineDate parseDeadlineDate(String date) throws ParseException{
         requireNonNull(date);
+        if (!DeadlineDate.isValidDeadlineDate(date)){
+            throw new ParseException(DeadlineDate.MESSAGE_CONSTRAINTS);
+        }
       //  Integer newDate = Integer.parseInt(date);
         //need to add in commands to check valid deadline date if it is before this date or something
         return new DeadlineDate(date);
@@ -74,6 +80,9 @@ public class ParserUtil {
     public static DeadlineTime parseDeadlineTime(String time) throws ParseException{
         requireNonNull(time);
        // Integer newTime = Integer.parseInt(time);
+        if (!DeadlineTime.isValidDeadlineTime(time)){
+            throw new ParseException((DeadlineTime.MESSAGE_CONSTRAINTS));
+        }
         return new DeadlineTime(time);
     }
 

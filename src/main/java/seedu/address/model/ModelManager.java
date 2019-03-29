@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -19,8 +23,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
-
 import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
+import seedu.address.model.task.exceptions.InvalidDateException;
 import seedu.address.model.workout.Workout;
 import sun.java2d.pipe.SpanShapeRenderer;
 
@@ -59,7 +63,6 @@ public class ModelManager implements Model {
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
 
         this.userPrefs = new UserPrefs(userPrefs);
-
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
@@ -142,9 +145,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addTask(Task task){
+    public void addTask(Task task) {
         versionedTaskList.addTask(task);
 //        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedTaskList.hasTask(task);
     }
 
     @Override
@@ -155,7 +164,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTask(Task target, Task editedTask){
+    public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
         versionedTaskList.setTask(target, editedTask);
@@ -273,7 +282,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitTaskList(){
+    public void commitTaskList() {
         versionedTaskList.commit();
     }
 
@@ -285,7 +294,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyProperty<Task> selectedTaskProperty(){
+    public ReadOnlyProperty<Task> selectedTaskProperty() {
         return selectedTask;
     }
 
@@ -303,7 +312,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setSelectedTask(Task task){
+    public void setSelectedTask(Task task) {
         selectedTask.setValue(task);
     }
 
@@ -413,7 +422,7 @@ public class ModelManager implements Model {
 
 
 
-        @Override
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -431,6 +440,29 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+    }
+//    ==========================================================
+    public static boolean isValidTime(String string){
+        DateFormat format = new SimpleDateFormat("HHmm");
+        format.setLenient(false);
+        try{
+            format.parse(string);
+        } catch (ParseException e){
+            return false;
+        }
+        return true;
+    }
+
+
+    public static boolean isValidDate(String date) {
+        DateFormat format = new SimpleDateFormat("ddMMyy");
+        format.setLenient(false);
+        try {
+            format.parse(date);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
 

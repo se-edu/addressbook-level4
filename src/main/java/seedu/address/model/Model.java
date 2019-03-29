@@ -72,6 +72,7 @@ public interface Model {
 
     void addTask(Task task);
 
+    boolean hasTask(Task task);
 
     void commitTaskList();
     /**
