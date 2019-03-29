@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 
 import seedu.address.logic.CommandHistory;
@@ -14,8 +15,19 @@ import seedu.address.model.task.Task;
 public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addTask";
 
-    public static final String MESSAGE_SUCCESS = "New task added: ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list."
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_DEADLINE_DATE + "DEADLINE_DATE"
+            + PREFIX_DEADLINE_TIME + "DEADLINE_TIME"
+            + '[' + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "CS2113T MILESTONE V5 "
+            + PREFIX_DEADLINE_DATE + "290319 "
+            + PREFIX_DEADLINE_TIME + "2359 "
+            + PREFIX_TAG + "HIGH";
 
+    public static final String MESSAGE_SUCCESS = "New task added: ";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
     private final Task newTask;
@@ -35,9 +47,9 @@ public class AddTaskCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-//        if (model.hasPerson(toAdd)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-//        }
+        if (model.hasTask(newTask)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
         model.addTask(newTask);
         model.commitTaskList();
         model.commitAddressBook();

@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -20,6 +24,8 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
+import seedu.address.model.task.exceptions.InvalidDateException;
+import seedu.address.model.workout.Workout;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 /**
@@ -30,37 +36,43 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedExpenditureList versionedExpenditureList;
+    private final VersionedWorkoutBook versionedWorkoutBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Purchase> filteredPurchases;
+    private final FilteredList<Workout> filteredWorkout;
     private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Purchase> selectedPurchase = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Workout> selectedWorkout = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
-                        ReadOnlyExpenditureList expenditureList) {
+                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook) {
         super();
-        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList);
+        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
+        versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
+
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
+        filteredWorkout = new FilteredList<>(versionedWorkoutBook.getWorkoutList());
         filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
         filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList());
+        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -133,9 +145,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addTask(Task task){
+    public void addTask(Task task) {
         versionedTaskList.addTask(task);
 //        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedTaskList.hasTask(task);
     }
 
     @Override
@@ -146,7 +164,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTask(Task target, Task editedTask){
+    public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
         versionedTaskList.setTask(target, editedTask);
@@ -264,7 +282,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitTaskList(){
+    public void commitTaskList() {
         versionedTaskList.commit();
     }
 
@@ -276,7 +294,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyProperty<Task> selectedTaskProperty(){
+    public ReadOnlyProperty<Task> selectedTaskProperty() {
         return selectedTask;
     }
 
@@ -294,7 +312,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setSelectedTask(Task task){
+    public void setSelectedTask(Task task) {
         selectedTask.setValue(task);
     }
 
@@ -356,6 +374,51 @@ public class ModelManager implements Model {
             }
         }
     }
+    //=================Workout Book========================================================================
+
+
+    @Override
+    public void setWorkoutBook(ReadOnlyWorkoutBook workoutBook) {
+        versionedWorkoutBook.resetData(workoutBook);
+    }
+
+    @Override
+    public ReadOnlyWorkoutBook getWorkoutList() {
+        return versionedWorkoutBook;
+    }
+
+
+    @Override
+    public void addWorkout(Workout workout) {
+        versionedWorkoutBook.addWorkout(workout);
+        // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
+    }
+
+    @Override
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        return filteredWorkout;
+    }
+
+
+    @Override
+    public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+        requireNonNull(predicate);
+        filteredWorkout.setPredicate(predicate);
+    }
+    @Override
+    public void commitWorkoutBook() {
+        versionedWorkoutBook.commit();
+    }
+    @Override
+    public void setSelectedWorkout(Workout workout){
+        selectedWorkout.setValue(workout);
+    }
+    @Override
+    public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
+        return selectedWorkout;
+    }
+
+
 
 
 
@@ -378,5 +441,29 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
+//    ==========================================================
+    public static boolean isValidTime(String string){
+        DateFormat format = new SimpleDateFormat("HHmm");
+        format.setLenient(false);
+        try{
+            format.parse(string);
+        } catch (ParseException e){
+            return false;
+        }
+        return true;
+    }
+
+
+    public static boolean isValidDate(String date) {
+        DateFormat format = new SimpleDateFormat("ddMMyy");
+        format.setLenient(false);
+        try {
+            format.parse(date);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+
 
 }
