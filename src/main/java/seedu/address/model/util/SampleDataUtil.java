@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.TaskList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -19,6 +20,8 @@ import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.purchase.Price;
+import seedu.address.model.WorkoutBook;
+import seedu.address.model.ReadOnlyWorkoutBook;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -90,5 +93,10 @@ public class SampleDataUtil {
         ExpenditureList expenditureList = new ExpenditureList();
         //TODO
         return expenditureList;
+    }
+    public static ReadOnlyWorkoutBook getSampleWorkoutBook() {
+        WorkoutBook workoutBook = new WorkoutBook();
+        //TODO
+        return workoutBook;
     }
 }

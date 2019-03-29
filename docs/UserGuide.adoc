@@ -49,6 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+
+
 [[Features]]
 == Features
 
@@ -62,20 +64,111 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g n/NAME [d/DEADLINE_DATE] can be used as n/CS2113 User Guide d/030919 or as n/CS2113 User Guide.
 ====
 
+=== Address Book
+Manage all your contacts easily in this ultimate address book! +
 
-== Viewing help : `help`
+==== Adding a person : `add`
 
-Format: `help`
+Adds a person to the address book +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
-====
-Help is also shown if you enter an incorrect command e.g. `abcd`
-====
+A person can have any number of tags (including 0)
 
-== Daily Task List
-A feature to help you record your tasks at hand with the deadlines, so that you can be task focused and also not leave them undone! +
+Examples:
 
-=== Adding a Task : `addTask`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+
+==== Listing all persons : `list`
+
+Shows a list of all persons in the address book. +
+Format: `list`
+
+==== Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== Locating persons by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+==== Deleting a person : `delete`
+
+Deletes the specified person from the address book. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== Selecting a person : `select`
+
+Selects the person identified by the index number used in the displayed person list. +
+Format: `select INDEX`
+
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd person in the address book.
+* `find Betsy` +
+`select 1` +
+Selects the 1st person in the results of the `find` command.
+
+=== Daily Task List
+A feature to help you record your tasks at hand with the deadlines, say no more to procrastination! +
+
+==== Adding a Task : `addTask`
 
 Adds a task to the daily list. +
 Format: `addTask n/TAK d/DEADLINE_DATE h/DEADLINE_TIME`
@@ -94,7 +187,7 @@ Examples:
 * `addTask n/Complete CS2113T Assignment d/180319 h/2359`
 * `addTask n/Submit Exchange Application d/200319 h/0800`
 
-=== Delete Task : `deleteTask` [coming soon]
+==== Delete Task : `deleteTask` [coming soon]
 
 Deletes the specified item off the Task List. Irreversible. +
 Format: `deleteTask INDEX`
@@ -111,7 +204,7 @@ Examples:
 * `deleteTask 5` +
 Deletes the task at INDEX 5
 
-=== Edit Task : `editTask` [coming soon]
+==== Edit Task : `editTask` [coming soon]
 
 Edits an existing specified task on the Task List. Irreversible +
 Format: `editTask 1 [n/Jerome] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
@@ -134,15 +227,15 @@ Change the task name of the task specified at INDEX 2 to Banana.
 * `editTask 2 d/300219` +
 Change the deadline date of the task specified at INDEX 2 to 300219.
 
-=== Clear Task : `clearTask` [coming soon]
+==== Clear Task : `clearTask` [coming soon]
 
 Clears off all the tasks from the Task List. +
 Format: `clearTask`
 
-== Expenditure List
+=== Expenditure List
 A list to help you keep track of all your expenses so that you can better manage your finances! +
 
-=== Adding a purchase: `addpurchase`
+==== Adding a purchase: `addpurchase`
 
 Adds a new purchase to the expenditure list +
 Format: `addpurchase n/NAME pr/PRICE [t/TAG]...`
@@ -157,12 +250,12 @@ Examples:
 * `addpurchase n/Ice cream pr/1.50`
 * `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
 
-=== Listing all past expenditures: `explist`
+==== Listing all past expenditures: `explist`
 
 Shows a list of all recorded purchases with the corresponding price in the expenditure list. +
 Format: `explist`
 
-=== Deleting a purchase: `deletepurchase` [coming soon]
+==== Deleting a purchase: `deletepurchase` [coming soon]
 
 Deletes an existing purchase in the expenditure list. +
 Format: `deletepurchase INDEX`
@@ -179,13 +272,13 @@ Example:
 `deletepurchase 2` +
 Deletes the 2nd purchase in the expenditure list.
 
-=== Clearing expenditure list: `clearexp` [coming soon]
+==== Clearing expenditure list: `clearexp` [coming soon]
 
 Clears all past purchases recorded from the expenditure list. +
 Format: `clearexp`
 
 
-=== Calculating total expenditure for the day: `totalexpday` [coming soon]
+==== Calculating total expenditure for the day: `totalexpday` [coming soon]
 
 Views total expenditure for the day +
 Format: `totalexpday DATE`
@@ -197,7 +290,7 @@ DATE should be in the DDMMYY format
 Example:
 `totalexpday 191218`
 
-=== Set spending limit: `setlimit` [coming soon]
+==== Set spending limit: `setlimit` [coming soon]
 
 Sets a spending limit for one day to control expenditure. +
 Format: `setlimit VALUE`
@@ -210,10 +303,10 @@ Format: `setlimit VALUE`
 Example:
 `setlimit 20.00`
 
-== Habit Tracker
+=== Habit Tracker
 Change your lifestyle now by recording an activity regularly to turn it into a habit! +
 
-=== Add desired Habits: `addHabit` [coming soon]
+==== Add desired Habits: `addHabit` [coming soon]
 
 Add habit which you wish to track into your monthly habit tracker. +
 Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'
@@ -227,10 +320,10 @@ Example:
 * `addHabit d/010119 n/SleepBefore12am a/Done`
 
 
-== Workout Tracker
+=== Workout Tracker
 Record your workouts and reps so that you can make the most out of the exercises! +
 
-=== View workout: `workout`
+==== View workout: `workout`
 
 View the past 5 most recent workout. +
 Format: `workout`
@@ -244,7 +337,7 @@ Examples:
 
 * `workout`
 
-=== Record workout : `record`
+==== Record workout : `record`
 
 Record your current workout and add them into your workout records. +
 Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
@@ -263,9 +356,18 @@ Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
 
 == General Commands
 
+=== Viewing help : `help`
+
+Format: `help`
+
+[TIP]
+====
+Use this if you face trouble navigating the application or entering the correct commands!
+====
+
 === Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+Lists all the commands that you have entered in reverse chronological order (most recent at the top). +
 Format: `history`
 
 [NOTE]
@@ -276,12 +378,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the student handbook to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the student handbook's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -331,7 +433,7 @@ Format: `exit`
 
 == Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Data of Student HandBook are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -347,15 +449,6 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Help* : `help`
-* *Add Task* : `addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME` +
-e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
-* *Add Purchase* : `addpurchase n/NAME pr/PRICE [t/TAG]...` +
-e.g. `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
-* *Expenditure List*: `explist`
-* *View Workout* : `workout`
-* *Record Workout* : `record e/EXERCISE s/SETS r/REPS t/TIME` +
-e.g. `record e/SIT UPS s/5 r/20 t/10`
 * *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *List* : `list`
@@ -367,6 +460,15 @@ e.g. `find James Jake`
 e.g. `delete 3`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Help* : `help`
+* *Add Task* : `addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME` +
+e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
+* *Add Purchase* : `addpurchase n/NAME pr/PRICE [t/TAG]...` +
+e.g. `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
+* *View Purchases*: `explist`
+* *View Workout* : `workout`
+* *Record Workout* : `record e/EXERCISE s/SETS r/REPS t/TIME` +
+e.g. `record e/SIT UPS s/5 r/20 t/10`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

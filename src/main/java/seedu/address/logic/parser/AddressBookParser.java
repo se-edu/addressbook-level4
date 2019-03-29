@@ -81,6 +81,10 @@ public class AddressBookParser {
             case ExpListCommand.COMMAND_WORD:
                 return new ExpListCommand();
 
+            case RecordCommand.COMMAND_WORD:
+                return new RecordCommandParser().parse(arguments);
+
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
 

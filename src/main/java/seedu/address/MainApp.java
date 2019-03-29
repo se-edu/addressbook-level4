@@ -37,6 +37,8 @@ public class MainApp extends Application {
     protected Config config;
     private Optional<ReadOnlyTaskList> taskListOptional;
     private Optional<ReadOnlyExpenditureList> expListOptional;
+    private Optional<ReadOnlyWorkoutBook> workoutBookOptional;
+
 
     @Override
     public void init() throws Exception {
@@ -51,7 +53,8 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
         ExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage, expenditureListStorage);
+        WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage, expenditureListStorage, workoutBookStorage);
 
         initLogging(config);
 
@@ -74,6 +77,7 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         ReadOnlyTaskList initialTasks;
         ReadOnlyExpenditureList initialPurchases;
+        ReadOnlyWorkoutBook initialWorkout;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -120,9 +124,21 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExpenditureList");
             initialPurchases = new ExpenditureList();
         }
+        try {
+            workoutBookOptional = storage.readWorkoutBook();
+            if (!workoutBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample WorkoutList");
+            }
+            initialWorkout = workoutBookOptional.orElseGet(SampleDataUtil::getSampleWorkoutBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty WorkoutList");
+            initialWorkout = new WorkoutBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty WorkoutList");
+            initialWorkout = new WorkoutBook();
+        }
 
-
-        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases);
+        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases, initialWorkout);
     }
 
     private void initLogging(Config config) {
