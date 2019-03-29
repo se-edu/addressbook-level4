@@ -81,6 +81,9 @@ public class AddressBookParser {
             case ExpListCommand.COMMAND_WORD:
                 return new ExpListCommand();
 
+            case ClearExpListCommand.COMMAND_WORD:
+                return new ClearExpListCommand();
+
             case RecordCommand.COMMAND_WORD:
                 return new RecordCommandParser().parse(arguments);
 
