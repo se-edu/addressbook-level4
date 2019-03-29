@@ -358,13 +358,12 @@ as our team is more familiar with it.
 
 === Expenditure List Feature
 ==== Implementation
-* The expenditure list feature is facilitated by `VersionedExpenditureList`.
- It is stored internally as an ExpenditureListStateList and currentStatePointer.
+* The expenditure list feature is facilitated by `ExpenditureList`.
  It consists of 4 components:
-** `VersionedExpList#AddPurchase` - Adds a new purchase to the Student Hand Book
-** `VersionedExpList#listExp` - Lists down the existing expenses
-** `VersionedTaskList#deletePurchase` - Deletes an existing Purchase
-** `VersionedExpList#clearExp` - Clears the expenditure list
+** `ExpenditureList#addPurchase` - Adds a new purchase to the StudentHandBook
+** `ExpenditureList#expList` - Lists down the existing expenses
+** `ExpenditureList#removePurchase` - Deletes an existing Purchase
+** `ExpenditureList#clearExp` - Clears the expenditure list
 
 ==== Model
 These operations are exposed in the `Model` interface as:
@@ -965,7 +964,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: Delete a Task
+=== Use Case: Delete a Task
 
 *MSS*
 
@@ -987,7 +986,7 @@ Use case ends.
 
 
 
-== Use Case: Add a new purchase
+=== Use Case: Add a new purchase
 
 *MSS*
 
@@ -996,7 +995,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: View Expenditure List
+=== Use Case: View Expenditure List
 
 *MSS*
 
@@ -1011,7 +1010,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: Delete a purchase
+=== Use Case: Delete a purchase
 
 *MSS*
 
@@ -1034,7 +1033,7 @@ Use case ends.
 Use case ends.
 
 
-== Use Case: Clear Expenditure List
+=== Use Case: Clear Expenditure List
 
 *MSS*
 
@@ -1044,7 +1043,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: Find a specific purchase
+=== Use Case: Find a specific purchase
 
 *MSS*
 
@@ -1064,7 +1063,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: Start Stopwatch
+=== Use Case: Start Stopwatch
 
 *MSS*
 
@@ -1073,7 +1072,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: Stop Stopwatch
+=== Use Case: Stop Stopwatch
 
 *MSS*
 
@@ -1089,7 +1088,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: Record Completed Workout
+=== Use Case: Record Completed Workout
 
 *MSS*
 
@@ -1098,7 +1097,7 @@ Use case ends.
 +
 Use case ends.
 
-== Use Case: View Workout Log
+=== Use Case: View Workout Log
 
 *MSS*
 

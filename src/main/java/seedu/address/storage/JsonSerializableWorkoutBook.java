@@ -52,8 +52,8 @@ class JsonSerializableWorkoutBook {
         WorkoutBook workoutBook = new WorkoutBook();
         for (JsonAdaptedWorkout jsonAdaptedWorkout : workouts) {
             Workout workout = jsonAdaptedWorkout.toModelType();
-           // if (workoutBook.hasWorkout(workout)) {
-             //   throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            // if (workoutBook.hasWorkout(workout)) {
+            //   throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             //}
             workoutBook.addWorkout(workout);
         }

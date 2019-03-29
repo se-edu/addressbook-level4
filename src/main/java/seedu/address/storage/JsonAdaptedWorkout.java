@@ -38,7 +38,7 @@ class JsonAdaptedWorkout {
      */
     @JsonCreator
     public JsonAdaptedWorkout(@JsonProperty("exercise") String exercise, @JsonProperty("sets") String sets,
-                             @JsonProperty("reps") String reps, @JsonProperty("time") String time) {
+                              @JsonProperty("reps") String reps, @JsonProperty("time") String time) {
         this.exercise = exercise;
         this.sets = sets;
         this.reps = reps;

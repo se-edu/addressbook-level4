@@ -32,7 +32,7 @@ public interface WorkoutBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyWorkoutBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param workoutBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveWorkoutBook(ReadOnlyWorkoutBook workoutBook) throws IOException;
