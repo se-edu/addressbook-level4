@@ -37,9 +37,9 @@ public class WorkoutCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
 //        logger.info("TASK NAME IS " + task.getDeadlineDate());
         exercise.setText(workout.getExercise().toString());
-        sets.setText(workout.getSets().toString());
-        reps.setText(workout.getReps().toString());
-        time.setText(workout.getTime().toString());
+        sets.setText(workout.getSets().toString() + "Sets");
+        reps.setText(workout.getReps().toString() + "Reps");
+        time.setText(workout.getTime().toString() + "Time");
     }
 
     @Override
