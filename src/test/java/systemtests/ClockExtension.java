@@ -21,12 +21,12 @@ public class ClockExtension implements BeforeEachCallback, AfterEachCallback {
     private final Clock originalClock = StatusBarFooter.getClock();
 
     @Override
-    public void afterEach(ExtensionContext context) throws Exception {
+    public void afterEach(ExtensionContext context) {
         StatusBarFooter.setClock(originalClock);
     }
 
     @Override
-    public void beforeEach(ExtensionContext context) throws Exception {
+    public void beforeEach(ExtensionContext context) {
         setInjectedClockToCurrentTime();
     }
 
