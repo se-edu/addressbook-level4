@@ -31,7 +31,7 @@ public class JsonUserPrefsStorageTest {
     }
 
     @Test
-    public void readUserPrefs_nullFilePath_throwsNullPointerException() throws DataConversionException {
+    public void readUserPrefs_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readUserPrefs(null));
     }
 
@@ -46,7 +46,7 @@ public class JsonUserPrefsStorageTest {
     }
 
     @Test
-    public void readUserPrefs_notJsonFormat_exceptionThrown() throws DataConversionException {
+    public void readUserPrefs_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
     }
 
