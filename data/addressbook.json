@@ -41,5 +41,11 @@
     "email" : "johnd@example.com",
     "address" : "John street, block 123, #01-02",
     "tagged" : [ ]
+  }, {
+    "name" : "Bob",
+    "phone" : "99887766",
+    "email" : "bobiscool@example.com",
+    "address" : "123, Bobstreet Ave 3, #02-20",
+    "tagged" : [ "bobiscool" ]
   } ]
 }
