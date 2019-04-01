@@ -79,6 +79,9 @@ public class AddressBookParser {
             case DeleteTaskCommand.COMMAND_WORD:
                 return new DeleteTaskCommandParser().parse(arguments);
 
+            case EditTaskCommand.COMMAND_WORD:
+                return new EditTaskCommandParser().parse(arguments);
+
 
         case AddPurchaseCommand.COMMAND_WORD:
             return new AddPurchaseCommandParser().parse(arguments);

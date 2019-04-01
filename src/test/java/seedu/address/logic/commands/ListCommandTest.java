@@ -6,7 +6,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
-
+import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,9 +27,9 @@ public class ListCommandTest {
     @Before
     public void setUp() {
         model =  new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
         expectedModel =  new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     }
 
     @Test
