@@ -39,7 +39,8 @@ public interface WorkoutBookStorage {
 
     /**
      * @see #saveWorkoutBook(ReadOnlyWorkoutBook)
+     * @return
      */
-    void saveWorkoutBook(ReadOnlyWorkoutBook workoutBook, Path filePath) throws IOException;
+    Path saveWorkoutBook(ReadOnlyWorkoutBook workoutBook, Path filePath) throws IOException;
 
 }

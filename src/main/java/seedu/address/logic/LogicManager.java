@@ -13,11 +13,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyExpenditureList;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.*;
+import seedu.address.model.habit.Habit;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
@@ -39,6 +36,7 @@ public class LogicManager implements Logic {
     private boolean taskListModified;
     private boolean expenditureListModified;
     private boolean workoutBookModified;
+    private boolean habitTrackerListModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -52,6 +50,7 @@ public class LogicManager implements Logic {
         model.getTaskList().addListener(observable -> taskListModified = true);
         model.getExpenditureList().addListener(observable -> expenditureListModified = true);
         model.getWorkoutList().addListener(observable -> workoutBookModified = true);
+        model.getHabitTrackerList().addListener(observable -> habitTrackerListModified = true);
     }
 
     @Override
@@ -61,6 +60,7 @@ public class LogicManager implements Logic {
         taskListModified = false;
         expenditureListModified = false;
         workoutBookModified = false;
+        habitTrackerListModified = false;
 
         CommandResult commandResult;
         try {
@@ -86,6 +86,14 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
+        if (habitTrackerListModified) {
+            logger.info("Habit Tracker List modified, saving to file.");
+            try {
+                storage.saveHabitTrackerList(model.getHabitTrackerList());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
         if (workoutBookModified) {
 
         }
@@ -106,6 +114,9 @@ public class LogicManager implements Logic {
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
+
+    @Override
+    public ReadOnlyHabitTrackerList getHabitTrackerList() {return model.getHabitTrackerList();}
 
     @Override
     public ReadOnlyTaskList getTaskList(){
@@ -135,6 +146,9 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Workout> getFilteredWorkoutList() {return model.getFilteredWorkoutList(); }
+
+    @Override
+    public ObservableList<Habit> getFilteredHabitList() {return model.getFilteredHabitList();}
 
     @Override
     public ObservableList<String> getHistory() {
@@ -171,6 +185,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Habit> selectedHabitProperty() {return model.selectedHabitProperty();}
+
+
+    @Override
     public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
         return model.selectedPurchaseProperty();
     }
@@ -192,4 +210,7 @@ public class LogicManager implements Logic {
 
     @Override
     public void setSelectedWorkout(Workout workout) {model.setSelectedWorkout(workout);}
+
+    @Override
+    public void setSelectedHabit(Habit habit) {model.selectedHabitProperty(); }
 }

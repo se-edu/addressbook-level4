@@ -70,12 +70,13 @@ public class JsonWorkoutBookStorage implements WorkoutBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveWorkoutBook(ReadOnlyWorkoutBook workoutBook, Path filePath) throws IOException {
+    public Path saveWorkoutBook(ReadOnlyWorkoutBook workoutBook, Path filePath) throws IOException {
         requireNonNull(workoutBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableWorkoutBook(workoutBook), filePath);
+        return saveWorkoutBook(workoutBook, filePath);
     }
 
 }

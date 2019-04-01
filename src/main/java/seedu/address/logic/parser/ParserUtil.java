@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.habit.HabitTitle;
+import seedu.address.model.habit.Progress;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -167,6 +169,15 @@ public class ParserUtil {
         return new PurchaseName(trimmedPurchaseName);
     }
 
+    public static HabitTitle parseHabitTitle(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedHabitTitle = name.trim();
+        if (!HabitTitle.isValidName(trimmedHabitTitle)) {
+            throw new ParseException(HabitTitle.MESSAGE_CONSTRAINTS);
+        }
+        return new HabitTitle(trimmedHabitTitle);
+    }
+
 
     /**
      * Parses a {@code String price} into a {@code Price}.
@@ -182,6 +193,16 @@ public class ParserUtil {
         }
         return new Price(trimmedPrice);
     }
+
+    public static Progress parseProgress(String progress) throws ParseException {
+        requireNonNull(progress);
+        String trimmedProgress = progress.trim();
+        if (!Progress.isValidProgress(trimmedProgress)) {
+            throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
+        }
+        return new Progress(trimmedProgress);
+    }
+
     public static Exercise parseExercise(String exercise) throws ParseException {
         requireNonNull(exercise);
         String trimmedExercise = exercise.trim();

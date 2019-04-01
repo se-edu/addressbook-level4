@@ -18,4 +18,6 @@ public interface ReadOnlyUserPrefs {
     Path getExpenditureListFilePath();
 
     Path getWorkoutBookFilePath();
+
+    Path getHabitTrackerListFilePath();
 }

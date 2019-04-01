@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.habit.Habit;
+import seedu.address.model.habit.exceptions.HabitNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.task.Task;
@@ -36,30 +38,34 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedExpenditureList versionedExpenditureList;
+    private final VersionedHabitTrackerList versionedHabitTrackerList;
     private final VersionedWorkoutBook versionedWorkoutBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Purchase> filteredPurchases;
     private final FilteredList<Workout> filteredWorkout;
+    private final FilteredList<Habit> filteredHabit;
     private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Purchase> selectedPurchase = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Workout> selectedWorkout = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Habit> selectedHabit = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
-                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook) {
+                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook, ReadOnlyHabitTrackerList habitTrackerList) {
         super();
-        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook);
+        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook, habitTrackerList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
+        versionedHabitTrackerList = new VersionedHabitTrackerList(habitTrackerList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
 
         this.userPrefs = new UserPrefs(userPrefs);
@@ -69,10 +75,12 @@ public class ModelManager implements Model {
         filteredWorkout = new FilteredList<>(versionedWorkoutBook.getWorkoutList());
         filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
         filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
+        filteredHabit = new FilteredList<>(versionedHabitTrackerList.getHabitList());
+        filteredHabit.addListener(this::ensureSelectedHabitIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
+        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook(), new HabitTrackerList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -171,7 +179,7 @@ public class ModelManager implements Model {
     @Override
     public void addPurchase(Purchase purchase) {
         versionedExpenditureList.addPurchase(purchase);
-       // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
+       // updateFilteredPurchaseList(PREDICATE_SHOW_ALL_PURCHASES);
     }
 
     @Override
@@ -184,6 +192,30 @@ public class ModelManager implements Model {
     public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
         requireNonNull(predicate);
         filteredPurchases.setPredicate(predicate);
+    }
+
+    //===========Habit Tracker List===========================================================================
+
+    @Override
+    public void setHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList) {
+        versionedHabitTrackerList.resetData(habitTrackerList);
+    }
+
+    @Override
+    public ReadOnlyHabitTrackerList getHabitTrackerList() { return versionedHabitTrackerList;}
+
+    @Override
+    public void addHabit(Habit habit) {
+        versionedHabitTrackerList.addHabit(habit);
+    }
+
+    @Override
+    public ObservableList<Habit> getFilteredHabitList() { return filteredHabit;}
+
+    @Override
+    public void updateFilteredHabitList(Predicate<Habit> predicate) {
+        requireAllNonNull(predicate);
+        filteredHabit.setPredicate(predicate);
     }
 
 
@@ -264,6 +296,24 @@ public class ModelManager implements Model {
         selectedPurchase.setValue(purchase);
     }
 
+    //=============================================================
+
+    @Override
+    public void commitHabitTrackerList() { versionedHabitTrackerList.commit(); }
+
+    @Override
+    public ReadOnlyProperty<Habit> selectedHabitProperty() { return selectedHabit; }
+
+    @Override
+    public Habit getSelectedHabit() { return  selectedHabit.getValue(); }
+
+    @Override
+    public void setSelectedHabit(Habit habit) {
+        if(habit != null && !filteredHabit.contains(habit)) {
+            throw new HabitNotFoundException();
+        }
+        selectedHabit.setValue(habit);
+    }
 
 
     //=========== Undo/Redo =================================================================================
@@ -386,6 +436,35 @@ public class ModelManager implements Model {
             }
         }
     }
+
+    /**
+     * Ensures {@code selectedHabit} is a valid habit in {@code filteredHabit}.
+     */
+    private void ensureSelectedHabitIsValid(ListChangeListener.Change<? extends Habit> change) {
+        while (change.next()) {
+            if (selectedHabit.getValue() == null) {
+                // null is always a valid selected habit, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedHabitReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedHabit.getValue());
+            if (wasSelectedHabitReplaced) {
+                // Update selectedHabit to its new value.
+                int index = change.getRemoved().indexOf(selectedHabit.getValue());
+                selectedHabit.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedHabitRemoved = change.getRemoved().stream()
+                    .anyMatch(removedHabit -> selectedHabit.getValue().isSameHabit(removedHabit));
+            if (wasSelectedHabitRemoved) {
+                // Select the habit that came before it in the list,
+                // or clear the selection if there is no such habit.
+                selectedHabit.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
     //=================Workout Book========================================================================
 
 
@@ -403,7 +482,7 @@ public class ModelManager implements Model {
     @Override
     public void addWorkout(Workout workout) {
         versionedWorkoutBook.addWorkout(workout);
-        // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
+        // updateFilteredPurchaseList(PREDICATE_SHOW_ALL_PURCHASES);
     }
 
     @Override

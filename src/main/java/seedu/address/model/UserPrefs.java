@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path taskListFilePath = Paths.get("data", "tasklist.json");
     private Path expenditureListFilePath = Paths.get("data" , "expenditurelist.json");
     private Path workoutBookFilePath = Paths.get("data" , "workoutbook.json");
+    private Path habitTrackerListFilePath = Paths.get("data", "habittrackerlist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -42,6 +43,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setTaskListFilePath(newUserPrefs.getTaskListFilePath());
         setExpenditureListFilePath(newUserPrefs.getExpenditureListFilePath());
         setWorkoutBookFilePath(newUserPrefs.getWorkoutBookFilePath());
+        setHabitTrackerListFilePath(newUserPrefs.getHabitTrackerListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -78,6 +80,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setExpenditureListFilePath(Path expenditureListFilePath) {
         requireNonNull(expenditureListFilePath);
         this.expenditureListFilePath = expenditureListFilePath;
+    }
+
+    public Path getHabitTrackerListFilePath() { return habitTrackerListFilePath; }
+
+    public void setHabitTrackerListFilePath(Path habitTrackerListFilePath) {
+        requireNonNull(habitTrackerListFilePath);
+        this.habitTrackerListFilePath = habitTrackerListFilePath;
     }
 
     public Path getWorkoutBookFilePath() { return workoutBookFilePath;}

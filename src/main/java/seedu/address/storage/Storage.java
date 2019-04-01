@@ -5,18 +5,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyExpenditureList;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.*;
 
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, TaskListStorage, WorkoutBookStorage, ExpenditureListStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, TaskListStorage, WorkoutBookStorage, ExpenditureListStorage, HabitTrackerListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -68,5 +63,16 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, TaskListS
 
     @Override
     void saveExpenditureList(ReadOnlyExpenditureList expenditureList) throws IOException;
+
+    /* ------------------------Habit Tracker List--------------------------------------------*/
+
+    @Override
+    Path getHabitTrackerListFilePath();
+
+    @Override
+    Optional<ReadOnlyHabitTrackerList> readHabitTrackerList() throws  DataConversionException, IOException;
+
+    @Override
+    void saveHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList) throws IOException;
 
 }

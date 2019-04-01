@@ -54,7 +54,8 @@ public class MainApp extends Application {
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
         ExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage, expenditureListStorage, workoutBookStorage);
+        HabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(userPrefs.getHabitTrackerListFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage);
 
         initLogging(config);
 
@@ -74,10 +75,12 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTaskList> taskListOptional;
         Optional<ReadOnlyExpenditureList> expenditureListOptional;
+        Optional<ReadOnlyHabitTrackerList> habitTrackerListOptional;
         ReadOnlyAddressBook initialData;
         ReadOnlyTaskList initialTasks;
         ReadOnlyExpenditureList initialPurchases;
         ReadOnlyWorkoutBook initialWorkout;
+        ReadOnlyHabitTrackerList initialHabit;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -138,7 +141,21 @@ public class MainApp extends Application {
             initialWorkout = new WorkoutBook();
         }
 
-        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases, initialWorkout);
+        try {
+            habitTrackerListOptional = storage.readHabitTrackerList();
+            if (!habitTrackerListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty HabitTrackerList");
+            }
+            initialHabit = habitTrackerListOptional.orElseGet(SampleDataUtil::getSampleHabitTrackerList);
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty HabitTrackerList");
+            initialHabit = new HabitTrackerList();
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty HabitTrackerList");
+            initialHabit = new HabitTrackerList();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases, initialWorkout, initialHabit);
     }
 
     private void initLogging(Config config) {

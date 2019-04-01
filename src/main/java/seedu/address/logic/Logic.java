@@ -8,10 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyExpenditureList;
-import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.*;
+import seedu.address.model.habit.Habit;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
@@ -116,6 +114,14 @@ public interface Logic {
     void setSelectedWorkout(Workout workout);
 
     ReadOnlyWorkoutBook getWorkoutList();
+
+    ReadOnlyProperty<Habit> selectedHabitProperty();
+
+    void setSelectedHabit(Habit habit);
+
+    ReadOnlyHabitTrackerList getHabitTrackerList();
+
+    ObservableList<Habit> getFilteredHabitList();
 
 
 
