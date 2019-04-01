@@ -18,6 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 import sun.rmi.runtime.Log;
 
 
@@ -78,6 +79,13 @@ public class UniqueTaskList implements Iterable<Task>{
     public void setTasks(UniqueTaskList replacement){
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+
+    public void remove(Task toRemove){
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)){
+            throw new TaskNotFoundException();
+        }
     }
 
     @Override

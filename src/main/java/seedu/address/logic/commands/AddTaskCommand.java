@@ -27,7 +27,8 @@ public class AddTaskCommand extends Command {
             + PREFIX_DEADLINE_TIME + "2359 "
             + PREFIX_TAG + "HIGH";
 
-    public static final String MESSAGE_SUCCESS = "New task added: ";
+  //  public static final String MESSAGE_SUCCESS = "New task added: ";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
     private final Task newTask;
@@ -53,9 +54,9 @@ public class AddTaskCommand extends Command {
         model.addTask(newTask);
         model.commitTaskList();
         model.commitAddressBook();
-        String toBePrinted = MESSAGE_SUCCESS  + newTask.getTaskName() + " | "
-                + "DEADLINE: " + newTask.getDeadlineDate() + ' ' + newTask.getDeadlineTime() + "HRS";
-        return new CommandResult(String.format(toBePrinted, newTask));
+        //String toBePrinted = MESSAGE_SUCCESS  + newTask.getTaskName() + " | "
+           //     + "DEADLINE: " + newTask.getDeadlineDate() + ' ' + newTask.getDeadlineTime() + "HRS";
+        return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
     }
 
 

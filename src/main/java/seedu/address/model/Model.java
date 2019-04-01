@@ -70,9 +70,14 @@ public interface Model {
     void deletePerson(Person target);
 
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
     void addTask(Task task);
 
     boolean hasTask(Task task);
+
+    void deleteTask(Task task);
 
     void commitTaskList();
     /**

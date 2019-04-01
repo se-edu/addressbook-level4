@@ -144,31 +144,15 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
-    @Override
-    public void addTask(Task task) {
-        versionedTaskList.addTask(task);
-//        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
 
-    @Override
-    public boolean hasTask(Task task) {
-        requireNonNull(task);
-        return versionedTaskList.hasTask(task);
-    }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
-    @Override
-    public void setTask(Task target, Task editedTask) {
-        requireAllNonNull(target, editedTask);
 
-        versionedTaskList.setTask(target, editedTask);
-    }
 
 //=================Expenditure List========================================================================
 
@@ -214,15 +198,18 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
-    @Override
-    public ObservableList<Task> getFilteredTaskList(){
-        return filteredTasks;
-    }
+
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+    //=========== Filtered Task List Accessors =============================================================
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList(){
+        return filteredTasks;
     }
 
     @Override
@@ -230,6 +217,29 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
+
+    @Override
+    public void addTask(Task task) {
+        versionedTaskList.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedTaskList.hasTask(task);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+        versionedTaskList.setTask(target, editedTask);
+    }
+
+    @Override
+    public void deleteTask(Task target) { versionedTaskList.removeTask(target);}
+
+    //==========================================================
 
     @Override
     public void commitExpenditureList(){
@@ -253,6 +263,8 @@ public class ModelManager implements Model {
         }
         selectedPurchase.setValue(purchase);
     }
+
+
 
     //=========== Undo/Redo =================================================================================
 
