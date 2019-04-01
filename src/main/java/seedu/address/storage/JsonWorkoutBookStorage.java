@@ -69,6 +69,7 @@ public class JsonWorkoutBookStorage implements WorkoutBookStorage {
      * Similar to {@link #saveWorkoutBook(ReadOnlyWorkoutBook)}.
      *
      * @param filePath location of the data. Cannot be null.
+     * @return
      */
     public Path saveWorkoutBook(ReadOnlyWorkoutBook workoutBook, Path filePath) throws IOException {
         requireNonNull(workoutBook);
