@@ -36,7 +36,7 @@ This app will not work with later major Java releases such as Java 9, 10, 11, et
 .  Copy the file to the folder you want to use as the home folder for your StudentHandBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::studenthandbookUI.PNG[width="790"]
+image::startupGUI.PNG[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
