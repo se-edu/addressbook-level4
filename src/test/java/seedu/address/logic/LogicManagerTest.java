@@ -29,11 +29,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonTaskListStorage;
-import seedu.address.storage.JsonExpenditureListStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
+import seedu.address.storage.*;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -55,8 +51,9 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
+        JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -89,8 +86,10 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());  //TODO
         JsonExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());  //TODO
+        JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
+
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -142,7 +141,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
