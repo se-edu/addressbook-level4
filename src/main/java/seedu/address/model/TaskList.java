@@ -68,6 +68,10 @@ public class TaskList implements seedu.address.model.ReadOnlyTaskList {
         requireNonNull(task);
         return tasks.contains(task);
     }
+    public void removeTask(Task task){
+        tasks.remove(task);
+        indicateModified();
+    }
 
     @Override
     public boolean equals(Object other){

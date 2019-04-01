@@ -8,6 +8,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.*;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
+import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +23,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.workout.WorkoutList;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -160,11 +162,15 @@ public class ModelManagerTest {
         ExpenditureList expenditureList = getTypicalExpenditureList(); //TODO
         ExpenditureList differentExpenditureList = new ExpenditureList(); //TODO
 
+        WorkoutBook workoutBook = getTypicalWorkoutList();
+        WorkoutBook differentWorkoutBook = new WorkoutBook();
+
+
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, taskList, expenditureList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, taskList, expenditureList);
+        modelManager = new ModelManager(addressBook, userPrefs, taskList, expenditureList,workoutBook);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, taskList, expenditureList, workoutBook);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -178,12 +184,12 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs,
-                differentTaskList, differentExpenditureList)));
+                differentTaskList, differentExpenditureList, differentWorkoutBook)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, taskList, expenditureList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, taskList, expenditureList,workoutBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -192,6 +198,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs,
-                taskList, expenditureList)));
+                taskList, expenditureList, workoutBook)));
     }
 }
