@@ -1,4 +1,4 @@
-= Student HandBook
+= *LIFE* - Lifestyle Improvement For Everyone
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/cs2113-ay1819s2-t08-2/main[image:https://api.travis-ci.org/cs2113-ay1819s2-t08-2/main.svg?branch=master[Build Status]]
@@ -15,8 +15,8 @@ ifndef::env-github[]
 image::images/studenthandbookUI.PNG[width="600"]
 endif::[]
 
-* This is a desktop Student HandBook application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-A one stop application for NUS students to manage their student life in terms of
+* _LIFE_ is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+It is a one stop application for NUS students to manage their student life in terms of
 ** Meeting deadlines
 ** Managing finances
 ** Planning and recording workouts
