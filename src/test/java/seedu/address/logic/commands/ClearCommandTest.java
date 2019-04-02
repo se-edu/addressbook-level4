@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
+import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
 import org.junit.Test;
 
@@ -29,9 +30,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();
 

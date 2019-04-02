@@ -165,7 +165,7 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Daily Task List
+=== Task List
 A feature to help you record your tasks at hand with the deadlines, say no more to procrastination! +
 
 ==== Adding a Task : `addTask`
@@ -187,9 +187,9 @@ Examples:
 * `addTask n/Complete CS2113T Assignment d/180319 h/2359`
 * `addTask n/Submit Exchange Application d/200319 h/0800`
 
-==== Delete Task : `deleteTask` [coming soon]
+==== Delete Task : `deleteTask` 
 
-Deletes the specified item off the Task List. Irreversible. +
+Deletes the specified item off the Task List.  +
 Format: `deleteTask INDEX`
 
 ****
@@ -204,9 +204,9 @@ Examples:
 * `deleteTask 5` +
 Deletes the task at INDEX 5
 
-==== Edit Task : `editTask` [coming soon]
+==== Edit Task : `editTask` 
 
-Edits an existing specified task on the Task List. Irreversible +
+Edits an existing specified task on the Task List.  +
 Format: `editTask 1 [n/Jerome] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
 
 ****

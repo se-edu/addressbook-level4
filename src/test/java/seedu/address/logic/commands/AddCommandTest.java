@@ -23,6 +23,7 @@ import seedu.address.model.*;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.workout.Workout;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -157,6 +158,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasTask(Task task) {
+            return false;
+        }
+
+        @Override
+        public void deleteTask(Task task) {
+
+        }
+
+        @Override
         public void commitTaskList() {
 
         }
@@ -280,6 +291,46 @@ public class AddCommandTest {
 
         @Override
         public void setSelectedPurchase(Purchase purchase) {
+
+        }
+
+        @Override
+        public void addWorkout(Workout workout) {
+
+        }
+
+        @Override
+        public void commitWorkoutBook() {
+
+        }
+
+        @Override
+        public void setSelectedWorkout(Workout workout) {
+
+        }
+
+        @Override
+        public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Workout> getFilteredWorkoutList() {
+            return null;
+        }
+
+        @Override
+        public ReadOnlyWorkoutBook getWorkoutList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+
+        }
+
+        @Override
+        public void setWorkoutBook(ReadOnlyWorkoutBook workoutBook) {
 
         }
 
