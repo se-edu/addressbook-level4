@@ -1,4 +1,4 @@
-= StudentHandBook - User Guide
+= LIFE - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,11 +18,17 @@ By: `CS2113-AY1819S2-T08-2`      Since: `Mar 2019`      Licence: `MIT`
 
 == Introduction
 
-StudentHandBook is an one stop application made for NUS students to manage and improve their student life.
-More importantly, StudentHandBook is optimized for those who prefer to work with a Command Line Interface (CLI)
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, StudentHandBook can get your
-contact management tasks done faster than traditional GUI apps. Interested? Jump to Section 2, “Quick Start”
-to get started. Enjoy!
+*LIFE* - _Lifestyle Improvement For Everyone_ +
+This is a one stop application made for NUS students to manage and improve their student lives amidst their hectic schedules. +
+Interesting features include: +
+
+* Task List +
+* Expenditure List +
+* Workout Tracker +
+* Habit Tracker +
+* Contact List
+
+Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
@@ -33,7 +39,7 @@ Only Java 8 is supported. +
 This app will not work with later major Java releases such as Java 9, 10, 11, etc.
 +
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your StudentHandBook.
+.  Copy the file to the folder you want to use as the home folder for _LIFE_ application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::startupGUI.PNG[width="790"]
@@ -43,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Contact List.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -63,107 +69,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Items in square brackets are optional e.g n/NAME [d/DEADLINE_DATE] can be used as n/CS2113 User Guide d/030919 or as n/CS2113 User Guide.
 ====
-
-=== Address Book
-Manage all your contacts easily in this ultimate address book! +
-
-==== Adding a person : `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-==== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-==== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-==== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-==== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-==== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
 
 === Task List
 A feature to help you record your tasks at hand with the deadlines, say no more to procrastination! +
@@ -303,7 +208,108 @@ Format: `setlimit VALUE`
 Example:
 `setlimit 20.00`
 
-=== Habit Tracker
+=== Contact List
+Manage all your contacts easily in this ultimate list holding your contacts with their information! +
+
+==== Adding a person : `add`
+
+Adds a person to the contact list +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+
+[TIP]
+A person can have any number of tags (including 0)
+
+Examples:
+
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+
+==== Listing all persons : `list`
+
+Shows a list of all persons in the contact list. +
+Format: `list`
+
+==== Editing a person : `edit`
+
+Edits an existing person in the contact list. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== Locating persons by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+==== Deleting a person : `delete`
+
+Deletes the specified person from the contact list. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the contact list.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== Selecting a person : `select`
+
+Selects the person identified by the index number used in the displayed person list. +
+Format: `select INDEX`
+
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd person in the contact list.
+* `find Betsy` +
+`select 1` +
+Selects the 1st person in the results of the `find` command.
+
+=== Habit Tracker [coming in v1.4]
 Change your lifestyle now by recording an activity regularly to turn it into a habit! +
 
 ==== Add desired Habits: `addHabit` [coming soon]
@@ -320,10 +326,11 @@ Example:
 * `addHabit d/010119 n/SleepBefore12am a/Done`
 
 
-=== Workout Tracker
+
+=== Workout Tracker [coming in v1.4]
 Record your workouts and reps so that you can make the most out of the exercises! +
 
-==== View workout: `workout`
+==== View workout: `workout` [coming soon]
 
 View the past 5 most recent workout. +
 Format: `workout`
@@ -337,7 +344,7 @@ Examples:
 
 * `workout`
 
-==== Record workout : `record`
+==== Record workout : `record` [coming soon]
 
 Record your current workout and add them into your workout records. +
 Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
@@ -378,12 +385,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the student handbook to the state before the previous _undoable_ command was executed. +
+Restores _LIFE_ application to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student handbook's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the _LIFE_'s content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -433,7 +440,7 @@ Format: `exit`
 
 == Saving the data
 
-Data of Student HandBook are saved in the hard disk automatically after any command that changes the data. +
+Data of _LIFE_ are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -445,7 +452,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous StudentHandBook folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _LIFE_ folder.
 
 == Command Summary
 
@@ -467,9 +474,6 @@ e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
 e.g. `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
 * *View Purchases*: `explist`
 * *Clear Expenditure List*: `clearexplist`
-* *View Workout* : `workout`
-* *Record Workout* : `record e/EXERCISE s/SETS r/REPS t/TIME` +
-e.g. `record e/SIT UPS s/5 r/20 t/10`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
