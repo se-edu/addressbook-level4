@@ -49,7 +49,7 @@
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Address Book" textAlignment="CENTER" textOrigin="TOP"  />
+            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Contact List" textAlignment="CENTER" textOrigin="TOP"  />
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
