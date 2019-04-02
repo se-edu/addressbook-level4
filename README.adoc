@@ -40,4 +40,4 @@ _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TestFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 * This code was transformed from the great https://github.com/se-edu/addressbook-level4[AddressBook Level 4].
 
-== Licence : link:LICENSE[MIT]
+== License : link:LICENSE[MIT]
