@@ -1,4 +1,4 @@
-= Student Hand Book - Developer Guide
+= LIFE - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -17,20 +17,21 @@ endif::[]
 By: `Team T08-2`  	Since: `May 2019`  	Licence: `MIT`
 
 == Introduction
-=== What is Student Hand Book
-Student Hand Book is a desktop application for students to easily manage their
+=== What is LIFE
+_LIFE_ - Lifestyle Improvement For Everyone +
+It is a desktop application for students to easily manage their
 tasks, expenditure and fitness.
 
 === Core Team
-Student Hand Book was developed and is continually being maintained and improved upon
+_LIFE_ was developed and is continually being maintained and improved upon
 by link:https://github.com/cs2113-ay1819s2-t08-2/main[Team T08-2]
 
 == About this Developer Guide
-This developer guide serves to assist you in making contributions to Student Hand Book.
+This developer guide serves to assist you in making contributions to the _LIFE_ application.
 To get started, jump to <<Setting Up>>.
 
 == Setting up
-Follow the instructions below to set up and configure 'Student Hand Book' project files on your computer.
+Follow the instructions below to set up and configure _LIFE_ project files on your computer.
 
 === Prerequisites
 
@@ -218,7 +219,7 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Student HandBook data.
+* stores the _LIFE_ application data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change. +
 (There exists `ObservableList<Purchase>`, `ObservableList<Workout>` and `ObservableList<Habit>` as well)
@@ -339,7 +340,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Reason for implementation
 
-Our StudentHandBook is a tool for helping students manage their priorities, therefore the ability to help them document their tasks is highly essential.
+_LIFE_ is a tool for helping students manage their priorities, therefore the ability to help them document their tasks is highly essential.
 
 ===== Current Implementation
 
@@ -403,7 +404,7 @@ In the `Model` component, the new `Task` object gets added to the list of tasks 
 Given below is an example usage scenario and how the `addTask` mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The Student HandBook will initialize with the initial task list state and the currentStatePointer pointing to that single address book state.
+_LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task li state.
 
 Step 2. The user executes the `addTask` command with `addTask n/Update User Documentation d/301219 e/2359`
 
@@ -429,7 +430,7 @@ as our team is more familiar with it.
 
 ===== Reason for implementation
 
-StudentHandBook is also a tool for helping students manage their finances and spendings, therefore it is important to have a feature to help them record their expenditure regularly.
+_LIFE_ is also a tool for helping students manage their finances and spendings, therefore it is important to have a feature to help them record their expenditure regularly.
 
 ===== Current Implementation
 
@@ -471,7 +472,7 @@ The `AddPurchaseCommand` is created when the command word `addPurchase` is detec
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The Student HandBook will initialize with the initial expenditure list state.
+_LIFE_ will initialize with the initial expenditure list state.
 
 Step 2. The user executes the `addPurchase` command with `addPurchase pn/Ice Cream pr/$1.50`
 
@@ -489,7 +490,7 @@ Similarly to the task list, a hash map could be considered, but the arraylist wa
 
 ===== Reason for implementation
 
-Our StudentHandBook is a tool for helping students manage their workout records too, having this features will aid them in recording down their previous workouts.
+_LIFE_ is a tool for helping students manage their workout records too, having this features will aid them in recording down their previous workouts.
 
 ===== Current Implementation
 
@@ -533,7 +534,7 @@ The `RecordCommand` is created when the command word `record` is detected in the
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The Student HandBook will initialize with the initial workout list state and the currentStatePointer pointing to that single address book state.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single address book state.
 
 Step 2. The user executes the `record` command with `record e/push ups s/5 r/20 t/20`
 
@@ -1086,7 +1087,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `StudentHandBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `_LIFE_` application and the *Actor* is the `user`, unless specified otherwise)
 
 === Use case: Add a  task
 
@@ -1095,7 +1096,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 . User requests to add a new task  +
 example: `addTask n/Update CS2113T Developer Guide
  d/311219 h/2359` +
-. StudentHandBook adds the task into the array list +
+. _LIFE_ adds the task into the array list +
 Use case ends.
 
 
@@ -1103,10 +1104,10 @@ Use case ends.
 
 *MSS*
 
-. StudentHandBook already shows a list of daily tasks
+. _LIFE_ already shows a list of daily tasks
 . User requests to edit a specific task in the list via INDEX
 e.g. `editTask INDEX n/REDO CS2113T`
-. StudentHandBook edits the task
+. _LIFE_ edits the task
 +
 Use case ends.
 
@@ -1117,7 +1118,7 @@ Use case ends.
 Use case ends.
 
 * 3a. Index not in Task List.
-** 3a1. StudentHandBook shows an error message.
+** 3a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1125,9 +1126,9 @@ Use case ends.
 
 *MSS*
 
-. StudentHandBook already displays the task list
+. _LIFE_ already displays the task list
 . User requests to remove the task with `deleteTask INDEX`
-. StudentHandBook removes the task
+. _LIFE_ removes the task
 +
 Use case ends.
 
@@ -1137,7 +1138,7 @@ Use case ends.
 +
 Use case ends.
 * 2a. Index not in Task List.
-** 2a1. StudentHandBook shows an error message.
+** 2a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1148,7 +1149,7 @@ Use case ends.
 *MSS*
 
 . User requests to add a new purchase into the Expenditure List
-. StudentHandBook adds the purchase into the Expenditure List with name of purchase and its price
+. _LIFE_ adds the purchase into the Expenditure List with name of purchase and its price
 +
 Use case ends.
 
@@ -1157,7 +1158,7 @@ Use case ends.
 *MSS*
 
 . User requests to list expenditure
-. StudentHandBook shows the Expenditure List
+. _LIFE_ shows the Expenditure List
 +
 Use case ends.
 
@@ -1172,9 +1173,9 @@ Use case ends.
 *MSS*
 
 . User requests to view Expenditure List
-. StudentHandBook shows the Expenditure List
+. _LIFE_ shows the Expenditure List
 . User requests to delete a specific purchase on the list
-. StudentHandBook deletes the purchase
+. _LIFE_ deletes the purchase
 +
 Use case ends.
 
@@ -1185,7 +1186,7 @@ Use case ends.
 Use case ends.
 
 * 3a. Index not in Daily List.
-** 3a1. StudentHandBook shows an error message.
+** 3a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1195,7 +1196,7 @@ Use case ends.
 *MSS*
 
 . User requests to view Expenditure List
-. StudentHandBook shows the Expenditure List
+. _LIFE_ shows the Expenditure List
 . User requests to clear the Expenditure List
 +
 Use case ends.
@@ -1205,7 +1206,7 @@ Use case ends.
 *MSS*
 
 . User requests to see log of a specific purchase
-. StudentHandBook shows this particular purchase with its price
+. _LIFE_ shows this particular purchase with its price
 +
 Use case ends.
 
@@ -1216,7 +1217,7 @@ Use case ends.
 Use case ends.
 
 * 2a. Index not in Daily List.
-** 2a1. StudentHandBook shows an error message.
+** 2a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1225,7 +1226,7 @@ Use case ends.
 *MSS*
 
 . User requests to start a stopwatch
-. StudentHandBook records the time
+. _LIFE_ records the time
 +
 Use case ends.
 
@@ -1234,14 +1235,14 @@ Use case ends.
 *MSS*
 
 . User requests to stop the running stopwatch
-. StudentHandBook retrieves the start time and shows the total time elapsed
+. _LIFE_ retrieves the start time and shows the total time elapsed
 +
 Use case ends.
 
 *Extensions*
 
 * 1a. User did not start the stopwatch.
-** 1a1. StudentHandBook shows an error message.
+** 1a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1250,7 +1251,7 @@ Use case ends.
 *MSS*
 
 . User requests to add an entry of completed workout
-. StudentHandBook records the workout log
+. _LIFE_ records the workout log
 +
 Use case ends.
 
@@ -1259,7 +1260,7 @@ Use case ends.
 *MSS*
 
 . User requests to view Workout Log
-. StudentHandBook shows the Workout Log
+. _LIFE_ shows the Workout Log
 +
 Use case ends.
 
@@ -1290,7 +1291,7 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*StudentHandBook*
+*_LIFE_*
 
 Authors: Jerome, YuQi, Wei Zhong, YongJia link:https://github.com/cs2113-ay1819s2-t08-2/main[@T08-2]
 
