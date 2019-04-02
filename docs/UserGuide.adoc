@@ -165,7 +165,7 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Daily Task List
+=== Task List
 A feature to help you record your tasks at hand with the deadlines, say no more to procrastination! +
 
 ==== Adding a Task : `addTask`
