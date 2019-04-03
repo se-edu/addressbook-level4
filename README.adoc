@@ -8,11 +8,11 @@ https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_m
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/studenthandbookUI.PNG[width="600"]
+image::docs/images/readmeUI.PNG[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/studenthandbookUI.PNG[width="600"]
+image::images/readmeUI.PNG[width="600"]
 endif::[]
 
 * _LIFE_ is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
@@ -21,7 +21,7 @@ It is a one stop application for NUS students to manage their student life in te
 ** Managing finances
 ** Planning and recording workouts
 ** Forming good habits to improve lifestyle
-* Features: Task List, Expenditure List, Workout Book, Habit Tracker and Address Book.
+* Features: Task List, Expenditure List, Workout Tracker, Habit Tracker and Contact List.
 * *Written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
 
