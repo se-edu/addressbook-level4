@@ -153,7 +153,7 @@ Format: `addpurchase n/NAME pr/PRICE [t/TAG]...`
 Examples:
 
 * `addpurchase n/Ice cream pr/1.50`
-* `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
+* `addpurchase n/Bicycle rental pr/10.00 t/family t/eastcoastpark`
 
 ==== Listing all past expenditures: `explist`
 
