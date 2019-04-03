@@ -15,5 +15,4 @@ public interface ReadOnlyWorkoutBook extends Observable {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Workout> getWorkoutList();
-
 }

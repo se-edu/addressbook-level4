@@ -45,6 +45,5 @@ public class DeleteTaskCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteTaskCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteTaskCommand) other).targetIndex)); // state check
-
     }
 }
