@@ -90,7 +90,7 @@ public class Purchase {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getPurchaseName())
-                .append(" Price: ")
+                .append(" Price: $")
                 .append(getPrice())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

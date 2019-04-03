@@ -21,7 +21,7 @@ public class PurchaseList implements Iterable<Purchase> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent purchase as the given argument.
      */
     public boolean contains(Purchase toCheck) {
         requireNonNull(toCheck);
@@ -29,8 +29,7 @@ public class PurchaseList implements Iterable<Purchase> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a purchase to the list.
      */
     public void add(Purchase toAdd) {
         requireNonNull(toAdd);
@@ -69,8 +68,8 @@ public class PurchaseList implements Iterable<Purchase> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code purchases}.
+     * {@code purchases} must not contain duplicate purchases.
      */
     public void setPurchases(List<Purchase> purchases) {
         requireAllNonNull(purchases);

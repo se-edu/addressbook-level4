@@ -44,7 +44,7 @@ public class PurchaseCard extends UiPart<Region> {
         this.purchase = purchase;
         id.setText(displayedIndex + ". ");
         name.setText(purchase.getPurchaseName().fullName);
-        price.setText(purchase.getPrice().value);
+        price.setText("$" + purchase.getPrice().value);
         purchase.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

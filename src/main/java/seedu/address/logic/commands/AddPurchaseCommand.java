@@ -22,9 +22,9 @@ public class AddPurchaseCommand extends Command {
             + PREFIX_PRICE + "PRICE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PURCHASENAME + "Ice cream "
-            + PREFIX_PRICE + "1.50 "
-            + PREFIX_TAG + "from 7-11";
+            + PREFIX_PURCHASENAME + "Chicken rice "
+            + PREFIX_PRICE + "4.50 "
+            + PREFIX_TAG + "food";
 
     public static final String MESSAGE_SUCCESS = "New purchase added: %1$s";
 
