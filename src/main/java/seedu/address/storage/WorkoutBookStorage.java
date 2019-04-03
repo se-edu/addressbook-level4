@@ -41,5 +41,4 @@ public interface WorkoutBookStorage {
      * @see #saveWorkoutBook(ReadOnlyWorkoutBook)
      */
     void saveWorkoutBook(ReadOnlyWorkoutBook workoutBook, Path filePath) throws IOException;
-
 }
