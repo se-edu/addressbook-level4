@@ -69,7 +69,7 @@ public class LogicManager implements Logic {
         } finally {
             history.add(commandText);
         }
-        if (taskListModified){
+        if (taskListModified) {
             logger.info("Task list modified, saving to file.");
             try {
                 storage.saveTaskList(model.getTaskList());
@@ -108,17 +108,19 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyTaskList getTaskList(){
+    public ReadOnlyTaskList getTaskList() {
         return model.getTaskList();
     }
 
     @Override
-    public ReadOnlyExpenditureList getExpenditureList(){
+    public ReadOnlyExpenditureList getExpenditureList() {
         return model.getExpenditureList();
     }
 
     @Override
-    public ReadOnlyWorkoutBook getWorkoutList() { return model.getWorkoutList(); }
+    public ReadOnlyWorkoutBook getWorkoutList() {
+        return model.getWorkoutList();
+    }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -126,7 +128,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Task> getFilteredTaskList() { return model.getFilteredTaskList(); }
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
+    }
 
     @Override
     public ObservableList<Purchase> getFilteredPurchaseList() {
@@ -134,7 +138,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Workout> getFilteredWorkoutList() {return model.getFilteredWorkoutList(); }
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        return model.getFilteredWorkoutList();
+    }
 
     @Override
     public ObservableList<String> getHistory() {
@@ -191,5 +197,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedWorkout(Workout workout) {model.setSelectedWorkout(workout);}
+    public void setSelectedWorkout(Workout workout) {
+        model.setSelectedWorkout(workout);
+    }
 }

@@ -11,18 +11,21 @@ import java.util.Set;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Task class which contains all the different classes
+ */
 public class Task {
     private final DeadlineDate deadlineDate;
     private final DeadlineTime deadlineTime;
     private final TaskName taskName;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Task (TaskName taskName, DeadlineTime deadlineTime, DeadlineDate deadlineDate
-    , Set<Tag> tags){
+    public Task (TaskName taskName, DeadlineTime deadlineTime, DeadlineDate deadlineDate,
+                 Set<Tag> tags){
         requireAllNonNull(taskName, deadlineTime, deadlineDate);
         this.deadlineDate = deadlineDate;
         this.deadlineTime = deadlineTime;
-        this.taskName  = taskName;
+        this.taskName = taskName;
         this.tags.addAll(tags);
     }
 
@@ -30,13 +33,17 @@ public class Task {
         return taskName;
     }
 
-    public DeadlineDate getDeadlineDate() { return deadlineDate;}
+    public DeadlineDate getDeadlineDate() {
+        return deadlineDate;
+    }
 
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
-    public DeadlineTime getDeadlineTime() { return deadlineTime;}
+    public DeadlineTime getDeadlineTime() {
+        return deadlineTime;
+    }
 
     public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {
@@ -45,7 +52,6 @@ public class Task {
 
         return otherTask!= null
                 && otherTask.getTaskName().equals(getTaskName());
-//                || (otherTask.getDeadlineDate().equals(getDeadlineDate()) || otherTask.getDeadlineTime().equals(getDeadlineTime()));
     }
 
     @Override
@@ -64,13 +70,14 @@ public class Task {
                 && otherTask.getDeadlineDate().equals(getDeadlineDate())
                 && otherTask.getTags().equals(getTags());
     }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(taskName, deadlineDate, deadlineTime, tags);
     }
     @Override
-    public String toString(){
+    public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskName())
                 .append(" DeadlineDate: ")

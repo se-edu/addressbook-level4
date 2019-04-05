@@ -14,15 +14,20 @@ import seedu.address.model.task.TaskName;
 
 import java.util.*;
 
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
-public class EditTaskCommand extends Command{
+/**
+ * edits a task
+ * takes an index of the task and finds it and edits it
+ */
+public class EditTaskCommand extends Command {
     public static final String COMMAND_WORD = "editTask";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD +
-            ": Edits the details of the task identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -40,7 +45,7 @@ public class EditTaskCommand extends Command{
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
 
-    public EditTaskCommand(Index index, EditTaskDescriptor editTaskDescriptor){
+    public EditTaskCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
         requireNonNull(index);
         requireNonNull(editTaskDescriptor);
         this.index = index;
@@ -48,7 +53,7 @@ public class EditTaskCommand extends Command{
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException  {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
 
@@ -98,7 +103,7 @@ public class EditTaskCommand extends Command{
 
 
 
-    public static class EditTaskDescriptor{
+    public static class EditTaskDescriptor {
         private TaskName taskName;
         private DeadlineTime deadlineTime;
         private DeadlineDate deadlineDate;
@@ -106,23 +111,37 @@ public class EditTaskCommand extends Command{
 
         public EditTaskDescriptor(){}
 
-        public EditTaskDescriptor(EditTaskDescriptor toCopy){
+        public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setTaskName(toCopy.taskName);
             setDeadlineDate(toCopy.deadlineDate);
             setDeadlineTime(toCopy.deadlineTime);
             setTags(toCopy.tags);
         }
 
-        public boolean isAnyFieldEdited(){ return CollectionUtil.isAnyNonNull(taskName, deadlineDate, deadlineTime, tags); }
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(taskName, deadlineDate, deadlineTime, tags);
+        }
 
-        public void setTaskName(TaskName taskName){ this.taskName = taskName;}
-        public Optional<TaskName> getTaskName() {return Optional.ofNullable(taskName); }
+        public void setTaskName(TaskName taskName) {
+            this.taskName = taskName;
+        }
+        public Optional<TaskName> getTaskName() {
+            return Optional.ofNullable(taskName);
+        }
 
-        public void setDeadlineDate(DeadlineDate deadlineDate){ this.deadlineDate = deadlineDate;}
-        public Optional<DeadlineDate> getDeadlineDate() { return Optional.ofNullable(deadlineDate);}
+        public void setDeadlineDate(DeadlineDate deadlineDate) {
+            this.deadlineDate = deadlineDate;
+        }
+        public Optional<DeadlineDate> getDeadlineDate() {
+            return Optional.ofNullable(deadlineDate);
+        }
 
-        public void setDeadlineTime(DeadlineTime deadlineTime){ this.deadlineTime = deadlineTime;}
-        public Optional<DeadlineTime> getDeadlineTime() { return Optional.ofNullable(deadlineTime);}
+        public void setDeadlineTime(DeadlineTime deadlineTime) {
+            this.deadlineTime = deadlineTime;
+        }
+        public Optional<DeadlineTime> getDeadlineTime() {
+            return Optional.ofNullable(deadlineTime);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -147,23 +166,16 @@ public class EditTaskCommand extends Command{
             if (other == this) {
                 return true;
             }
-
             // instanceof handles nulls
             if (!(other instanceof EditTaskDescriptor)) {
                 return false;
             }
-
             // state check
             EditTaskDescriptor e = (EditTaskDescriptor) other;
-
             return getTaskName().equals(e.getTaskName())
                     && getDeadlineDate().equals(e.getDeadlineDate())
                     && getDeadlineTime().equals(e.getDeadlineTime())
                     && getTags().equals(e.getTags());
         }
-
-
     }
-
-
 }

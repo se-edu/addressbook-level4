@@ -1,11 +1,7 @@
 package seedu.address.logic.parser;
 
-
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.DeadlineDate;
 import seedu.address.model.task.DeadlineTime;
@@ -14,18 +10,20 @@ import seedu.address.model.task.TaskName;
 
 import java.util.Set;
 import java.util.stream.Stream;
-import java.util.logging.Logger;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.*;
 
-/* Add RemarkCommandParser that knows how to parse two arguments, one index and one with prefix 'r/' */
-public class AddTaskCommandParser implements Parser<AddTaskCommand>{
+/**
+ * This command parses input of the addTask command
+ */
+public class AddTaskCommandParser implements Parser<AddTaskCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of adding something
      * and returns an ADdTaskCommand object for execution
      */
 
-    public AddTaskCommand parse(String args) throws ParseException{
+    public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE_DATE, PREFIX_DEADLINE_TIME, PREFIX_TAG);
 

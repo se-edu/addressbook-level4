@@ -4,24 +4,10 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyWorkoutBook;
-import seedu.address.model.TaskList;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.*;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.ExpenditureList;
-import seedu.address.model.ReadOnlyExpenditureList;
-import seedu.address.model.purchase.Purchase;
-import seedu.address.model.purchase.PurchaseName;
-import seedu.address.model.purchase.Price;
-import seedu.address.model.WorkoutBook;
-import seedu.address.model.ReadOnlyWorkoutBook;
+
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -50,13 +36,6 @@ public class SampleDataUtil {
         };
     }
 
-   /* public static Purchase[] getSamplePurchases() {
-        return new Purchase[]{
-                new Purchase(new PurchaseName("Chicken rice"), new Price("3.50"),
-                        getTagSet("very nice"))
-        };
-    } */
-
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -79,15 +58,6 @@ public class SampleDataUtil {
         //TODO
         return taskList;
     }
-
-  /*  public static ReadOnlyExpenditureList getSampleExpenditureList() {
-        ExpenditureList sampleExplist = new ExpenditureList();
-        for (Purchase samplePurchase : getSamplePurchases()) {
-            sampleExplist.addPurchase(samplePurchase);
-        }
-        return sampleExplist;
-    }
-    */
 
     public static ReadOnlyExpenditureList getSampleExpenditureList() {
         ExpenditureList expenditureList = new ExpenditureList();

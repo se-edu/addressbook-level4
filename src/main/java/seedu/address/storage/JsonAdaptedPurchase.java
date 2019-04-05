@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,9 +12,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.purchase.PurchaseName;
-import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.Price;
+import seedu.address.model.purchase.Purchase;
+import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -63,7 +64,8 @@ public class JsonAdaptedPurchase {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PurchaseName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PurchaseName.class.getSimpleName()));
         }
         if (!PurchaseName.isValidName(name)) {
             throw new IllegalValueException(PurchaseName.MESSAGE_CONSTRAINTS);
@@ -71,7 +73,8 @@ public class JsonAdaptedPurchase {
         final PurchaseName modelName = new PurchaseName(name);
 
         if (price == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Price.class.getSimpleName()));
         }
         if (!Price.isValidPrice(price)) {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);

@@ -7,13 +7,15 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+/**
+ *  Panel containing a list of tasks
+ */
 public class TaskListPanel extends UiPart<Region> {
 
     private static final String FXML = "TaskListPanel.fxml";

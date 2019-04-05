@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Storage class of {@link Task}.
+ */
 public class JsonAdaptedTask {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
@@ -75,21 +78,16 @@ public class JsonAdaptedTask {
         if (deadlineDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-//        if (!DeadlineDate.(deadlineDate)) {
-//            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-//        }
+
         final DeadlineDate modelDeadlineDate = new DeadlineDate(deadlineDate);
 
         if (deadlineTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-//        if (!Email.isValidEmail(deadlineTime)) {
-//            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-//        }
-        final DeadlineTime modelDeadlineTime  = new DeadlineTime(deadlineTime);
 
+        final DeadlineTime modelDeadlineTime = new DeadlineTime(deadlineTime);
         final Set<Tag> modelTags = new HashSet<>(taskTags);
-        return new Task(modelTaskName,modelDeadlineTime, modelDeadlineDate, modelTags);
+        return new Task(modelTaskName, modelDeadlineTime, modelDeadlineDate, modelTags);
     }
 
 }

@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPurchaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.purchase.PurchaseName;
-import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.Price;
+import seedu.address.model.purchase.Purchase;
+import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,7 +33,8 @@ public class AddPurchaseCommandParser implements Parser<AddPurchaseCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPurchaseCommand.MESSAGE_USAGE));
         }
 
-        PurchaseName name = ParserUtil.parsePurchaseName(argMultimap.getValue(PREFIX_PURCHASENAME).get());
+        PurchaseName name;
+        name = ParserUtil.parsePurchaseName(argMultimap.getValue(PREFIX_PURCHASENAME).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

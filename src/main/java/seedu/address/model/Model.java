@@ -102,7 +102,12 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-     void updateFilteredTaskList(Predicate<Task> predicate);
+    /**
+     * Updates the filter of the filtered task list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTaskList(Predicate<Task> predicate);
+
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -153,10 +158,6 @@ public interface Model {
 
     void setTask(Task target, Task editedTask);
 
-
-
-
-
     /** {@code Predicate} that always evaluate to true */
     Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
 
@@ -205,7 +206,6 @@ public interface Model {
      */
     void setSelectedPurchase(Purchase purchase);
 
-
     void addWorkout(Workout workout);
 
     void commitWorkoutBook();
@@ -221,8 +221,5 @@ public interface Model {
     void updateFilteredWorkoutList(Predicate<Workout> predicate);
 
     void setWorkoutBook(ReadOnlyWorkoutBook workoutBook);
-
-
-
 
 }

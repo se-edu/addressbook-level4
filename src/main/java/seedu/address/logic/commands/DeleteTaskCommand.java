@@ -7,10 +7,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
+
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Deletes a person from the address book
+ */
 public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "deleteTask";
 

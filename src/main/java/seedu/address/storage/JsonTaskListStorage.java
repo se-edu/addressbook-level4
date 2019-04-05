@@ -1,12 +1,10 @@
 package seedu.address.storage;
 
-import com.fasterxml.jackson.databind.JsonSerializable;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTaskList;
 
 import java.io.IOException;
@@ -16,22 +14,37 @@ import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 
+
+/**
+ * A class to access Task List Data as a json file on the hard disk
+ */
 public class JsonTaskListStorage implements TaskListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
     private Path filePath;
 
-    public JsonTaskListStorage(Path filePath) {this.filePath = filePath; }
+    public JsonTaskListStorage(Path filePath) {
+        this.filePath = filePath;
+    }
 
-    public Path getTaskListFilePath(){ return filePath; }
+    public Path getTaskListFilePath() {
+        return filePath;
+    }
+
     @Override
-    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException{
+    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException {
         return readTaskList(filePath);
     }
 
+    /**
+     * Similar to {@link #readTaskList()}
+     * @param filePath location of path, cannot be null
+     * @throws DataConversionException if file not in correct format
+     */
     public Optional<ReadOnlyTaskList> readTaskList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-        Optional<JsonSerializableTaskList> jsonTaskList = JsonUtil.readJsonFile(filePath, JsonSerializableTaskList.class);
+        Optional<JsonSerializableTaskList> jsonTaskList = JsonUtil.readJsonFile(filePath,
+                JsonSerializableTaskList.class);
 
         if (!jsonTaskList.isPresent()) {
             return Optional.empty();

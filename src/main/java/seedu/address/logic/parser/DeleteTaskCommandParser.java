@@ -6,6 +6,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+/**
+ * Parses the given String of arguments when the deleteTask command is typed.
+ */
 public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
 
     /**
@@ -15,7 +18,7 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
      */
     @Override
     public DeleteTaskCommand parse(String args) throws ParseException {
-        try{
+        try {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteTaskCommand(index);
         } catch (ParseException pe) {

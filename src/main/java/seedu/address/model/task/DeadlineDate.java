@@ -3,10 +3,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.model.ModelManager.isValidDate;
 
+/**
+ * DeadlineDate class
+ */
 public class DeadlineDate {
-    public static final String MESSAGE_CONSTRAINTS =  "Deadline Date should only contain 6 integers in the ddMMyy format";
-    public final String value;
+    public static final String MESSAGE_CONSTRAINTS = "Deadline Date should only contain 6 integers in the ddMMyy format";
     public static final String VALIDATION_REGEX = "\\d{6}";
+    public final String value;
+
     /**
      * Constructs a {@code DeadlineDate}.
      * @param deadlineDate a valid date

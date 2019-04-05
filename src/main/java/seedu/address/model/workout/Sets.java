@@ -3,6 +3,9 @@ package seedu.address.model.workout;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * class Sets
+ */
 public class Sets {
 
 
