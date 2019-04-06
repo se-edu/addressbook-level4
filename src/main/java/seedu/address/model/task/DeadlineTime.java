@@ -1,7 +1,5 @@
 package seedu.address.model.task;
 
-import seedu.address.model.ModelManager;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.model.ModelManager.isValidTime;
@@ -12,8 +10,8 @@ import static seedu.address.model.ModelManager.isValidTime;
  */
 public class DeadlineTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "Deadline Time should contain 4 Integers and be in " +
-            "the 24HRS format";
+    public static final String MESSAGE_CONSTRAINTS = "Deadline Time should contain 4 Integers and be in "
+            + "the 24HRS format";
     /* The input time should contain exactly 4 digits */
     public static final String VALIDATION_REGEX = "\\d{4}";
     public final String value;

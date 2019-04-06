@@ -19,8 +19,8 @@ import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 import seedu.address.storage.Storage;
 
@@ -168,7 +168,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Task> selectedTaskProperty(){
+    public ReadOnlyProperty<Task> selectedTaskProperty() {
         return model.selectedTaskProperty();
     }
     @Override
@@ -187,7 +187,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedTask(Task task){
+    public void setSelectedTask(Task task) {
         model.setSelectedTask(task);
     }
 

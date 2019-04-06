@@ -16,7 +16,13 @@ import seedu.address.model.workout.Workout;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -68,10 +74,6 @@ public interface Model {
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
-
-
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     void addTask(Task task);
 
@@ -158,8 +160,7 @@ public interface Model {
 
     void setTask(Task target, Task editedTask);
 
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
+
 
     /**
      * Replaces expenditure list with the data in {@code expenditureList}.

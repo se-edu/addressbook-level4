@@ -5,10 +5,12 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import seedu.address.model.workout.Workout;
 
 
+/**
+ * This class holds the RecordCommand object
+ */
 public class RecordCommand extends Command {
     public static final String COMMAND_WORD = "record";
 
@@ -32,7 +34,7 @@ public class RecordCommand extends Command {
         requireNonNull(model);
         model.addWorkout(newWorkout);
         model.commitWorkoutBook();
-        String toBePrinted = MESSAGE_SUCCESS  + newWorkout.getExercise() + " | "
+        String toBePrinted = MESSAGE_SUCCESS + newWorkout.getExercise() + " | "
                 + "SETS: " + newWorkout.getSets() + ' ' + newWorkout.getReps() + "REPS"
                 + "TIME: " + newWorkout.getTime();
         return new CommandResult(String.format(toBePrinted, newWorkout));

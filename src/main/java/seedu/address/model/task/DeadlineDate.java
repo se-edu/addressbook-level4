@@ -7,7 +7,8 @@ import static seedu.address.model.ModelManager.isValidDate;
  * DeadlineDate class
  */
 public class DeadlineDate {
-    public static final String MESSAGE_CONSTRAINTS = "Deadline Date should only contain 6 integers in the ddMMyy format";
+    public static final String MESSAGE_CONSTRAINTS = "Deadline Date should only contain"
+            + " 6 integers in the ddMMyy format";
     public static final String VALIDATION_REGEX = "\\d{6}";
     public final String value;
 

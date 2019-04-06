@@ -8,8 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * WorkoutList class
@@ -26,9 +24,6 @@ public class WorkoutList implements Iterable<Workout> {
      */
     public void add(Workout toAdd) {
         requireNonNull(toAdd);
-       // if (contains(toAdd)) {
-         //   throw new DuplicatePersonException();
-        //}
         internalList.add(toAdd);
     }
 

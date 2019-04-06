@@ -21,8 +21,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.purchase.Purchase;
-import seedu.address.model.task.Task;
 import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
+import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 
 /**
@@ -147,8 +147,6 @@ public class ModelManager implements Model {
         versionedAddressBook.setPerson(target, editedPerson);
     }
 
-//=================Expenditure List========================================================================
-
     @Override
     public void setExpenditureList(ReadOnlyExpenditureList expenditureList) {
         versionedExpenditureList.resetData(expenditureList);
@@ -204,7 +202,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Predicate<Task> predicate){
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
@@ -235,7 +233,7 @@ public class ModelManager implements Model {
     //==========================================================
 
     @Override
-    public void commitExpenditureList(){
+    public void commitExpenditureList() {
         versionedExpenditureList.commit();
     }
 
@@ -329,8 +327,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() &&
-                    change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedPersonReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedPerson.getValue());
             if (wasSelectedPersonReplaced) {
                 // Update selectedPerson to its new value.
@@ -359,7 +357,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPurchaseReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedPurchaseReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedPurchase.getValue());
             if (wasSelectedPurchaseReplaced) {
                 // Update selectedPurchase to its new value.
@@ -409,10 +408,12 @@ public class ModelManager implements Model {
     public void commitWorkoutBook() {
         versionedWorkoutBook.commit();
     }
+
     @Override
-   public void setSelectedWorkout(Workout workout){
+    public void setSelectedWorkout(Workout workout) {
         selectedWorkout.setValue(workout);
     }
+
     @Override
     public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
         return selectedWorkout;
@@ -437,7 +438,12 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
-//    ==========================================================
+
+    /**
+     * Checks for the validity of the input time string
+     * @param string
+     * @return a boolean indicating the validity
+     */
     public static boolean isValidTime(String string) {
         DateFormat format = new SimpleDateFormat("HHmm");
         format.setLenient(false);
@@ -449,7 +455,11 @@ public class ModelManager implements Model {
         return true;
     }
 
-
+    /**
+     * Checks for the valid date
+     * @param date an input string containing the date
+     * @return a boolean indicating the validity of the input date string
+     */
     public static boolean isValidDate(String date) {
         DateFormat format = new SimpleDateFormat("ddMMyy");
         format.setLenient(false);

@@ -7,7 +7,12 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.*;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.UserPrefs;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -84,7 +89,7 @@ public class StorageManager implements Storage {
     // ====================Task List methods ========================================
 
     @Override
-    public Path getTaskListFilePath(){
+    public Path getTaskListFilePath() {
         return taskListStorage.getTaskListFilePath();
     }
 
@@ -108,7 +113,6 @@ public class StorageManager implements Storage {
         taskListStorage.saveTaskList(taskList, filePath);
     }
 
-// ================ Expenditure List methods ==============================
     @Override
     public Path getExpenditureListFilePath() {
         return expenditureListStorage.getExpenditureListFilePath();

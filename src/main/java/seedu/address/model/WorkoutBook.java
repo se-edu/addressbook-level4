@@ -7,10 +7,6 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.workout.Workout;
 import seedu.address.model.workout.WorkoutList;
 
@@ -59,10 +55,10 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyWorkoutBook newData){
-            requireNonNull(newData);
-            setWorkouts(newData.getWorkoutList());
-        }
+    public void resetData(ReadOnlyWorkoutBook newData) {
+        requireNonNull(newData);
+        setWorkouts(newData.getWorkoutList());
+    }
 
     /**
      * Adds a person to the address book.

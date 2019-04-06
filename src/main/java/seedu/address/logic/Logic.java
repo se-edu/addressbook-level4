@@ -84,7 +84,7 @@ public interface Logic {
 
     void setSelectedTask(Task task);
 
-     ReadOnlyTaskList getTaskList();
+    ReadOnlyTaskList getTaskList();
 
     /**
      * Returns the ExpenditureList.

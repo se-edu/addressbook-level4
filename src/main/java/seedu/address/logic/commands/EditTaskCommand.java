@@ -1,5 +1,18 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -12,12 +25,8 @@ import seedu.address.model.task.DeadlineTime;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskName;
 
-import java.util.*;
 
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 /**
  * edits a task
@@ -53,16 +62,16 @@ public class EditTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException  {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
 
-        if (index.getZeroBased() >= lastShownList.size()){
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
-        if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)){
+        if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.setTask(taskToEdit, editedTask);
@@ -71,6 +80,10 @@ public class EditTaskCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
+    /**
+     * Creates and returns a {@code Task} with the details of {@code taskToEdit}
+     * edited with {@code editTaskDescriptor}.
+     */
     private Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
 
@@ -88,11 +101,11 @@ public class EditTaskCommand extends Command {
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
-        if (other == this){
+        if (other == this) {
             return true;
         }
         // instanceof handles nulls
-        if (!(other instanceof EditTaskCommand)){
+        if (!(other instanceof EditTaskCommand)) {
             return false;
         }
         // state check
@@ -101,8 +114,10 @@ public class EditTaskCommand extends Command {
                 && editTaskDescriptor.equals(e.editTaskDescriptor);
     }
 
-
-
+    /**
+     * Stores the details to edit the task with. Each non-empty field value will replace the
+     * corresponding field value of the task.
+     */
     public static class EditTaskDescriptor {
         private TaskName taskName;
         private DeadlineTime deadlineTime;

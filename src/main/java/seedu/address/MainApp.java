@@ -10,9 +10,31 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenditureList;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.TaskList;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.WorkoutBook;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.*;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.ExpenditureListStorage;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonExpenditureListStorage;
+import seedu.address.storage.JsonTaskListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonWorkoutBookStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.TaskListStorage;
+import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.WorkoutBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -20,6 +42,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
 
 /**
  * The main entry point to the application.
@@ -52,9 +75,11 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
-        ExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
+        ExpenditureListStorage expenditureListStorage =
+                new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage, expenditureListStorage, workoutBookStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage,
+                expenditureListStorage, workoutBookStorage);
 
         initLogging(config);
 

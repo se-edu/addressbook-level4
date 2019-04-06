@@ -1,14 +1,16 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
-import java.util.List;
 
-import static java.util.Objects.requireNonNull;
 
 
 /**
@@ -19,20 +21,26 @@ public class TaskList implements seedu.address.model.ReadOnlyTaskList {
     private final UniqueTaskList tasks;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
+    public TaskList(ReadOnlyTaskList toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
     {
         tasks = new UniqueTaskList();
+    }
+
+    public TaskList() {
+
     }
 
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 
-    public TaskList(){}
 
-    public TaskList(ReadOnlyTaskList toBeCopied) {
-        this();
-        resetData(toBeCopied);
-    }
+
+
 
     @Override
     public void addListener(InvalidationListener listener) {

@@ -1,15 +1,13 @@
 package seedu.address.model.task;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.tag.Tag;
 
 /**
  * Task class which contains all the different classes
@@ -21,7 +19,7 @@ public class Task {
     private final Set<Tag> tags = new HashSet<>();
 
     public Task (TaskName taskName, DeadlineTime deadlineTime, DeadlineDate deadlineDate,
-                 Set<Tag> tags){
+                 Set<Tag> tags) {
         requireAllNonNull(taskName, deadlineTime, deadlineDate);
         this.deadlineDate = deadlineDate;
         this.deadlineTime = deadlineTime;
@@ -45,12 +43,16 @@ public class Task {
         return deadlineTime;
     }
 
+    /**
+     * Returns true if both tasks of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
     public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {
             return true;
         }
 
-        return otherTask!= null
+        return otherTask != null
                 && otherTask.getTaskName().equals(getTaskName());
     }
 

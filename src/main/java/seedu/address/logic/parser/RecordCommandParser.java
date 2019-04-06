@@ -1,15 +1,20 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.RecordCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.workout.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXERCISE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REPS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SETS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
-
+import seedu.address.logic.commands.RecordCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.workout.Exercise;
+import seedu.address.model.workout.Reps;
+import seedu.address.model.workout.Sets;
+import seedu.address.model.workout.Time;
+import seedu.address.model.workout.Workout;
 
 
 /**

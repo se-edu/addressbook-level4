@@ -1,9 +1,9 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * some workoutbook
@@ -30,8 +30,8 @@ public class VersionedWorkoutBook extends WorkoutBook {
     }
 
     /**
-     * resets data
-     * @param newData
+     * resets the Data
+      * @param newData
      */
    public void resetData(ReadOnlyWorkoutBook newData) {
         requireNonNull(newData);
