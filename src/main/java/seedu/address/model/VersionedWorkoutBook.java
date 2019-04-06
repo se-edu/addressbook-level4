@@ -32,7 +32,7 @@ public class VersionedWorkoutBook extends WorkoutBook {
      * resets the Data
      * @param newData
      */
-   public void resetData(ReadOnlyWorkoutBook newData) {
+    public void resetData(ReadOnlyWorkoutBook newData) {
         requireNonNull(newData);
         setWorkouts(newData.getWorkoutList());
     }
