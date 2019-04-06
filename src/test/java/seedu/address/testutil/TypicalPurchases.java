@@ -1,10 +1,12 @@
 package seedu.address.testutil;
 
 import seedu.address.model.ExpenditureList;
-import seedu.address.model.purchase.Purchase;
 
+/**
+ * TypicalPurhcases
+ */
 public class TypicalPurchases {
-    public static ExpenditureList getTypicalExpenditureList(){
+    public static ExpenditureList getTypicalExpenditureList() {
         ExpenditureList expl = new ExpenditureList();
         return expl;
     }

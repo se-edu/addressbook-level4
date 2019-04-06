@@ -4,8 +4,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
+import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
 import org.junit.Before;
@@ -21,7 +21,7 @@ public class UndoCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
             getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(),getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

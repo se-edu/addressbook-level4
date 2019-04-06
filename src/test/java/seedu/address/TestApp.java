@@ -1,5 +1,11 @@
 package seedu.address;
 
+
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
+import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
+import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -19,10 +25,6 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
-import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -98,7 +100,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList(),getTypicalWorkoutList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

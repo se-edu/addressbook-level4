@@ -29,7 +29,12 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.storage.*;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonExpenditureListStorage;
+import seedu.address.storage.JsonTaskListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonWorkoutBookStorage;
+import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -50,7 +55,8 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
-        JsonExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
+        JsonExpenditureListStorage expenditureListStorage
+                = new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
                 taskListStorage, expenditureListStorage, workoutBookStorage);
@@ -84,8 +90,10 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        JsonTaskListStorage taskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());  //TODO
-        JsonExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());  //TODO
+        JsonTaskListStorage taskListStorage =
+                new JsonTaskListStorage(temporaryFolder.newFile().toPath()); //TODO
+        JsonExpenditureListStorage expenditureListStorage =
+                new JsonExpenditureListStorage(temporaryFolder.newFile().toPath()); //TODO
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
