@@ -15,7 +15,7 @@ import seedu.address.model.task.Task;
  * Adds a task to the tasklist
  */
 public class AddTaskCommand extends Command {
-    public static final String COMMAND_WORD = "addTask";
+    public static final String COMMAND_WORD = "addtask";
 
     /**
      * String usage

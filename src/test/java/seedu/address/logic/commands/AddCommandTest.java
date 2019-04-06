@@ -174,6 +174,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void sortTask() {
+
+        }
+
+        @Override
         public void commitTaskList() {
 
         }

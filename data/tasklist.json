@@ -1,15 +1,23 @@
 {
-  "tasks": [ {
+  "tasks" : [ {
+    "taskName" : "banana",
+    "deadlineDate" : "230319",
+    "deadlineTime" : "2358",
+    "tagged" : [ ]
+  }, {
+    "taskName" : "JEROME",
+    "deadlineDate" : "230319",
+    "deadlineTime" : "2359",
+    "tagged" : [ ]
+  }, {
     "taskName" : "CS2113T Milestone V13",
     "deadlineDate" : "280319",
     "deadlineTime" : "2359",
     "tagged" : [ ]
-    } ,{
-
-      "taskName" : "CS2101 OP2 ",
-      "deadlineDate" : "290319",
-      "deadlineTime" : "1000",
-      "tagged" : [ ]
-    }
-  ]
+  }, {
+    "taskName" : "CS2101 OP2 ",
+    "deadlineDate" : "290319",
+    "deadlineTime" : "1000",
+    "tagged" : [ ]
+  } ]
 }

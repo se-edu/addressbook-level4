@@ -31,7 +31,6 @@ public class DeadlineDate {
         return deadlineDate.matches(VALIDATION_REGEX) && isValidDate(deadlineDate);
     }
 
-
     @Override
     public String toString() {
         return value;

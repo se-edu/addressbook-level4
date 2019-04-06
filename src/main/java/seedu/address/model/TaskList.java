@@ -104,6 +104,14 @@ public class TaskList implements seedu.address.model.ReadOnlyTaskList {
         indicateModified();
     }
 
+    /**
+     * sorts the task list
+     */
+    public void sortTask(){
+        tasks.sortTask();
+        indicateModified();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this || (other instanceof TaskList)

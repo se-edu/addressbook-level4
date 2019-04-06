@@ -133,6 +133,7 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+
     }
 
     @Override
@@ -228,6 +229,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteTask(Task target) {
         versionedTaskList.removeTask(target);
+    }
+
+    @Override
+    public void sortTask() {
+        versionedTaskList.sortTask();
     }
 
     //==========================================================
