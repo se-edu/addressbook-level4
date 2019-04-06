@@ -28,10 +28,9 @@ public class VersionedWorkoutBook extends WorkoutBook {
         currentStatePointer++;
         indicateModified();
     }
-
     /**
      * resets the Data
-      * @param newData
+     * @param newData
      */
    public void resetData(ReadOnlyWorkoutBook newData) {
         requireNonNull(newData);

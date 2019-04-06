@@ -120,8 +120,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * @return a boolean
      */
     private boolean tasksAreUnique(List<Task> tasks) {
-        for (int i = 0; i < tasks.size() - 1; i++ ) {
-            for (int j = i + 1; j < tasks.size(); j++ ) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            for (int j = i + 1; j < tasks.size(); j++) {
                 if (tasks.get(i).isSameTask(tasks.get(j))) {
                     return false;
                 }
