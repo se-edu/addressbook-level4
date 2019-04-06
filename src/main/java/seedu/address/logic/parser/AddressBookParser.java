@@ -6,7 +6,26 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPurchaseCommand;
+import seedu.address.logic.commands.AddTaskCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearExpListCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteTaskCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditTaskCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExpListCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RecordCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -75,32 +94,26 @@ public class AddressBookParser {
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
 
-            case DeleteTaskCommand.COMMAND_WORD:
-                return new DeleteTaskCommandParser().parse(arguments);
-
-            case EditTaskCommand.COMMAND_WORD:
-                return new EditTaskCommandParser().parse(arguments);
-
+        case EditTaskCommand.COMMAND_WORD:
+            return new EditTaskCommandParser().parse(arguments);
 
         case AddPurchaseCommand.COMMAND_WORD:
             return new AddPurchaseCommandParser().parse(arguments);
 
-            case ExpListCommand.COMMAND_WORD:
-                return new ExpListCommand();
+        case ExpListCommand.COMMAND_WORD:
+            return new ExpListCommand();
 
+        case ClearExpListCommand.COMMAND_WORD:
+            return new ClearExpListCommand();
 
-            case ClearExpListCommand.COMMAND_WORD:
-                return new ClearExpListCommand();
-
-            case RecordCommand.COMMAND_WORD:
-                return new RecordCommandParser().parse(arguments);
-
+        case RecordCommand.COMMAND_WORD:
+            return new RecordCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-
-
         }
     }
 

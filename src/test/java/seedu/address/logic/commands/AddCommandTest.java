@@ -19,10 +19,16 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 import seedu.address.testutil.PersonBuilder;
 

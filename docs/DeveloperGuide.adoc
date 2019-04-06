@@ -550,7 +550,6 @@ Step 4. Once valid, it passes the Workout from the `logic` component to the `mod
 
 _{Explain here how the data encryption feature will be implemented}_
 
-// end::dataencryption[]
 
 === Logging
 

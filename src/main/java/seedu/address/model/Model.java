@@ -7,8 +7,8 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
-import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 
 /**
@@ -16,7 +16,13 @@ import seedu.address.model.workout.Workout;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -69,10 +75,6 @@ public interface Model {
      */
     void deletePerson(Person target);
 
-
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
-
     void addTask(Task task);
 
     boolean hasTask(Task task);
@@ -102,7 +104,12 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-     void updateFilteredTaskList(Predicate<Task> predicate);
+    /**
+     * Updates the filter of the filtered task list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTaskList(Predicate<Task> predicate);
+
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -155,11 +162,6 @@ public interface Model {
 
 
 
-
-
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
-
     /**
      * Replaces expenditure list with the data in {@code expenditureList}.
      */
@@ -205,7 +207,6 @@ public interface Model {
      */
     void setSelectedPurchase(Purchase purchase);
 
-
     void addWorkout(Workout workout);
 
     void commitWorkoutBook();
@@ -221,8 +222,5 @@ public interface Model {
     void updateFilteredWorkoutList(Predicate<Workout> predicate);
 
     void setWorkoutBook(ReadOnlyWorkoutBook workoutBook);
-
-
-
 
 }

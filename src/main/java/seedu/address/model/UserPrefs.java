@@ -62,11 +62,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public Path getTaskListFilePath(){
+    public Path getTaskListFilePath() {
         return taskListFilePath;
     }
 
-    public void setTaskListFilePath(Path taskListFilePath){
+    public void setTaskListFilePath(Path taskListFilePath) {
         requireNonNull(taskListFilePath);
         this.taskListFilePath = taskListFilePath;
     }
@@ -80,12 +80,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.expenditureListFilePath = expenditureListFilePath;
     }
 
-    public Path getWorkoutBookFilePath() { return workoutBookFilePath;}
+    public Path getWorkoutBookFilePath() {
+        return workoutBookFilePath;
+    }
 
     public void setWorkoutBookFilePath (Path workoutBookFilePath) {
         requireNonNull(workoutBookFilePath);
         this.workoutBookFilePath = workoutBookFilePath;
-        }
+    }
 
     @Override
     public boolean equals(Object other) {

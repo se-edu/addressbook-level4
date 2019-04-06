@@ -19,19 +19,10 @@ public class ExpenditureList implements ReadOnlyExpenditureList {
 
     private final PurchaseList purchases;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    {
+        purchases = new PurchaseList();
 
-
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-         {
-           purchases = new PurchaseList();
-
-      }
+    }
 
     public ExpenditureList() {}
 
@@ -73,20 +64,6 @@ public class ExpenditureList implements ReadOnlyExpenditureList {
         indicateModified();
     }
 
-
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-  /*      public void setPerson(Person target, Person editedPerson) {
-            requireNonNull(editedPerson);
-
-            persons.setPerson(target, editedPerson);
-            indicateModified();
-        }
-*/
     /**
      * Removes {@code key} from this {@code ExpenditureList}.
      * {@code key} must exist in the expenditure list.

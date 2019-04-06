@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ExpenditureList;
 import seedu.address.model.Model;
@@ -8,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Clears the expenditure list.
  */
-public class ClearExpListCommand extends Command{
+public class ClearExpListCommand extends Command {
     public static final String COMMAND_WORD = "clearexplist";
     public static final String MESSAGE_SUCCESS = "Expenditure List has been cleared!";
 
