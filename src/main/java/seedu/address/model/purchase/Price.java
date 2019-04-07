@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 
 public class Price {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Price should contain numbers for dollars, followed by one decimal point then followed by two numbers for cents.";
+    public static final String MESSAGE_CONSTRAINTS = "Price should contain numbers for dollars,"
+            + " followed by one decimal point "
+            + "then followed by two numbers for cents.";
     public static final String VALIDATION_REGEX = "\\d+\\.\\d{2}";
     public final String value;
 

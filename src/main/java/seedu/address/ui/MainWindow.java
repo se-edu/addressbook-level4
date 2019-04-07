@@ -192,7 +192,7 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
-    public TaskListPanel getTaskListPanel(){
+    public TaskListPanel getTaskListPanel() {
         return taskListPanel;
     }
 
