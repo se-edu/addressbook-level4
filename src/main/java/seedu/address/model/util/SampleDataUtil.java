@@ -52,9 +52,10 @@ public class SampleDataUtil {
     }
 
     public static Purchase[] getSamplePurchases() {
-        return new Purchase[]{
-                new Purchase(new PurchaseName("Chicken rice"), new Price("3.50"),
-                        getTagSet("food"))
+        return new Purchase[] {
+            new Purchase(new PurchaseName("Chicken rice"), new Price("3.50"),
+                getTagSet("food")),
+
         };
     }
 
