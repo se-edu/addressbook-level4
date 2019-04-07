@@ -10,6 +10,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-   // public static final String MESSAGE_PURCHASES_LISTED_OVERVIEW = "%1$d purchases listed!";
 
 }
