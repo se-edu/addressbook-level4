@@ -1,27 +1,3 @@
 {
-  "persons" : [ {
-    "name" : "David Li",
-    "phone" : "91031282",
-    "email" : "lidavid@example.com",
-    "address" : "Blk 436 Serangoon Gardens Street 26, #16-43",
-    "tagged" : [ "family" ]
-  }, {
-    "name" : "Irfan Ibrahim",
-    "phone" : "92492021",
-    "email" : "irfan@example.com",
-    "address" : "Blk 47 Tampines Street 20, #17-35",
-    "tagged" : [ "classmates" ]
-  }, {
-    "name" : "Roy Balakrishnan",
-    "phone" : "92624417",
-    "email" : "royb@example.com",
-    "address" : "Blk 45 Aljunied Street 85, #11-31",
-    "tagged" : [ "colleagues" ]
-  }, {
-    "name" : "Bob",
-    "phone" : "99887766",
-    "email" : "bobiscool@example.com",
-    "address" : "123, Bobstreet Ave 3, #02-20",
-    "tagged" : [ "bobiscool" ]
-  } ]
+  "persons" : [ ]
 }
