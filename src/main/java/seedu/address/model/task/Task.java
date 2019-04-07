@@ -46,7 +46,7 @@ public class Task {
     /**
      * Adds a completed tag to the task list
      */
-    public void addCompletedTag(){
+    public void addCompletedTag() {
         Tag tag = new Tag("COMPLETED");
         this.tags.add(tag);
     }
