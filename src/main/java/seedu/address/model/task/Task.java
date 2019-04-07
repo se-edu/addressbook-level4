@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -42,6 +41,14 @@ public class Task {
 
     public DeadlineTime getDeadlineTime() {
         return deadlineTime;
+    }
+
+    /**
+     * Adds a completed tag to the task list
+     */
+    public void addCompletedTag(){
+        Tag tag = new Tag("COMPLETED");
+        this.tags.add(tag);
     }
 
     /**

@@ -19,6 +19,8 @@ import seedu.address.model.task.UniqueTaskList;
 public class TaskList implements seedu.address.model.ReadOnlyTaskList {
 
     private final UniqueTaskList tasks;
+
+
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     public TaskList(ReadOnlyTaskList toBeCopied) {
@@ -37,10 +39,6 @@ public class TaskList implements seedu.address.model.ReadOnlyTaskList {
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
-
-
-
-
 
     @Override
     public void addListener(InvalidationListener listener) {
@@ -107,7 +105,7 @@ public class TaskList implements seedu.address.model.ReadOnlyTaskList {
     /**
      * sorts the task list
      */
-    public void sortTask(){
+    public void sortTask() {
         tasks.sortTask();
         indicateModified();
     }

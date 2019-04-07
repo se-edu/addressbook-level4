@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +25,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private final ObservableList<Task> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
