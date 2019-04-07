@@ -17,8 +17,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.purchase.Price;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.purchase.Price;
 import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.tag.Tag;
 
@@ -53,15 +53,15 @@ public class SampleDataUtil {
     public static Purchase[] getSamplePurchases() {
         return new Purchase[] {
             new Purchase(new PurchaseName("Chicken rice"), new Price("3.50"),
-                        getTagSet("food")),
+                getTagSet("food")),
             new Purchase(new PurchaseName("Bicycle rental for 3hrs"), new Price("10.00"),
-                        getTagSet("family", "outing")),
+                getTagSet("family", "outing")),
             new Purchase(new PurchaseName("Calbee potato chip"), new Price("1.50"),
-                        getTagSet("snack")),
+                getTagSet("snack")),
             new Purchase(new PurchaseName("Gongcha honey milk tea"), new Price("3.70"),
-                        getTagSet("drinks")),
+                getTagSet("drinks")),
             new Purchase(new PurchaseName("Movie captain marvel"), new Price("13.50"),
-                        getTagSet("entertainment", "sunday"))
+                getTagSet("entertainment", "sunday"))
         };
     }
 
@@ -95,6 +95,7 @@ public class SampleDataUtil {
         }
         return sampleExpl;
     }
+
     public static ReadOnlyWorkoutBook getSampleWorkoutBook() {
         WorkoutBook workoutBook = new WorkoutBook();
         //TODO
