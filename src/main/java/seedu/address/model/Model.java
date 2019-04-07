@@ -81,6 +81,8 @@ public interface Model {
 
     void deleteTask(Task task);
 
+    void sortTask();
+
     void commitTaskList();
     /**
      * Adds the given person.

@@ -15,7 +15,7 @@ import seedu.address.model.task.Task;
  * Deletes a person from the address book
  */
 public class DeleteTaskCommand extends Command {
-    public static final String COMMAND_WORD = "deleteTask";
+    public static final String COMMAND_WORD = "deletetask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a task identified by the index number used in the displayed task list.\n"

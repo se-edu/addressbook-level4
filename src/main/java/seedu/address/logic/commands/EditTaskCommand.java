@@ -33,7 +33,7 @@ import seedu.address.model.task.TaskName;
  * takes an index of the task and finds it and edits it
  */
 public class EditTaskCommand extends Command {
-    public static final String COMMAND_WORD = "editTask";
+    public static final String COMMAND_WORD = "edittask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the details of the task identified "

@@ -1,10 +1,5 @@
 package seedu.address;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
-import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
-import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -98,8 +93,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs(),
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

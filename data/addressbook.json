@@ -1,23 +1,5 @@
 {
   "persons" : [ {
-    "name" : "Alex Yeoh",
-    "phone" : "87438807",
-    "email" : "alexyeoh@example.com",
-    "address" : "Blk 30 Geylang Street 29, #06-40",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Bernice Yu",
-    "phone" : "99272758",
-    "email" : "berniceyu@example.com",
-    "address" : "Blk 30 Lorong 3 Serangoon Gardens, #07-18",
-    "tagged" : [ "colleagues", "friends" ]
-  }, {
-    "name" : "Charlotte Oliveiro",
-    "phone" : "93210283",
-    "email" : "charlotte@example.com",
-    "address" : "Blk 11 Ang Mo Kio Street 74, #11-04",
-    "tagged" : [ "neighbours" ]
-  }, {
     "name" : "David Li",
     "phone" : "91031282",
     "email" : "lidavid@example.com",
@@ -35,12 +17,6 @@
     "email" : "royb@example.com",
     "address" : "Blk 45 Aljunied Street 85, #11-31",
     "tagged" : [ "colleagues" ]
-  }, {
-    "name" : "John Doe",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "John street, block 123, #01-02",
-    "tagged" : [ ]
   }, {
     "name" : "Bob",
     "phone" : "99887766",

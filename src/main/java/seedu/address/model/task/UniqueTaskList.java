@@ -3,6 +3,9 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +25,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private final ObservableList<Task> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
@@ -95,6 +99,15 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!internalList.remove(toRemove)) {
             throw new TaskNotFoundException();
         }
+    }
+
+    /**
+     * Sorts the tasks in the internallist from earliest first
+     */
+    public void sortTask() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyy HHmm");
+        internalList.sort(Comparator.comparing(task -> LocalDateTime.parse((task.getDeadlineDate().value
+                + ' ' + task.getDeadlineTime().value), formatter)));
     }
 
     /**
