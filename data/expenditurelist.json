@@ -1,0 +1,12 @@
+{
+  "purchases" : [ {
+    "name" : "Mala HotPot",
+    "price" : "10.00",
+    "tagged" : [ "Expensive" ]
+  }, {
+    "name" : "Deck Chicken Rice",
+    "price" : "5.00",
+    "tagged" : [ "AddMeat" ]
+  } ]
+}
+
