@@ -1,11 +1,7 @@
 {
   "purchases" : [ {
-    "name" : "Chicken rice",
-    "price" : "4.50",
-    "tagged" : [ "food" ]
-  }, {
-    "name" : "Bicycle rental for 3hrs",
-    "price" : "10.00",
-    "tagged" : [ "outing", "family" ]
+    "name" : "daw",
+    "price" : "12.22",
+    "tagged" : [ ]
   } ]
 }

@@ -95,6 +95,7 @@ public class SampleDataUtil {
         //TODO
         return expenditureList;
     } */
+
     public static ReadOnlyWorkoutBook getSampleWorkoutBook() {
         WorkoutBook workoutBook = new WorkoutBook();
         //TODO
