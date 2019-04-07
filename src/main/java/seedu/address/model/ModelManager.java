@@ -34,12 +34,14 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedExpenditureList versionedExpenditureList;
     private final VersionedWorkoutBook versionedWorkoutBook;
+    private final VersionedTaskList versionedTaskList;
+    private final VersionedTaskList versionedTickedTaskList;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredTickTasks;
     private final FilteredList<Purchase> filteredPurchases;
     private final FilteredList<Workout> filteredWorkout;
-    private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Purchase> selectedPurchase = new SimpleObjectProperty<>();
@@ -58,11 +60,13 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
+        versionedTickedTaskList = new VersionedTaskList(taskList);
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
+        filteredTickTasks = new FilteredList<>(versionedTickedTaskList.getTaskList());
         filteredWorkout = new FilteredList<>(versionedWorkoutBook.getWorkoutList());
         filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
         filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
@@ -122,6 +126,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyTaskList getTaskList() {
         return versionedTaskList;
+    }
+
+    @Override
+    public ReadOnlyTaskList getTickedTaskList() {
+        return versionedTickedTaskList;
     }
 
     @Override
@@ -203,15 +212,33 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Task> getFilteredTickedTaskList() {
+        return filteredTickTasks;
+    }
+
+    @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
 
     @Override
+    public void updateFilteredTickedTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTickTasks.setPredicate(predicate);
+    }
+
+
+    @Override
     public void addTask(Task task) {
         versionedTaskList.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void addTickedTaskList(Task task) {
+        task.addCompletedTag();
+        versionedTickedTaskList.addTask(task);
     }
 
     @Override
@@ -291,6 +318,11 @@ public class ModelManager implements Model {
     @Override
     public void commitTaskList() {
         versionedTaskList.commit();
+    }
+
+    @Override
+    public void commitTickedTaskList() {
+        versionedTickedTaskList.commit();
     }
 
     //=========== Selected person ===========================================================================

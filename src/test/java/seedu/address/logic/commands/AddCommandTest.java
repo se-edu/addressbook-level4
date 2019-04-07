@@ -149,6 +149,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyTaskList getTickedTaskList() {
+            return null;
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -160,6 +165,11 @@ public class AddCommandTest {
 
         @Override
         public void addTask(Task task) {
+
+        }
+
+        @Override
+        public void addTickedTaskList(Task task) {
 
         }
 
@@ -184,6 +194,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void commitTickedTaskList() {
+
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -200,6 +215,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
+
+        }
+
+        @Override
+        public void updateFilteredTickedTaskList(Predicate<Task> predicate) {
 
         }
 
@@ -245,6 +265,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Task> getFilteredTaskList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTickedTaskList() {
             return null;
         }
 

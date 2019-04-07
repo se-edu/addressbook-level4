@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private PurchaseListPanel purchaseListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TickedTaskListPanel tickedTaskPanel;
 
     private PersonListPanel personListPanel2;
 
@@ -60,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane tickedTaskListPanelPlaceholder;
 
     @FXML
     private StackPane purchaseListPanelPlaceholder;
@@ -134,6 +138,10 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedTask);
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
+        //tickedTaskPanel = new TickedTaskListPanel(logic.getFilteredTickedTaskList(), logic.selectedTaskProperty(),
+        //      logic::setSelectedTask);
+        //tickedTaskListPanelPlaceholder.getChildren().add(tickedTaskPanel.getRoot());
+
         purchaseListPanel = new PurchaseListPanel(logic.getFilteredPurchaseList(), logic.selectedPurchaseProperty(),
                 logic::setSelectedPurchase);
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
@@ -196,6 +204,9 @@ public class MainWindow extends UiPart<Stage> {
         return taskListPanel;
     }
 
+    public TickedTaskListPanel getTickedListPanel() {
+        return tickedTaskPanel;
+    }
 
     public PurchaseListPanel getPurchaseListPanel() {
         return purchaseListPanel;

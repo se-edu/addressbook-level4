@@ -40,6 +40,8 @@ public interface Logic {
 
     ObservableList<Task> getFilteredTaskList();
 
+    ObservableList<Task> getFilteredTickedTaskList();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
