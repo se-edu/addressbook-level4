@@ -1,17 +1,5 @@
 {
   "persons" : [ {
-    "name" : "Bernice Yu",
-    "phone" : "99272758",
-    "email" : "berniceyu@example.com",
-    "address" : "Blk 30 Lorong 3 Serangoon Gardens, #07-18",
-    "tagged" : [ "colleagues", "friends" ]
-  }, {
-    "name" : "Charlotte Oliveiro",
-    "phone" : "93210283",
-    "email" : "charlotte@example.com",
-    "address" : "Blk 11 Ang Mo Kio Street 74, #11-04",
-    "tagged" : [ "neighbours" ]
-  }, {
     "name" : "David Li",
     "phone" : "91031282",
     "email" : "lidavid@example.com",
