@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
 import seedu.address.model.WorkoutBook;
-import seedu.address.model.workout.WorkoutList;
 
+/**
+ * Typicalworkouts
+ */
 public class TypicalWorkouts {
 
-    public static WorkoutBook getTypicalWorkoutList(){
+    public static WorkoutBook getTypicalWorkoutList() {
         WorkoutBook expl = new WorkoutBook();
         return expl;
     }

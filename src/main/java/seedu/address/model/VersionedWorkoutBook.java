@@ -1,18 +1,21 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * some workoutbook
+ */
 public class VersionedWorkoutBook extends WorkoutBook {
     private final List<ReadOnlyWorkoutBook> workoutBookStateList;
     private int currentStatePointer;
 
-    public VersionedWorkoutBook(ReadOnlyWorkoutBook initialState){
+    public VersionedWorkoutBook(ReadOnlyWorkoutBook initialState) {
         super(initialState);
         workoutBookStateList = new ArrayList<>();
-       workoutBookStateList.add(new WorkoutBook(initialState));
+        workoutBookStateList.add(new WorkoutBook(initialState));
         currentStatePointer = 0;
     }
     /**
@@ -25,7 +28,10 @@ public class VersionedWorkoutBook extends WorkoutBook {
         currentStatePointer++;
         indicateModified();
     }
-
+    /**
+     * resets the Data
+     * @param newData
+     */
     public void resetData(ReadOnlyWorkoutBook newData) {
         requireNonNull(newData);
         setWorkouts(newData.getWorkoutList());

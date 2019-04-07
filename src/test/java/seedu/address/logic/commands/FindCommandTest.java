@@ -9,8 +9,8 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
+import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
 import java.util.Arrays;
@@ -21,7 +21,6 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
@@ -32,7 +31,7 @@ public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
             getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(),getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
