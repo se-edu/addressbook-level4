@@ -15,6 +15,8 @@ public interface ReadOnlyUserPrefs {
 
     Path getTaskListFilePath();
 
+    Path getTickedTaskListFilePath();
+
     Path getExpenditureListFilePath();
 
     Path getWorkoutBookFilePath();

@@ -26,7 +26,6 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteTaskCommand.MESSAGE_USAGE, pe));
         }
-
     }
 
 }

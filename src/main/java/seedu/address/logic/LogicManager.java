@@ -37,8 +37,10 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
     private boolean taskListModified;
+    private boolean tickedTaskListModified;
     private boolean expenditureListModified;
     private boolean workoutBookModified;
+
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -50,6 +52,7 @@ public class LogicManager implements Logic {
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
         model.getTaskList().addListener(observable -> taskListModified = true);
+        model.getTickedTaskList().addListener(observable -> tickedTaskListModified = true);
         model.getExpenditureList().addListener(observable -> expenditureListModified = true);
         model.getWorkoutList().addListener(observable -> workoutBookModified = true);
     }
@@ -59,6 +62,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
         taskListModified = false;
+        tickedTaskListModified = false;
         expenditureListModified = false;
         workoutBookModified = false;
 
@@ -77,6 +81,10 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
+
+        if (tickedTaskListModified) {
+            logger.info("Ticked Task List modified. Saving to file. ");
+        } //TODO
 
         if (expenditureListModified) {
             logger.info("Expenditure list modified, saving to file.");
@@ -113,6 +121,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyTaskList getTickedTaskList() {
+        return model.getTickedTaskList();
+    }
+
+    @Override
     public ReadOnlyExpenditureList getExpenditureList() {
         return model.getExpenditureList();
     }
@@ -130,6 +143,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTickedTaskList() {
+        return model.getFilteredTickedTaskList();
     }
 
     @Override
