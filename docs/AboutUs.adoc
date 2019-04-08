@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-StudentHandBook was developed by https://github.com/cs2113-ay1819s2-t08-2/main[StudentHandBook] team. +
+LIFE was developed by https://github.com/cs2113-ay1819s2-t08-2/main[LIFE] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -14,25 +14,7 @@ image::jerome.png[width="150", align="left"]
 {empty}[https://github.com/jayrometan[github]]
 
 Role: Team Leader, Developer +
-Responsibilities: Developer Guide, Implementing Task Feature, Daily List Feature
-
-'''
-
-=== WONG YU QI
-image::yuqi.png[width="150", align="left"]
-{empty}[https://github.com/wongyuqi[github]]
-
-Role: Developer +
-Responsibilities: User Guide, Implementing Timer Feature and Journal Feature
-
-'''
-
-=== PANG YONG JIA
-image::yongjia.png[width="150", align="left"]
-{empty}[https://github.com/yongjia96[github]]
-
-Role: Developer +
-Responsibilities: Use Cases, Workout Feature
+Responsibilities: Developer Guide, implementing Task List feature
 
 '''
 
@@ -41,6 +23,24 @@ image::weizhong.png[width="150", align="left"]
 {empty}[https://github.com/weizhonglauw[github]]
 
 Role: Developer +
-Responsibilities: Admin Information, Expenditure Tracker Feature
+Responsibilities: Developer Guide, implementing Expenditure List Feature
+
+'''
+
+=== PANG YONG JIA
+image::yongjia.png[width="150", align="left"]
+{empty}[https://github.com/yongjia96[github]]
+
+Role: Developer +
+Responsibilities: User Guide, implementing Workout Tracker feature
+
+'''
+
+=== WONG YU QI
+image::yuqi.png[width="150", align="left"]
+{empty}[https://github.com/wongyuqi[github]]
+
+Role: Developer +
+Responsibilities: User Guide, implementing Habit Tracker feature
 
 '''
