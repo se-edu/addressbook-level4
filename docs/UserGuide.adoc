@@ -38,7 +38,7 @@ Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 Only Java 8 is supported. +
 This app will not work with later major Java releases such as Java 9, 10, 11, etc.
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `LIFE.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for _LIFE_ application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -150,8 +150,8 @@ Format: `addpurchase n/NAME pr/PRICE [t/TAG]...`
 
 Examples:
 
-* `addpurchase n/Ice cream pr/1.50`
-* `addpurchase n/Bicycle rental pr/10.00 t/family t/eastcoastpark`
+* `addpurchase pn/Ice cream pr/1.50`
+* `addpurchase pn/Bicycle rental pr/10.00 t/family t/eastcoastpark`
 
 ==== Listing all past expenditures: `explist`
 
@@ -468,8 +468,8 @@ e.g.`select 2`
 * *Help* : `help`
 * *Add Task* : `addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME` +
 e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
-* *Add Purchase* : `addpurchase n/NAME pr/PRICE [t/TAG]...` +
-e.g. `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
+* *Add Purchase* : `addpurchase pn/NAME pr/PRICE [t/TAG]...` +
+e.g. `addpurchase pn/Bicycle rental pr/10.00 t/family`
 * *View Purchases*: `explist`
 * *Clear Expenditure List*: `clearexplist`
 * *History* : `history`
