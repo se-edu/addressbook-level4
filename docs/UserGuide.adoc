@@ -110,7 +110,7 @@ Deletes the task at INDEX 5
 
 ==== Edit Task : `editTask`
 Edits an existing specified task on the Task List.  +
-Format: `editTask 1 [n/Jerome] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
+Format: `editTask 1 [n/TASK_NAME] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
 
 ****
 Words in `UPPER_CASE` are the parameters.
@@ -127,7 +127,7 @@ Examples:
 * `editTask 2 n/Banana` +
 Change the task name of the task specified at INDEX 2 to Banana.
 
-* `editTask 2 d/300219` +
+* `editTask 2 d/290319` +
 Change the deadline date of the task specified at INDEX 2 to 300219.
 
 ==== Clear Task : `clearTask` [coming soon]
