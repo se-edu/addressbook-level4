@@ -60,7 +60,7 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
-        versionedTickedTaskList = new VersionedTaskList(taskList);
+        versionedTickedTaskList = new VersionedTaskList(new TaskList());
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
@@ -124,16 +124,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskList getTaskList() {
-        return versionedTaskList;
-    }
-
-    @Override
-    public ReadOnlyTaskList getTickedTaskList() {
-        return versionedTickedTaskList;
-    }
-
-    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
@@ -156,6 +146,56 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.setPerson(target, editedPerson);
     }
+    //=========== Task List ================================================================================
+
+    @Override
+    public void addTask(Task task) {
+        versionedTaskList.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void addTickedTaskList(Task task) {
+        task.addCompletedTag();
+        versionedTickedTaskList.addTask(task);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        versionedTaskList.removeTask(target);
+    }
+
+    @Override
+    public ReadOnlyTaskList getTaskList() {
+        return versionedTaskList;
+    }
+
+    @Override
+    public ReadOnlyTaskList getTickedTaskList() {
+        return versionedTickedTaskList;
+    }
+
+
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedTaskList.hasTask(task);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+        versionedTaskList.setTask(target, editedTask);
+    }
+
+    @Override
+    public void sortTask() {
+        versionedTaskList.sortTask();
+    }
+
+    //======================================================================================================
+
 
     @Override
     public void setExpenditureList(ReadOnlyExpenditureList expenditureList) {
@@ -228,42 +268,7 @@ public class ModelManager implements Model {
         filteredTickTasks.setPredicate(predicate);
     }
 
-
-    @Override
-    public void addTask(Task task) {
-        versionedTaskList.addTask(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-    }
-
-    @Override
-    public void addTickedTaskList(Task task) {
-        task.addCompletedTag();
-        versionedTickedTaskList.addTask(task);
-    }
-
-    @Override
-    public boolean hasTask(Task task) {
-        requireNonNull(task);
-        return versionedTaskList.hasTask(task);
-    }
-
-    @Override
-    public void setTask(Task target, Task editedTask) {
-        requireAllNonNull(target, editedTask);
-        versionedTaskList.setTask(target, editedTask);
-    }
-
-    @Override
-    public void deleteTask(Task target) {
-        versionedTaskList.removeTask(target);
-    }
-
-    @Override
-    public void sortTask() {
-        versionedTaskList.sortTask();
-    }
-
-    //==========================================================
+    //======================================================================================================
 
     @Override
     public void commitExpenditureList() {
@@ -325,7 +330,7 @@ public class ModelManager implements Model {
         versionedTickedTaskList.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected ===========================================================================
 
     @Override
     public ReadOnlyProperty<Person> selectedPersonProperty() {
@@ -476,6 +481,8 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
+
+    //====================Common tasks =================================================
 
     /**
      * Checks for the validity of the input time string

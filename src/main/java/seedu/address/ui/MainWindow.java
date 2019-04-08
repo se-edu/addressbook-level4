@@ -37,9 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private PurchaseListPanel purchaseListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private TickedTaskListPanel tickedTaskPanel;
-
-    private PersonListPanel personListPanel2;
+    private TickedTaskListPanel tickedTaskListPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -138,9 +136,9 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedTask);
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        //tickedTaskPanel = new TickedTaskListPanel(logic.getFilteredTickedTaskList(), logic.selectedTaskProperty(),
-        //      logic::setSelectedTask);
-        //tickedTaskListPanelPlaceholder.getChildren().add(tickedTaskPanel.getRoot());
+        tickedTaskListPanel = new TickedTaskListPanel(logic.getFilteredTickedTaskList(), logic.selectedTaskProperty(),
+              logic::setSelectedTask);
+        tickedTaskListPanelPlaceholder.getChildren().add(tickedTaskListPanel.getRoot());
 
         purchaseListPanel = new PurchaseListPanel(logic.getFilteredPurchaseList(), logic.selectedPurchaseProperty(),
                 logic::setSelectedPurchase);
@@ -196,27 +194,12 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    public TaskListPanel getTaskListPanel() {
-        return taskListPanel;
-    }
-
-    public TickedTaskListPanel getTickedListPanel() {
-        return tickedTaskPanel;
-    }
-
-    public PurchaseListPanel getPurchaseListPanel() {
-        return purchaseListPanel;
-    }
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

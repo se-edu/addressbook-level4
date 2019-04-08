@@ -18,7 +18,7 @@ import seedu.address.model.task.Task;
  */
 public class TickedTaskListPanel extends UiPart<Region> {
 
-    private static final String FXML = "TaskListPanel.fxml";
+    private static final String FXML = "TickedTaskListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(TickedTaskListPanel.class);
 
     @javafx.fxml.FXML
@@ -28,7 +28,7 @@ public class TickedTaskListPanel extends UiPart<Region> {
                          Consumer<Task> onSelectedTaskChange) {
         super(FXML);
         tickedTaskListView.setItems(taskList);
-        tickedTaskListView.setCellFactory(listView -> new TaskListViewCell());
+        tickedTaskListView.setCellFactory(listView -> new TickedTaskListViewCell());
         tickedTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in person list panel changed to : '" + newValue + "'");
             onSelectedTaskChange.accept(newValue);
@@ -55,7 +55,7 @@ public class TickedTaskListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class TaskListViewCell extends ListCell<Task> {
+    class TickedTaskListViewCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);

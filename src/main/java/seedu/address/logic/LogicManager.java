@@ -121,6 +121,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyTaskList getTickedTaskList() {
+        return model.getTickedTaskList();
+    }
+
+    @Override
     public ReadOnlyExpenditureList getExpenditureList() {
         return model.getExpenditureList();
     }

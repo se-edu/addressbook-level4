@@ -23,16 +23,18 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private TaskListStorage taskListStorage;
+    private TickedTaskListStorage tickedTaskListStorage;
     private WorkoutBookStorage workoutBookStorage;
     private ExpenditureListStorage expenditureListStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage,
-                          WorkoutBookStorage workoutBookStorage) {
+                          WorkoutBookStorage workoutBookStorage, TickedTaskListStorage tickedTaskListStorage) {
       super();
 
         this.taskListStorage = taskListStorage;
+        this.tickedTaskListStorage = tickedTaskListStorage;
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.workoutBookStorage = workoutBookStorage;
@@ -97,11 +99,14 @@ public class StorageManager implements Storage {
     public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
         return readTaskList(taskListStorage.getTaskListFilePath());
     }
+
     @Override
     public Optional<ReadOnlyTaskList> readTaskList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
+        logger.info("READING FROM FILE" + filePath);
         return taskListStorage.readTaskList(filePath);
     }
+
     @Override
     public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
         saveTaskList(taskList, taskListStorage.getTaskListFilePath());
@@ -111,6 +116,34 @@ public class StorageManager implements Storage {
     public void saveTaskList(ReadOnlyTaskList taskList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         taskListStorage.saveTaskList(taskList, filePath);
+    }
+
+    @Override
+    public Path getTickedTaskListFilePath() {
+        return tickedTaskListStorage.getTickedTaskListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readTickedTaskList() throws DataConversionException, IOException {
+        logger.info("HELLO");
+        return readTickedTaskList(tickedTaskListStorage.getTickedTaskListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readTickedTaskList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        logger.info("READING FROM FILE" + filePath);
+        return tickedTaskListStorage.readTickedTaskList(filePath);
+    }
+
+    @Override
+    public void saveTickedTaskList(ReadOnlyTaskList tasklist) throws IOException {
+
+    }
+
+    @Override
+    public void saveTickedTaskList(ReadOnlyTaskList taskList, Path filepath) throws IOException {
+
     }
 
     @Override

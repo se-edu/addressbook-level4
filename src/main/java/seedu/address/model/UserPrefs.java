@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path taskListFilePath = Paths.get("data", "tasklist.json");
+    private Path tickedTaskListFilePath = Paths.get("data", "tickedtasklist.json");
     private Path expenditureListFilePath = Paths.get("data" , "expenditurelist.json");
     private Path workoutBookFilePath = Paths.get("data" , "workoutbook.json");
 
@@ -40,6 +41,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setTaskListFilePath(newUserPrefs.getTaskListFilePath());
+        setTickedTaskListFilePath(newUserPrefs.getTickedTaskListFilePath());
         setExpenditureListFilePath(newUserPrefs.getExpenditureListFilePath());
         setWorkoutBookFilePath(newUserPrefs.getWorkoutBookFilePath());
     }
@@ -69,6 +71,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setTaskListFilePath(Path taskListFilePath) {
         requireNonNull(taskListFilePath);
         this.taskListFilePath = taskListFilePath;
+    }
+    public Path getTickedTaskListFilePath() {
+        return tickedTaskListFilePath;
+    }
+
+    public void setTickedTaskListFilePath(Path tickedTaskListFilePath) {
+        requireNonNull(tickedTaskListFilePath);
+        this.tickedTaskListFilePath = tickedTaskListFilePath;
     }
 
     public Path getExpenditureListFilePath() {

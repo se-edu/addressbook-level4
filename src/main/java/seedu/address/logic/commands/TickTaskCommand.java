@@ -41,6 +41,7 @@ public class TickTaskCommand extends Command {
         model.addTickedTaskList(taskToTick);
         model.deleteTask(taskToTick);
         model.commitTickedTaskList();
+        model.commitTaskList();
         return new CommandResult(String.format(MESSAGE_TICK_TASK_SUCCESS, taskToTick));
     }
 

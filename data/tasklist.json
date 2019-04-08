@@ -1,38 +1,8 @@
 {
   "tasks" : [ {
-    "taskName" : "CS2101 OP2",
-    "deadlineDate" : "080419",
-    "deadlineTime" : "1025",
-    "tagged" : [ "A" ]
-  }, {
-    "taskName" : "CS2101 OP3",
-    "deadlineDate" : "080419",
-    "deadlineTime" : "1025",
-    "tagged" : [ "IMPORTANT" ]
-  }, {
-    "taskName" : "CS2113 Developer Guide",
-    "deadlineDate" : "080419",
-    "deadlineTime" : "1025",
-    "tagged" : [ "IMPORTANT" ]
-  }, {
-    "taskName" : "User Guide",
+    "taskName" : "JEROME",
     "deadlineDate" : "230319",
     "deadlineTime" : "2359",
-    "tagged" : [ ]
-  }, {
-    "taskName" : "Developer Guide",
-    "deadlineDate" : "230319",
-    "deadlineTime" : "2359",
-    "tagged" : [ ]
-  }, {
-    "taskName" : "CS3235 Assignment 3",
-    "deadlineDate" : "280219",
-    "deadlineTime" : "2359",
-    "tagged" : [ ]
-  }, {
-    "taskName" : "Commit V14",
-    "deadlineDate" : "230219",
-    "deadlineTime" : "2300",
     "tagged" : [ ]
   } ]
 }

@@ -12,7 +12,6 @@ import seedu.address.model.ReadOnlyTaskList;
  */
 public interface TaskListStorage {
     Path getTaskListFilePath();
-
     Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException;
     Optional<ReadOnlyTaskList> readTaskList(Path filePath) throws DataConversionException, IOException;
     void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
