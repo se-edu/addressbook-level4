@@ -1,15 +1,18 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * The class of {@code VersionedTaskList}
+ */
 public class VersionedTaskList extends TaskList {
     private final List<ReadOnlyTaskList> taskListStateList;
     private int currentStatePointer;
 
-    public VersionedTaskList(ReadOnlyTaskList initialState){
+    public VersionedTaskList(ReadOnlyTaskList initialState) {
         super(initialState);
         taskListStateList = new ArrayList<>();
         taskListStateList.add(new TaskList(initialState));
@@ -26,6 +29,10 @@ public class VersionedTaskList extends TaskList {
         indicateModified();
     }
 
+    /**
+     * resets the data of the tasklist
+     * @param newData
+     */
     public void resetData(ReadOnlyTaskList newData) {
         requireNonNull(newData);
         setTasks(newData.getTaskList());

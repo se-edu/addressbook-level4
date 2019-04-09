@@ -7,10 +7,6 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.workout.Workout;
 import seedu.address.model.workout.WorkoutList;
 
@@ -47,8 +43,6 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
-
     /**
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
@@ -61,22 +55,10 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyWorkoutBook newData){
-            requireNonNull(newData);
-
-            setWorkouts(newData.getWorkoutList());
-        }
-
-
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-   // public boolean hasWorkout(Workout workout) {
-     //   requireNonNull(workout);
-       // return workouts.contains(workout);
-    //}
+    public void resetData(ReadOnlyWorkoutBook newData) {
+        requireNonNull(newData);
+        setWorkouts(newData.getWorkoutList());
+    }
 
     /**
      * Adds a person to the address book.
@@ -86,29 +68,6 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
         workouts.add(w);
         indicateModified();
     }
-
-
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    //public void setPerson(Person target, Person editedPerson) {
-       // requireNonNull(editedPerson);
-
-        //persons.setPerson(target, editedPerson);
-        //indicateModified();
-   // }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    //public void removeWorkout(Person key) {
-      //  persons.remove(key);
-        //indicateModified();
-    //}
 
     @Override
     public void addListener(InvalidationListener listener) {
@@ -139,13 +98,6 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     public ObservableList<Workout> getWorkoutList() {
         return workouts.asUnmodifiableObservableList();
     }
-
-    //@Override
-    //public boolean equals(Object other) {
-      //  return other == this // short circuit if same object
-        //        || (other instanceof AddressBook // instanceof handles nulls
-          //      && persons.equals(((AddressBook) other).persons));
-    //}
 
     @Override
     public int hashCode() {

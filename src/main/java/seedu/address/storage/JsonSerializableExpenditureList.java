@@ -45,7 +45,7 @@ public class JsonSerializableExpenditureList {
     public ExpenditureList toModelType() throws IllegalValueException {
         ExpenditureList expenditureList = new ExpenditureList();
         for (JsonAdaptedPurchase jsonAdaptedPurchase : purchases) {
-            Purchase purchase= jsonAdaptedPurchase.toModelType();
+            Purchase purchase = jsonAdaptedPurchase.toModelType();
             expenditureList.addPurchase(purchase);
         }
         return expenditureList;

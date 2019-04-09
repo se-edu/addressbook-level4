@@ -1,0 +1,23 @@
+{
+  "tasks" : [ {
+    "taskName" : "CS2101 OP2",
+    "deadlineDate" : "080419",
+    "deadlineTime" : "1025",
+    "tagged" : [ "A" ]
+  }, {
+    "taskName" : "CS2113 Developer Guide",
+    "deadlineDate" : "080419",
+    "deadlineTime" : "1025",
+    "tagged" : [ "COMPLETED", "IMPORTANT" ]
+  }, {
+    "taskName" : "User Guide",
+    "deadlineDate" : "230319",
+    "deadlineTime" : "2359",
+    "tagged" : [ "COMPLETED" ]
+  }, {
+    "taskName" : "Developer Guide",
+    "deadlineDate" : "230319",
+    "deadlineTime" : "2359",
+    "tagged" : [ ]
+  } ]
+}

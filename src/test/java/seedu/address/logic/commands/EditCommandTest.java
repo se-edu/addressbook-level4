@@ -14,8 +14,9 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
+import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
+import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
 import org.junit.Test;
 
@@ -36,8 +37,8 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model =  new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -49,7 +50,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
 
@@ -72,7 +73,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.setPerson(lastPerson, editedPerson);
         expectedModel.commitAddressBook();
 
@@ -87,7 +88,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -105,7 +106,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
 
@@ -166,7 +167,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.setPerson(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
 
@@ -209,7 +210,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());

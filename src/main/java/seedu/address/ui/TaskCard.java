@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -9,9 +12,10 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
 
-import java.util.Comparator;
-import java.util.logging.Logger;
 
+/**
+ *  An UI component that displays information of {@code task}.
+ */
 public class TaskCard extends UiPart<Region> {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private static final String FXML = "TaskListCard.fxml";
@@ -35,7 +39,6 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-//        logger.info("TASK NAME IS " + task.getDeadlineDate());
         name.setText(task.getTaskName().fullName);
         date.setText(task.getDeadlineDate().value);
         time.setText(task.getDeadlineTime().value + "HRS");

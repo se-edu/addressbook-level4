@@ -40,6 +40,8 @@ public class MainWindow extends UiPart<Stage> {
     private WorkoutListPanel workoutListPanel;
 
     private PersonListPanel personListPanel2;
+    private TickedTaskListPanel tickedTaskListPanel;
+
 
     @FXML
     private StackPane browserPlaceholder;
@@ -61,6 +63,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane tickedTaskListPanelPlaceholder;
 
     @FXML
     private StackPane purchaseListPanelPlaceholder;
@@ -138,6 +143,10 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedTask);
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
+        tickedTaskListPanel = new TickedTaskListPanel(logic.getFilteredTickedTaskList(), logic.selectedTaskProperty(),
+              logic::setSelectedTask);
+        tickedTaskListPanelPlaceholder.getChildren().add(tickedTaskListPanel.getRoot());
+
         purchaseListPanel = new PurchaseListPanel(logic.getFilteredPurchaseList(), logic.selectedPurchaseProperty(),
                 logic::setSelectedPurchase);
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
@@ -209,12 +218,13 @@ public class MainWindow extends UiPart<Stage> {
     public PurchaseListPanel getPurchaseListPanel() {
         return purchaseListPanel;
     }
+
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

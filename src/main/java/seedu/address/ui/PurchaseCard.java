@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -9,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.purchase.Purchase;
+
 
 /**
  * An UI component that displays information of a {@code Purchase}.
@@ -44,7 +44,7 @@ public class PurchaseCard extends UiPart<Region> {
         this.purchase = purchase;
         id.setText(displayedIndex + ". ");
         name.setText(purchase.getPurchaseName().fullName);
-        price.setText(purchase.getPrice().value);
+        price.setText("$" + purchase.getPrice().value);
         purchase.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

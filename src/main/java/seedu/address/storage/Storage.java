@@ -6,17 +6,17 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.ReadOnlyWorkoutBook;
-
+import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, TaskListStorage, WorkoutBookStorage, ExpenditureListStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage,
+        TaskListStorage, WorkoutBookStorage, ExpenditureListStorage, TickedTaskListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -45,6 +45,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, TaskListS
 
     @Override
     void saveTaskList (ReadOnlyTaskList taskList) throws IOException;
+
     /* ----------------------Workout Book ----------------------------------------------*/
 
     @Override

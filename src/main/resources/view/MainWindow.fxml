@@ -13,7 +13,7 @@
 
 <?import javafx.scene.text.Text?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Student HandBook" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="LIFE" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -48,8 +48,10 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+
+
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Address Book" textAlignment="CENTER" textOrigin="TOP"  />
+            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Contact List" textAlignment="CENTER" textOrigin="TOP"  />
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
@@ -72,12 +74,19 @@
             <StackPane fx:id="purchaseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
+
           <VBox fx:id="workoutList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Workout List" textAlignment="CENTER" textOrigin="TOP"  />
             <StackPane fx:id="workoutListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <VBox fx:id="tickedTaskList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Completed List" textAlignment="CENTER" textOrigin="TOP"  />
+            <StackPane fx:id="tickedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >

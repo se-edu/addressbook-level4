@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= LIFE - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,13 +14,33 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T08-2`  	Since: `May 2019`  	Licence: `MIT`
+
+== Introduction
+=== What is LIFE
+_LIFE_ - Lifestyle Improvement For Everyone +
+It is a desktop application for students to easily manage their
+tasks, expenditure and fitness.
+
+=== Core Team
+_LIFE_ was developed and is continually being maintained and improved upon
+by link:https://github.com/cs2113-ay1819s2-t08-2/main[Team T08-2]
+
+== About this Developer Guide
+This developer guide serves to assist you in making contributions to the _LIFE_ application.
+To get started, jump to <<Setting Up>>.
 
 == Setting up
+Follow the instructions below to set up and configure _LIFE_ project files on your computer.
 
 === Prerequisites
 
 . *JDK `8`* (revision `1.8.0_201` or later)
++
+[TIP]
+If you do not
+already have it installed, you can download it from
+link:http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html[here].
 +
 [NOTE]
 Only JDK 8 is supported. +
@@ -31,6 +51,8 @@ This app will not work with later major JDK releases such as JDK 9, 10, 11, etc.
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+
 
 
 === Setting up the project in your computer
@@ -152,7 +174,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::classdiagramUI.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -197,12 +219,15 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the _LIFE_ application data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change. +
+(There exists `ObservableList<Purchase>`, `ObservableList<Workout>` and `ObservableList<Habit>` as well)
 * does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+(This goes the same for each `Task`, `Purchase`, `Workout` and `Habit`)
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -308,46 +333,86 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
+// tag::Task[]
 === Task Feature
-==== Implementation
-* The task feature is facilitated by `VersionedTaskList`.
- It is stored internally as an TaskListStateList and currentStatePointer.
- It consists of 4 components:
-** `VersionedTaskList#AddTask` - Adds a new task to the Student Hand Book
-** `VersionedTaskList#listTask` - Lists down the existing Tasks
-** `VersionedTaskList#editTask` - Edits an existing Tasks
-** `VersionedTaskList#deleteTask` - Deletes an existing Task
+
+==== `Task` package
+
+===== Reason for implementation
+
+_LIFE_ is a tool for helping students manage their priorities, therefore the ability to help them document their tasks is highly essential.
+
+===== Current Implementation
+
+Each attribute of a Task, such as the task name, date of the deadline,
+time of the deadline are classes in the `Task` package.
+Each of the classes provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|TaskName |new TaskName("CS2101 Developer Guide")|Stores a `String` that represents the name
+ of the task.
+|DeadlineDate|new DeadlineDate("020419")|Stores a `String` that represents the deadline date of the task. String stored has to be in the DDMMYY format.
+|DeadlineTime|new DeadlineTime("2359")|Stores a `String` that represents the deadline time of the task.  String stored has to be in the 24HRS format.
+|Tag|new Tag()|Stores a `String` that acts as a tag to the task. This field is *optional*.
+|=======
+
+The `task` package includes the `Task` class which documents information about a task.
+ The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Task |`new Task(TaskName, DeadlineDate, DeadlineTime, Tag)` |Stores `TaskName`, `DeadlineDate`,
+ `DeadlineTime`, `Tag` objects to document a task's information.
+|=======
+
+`Task` objects have to be unique. They are considered duplicates
+ if they share the same TaskName and there is a check for duplicates when adding the task. This check
+ is found in the `addTaskCommand.java` file which calls for `model` to verify any duplication
+ before adding the `Task` instance into the `UniqueTaskList`.
+
+===== Reasons for how it is implemented
+The `task` package follows the model of the `person` package which existed before our
+ team started this project. This made it easier for us to implement our features as we
+  could follow the style of how the `person` package was implemented thereby
+   improving the modularity and organization.
+
+//end::Task[]
+
+
+
+==== Add Task
+
+===== Reason for implementation
+To be able to document tasks, students should be able to add their tasks into the application.
+
+===== Current Implementation
+The `AddTaskCommand` is created when the command word `addTask` is detected in the user input.
+ Through the `AddTaskCommand`, the user input will then be split into its separate
+  components(e.g. `TaskName`, `DeadlineDate`, `DeadlineTime`, `Tag`) through `ParserUtil`,
+   creating a `Task` instance. This instance is then passed from the `logic` component to the `model` component.
+
 
 ==== Model
-Like the undo/redo feature as listed above, this model of this feature is almost s identical to it, as we felt that we should reuse existing methods and models.
 
-These operations are exposed in the `Model` interface as:
+In the `Model` component, the new `Task` object gets added to the list of tasks into the `UniqueTaskList`.
 
-* `Model#addTask()`
-* `Model#listTask()`
-* `Model#editTask()`
-* `Model#deleteTask()`
-
-Given below is an example usage scenario and how the add mechanism behaves at each step.
+Given below is an example usage scenario and how the `addTask` mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The Student HandBook will initialize with the initial task list state and the currentStatePointer
-pointing to that single address book state.
+_LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task li state.
 
 Step 2. The user executes the `addTask` command with `addTask n/Update User Documentation d/301219 e/2359`
 
 Step 3. This command goes through the `AddTaskCommandParser` to extract the values of
-the input string and to process it. It also searches for invalid input.
+the input string and to process it. It also searches for invalid input and duplicates.
 
-Step 4. Once valid, adds to the ArrayList called TaskList.
+Step 4. Once valid, it passes the Task from the `logic` component to the `model` component into an ArrayList called `TaskList`.
 
-==== Why is this implemented this way
-As our task is to add on to an existing product (AddressBook), we decided to follow
-the same format as AddressBook for this function, as we can reuse some of the code
-through OOP concepts.
-
-Also, an ArrayList seemed the most appropriate for a list function.
 
 ==== Alternatives considered
 There is consideration for the use of hash map to hold the task list so that
@@ -356,40 +421,128 @@ the presence of already made list functions, we decided to stick with the arrayl
 as our team is more familiar with it.
 
 
+
+
+// tag::Purchase[]
 === Expenditure List Feature
-==== Implementation
-* The expenditure list feature is facilitated by `ExpenditureList`.
- It consists of 4 components:
-** `ExpenditureList#addPurchase` - Adds a new purchase to the StudentHandBook
-** `ExpenditureList#expList` - Lists down the existing expenses
-** `ExpenditureList#removePurchase` - Deletes an existing Purchase
-** `ExpenditureList#clearExp` - Clears the expenditure list
+
+==== `Purchase` package
+
+===== Reason for implementation
+
+_LIFE_ is also a tool for helping students manage their finances and spendings, therefore it is important to have a feature to help them record their expenditure regularly.
+
+===== Current Implementation
+
+Each attribute of a Purchase, the purchase name and price are classes in the `Purchase` package. Each class provides utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|PurchaseName |new PurchaseName("Ice cream")|Stores a `String` that represents the name of the purchase.
+|Price|new Price("1.50")|Stores a `String` that represents the price of the task. String stored has to be in the format of integers, followed by a decimal point then 2 integers.
+|Tag|new Tag()|Stores a `String` that acts as a tag to the new purchase. This field is *optional*.
+|=======
+
+The `purchase` package includes the `Purchase` class which documents information about the a purchase. The `Purchase` class provided utility methods to retrieve the different objects (e.g. `Price`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Purchase |`new Purchase(PurchaseName, Price, Tag)` |Stores `PurchaseName`, `Price`, `Tag` objects to document information of about a task.
+|=======
+
+===== Reasons for how it is implemented
+The `purchase` package follows the model of the `person` package which existed before our team started this project. This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, improving the modularity and organization.
+
+//end::Purchase[]
+
+==== Add Purchase
+
+===== Reason for implementation
+To be able to track expenditure, students should be able to add the purchases bought, together with the prices.
+
+===== Current Implementation
+The `AddPurchaseCommand` is created when the command word `addPurchase` is detected in the user input. Through the `AddPurchaseCommand`, the user input will then be split into its seperate components(e.g. `PurchaseName`, `Price`, `Tag`) through `ParserUtil`, creating a `Purchase` instance and pass it from the `logic` component to the `model` component.
+
 
 ==== Model
-These operations are exposed in the `Model` interface as:
-
-* `Model#addPurchase()`
-* `Model#listExp()`
-* `Model#deletePurchase()`
-* `Model#clearExp()`
-
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The Student HandBook will initialize with the initial expenditure list state.
+_LIFE_ will initialize with the initial expenditure list state.
 
-Step 2. The user executes the `addPurchase` command with `addPurchase n/Ice Cream p/$1.50`
+Step 2. The user executes the `addPurchase` command with `addPurchase pn/Ice Cream pr/$1.50`
 
-Step 3. This command goes through the `AddPurchaseCommandParser` to extract the values of
-the input string and to process it.
+Step 3. This command goes through the `AddPurchaseCommandParser` to extract the values of the input string and to process it. It also identifies invalid input.
 
-Step 4. Once valid, adds to the ArrayList called ExpenditureList.
+Step 4. Once valid, it passes the purchase from the `logic` component to the `model` component into an ArrayList called ExpenditureList.
 
-==== Why is this implemented this way
-Similarly to the task list, we decided to follow the same format as AddressBook for this function, as we can reuse some of the code
-through OOP concepts.
+==== Alternatives considered
+Similarly to the task list, a hash map could be considered, but the arraylist was decided to be used due to the lack of time and the presence of already made list functions.
 
-Likewise, an ArrayList seemed the most appropriate for a list function.
+// tag::Workout[]
+=== Workout Feature
+
+==== `Workout` package
+
+===== Reason for implementation
+
+_LIFE_ is a tool for helping students manage their workout records too, having this features will aid them in recording down their previous workouts.
+
+===== Current Implementation
+
+Each attribute of a Workout, such as the exercise, sets, reps and time are classes in the `Workout` package. Each of the class provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Exercise |new Exercise("Push ups")|Stores a `String` that represents the name of the exercise.
+|Sets|new Sets("1")|Stores a `String` that represents the sets of the exercise done. Sets have to be integers only.
+|Reps|new Reps("20")|Stores a `String` that represents the reps per set.  String stored has to be integers only.
+|Time|new Time(‘15’)|Stores a `String` that represent the time taken in minutes to finish the exercise. String stored has to be integers only.
+|=======
+
+The `Workout` package includes the `Workout` class which documents information about the workout. The `Workout` class provides utility methods to retrieve the different objects (e.g. `Sets`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Workout |`new Workout(Exercise, Sets, Reps, Time)` |Stores `Exercise`, `Sets`, `Reps`, `Time` objects to document information of about a workout.
+|=======
+
+
+===== Reasons for how it is implemented
+The reason is the same for the implementation of the `Task` feature.
+//end::Workout[]
+
+
+==== Add Workout
+
+===== Reason for implementation
+To be able to document workout, students should be able to add the workouts into the application.
+
+===== Current Implementation
+The `RecordCommand` is created when the command word `record` is detected in the user input. Through the `RecordCommand`, the user input will then be split into its seperate components(e.g. `Exercise`, `Sets`, `Reps`, `Time`) through `ParserUtil`, creating a `Workout` instance and pass it from the `logic` component to the `model` component.
+
+
+==== Model
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single address book state.
+
+Step 2. The user executes the `record` command with `record e/push ups s/5 r/20 t/20`
+
+Step 3. This command goes through the `RecordCommandParser` to extract the values of
+the input string and to process it. It also searches for invalid input and duplicates.
+
+Step 4. Once valid, it passes the Workout from the `logic` component to the `model` component into an ArrayList called  ‘WorkoutList`.
+
 
 
 
@@ -397,7 +550,6 @@ Likewise, an ArrayList seemed the most appropriate for a list function.
 
 _{Explain here how the data encryption feature will be implemented}_
 
-// end::dataencryption[]
 
 === Logging
 
@@ -890,13 +1042,18 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* student
+* has a need to manage a significant number of contacts, tasks
+* wishes to manage his/her expenditure
+* likes to journal
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: One-stop application for students to improve their student life through
+ documentation of their priorities and daily targets, enhancing their ability to manage their lives.
+
 
 [appendix]
 == User Stories
@@ -929,7 +1086,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `StudentHandBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `_LIFE_` application and the *Actor* is the `user`, unless specified otherwise)
 
 === Use case: Add a  task
 
@@ -938,7 +1095,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 . User requests to add a new task  +
 example: `addTask n/Update CS2113T Developer Guide
  d/311219 h/2359` +
-. StudentHandBook adds the task into the array list +
+. _LIFE_ adds the task into the array list +
 Use case ends.
 
 
@@ -946,10 +1103,10 @@ Use case ends.
 
 *MSS*
 
-. StudentHandBook already shows a list of daily tasks
+. _LIFE_ already shows a list of daily tasks
 . User requests to edit a specific task in the list via INDEX
 e.g. `editTask INDEX n/REDO CS2113T`
-. StudentHandBook edits the task
+. _LIFE_ edits the task
 +
 Use case ends.
 
@@ -960,7 +1117,7 @@ Use case ends.
 Use case ends.
 
 * 3a. Index not in Task List.
-** 3a1. StudentHandBook shows an error message.
+** 3a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -968,9 +1125,9 @@ Use case ends.
 
 *MSS*
 
-. StudentHandBook already displays the task list
+. _LIFE_ already displays the task list
 . User requests to remove the task with `deleteTask INDEX`
-. StudentHandBook removes the task
+. _LIFE_ removes the task
 +
 Use case ends.
 
@@ -980,7 +1137,7 @@ Use case ends.
 +
 Use case ends.
 * 2a. Index not in Task List.
-** 2a1. StudentHandBook shows an error message.
+** 2a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -991,7 +1148,7 @@ Use case ends.
 *MSS*
 
 . User requests to add a new purchase into the Expenditure List
-. StudentHandBook adds the purchase into the Expenditure List with name of purchase and its price
+. _LIFE_ adds the purchase into the Expenditure List with name of purchase and its price
 +
 Use case ends.
 
@@ -1000,7 +1157,7 @@ Use case ends.
 *MSS*
 
 . User requests to list expenditure
-. StudentHandBook shows the Expenditure List
+. _LIFE_ shows the Expenditure List
 +
 Use case ends.
 
@@ -1015,9 +1172,9 @@ Use case ends.
 *MSS*
 
 . User requests to view Expenditure List
-. StudentHandBook shows the Expenditure List
+. _LIFE_ shows the Expenditure List
 . User requests to delete a specific purchase on the list
-. StudentHandBook deletes the purchase
+. _LIFE_ deletes the purchase
 +
 Use case ends.
 
@@ -1028,7 +1185,7 @@ Use case ends.
 Use case ends.
 
 * 3a. Index not in Daily List.
-** 3a1. StudentHandBook shows an error message.
+** 3a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1038,7 +1195,7 @@ Use case ends.
 *MSS*
 
 . User requests to view Expenditure List
-. StudentHandBook shows the Expenditure List
+. _LIFE_ shows the Expenditure List
 . User requests to clear the Expenditure List
 +
 Use case ends.
@@ -1048,7 +1205,7 @@ Use case ends.
 *MSS*
 
 . User requests to see log of a specific purchase
-. StudentHandBook shows this particular purchase with its price
+. _LIFE_ shows this particular purchase with its price
 +
 Use case ends.
 
@@ -1059,7 +1216,7 @@ Use case ends.
 Use case ends.
 
 * 2a. Index not in Daily List.
-** 2a1. StudentHandBook shows an error message.
+** 2a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1068,7 +1225,7 @@ Use case ends.
 *MSS*
 
 . User requests to start a stopwatch
-. StudentHandBook records the time
+. _LIFE_ records the time
 +
 Use case ends.
 
@@ -1077,14 +1234,14 @@ Use case ends.
 *MSS*
 
 . User requests to stop the running stopwatch
-. StudentHandBook retrieves the start time and shows the total time elapsed
+. _LIFE_ retrieves the start time and shows the total time elapsed
 +
 Use case ends.
 
 *Extensions*
 
 * 1a. User did not start the stopwatch.
-** 1a1. StudentHandBook shows an error message.
+** 1a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1093,7 +1250,7 @@ Use case ends.
 *MSS*
 
 . User requests to add an entry of completed workout
-. StudentHandBook records the workout log
+. _LIFE_ records the workout log
 +
 Use case ends.
 
@@ -1102,7 +1259,7 @@ Use case ends.
 *MSS*
 
 . User requests to view Workout Log
-. StudentHandBook shows the Workout Log
+. _LIFE_ shows the Workout Log
 +
 Use case ends.
 
@@ -1133,19 +1290,26 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*_LIFE_*
 
-Author: ...
+Authors: Jerome, YuQi, Wei Zhong, YongJia link:https://github.com/cs2113-ay1819s2-t08-2/main[@T08-2]
 
 Pros:
 
-* ...
-* ...
+* Lots of features such as
+****
+* Task Management
+* Expenditure Management
+* Recording of Workouts
+* Documenting of Journal
+****
+* Information can be located easily
 
 Cons:
 
-* ...
-* ...
+* Non-interactive user interface, used a console based interface instead
+* Have to memorise commands
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -1192,3 +1356,9 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+
+
+
+

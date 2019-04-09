@@ -2,9 +2,9 @@ package seedu.address.model.workout;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-
-
-
+/**
+ * Workout Class
+ */
 public class Workout {
 
     // Identity fields
@@ -29,11 +29,17 @@ public class Workout {
         return exercise;
     }
 
-    public Sets getSets() { return sets; }
+    public Sets getSets() {
+        return sets;
+    }
 
-    public Reps getReps() {return reps; }
+    public Reps getReps() {
+        return reps;
+    }
 
-    public Time getTime() {return time;}
+    public Time getTime() {
+        return time;
+    }
 
 
     @Override

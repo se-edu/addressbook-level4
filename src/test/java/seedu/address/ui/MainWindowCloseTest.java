@@ -18,10 +18,13 @@ import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonTaskListStorage;
 import seedu.address.storage.JsonExpenditureListStorage;
+import seedu.address.storage.JsonTaskListStorage;
+import seedu.address.storage.JsonTickedTaskListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonWorkoutBookStorage;
 import seedu.address.storage.StorageManager;
+
 
 /**
  * Contains tests for closing of the {@code MainWindow}.
@@ -39,9 +42,13 @@ public class MainWindowCloseTest extends GuiUnitTest {
         JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage jsonTaskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
-        JsonExpenditureListStorage jsonExpenditureListStorage = new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
+        JsonTickedTaskListStorage jsonTickedTaskListStorage =
+                new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
+        JsonExpenditureListStorage jsonExpenditureListStorage =
+                new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
+        JsonWorkoutBookStorage jsonWorkoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage,
-                jsonTaskListStorage, jsonExpenditureListStorage);
+                jsonTaskListStorage, jsonExpenditureListStorage, jsonWorkoutBookStorage, jsonTickedTaskListStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));
