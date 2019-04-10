@@ -226,8 +226,8 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Task List`, which `Task` can reference. This would allow `Task List` to only require one `Tag` object per unique `Tag`, instead of each `Task` needing their own `Tag` object. An example of how such a model may look like is given below. +
-(This goes the same for each `Purchase`, `Workout`, `Habit` and `Person`)
+As a more OOP model, we can store a `Tag` list in `Expenditure List`, which `Purchase` can reference. This would allow `Expenditure List` to only require one `Tag` object per unique `Tag`, instead of each `Purchase` needing their own `Tag` object. An example of how such a model may look like is given below. +
+(This goes the same for each `Task`, `Workout`, `Habit` and `Person`)
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
