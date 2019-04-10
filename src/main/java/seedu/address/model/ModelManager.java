@@ -31,7 +31,7 @@ import seedu.address.model.workout.Workout;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedContactList versionedContactList;
     private final VersionedExpenditureList versionedExpenditureList;
     private final VersionedWorkoutBook versionedWorkoutBook;
     private final UserPrefs userPrefs;
@@ -55,12 +55,12 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedContactList = new VersionedContactList(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
 
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons = new FilteredList<>(versionedContactList.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
         filteredWorkout = new FilteredList<>(versionedWorkoutBook.getWorkoutList());
@@ -111,12 +111,12 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+        versionedContactList.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+        return versionedContactList;
     }
 
     @Override
@@ -127,25 +127,25 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return versionedContactList.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+        versionedContactList.removePerson(target);
 
     }
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        versionedContactList.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedContactList.setPerson(target, editedPerson);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedContactList}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -265,27 +265,27 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+        return versionedContactList.canUndo();
     }
 
     @Override
     public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+        return versionedContactList.canRedo();
     }
 
     @Override
     public void undoAddressBook() {
-        versionedAddressBook.undo();
+        versionedContactList.undo();
     }
 
     @Override
     public void redoAddressBook() {
-        versionedAddressBook.redo();
+        versionedContactList.redo();
     }
 
     @Override
     public void commitAddressBook() {
-        versionedAddressBook.commit();
+        versionedContactList.commit();
     }
 
     @Override
@@ -439,7 +439,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedContactList.equals(other.versionedContactList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
