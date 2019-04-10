@@ -48,6 +48,8 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+
+
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Contact List" textAlignment="CENTER" textOrigin="TOP"  />
             <padding>
