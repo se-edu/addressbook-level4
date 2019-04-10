@@ -497,7 +497,7 @@ The following sequence diagram shows how the `ticktask` operation works.
 image::TickTaskSequenceDiagram.png[width='800']
 
 {nbsp} +
- 
+
 ==== Edit Task
 The `EditTaskCommand` will find and edit the specified `Task` _(that is according to the Task List shown
 in the UI)_ from the `TaskList` and along with the given input by the user, edit accordingly.
