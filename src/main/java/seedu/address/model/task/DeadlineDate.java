@@ -9,6 +9,8 @@ import static seedu.address.model.ModelManager.isValidDate;
 public class DeadlineDate {
     public static final String MESSAGE_CONSTRAINTS = "Deadline Date should only contain"
             + " 6 integers in the ddMMyy format";
+    public static final String MESSAGE_CONSTRAINTS_INVALID_DATE = "The date "
+            + "you have entered does not exist";
     public static final String VALIDATION_REGEX = "\\d{6}";
     public final String value;
 
@@ -18,7 +20,8 @@ public class DeadlineDate {
      */
     public DeadlineDate(String deadlineDate) {
         requireNonNull(deadlineDate);
-        checkArgument(isValidDeadlineDate(deadlineDate), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDeadlineDateInput(deadlineDate), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDeadlineDate(deadlineDate), MESSAGE_CONSTRAINTS_INVALID_DATE);
         value = deadlineDate;
     }
 
@@ -27,8 +30,12 @@ public class DeadlineDate {
      * @param deadlineDate a valid deadlineDate
      * @return Returns true if a given string is a valid time
      */
+    public static boolean isValidDeadlineDateInput(String deadlineDate) {
+        return deadlineDate.matches(VALIDATION_REGEX);
+    }
+
     public static boolean isValidDeadlineDate(String deadlineDate) {
-        return deadlineDate.matches(VALIDATION_REGEX) && isValidDate(deadlineDate);
+        return isValidDate(deadlineDate);
     }
 
     @Override

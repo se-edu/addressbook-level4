@@ -82,8 +82,11 @@ public class ParserUtil {
      */
     public static DeadlineDate parseDeadlineDate(String date) throws ParseException {
         requireNonNull(date);
-        if (!DeadlineDate.isValidDeadlineDate(date)) {
+        if (!DeadlineDate.isValidDeadlineDateInput(date)) {
             throw new ParseException(DeadlineDate.MESSAGE_CONSTRAINTS);
+        }
+        if (!DeadlineDate.isValidDeadlineDate(date)) {
+            throw new ParseException(DeadlineDate.MESSAGE_CONSTRAINTS_INVALID_DATE);
         }
         return new DeadlineDate(date);
     }
@@ -96,8 +99,11 @@ public class ParserUtil {
      */
     public static DeadlineTime parseDeadlineTime(String time) throws ParseException {
         requireNonNull(time);
-        if (!DeadlineTime.isValidDeadlineTime(time)) {
+        if (!DeadlineTime.isValidDeadlineTimeInput(time)) {
             throw new ParseException((DeadlineTime.MESSAGE_CONSTRAINTS));
+        }
+        if (!DeadlineTime.isValidDeadlineTime(time)) {
+            throw new ParseException((DeadlineTime.MESSAGE_CONSTRAINTS_INVALID_TIME));
         }
         return new DeadlineTime(time);
     }

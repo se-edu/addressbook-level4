@@ -15,32 +15,32 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyTaskList;
 
 /**
- * A class to access Task List Data as a json file on the hard disk
+ * A class to access to the Ticked Task List Data as a json file on the hard disk
  */
-public class JsonTaskListStorage implements TaskListStorage {
+public class JsonTickedTaskListStorage implements TickedTaskListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonTaskListStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonTickedTaskListStorage.class);
     private Path filePath;
 
-    public JsonTaskListStorage(Path filePath) {
+    public JsonTickedTaskListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getTaskListFilePath() {
+    public Path getTickedTaskListFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException {
-        return readTaskList(filePath);
+    public Optional<ReadOnlyTaskList> readTickedTaskList() throws DataConversionException {
+        return readTickedTaskList(filePath);
     }
 
     /**
-     * Similar to {@link #readTaskList()}
+     * Similar to {@link #readTickedTaskList()}
      * @param filePath location of path, cannot be null
      * @throws DataConversionException if file not in correct format
      */
-    public Optional<ReadOnlyTaskList> readTaskList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyTaskList> readTickedTaskList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
         Optional<JsonSerializableTaskList> jsonTaskList = JsonUtil.readJsonFile(filePath,
                 JsonSerializableTaskList.class);
@@ -57,16 +57,16 @@ public class JsonTaskListStorage implements TaskListStorage {
     }
 
     @Override
-    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
-        saveTaskList(taskList, filePath);
+    public void saveTickedTaskList(ReadOnlyTaskList taskList) throws IOException {
+        saveTickedTaskList(taskList, filePath);
     }
 
     /**
-     * Similar to {@link #saveTaskList(ReadOnlyTaskList)}.
+     * Similar to {@link #saveTickedTaskList(ReadOnlyTaskList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveTaskList(ReadOnlyTaskList taskList, Path filePath) throws IOException {
+    public void saveTickedTaskList(ReadOnlyTaskList taskList, Path filePath) throws IOException {
         requireNonNull(taskList);
         requireNonNull(filePath);
 

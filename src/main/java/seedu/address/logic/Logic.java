@@ -37,8 +37,13 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    ReadOnlyTaskList getTaskList();
+
+    ReadOnlyTaskList getTickedTaskList();
 
     ObservableList<Task> getFilteredTaskList();
+
+    ObservableList<Task> getFilteredTickedTaskList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -80,11 +85,19 @@ public interface Logic {
      */
     void setSelectedPerson(Person person);
 
+    /**
+     * Selected task in the filtered task list
+     * @return null if no person is selected.
+     */
     ReadOnlyProperty<Task> selectedTaskProperty();
 
+    /**
+     * Sets the selected task in the filtered task list.
+     *
+     */
     void setSelectedTask(Task task);
 
-    ReadOnlyTaskList getTaskList();
+
 
     /**
      * Returns the ExpenditureList.
@@ -116,9 +129,5 @@ public interface Logic {
     void setSelectedWorkout(Workout workout);
 
     ReadOnlyWorkoutBook getWorkoutList();
-
-
-
-
 
 }

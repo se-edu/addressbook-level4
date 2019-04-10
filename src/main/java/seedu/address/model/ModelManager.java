@@ -34,12 +34,14 @@ public class ModelManager implements Model {
     private final VersionedContactList versionedContactList;
     private final VersionedExpenditureList versionedExpenditureList;
     private final VersionedWorkoutBook versionedWorkoutBook;
+    private final VersionedTaskList versionedTaskList;
+    private final VersionedTaskList versionedTickedTaskList;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredTickTasks;
     private final FilteredList<Purchase> filteredPurchases;
     private final FilteredList<Workout> filteredWorkout;
-    private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Purchase> selectedPurchase = new SimpleObjectProperty<>();
@@ -58,11 +60,13 @@ public class ModelManager implements Model {
         versionedContactList = new VersionedContactList(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
+        versionedTickedTaskList = new VersionedTaskList(new TaskList());
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedContactList.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
+        filteredTickTasks = new FilteredList<>(versionedTickedTaskList.getTaskList());
         filteredWorkout = new FilteredList<>(versionedWorkoutBook.getWorkoutList());
         filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
         filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
@@ -120,11 +124,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskList getTaskList() {
-        return versionedTaskList;
-    }
-
-    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedContactList.hasPerson(person);
@@ -147,6 +146,56 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
         versionedContactList.setPerson(target, editedPerson);
     }
+    //=========== Task List ================================================================================
+
+    @Override
+    public void addTask(Task task) {
+        versionedTaskList.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void addTickedTaskList(Task task) {
+        task.addCompletedTag();
+        versionedTickedTaskList.addTask(task);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        versionedTaskList.removeTask(target);
+    }
+
+    @Override
+    public ReadOnlyTaskList getTaskList() {
+        return versionedTaskList;
+    }
+
+    @Override
+    public ReadOnlyTaskList getTickedTaskList() {
+        return versionedTickedTaskList;
+    }
+
+
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedTaskList.hasTask(task);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+        versionedTaskList.setTask(target, editedTask);
+    }
+
+    @Override
+    public void sortTask() {
+        versionedTaskList.sortTask();
+    }
+
+    //======================================================================================================
+
 
     @Override
     public void setExpenditureList(ReadOnlyExpenditureList expenditureList) {
@@ -203,40 +252,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Task> getFilteredTickedTaskList() {
+        return filteredTickTasks;
+    }
+
+    @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
 
     @Override
-    public void addTask(Task task) {
-        versionedTaskList.addTask(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    public void updateFilteredTickedTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTickTasks.setPredicate(predicate);
     }
 
-    @Override
-    public boolean hasTask(Task task) {
-        requireNonNull(task);
-        return versionedTaskList.hasTask(task);
-    }
-
-    @Override
-    public void setTask(Task target, Task editedTask) {
-        requireAllNonNull(target, editedTask);
-        versionedTaskList.setTask(target, editedTask);
-    }
-
-    @Override
-    public void deleteTask(Task target) {
-        versionedTaskList.removeTask(target);
-    }
-
-    @Override
-    public void sortTask() {
-        versionedTaskList.sortTask();
-    }
-
-    //==========================================================
+    //======================================================================================================
 
     @Override
     public void commitExpenditureList() {
@@ -293,7 +325,12 @@ public class ModelManager implements Model {
         versionedTaskList.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    @Override
+    public void commitTickedTaskList() {
+        versionedTickedTaskList.commit();
+    }
+
+    //=========== Selected ===========================================================================
 
     @Override
     public ReadOnlyProperty<Person> selectedPersonProperty() {
@@ -445,6 +482,8 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
+    //====================Common tasks =================================================
+
     /**
      * Checks for the validity of the input time string
      * @param string
@@ -476,6 +515,5 @@ public class ModelManager implements Model {
         }
         return true;
     }
-
 
 }

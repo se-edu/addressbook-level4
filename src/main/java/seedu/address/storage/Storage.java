@@ -16,7 +16,7 @@ import seedu.address.model.UserPrefs;
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, UserPrefsStorage,
-        TaskListStorage, WorkoutBookStorage, ExpenditureListStorage {
+        TaskListStorage, WorkoutBookStorage, ExpenditureListStorage, TickedTaskListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -45,6 +45,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage,
 
     @Override
     void saveTaskList (ReadOnlyTaskList taskList) throws IOException;
+
     /* ----------------------Workout Book ----------------------------------------------*/
 
     @Override

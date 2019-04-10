@@ -64,6 +64,8 @@ public interface Model {
 
     ReadOnlyTaskList getTaskList();
 
+    ReadOnlyTaskList getTickedTaskList();
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -77,6 +79,8 @@ public interface Model {
 
     void addTask(Task task);
 
+    void addTickedTaskList(Task task);
+
     boolean hasTask(Task task);
 
     void deleteTask(Task task);
@@ -84,6 +88,8 @@ public interface Model {
     void sortTask();
 
     void commitTaskList();
+
+    void commitTickedTaskList();
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
@@ -111,6 +117,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
+
+    /**
+     * Updates the filter of the filtered ticked task list by the given {@code predicate}.
+     * @throws NullPointerException IF {@code predicate} is null;
+     */
+    void updateFilteredTickedTaskList(Predicate<Task> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -155,6 +167,8 @@ public interface Model {
     void setSelectedPerson(Person person);
 
     public ObservableList<Task> getFilteredTaskList();
+
+    public ObservableList<Task> getFilteredTickedTaskList();
 
     public ReadOnlyProperty<Task> selectedTaskProperty();
 

@@ -33,11 +33,13 @@ import seedu.address.storage.ExpenditureListStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonExpenditureListStorage;
 import seedu.address.storage.JsonTaskListStorage;
+import seedu.address.storage.JsonTickedTaskListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonWorkoutBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TaskListStorage;
+import seedu.address.storage.TickedTaskListStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.WorkoutBookStorage;
 import seedu.address.ui.Ui;
@@ -77,11 +79,13 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
+        TickedTaskListStorage tickedTaskListStorage =
+                new JsonTickedTaskListStorage(userPrefs.getTickedTaskListFilePath());
         ExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage,
-                expenditureListStorage, workoutBookStorage);
+                expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
 
         initLogging(config);
 
@@ -101,8 +105,10 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTaskList> taskListOptional;
         Optional<ReadOnlyExpenditureList> expenditureListOptional;
+        Optional<ReadOnlyTaskList> tickedTaskListOptional;
         ReadOnlyAddressBook initialData;
         ReadOnlyTaskList initialTasks;
+        ReadOnlyTaskList initialTickedTasks;
         ReadOnlyExpenditureList initialPurchases;
         ReadOnlyWorkoutBook initialWorkout;
 
@@ -129,12 +135,28 @@ public class MainApp extends Application {
             initialTasks = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Task List");
             initialTasks = new TaskList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Task List");
             initialTasks = new TaskList();
         }
+
+        try {
+            tickedTaskListOptional = storage.readTickedTaskList();
+            if (!tickedTaskListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a empty ticked task list");
+            }
+            initialTickedTasks = tickedTaskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Ticked Task List");
+            initialTickedTasks = new TaskList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Ticked Task List");
+            initialTickedTasks = new TaskList();
+        }
+
+
 
 
         try {
