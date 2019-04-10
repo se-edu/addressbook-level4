@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code AddressBook} that keeps track of its own history.
+ * {@code ContactList} that keeps track of its own history.
  */
-public class VersionedContactList extends AddressBook {
+public class VersionedContactList extends ContactList {
 
-    private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyContactList> addressBookStateList;
     private int currentStatePointer;
 
-    public VersionedContactList(ReadOnlyAddressBook initialState) {
+    public VersionedContactList(ReadOnlyContactList initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new AddressBook(initialState));
+        addressBookStateList.add(new ContactList(initialState));
         currentStatePointer = 0;
     }
 
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code ContactList} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new AddressBook(this));
+        addressBookStateList.add(new ContactList(this));
         currentStatePointer++;
         indicateModified();
     }

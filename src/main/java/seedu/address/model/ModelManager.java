@@ -48,16 +48,16 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Workout> selectedWorkout = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given contactList and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
+    public ModelManager(ReadOnlyContactList contactList, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
                         ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook) {
         super();
-        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook);
+        requireAllNonNull(contactList, userPrefs, taskList, expenditureList, workoutBook);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + contactList + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
-        versionedContactList = new VersionedContactList(addressBook);
+        versionedContactList = new VersionedContactList(contactList);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
         versionedTickedTaskList = new VersionedTaskList(new TaskList());
@@ -73,7 +73,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
+        this(new ContactList(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -111,15 +111,15 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ContactList ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyContactList addressBook) {
         versionedContactList.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyContactList getAddressBook() {
         return versionedContactList;
     }
 

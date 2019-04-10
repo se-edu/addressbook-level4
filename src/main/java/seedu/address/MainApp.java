@@ -15,11 +15,11 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ContactList;
 import seedu.address.model.ExpenditureList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyContactList;
 import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -28,9 +28,9 @@ import seedu.address.model.TaskList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WorkoutBook;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.ContactListStorage;
 import seedu.address.storage.ExpenditureListStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonContactListStorage;
 import seedu.address.storage.JsonExpenditureListStorage;
 import seedu.address.storage.JsonTaskListStorage;
 import seedu.address.storage.JsonTickedTaskListStorage;
@@ -69,7 +69,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ContactList ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -77,14 +77,14 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        ContactListStorage contactListStorage = new JsonContactListStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
         TickedTaskListStorage tickedTaskListStorage =
                 new JsonTickedTaskListStorage(userPrefs.getTickedTaskListFilePath());
         ExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage,
+        storage = new StorageManager(contactListStorage, userPrefsStorage, taskListStorage,
                 expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
 
         initLogging(config);
@@ -102,11 +102,11 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyContactList> addressBookOptional;
         Optional<ReadOnlyTaskList> taskListOptional;
         Optional<ReadOnlyExpenditureList> expenditureListOptional;
         Optional<ReadOnlyTaskList> tickedTaskListOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyContactList initialData;
         ReadOnlyTaskList initialTasks;
         ReadOnlyTaskList initialTickedTasks;
         ReadOnlyExpenditureList initialPurchases;
@@ -115,22 +115,22 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample ContactList");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty ContactList");
+            initialData = new ContactList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty ContactList");
+            initialData = new ContactList();
         }
 
         try {
             taskListOptional = storage.readTaskList();
             if (!taskListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample ContactList");
             }
             initialTasks = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
 
@@ -248,7 +248,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ContactList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -264,7 +264,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ContactList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

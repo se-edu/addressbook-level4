@@ -10,7 +10,7 @@ import javafx.scene.Node;
 import seedu.address.ui.testutil.UiPartRule;
 
 /**
- * A GUI unit test class for AddressBook.
+ * A GUI unit test class for ContactList.
  */
 public abstract class GuiUnitTest {
     @Rule
