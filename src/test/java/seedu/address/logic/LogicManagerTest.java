@@ -56,13 +56,13 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
-        JsonTickedTaskListStorage jsonTickedTaskListStorage =
+        JsonTickedTaskListStorage tickedTaskListStorage =
                 new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, jsonTickedTaskListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
         logic = new LogicManager(model, storage);
     }
 

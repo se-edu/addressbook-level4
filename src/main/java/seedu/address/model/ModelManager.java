@@ -190,6 +190,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Task getSelectedTask() {
+        return selectedTask.getValue();
+    }
+
+    @Override
     public void sortTask() {
         versionedTaskList.sortTask();
     }
