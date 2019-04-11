@@ -157,8 +157,6 @@ public class MainApp extends Application {
         }
 
 
-
-
         try {
             expenditureListOptional = storage.readExpenditureList();
             if (!expenditureListOptional.isPresent()) {

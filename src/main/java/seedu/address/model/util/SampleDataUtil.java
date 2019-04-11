@@ -21,6 +21,10 @@ import seedu.address.model.purchase.Price;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.DeadlineDate;
+import seedu.address.model.task.DeadlineTime;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskName;
 
 
 /**
@@ -47,6 +51,21 @@ public class SampleDataUtil {
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"))
+        };
+    }
+
+    public static Task[] getSampleTasks() {
+        return new Task[] {
+                new Task(new TaskName("CS2101 Developer Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
+                        getTagSet("IMPORTANT", "TEAM")),
+                new Task(new TaskName("CS2113 User Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
+                        getTagSet()),
+                new Task(new TaskName("Product Demo"), new DeadlineTime("0800"), new DeadlineDate("230719"),
+                        getTagSet("TEAM", "PRACTICE")),
+                new Task(new TaskName("CS3235 Assignment"), new DeadlineTime("2359"), new DeadlineDate("230519"),
+                        getTagSet("RACHEL")),
+                new Task(new TaskName("Review Pull Request"), new DeadlineTime("1900"), new DeadlineDate("150519"),
+                        getTagSet())
         };
     }
 
@@ -83,9 +102,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyTaskList getSampleTaskList() {
-        TaskList taskList = new TaskList();
-        //TODO
-        return taskList;
+        TaskList sampleTL = new TaskList();
+        for (Task sampleTask : getSampleTasks()) {
+            sampleTL.addTask(sampleTask);
+        }
+        return sampleTL;
     }
 
     public static ReadOnlyExpenditureList getSampleExpenditureList() {
