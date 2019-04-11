@@ -36,7 +36,7 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     public WorkoutBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ContactList using the Persons in the {@code toBeCopied}
      */
     public WorkoutBook(ReadOnlyWorkoutBook toBeCopied) {
         this();
@@ -53,7 +53,7 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ContactList} with {@code newData}.
      */
     public void resetData(ReadOnlyWorkoutBook newData) {
         requireNonNull(newData);
