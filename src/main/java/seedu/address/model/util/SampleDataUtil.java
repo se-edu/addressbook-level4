@@ -56,16 +56,16 @@ public class SampleDataUtil {
 
     public static Task[] getSampleTasks() {
         return new Task[] {
-                new Task(new TaskName("CS2101 Developer Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
-                        getTagSet("IMPORTANT", "TEAM")),
-                new Task(new TaskName("CS2113 User Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
-                        getTagSet()),
-                new Task(new TaskName("Product Demo"), new DeadlineTime("0800"), new DeadlineDate("230719"),
-                        getTagSet("TEAM", "PRACTICE")),
-                new Task(new TaskName("CS3235 Assignment"), new DeadlineTime("2359"), new DeadlineDate("230519"),
-                        getTagSet("RACHEL")),
-                new Task(new TaskName("Review Pull Request"), new DeadlineTime("1900"), new DeadlineDate("150519"),
-                        getTagSet())
+            new Task(new TaskName("CS2101 Developer Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
+                    getTagSet("IMPORTANT", "TEAM")),
+            new Task(new TaskName("CS2113 User Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
+                    getTagSet()),
+            new Task(new TaskName("Product Demo"), new DeadlineTime("0800"), new DeadlineDate("230719"),
+                    getTagSet("TEAM", "PRACTICE")),
+            new Task(new TaskName("CS3235 Assignment"), new DeadlineTime("2359"), new DeadlineDate("230519"),
+                    getTagSet("RACHEL")),
+            new Task(new TaskName("Review Pull Request"), new DeadlineTime("1900"), new DeadlineDate("150519"),
+                    getTagSet())
         };
     }
 
@@ -102,11 +102,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyTaskList getSampleTaskList() {
-        TaskList sampleTL = new TaskList();
+        TaskList sampleTl = new TaskList();
         for (Task sampleTask : getSampleTasks()) {
-            sampleTL.addTask(sampleTask);
+            sampleTl.addTask(sampleTask);
         }
-        return sampleTL;
+        return sampleTl;
     }
 
     public static ReadOnlyExpenditureList getSampleExpenditureList() {
