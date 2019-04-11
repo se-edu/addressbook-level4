@@ -20,56 +20,56 @@ public class VersionedContactListTest {
 
     private final ReadOnlyContactList contactListWithAmy = new ContactListBuilder().withPerson(AMY).build();
     private final ReadOnlyContactList contactListWithBob = new ContactListBuilder().withPerson(BOB).build();
-    private final ReadOnlyContactList addressBookWithCarl = new ContactListBuilder().withPerson(CARL).build();
+    private final ReadOnlyContactList contactListWithCarl = new ContactListBuilder().withPerson(CARL).build();
     private final ReadOnlyContactList emptyContactList = new ContactListBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedContactList versionedContactList = prepareAddressBookList(emptyContactList);
+    public void commit_singleContactList_noStatesRemovedCurrentStateSaved() {
+        VersionedContactList versionedContactList = prepareContactListList(emptyContactList);
 
         versionedContactList.commit();
-        assertAddressBookListStatus(versionedContactList,
+        assertContactListListStatus(versionedContactList,
                 Collections.singletonList(emptyContactList),
                 emptyContactList,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void commit_multipleContactListPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
 
         versionedContactList.commit();
-        assertAddressBookListStatus(versionedContactList,
+        assertContactListListStatus(versionedContactList,
                 Arrays.asList(emptyContactList, contactListWithAmy, contactListWithBob),
                 contactListWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void commit_multipleContactListPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 2);
 
         versionedContactList.commit();
-        assertAddressBookListStatus(versionedContactList,
+        assertContactListListStatus(versionedContactList,
                 Collections.singletonList(emptyContactList),
                 emptyContactList,
                 Collections.emptyList());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void canUndo_multipleContactListPointerAtEndOfStateList_returnsTrue() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
 
         assertTrue(versionedContactList.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void canUndo_multipleContactListPointerAtStartOfStateList_returnsTrue() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 1);
 
@@ -77,15 +77,15 @@ public class VersionedContactListTest {
     }
 
     @Test
-    public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedContactList versionedContactList = prepareAddressBookList(emptyContactList);
+    public void canUndo_singleContactList_returnsFalse() {
+        VersionedContactList versionedContactList = prepareContactListList(emptyContactList);
 
         assertFalse(versionedContactList.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void canUndo_multipleContactListPointerAtStartOfStateList_returnsFalse() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 2);
 
@@ -93,8 +93,8 @@ public class VersionedContactListTest {
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void canRedo_multipleContactListPointerNotAtEndOfStateList_returnsTrue() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 1);
 
@@ -102,8 +102,8 @@ public class VersionedContactListTest {
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void canRedo_multipleContactListPointerAtStartOfStateList_returnsTrue() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 2);
 
@@ -111,55 +111,55 @@ public class VersionedContactListTest {
     }
 
     @Test
-    public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedContactList versionedContactList = prepareAddressBookList(emptyContactList);
+    public void canRedo_singleContactList_returnsFalse() {
+        VersionedContactList versionedContactList = prepareContactListList(emptyContactList);
 
         assertFalse(versionedContactList.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void canRedo_multipleContactListPointerAtEndOfStateList_returnsFalse() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
 
         assertFalse(versionedContactList.canRedo());
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void undo_multipleContactListPointerAtEndOfStateList_success() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
 
         versionedContactList.undo();
-        assertAddressBookListStatus(versionedContactList,
+        assertContactListListStatus(versionedContactList,
                 Collections.singletonList(emptyContactList),
                 contactListWithAmy,
                 Collections.singletonList(contactListWithBob));
     }
 
     @Test
-    public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void undo_multipleContactListPointerNotAtStartOfStateList_success() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 1);
 
         versionedContactList.undo();
-        assertAddressBookListStatus(versionedContactList,
+        assertContactListListStatus(versionedContactList,
                 Collections.emptyList(),
                 emptyContactList,
                 Arrays.asList(contactListWithAmy, contactListWithBob));
     }
 
     @Test
-    public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedContactList versionedContactList = prepareAddressBookList(emptyContactList);
+    public void undo_singleContactList_throwsNoUndoableStateException() {
+        VersionedContactList versionedContactList = prepareContactListList(emptyContactList);
 
         assertThrows(VersionedContactList.NoUndoableStateException.class, versionedContactList::undo);
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void undo_multipleContactListPointerAtStartOfStateList_throwsNoUndoableStateException() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 2);
 
@@ -167,41 +167,41 @@ public class VersionedContactListTest {
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void redo_multipleContactListPointerNotAtEndOfStateList_success() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 1);
 
         versionedContactList.redo();
-        assertAddressBookListStatus(versionedContactList,
+        assertContactListListStatus(versionedContactList,
                 Arrays.asList(emptyContactList, contactListWithAmy),
                 contactListWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void redo_multipleContactListPointerAtStartOfStateList_success() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 2);
 
         versionedContactList.redo();
-        assertAddressBookListStatus(versionedContactList,
+        assertContactListListStatus(versionedContactList,
                 Collections.singletonList(emptyContactList),
                 contactListWithAmy,
                 Collections.singletonList(contactListWithBob));
     }
 
     @Test
-    public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedContactList versionedContactList = prepareAddressBookList(emptyContactList);
+    public void redo_singleContactList_throwsNoRedoableStateException() {
+        VersionedContactList versionedContactList = prepareContactListList(emptyContactList);
 
         assertThrows(VersionedContactList.NoRedoableStateException.class, versionedContactList::redo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedContactList versionedContactList = prepareAddressBookList(
+    public void redo_multipleContactListPointerAtEndOfStateList_throwsNoRedoableStateException() {
+        VersionedContactList versionedContactList = prepareContactListList(
                 emptyContactList, contactListWithAmy, contactListWithBob);
 
         assertThrows(VersionedContactList.NoRedoableStateException.class, versionedContactList::redo);
@@ -209,10 +209,10 @@ public class VersionedContactListTest {
 
     @Test
     public void equals() {
-        VersionedContactList versionedContactList = prepareAddressBookList(contactListWithAmy, contactListWithBob);
+        VersionedContactList versionedContactList = prepareContactListList(contactListWithAmy, contactListWithBob);
 
         // same values -> returns true
-        VersionedContactList copy = prepareAddressBookList(contactListWithAmy, contactListWithBob);
+        VersionedContactList copy = prepareContactListList(contactListWithAmy, contactListWithBob);
         assertTrue(versionedContactList.equals(copy));
 
         // same object -> returns true
@@ -225,11 +225,11 @@ public class VersionedContactListTest {
         assertFalse(versionedContactList.equals(1));
 
         // different state list -> returns false
-        VersionedContactList differentAddressBookList = prepareAddressBookList(contactListWithBob, addressBookWithCarl);
-        assertFalse(versionedContactList.equals(differentAddressBookList));
+        VersionedContactList differentContactListList = prepareContactListList(contactListWithBob, contactListWithCarl);
+        assertFalse(versionedContactList.equals(differentContactListList));
 
         // different current pointer index -> returns false
-        VersionedContactList differentCurrentStatePointer = prepareAddressBookList(
+        VersionedContactList differentCurrentStatePointer = prepareContactListList(
                 contactListWithAmy, contactListWithBob);
         shiftCurrentStatePointerLeftwards(versionedContactList, 1);
         assertFalse(versionedContactList.equals(differentCurrentStatePointer));
@@ -240,7 +240,7 @@ public class VersionedContactListTest {
      * states before {@code versionedContactList#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
      * and states after {@code versionedContactList#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedContactList versionedContactList,
+    private void assertContactListListStatus(VersionedContactList versionedContactList,
                                              List<ReadOnlyContactList> expectedStatesBeforePointer,
                                              ReadOnlyContactList expectedCurrentState,
                                              List<ReadOnlyContactList> expectedStatesAfterPointer) {
@@ -253,15 +253,15 @@ public class VersionedContactListTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyContactList expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new ContactList(versionedContactList));
+        for (ReadOnlyContactList expectedContactList : expectedStatesBeforePointer) {
+            assertEquals(expectedContactList, new ContactList(versionedContactList));
             versionedContactList.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyContactList expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyContactList expectedContactList : expectedStatesAfterPointer) {
             versionedContactList.redo();
-            assertEquals(expectedAddressBook, new ContactList(versionedContactList));
+            assertEquals(expectedContactList, new ContactList(versionedContactList));
         }
 
         // check that there are no more states after pointer
@@ -272,15 +272,15 @@ public class VersionedContactListTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedContactList} with the {@code addressBookStates} added into it, and the
+     * Creates and returns a {@code VersionedContactList} with the {@code contactListStates} added into it, and the
      * {@code VersionedContactList#currentStatePointer} at the end of list.
      */
-    private VersionedContactList prepareAddressBookList(ReadOnlyContactList... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedContactList prepareContactListList(ReadOnlyContactList... contactListStates) {
+        assertFalse(contactListStates.length == 0);
 
-        VersionedContactList versionedContactList = new VersionedContactList(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedContactList.resetData(addressBookStates[i]);
+        VersionedContactList versionedContactList = new VersionedContactList(contactListStates[0]);
+        for (int i = 1; i < contactListStates.length; i++) {
+            versionedContactList.resetData(contactListStates[i]);
             versionedContactList.commit();
         }
 

@@ -30,24 +30,24 @@ public class ContactListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final ContactList addressBook = new ContactList();
+    private final ContactList contactList = new ContactList();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), contactList.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        contactList.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyContactList_replacesData() {
         ContactList newData = getTypicalContactList();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        contactList.resetData(newData);
+        assertEquals(newData, contactList);
     }
 
     @Test
@@ -59,46 +59,46 @@ public class ContactListTest {
         ContactListStub newData = new ContactListStub(newPersons);
 
         thrown.expect(DuplicatePersonException.class);
-        addressBook.resetData(newData);
+        contactList.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        contactList.hasPerson(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInContactList_returnsFalse() {
+        assertFalse(contactList.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasPerson_personInContactList_returnsTrue() {
+        contactList.addPerson(ALICE);
+        assertTrue(contactList.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+    public void hasPerson_personWithSameIdentityFieldsInContactList_returnsTrue() {
+        contactList.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(contactList.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        contactList.getPersonList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addPerson(ALICE);
+        contactList.addListener(listener);
+        contactList.addPerson(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -106,9 +106,9 @@ public class ContactListTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addPerson(ALICE);
+        contactList.addListener(listener);
+        contactList.removeListener(listener);
+        contactList.addPerson(ALICE);
         assertEquals(0, counter.get());
     }
 

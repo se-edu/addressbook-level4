@@ -90,7 +90,7 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonContactListIoExceptionThrowingStub
-        JsonContactListStorage addressBookStorage =
+        JsonContactListStorage contactListStorage =
                 new JsonContactListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage =
@@ -101,7 +101,7 @@ public class LogicManagerTest {
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath()); //TODO
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
 
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
+        StorageManager storage = new StorageManager(contactListStorage, userPrefsStorage,
                 taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
         logic = new LogicManager(model, storage);
 

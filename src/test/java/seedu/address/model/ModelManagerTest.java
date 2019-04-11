@@ -76,13 +76,13 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setContactListFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.setContactListFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setContactListFilePath_validPath_setsContactListFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setContactListFilePath(path);
         assertEquals(path, modelManager.getContactListFilePath());
@@ -95,12 +95,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasPerson_personNotInContactList_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasPerson_personInContactList_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
@@ -155,7 +155,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         ContactList contactList = new ContactListBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        ContactList differentAddressBook = new ContactList();
+        ContactList differentContactList = new ContactList();
 
         TaskList taskList = getTypicalTaskList(); //TODO
         TaskList differentTaskList = new TaskList(); //TODO
@@ -185,7 +185,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different contactList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs,
+        assertFalse(modelManager.equals(new ModelManager(differentContactList, userPrefs,
                 differentTaskList, differentExpenditureList, differentWorkoutBook)));
 
         // different filteredList -> returns false

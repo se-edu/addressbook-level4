@@ -25,14 +25,14 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonContactListStorage addressBookStorage = new JsonContactListStorage(getTempFilePath("ab"));
+        JsonContactListStorage contactListStorage = new JsonContactListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(getTempFilePath("")); // TODO
         JsonTickedTaskListStorage tickedTaskListStorage =
                 new JsonTickedTaskListStorage(getTempFilePath(""));
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(getTempFilePath("")); //TODO
         JsonExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(getTempFilePath("")); // TODO
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage,
+        storageManager = new StorageManager(contactListStorage, userPrefsStorage,
                 taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage );
     }
 
@@ -56,7 +56,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void contactListReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonContactListStorage} class.
@@ -69,7 +69,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getContactListFilePath() {
         assertNotNull(storageManager.getContactListFilePath());
     }
 

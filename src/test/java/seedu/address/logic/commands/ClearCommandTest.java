@@ -19,7 +19,7 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyContactList_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.commitContactList();
@@ -28,7 +28,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyContactList_success() {
         Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
                 getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
         Model expectedModel = new ModelManager(getTypicalContactList(), new UserPrefs(),

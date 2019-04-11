@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedContactList extends ContactList {
 
-    private final List<ReadOnlyContactList> addressBookStateList;
+    private final List<ReadOnlyContactList> contactListStateList;
     private int currentStatePointer;
 
     public VersionedContactList(ReadOnlyContactList initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new ContactList(initialState));
+        contactListStateList = new ArrayList<>();
+        contactListStateList.add(new ContactList(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,13 +25,13 @@ public class VersionedContactList extends ContactList {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new ContactList(this));
+        contactListStateList.add(new ContactList(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        contactListStateList.subList(currentStatePointer + 1, contactListStateList.size()).clear();
     }
 
     /**
@@ -42,7 +42,7 @@ public class VersionedContactList extends ContactList {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(contactListStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VersionedContactList extends ContactList {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(contactListStateList.get(currentStatePointer));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VersionedContactList extends ContactList {
      * Returns true if {@code redo()} has contact list states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < contactListStateList.size() - 1;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class VersionedContactList extends ContactList {
 
         // state check
         return super.equals(otherVersionedContactList)
-                && addressBookStateList.equals(otherVersionedContactList.addressBookStateList)
+                && contactListStateList.equals(otherVersionedContactList.contactListStateList)
                 && currentStatePointer == otherVersionedContactList.currentStatePointer;
     }
 
