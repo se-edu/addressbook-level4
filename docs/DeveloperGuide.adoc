@@ -340,7 +340,7 @@ as considerations made during the design of the feature.+
 
 
 ==== `Task` package
-+This section describes inner dimensions of the `Task` package.+
+This section describes inner dimensions of the `Task` package. +
 
 ===== Reason for implementation
 
@@ -350,7 +350,7 @@ _LIFE_ is a tool for helping students manage their priorities, therefore the abi
 
 ===== Current Implementation
 
-Each attribute of a Task, such as the task name, date of the deadline,
+Each attribute of a `Task`, such as the task name, date of the deadline,
 time of the deadline are classes in the `Task` package.
 Each of the classes provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
 
@@ -360,11 +360,11 @@ The following classes are as such:
 [width="100%", cols="1,2,2", options="header"]
 |=======
 |Class |Constructor |Remark
-|TaskName |new TaskName("CS2101 Developer Guide")|Stores a `String` that represents the name
+|`TaskName` |new TaskName("CS2101 Developer Guide")|Stores a `String` that represents the name
  of the task.
-|DeadlineDate|new DeadlineDate("020419")|Stores a `String` that represents the deadline date of the task. String stored has to be in the DDMMYY format.
-|DeadlineTime|new DeadlineTime("2359")|Stores a `String` that represents the deadline time of the task.  String stored has to be in the 24HRS format.
-|Tag|new Tag()|Stores a `String` that acts as a tag to the task. This field is *optional*.
+|`DeadlineDate` |new DeadlineDate("020419")|Stores a `String` that represents the deadline date of the task. String stored has to be in the DDMMYY format.
+|`DeadlineTime` |new DeadlineTime("2359")|Stores a `String` that represents the deadline time of the task.  String stored has to be in the 24HRS format.
+|`Tag` |new Tag()|Stores a `String` that acts as a tag to the task. This field is *optional*.
 |=======
 
 
@@ -395,10 +395,10 @@ TIP: `_Task_` objects have to be unique and they are considered duplicates if th
 ===== Reasons for how it is implemented
 The `task` package follows the model of the `person` package which existed before our
  team started this project. This was because the `TaskList` was ideated to have the data
- stored in a ArrayList like the Addressbook.
-   This made it easier for us to implement our features as we could reuse the code
-   and follow the style of how the Addressbook was implemented to made the code
-   more readable.
+ stored in an ArrayList like the Addressbook.
+This made it easier for us to implement our features as we could reuse some of the existing code
+and follow the style of how the Addressbook was implemented to made the code
+more readable.
 
 ===== Model
 
@@ -474,6 +474,10 @@ The following sequence diagram shows how the `deletetask` operation works.
 .Delete Task Sequence Diagram
 image::DeleteTaskSequenceDiagram.png[width='800']
 
+The following activity diagrams illustrates an example when the user executes a `deletetask` command.
+[Delete Task Activity Diagram]
+.Activity Diagram of user executing a `deletetask` command
+image::DeleteTaskActivityDiagram.png[width='800']
 {nbsp} +
 
 ==== Tick Task
