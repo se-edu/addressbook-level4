@@ -63,11 +63,11 @@ public class TypicalPersons {
      * Returns an {@code ContactList} with all the typical persons.
      */
     public static ContactList getTypicalContactList() {
-        ContactList ab = new ContactList();
+        ContactList cl = new ContactList();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            cl.addPerson(person);
         }
-        return ab;
+        return cl;
     }
 
     public static List<Person> getTypicalPersons() {
