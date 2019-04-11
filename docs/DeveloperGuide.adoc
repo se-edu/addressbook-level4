@@ -450,7 +450,7 @@ The following sequence diagram shows how the `addtask` operation works.
 
 [Add Task Sequence Diagram]
 .Add Task Logic Diagram
-image::AddTaskSequenceDiagram.png[width="800"]
+image::AddTaskSequenceDiagram.PNG[width="800"]
 
 {nbsp} +
 
@@ -471,12 +471,12 @@ The following sequence diagram shows how the `deletetask` operation works.
 
 [Delete Task Sequence Diagram]
 .Delete Task Sequence Diagram
-image::DeleteTaskSequenceDiagram.png[width='800']
+image::DeleteTaskSequenceDiagram.PNG[width='800']
 
 The following activity diagrams illustrates an example when the user executes a `deletetask` command.
 [Delete Task Activity Diagram]
 .Activity Diagram of user executing a `deletetask` command
-image::DeleteTaskActivityDiagram.png[width='800']
+image::DeleteTaskActivityDiagram.PNG[width='800']
 
 {nbsp} +
 
@@ -498,7 +498,7 @@ The following sequence diagram shows how the `ticktask` operation works.
 
 [Tick Task Sequence Diagram]
 .Tick Task Sequence Diagram
-image::TickTaskSequenceDiagram.png[width='800']
+image::TickTaskSequenceDiagram.PNG[width='800']
 
 {nbsp} +
 
@@ -529,7 +529,7 @@ The following sequence diagram shows how the `edittask` operation works.
 
 [Edit Task Sequence Diagram]
 .Edit Task Sequence Diagram
-image::EditTaskSequenceDiagram.png[width='800']
+image::EditTaskSequenceDiagram.PNG[width='800']
 
 
 
