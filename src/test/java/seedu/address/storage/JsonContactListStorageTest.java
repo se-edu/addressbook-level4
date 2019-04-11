@@ -107,10 +107,10 @@ public class JsonContactListStorageTest {
     /**
      * Saves {@code contactlist} at the specified {@code filePath}.
      */
-    private void saveContactList(ReadOnlyContactList addressBook, String filePath) {
+    private void saveContactList(ReadOnlyContactList contactList, String filePath) {
         try {
             new JsonContactListStorage(Paths.get(filePath))
-                    .saveContactList(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveContactList(contactList, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

@@ -17,9 +17,9 @@ import seedu.address.testutil.TypicalPersons;
 public class JsonSerializableContactListTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableContactListTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsContactList.json");
+    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonContactList.json");
+    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonContactList.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -28,9 +28,9 @@ public class JsonSerializableContactListTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableContactList dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableContactList.class).get();
-        ContactList addressBookFromFile = dataFromFile.toModelType();
-        ContactList typicalPersonsAddressBook = TypicalPersons.getTypicalContactList();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        ContactList contactListFromFile = dataFromFile.toModelType();
+        ContactList typicalPersonsContactList = TypicalPersons.getTypicalContactList();
+        assertEquals(contactListFromFile, typicalPersonsContactList);
     }
 
     @Test
