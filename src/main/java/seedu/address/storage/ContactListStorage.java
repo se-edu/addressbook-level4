@@ -16,7 +16,7 @@ public interface ContactListStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getContactListFilePath();
 
     /**
      * Returns ContactList data as a {@link ReadOnlyContactList}.
@@ -24,23 +24,23 @@ public interface ContactListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyContactList> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyContactList> readContactList() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getContactListFilePath()
      */
-    Optional<ReadOnlyContactList> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyContactList> readContactList(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyContactList} to the storage.
-     * @param addressBook cannot be null.
+     * @param contactList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyContactList addressBook) throws IOException;
+    void saveContactList(ReadOnlyContactList contactList) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyContactList)
+     * @see #saveContactList(ReadOnlyContactList)
      */
-    void saveAddressBook(ReadOnlyContactList addressBook, Path filePath) throws IOException;
+    void saveContactList(ReadOnlyContactList contactList, Path filePath) throws IOException;
 
 }

@@ -26,7 +26,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the LIFE application data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -48,14 +48,14 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Workout> selectedWorkout = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given contactList and userPrefs.
+     * Initializes a ModelManager with the given lifeApp and userPrefs.
      */
     public ModelManager(ReadOnlyContactList contactList, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
                         ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook) {
         super();
         requireAllNonNull(contactList, userPrefs, taskList, expenditureList, workoutBook);
 
-        logger.fine("Initializing with address book: " + contactList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with contact list: " + contactList + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
         versionedContactList = new VersionedContactList(contactList);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
@@ -101,25 +101,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getContactListFilePath() {
+        return userPrefs.getContactListFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setContactListFilePath(Path contactListFilePath) {
+        requireNonNull(contactListFilePath);
+        userPrefs.setContactListFilePath(contactListFilePath);
     }
 
     //=========== ContactList ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyContactList addressBook) {
-        versionedContactList.resetData(addressBook);
+    public void setContactList(ReadOnlyContactList contactList) {
+        versionedContactList.resetData(contactList);
     }
 
     @Override
-    public ReadOnlyContactList getAddressBook() {
+    public ReadOnlyContactList getContactList() {
         return versionedContactList;
     }
 
@@ -296,27 +296,27 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoContactList() {
         return versionedContactList.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoContactList() {
         return versionedContactList.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoContactList() {
         versionedContactList.undo();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoContactList() {
         versionedContactList.redo();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitContactList() {
         versionedContactList.commit();
     }
 

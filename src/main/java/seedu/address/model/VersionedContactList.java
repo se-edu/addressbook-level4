@@ -35,7 +35,7 @@ public class VersionedContactList extends ContactList {
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the contact list to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -46,7 +46,7 @@ public class VersionedContactList extends ContactList {
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the contact list to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -57,14 +57,14 @@ public class VersionedContactList extends ContactList {
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has contact list states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has contact list states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < addressBookStateList.size() - 1;
@@ -95,7 +95,7 @@ public class VersionedContactList extends ContactList {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of contactListState list, unable to undo.");
         }
     }
 
@@ -104,7 +104,7 @@ public class VersionedContactList extends ContactList {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of contactListState list, unable to redo.");
         }
     }
 }

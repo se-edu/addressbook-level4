@@ -22,7 +22,7 @@ public class ClearCommandTest {
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
+        expectedModel.commitContactList();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -33,8 +33,8 @@ public class ClearCommandTest {
                 getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
         Model expectedModel = new ModelManager(getTypicalContactList(), new UserPrefs(),
                 getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
-        expectedModel.setAddressBook(new ContactList());
-        expectedModel.commitAddressBook();
+        expectedModel.setContactList(new ContactList());
+        expectedModel.commitContactList();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

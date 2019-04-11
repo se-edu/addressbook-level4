@@ -45,7 +45,7 @@ public class TestApp extends MainApp {
         if (initialDataSupplier.get() != null) {
             JsonContactListStorage jsonContactListStorage = new JsonContactListStorage(saveFileLocation);
             try {
-                jsonContactListStorage.saveAddressBook(initialDataSupplier.get());
+                jsonContactListStorage.saveContactList(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -65,16 +65,16 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setContactListFilePath(saveFileLocation);
         return userPrefs;
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the contact list data stored inside the storage file.
      */
-    public ContactList readStorageAddressBook() {
+    public ContactList readStorageContactList() {
         try {
-            return new ContactList(storage.readAddressBook().get());
+            return new ContactList(storage.readContactList().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the ContactList format.", dce);
         } catch (IOException ioe) {
@@ -86,14 +86,14 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getContactListFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs(),
+        Model copy = new ModelManager((model.getContactList()), new UserPrefs(),
                 model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;

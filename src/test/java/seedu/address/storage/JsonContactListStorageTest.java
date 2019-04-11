@@ -36,7 +36,7 @@ public class JsonContactListStorageTest {
     }
 
     private java.util.Optional<ReadOnlyContactList> readAddressBook(String filePath) throws Exception {
-        return new JsonContactListStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonContactListStorage(Paths.get(filePath)).readContactList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -79,21 +79,21 @@ public class JsonContactListStorageTest {
         JsonContactListStorage jsonContactListStorage = new JsonContactListStorage(filePath);
 
         // Save in new file and read back
-        jsonContactListStorage.saveAddressBook(original, filePath);
-        ReadOnlyContactList readBack = jsonContactListStorage.readAddressBook(filePath).get();
+        jsonContactListStorage.saveContactList(original, filePath);
+        ReadOnlyContactList readBack = jsonContactListStorage.readContactList(filePath).get();
         assertEquals(original, new ContactList(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        jsonContactListStorage.saveAddressBook(original, filePath);
-        readBack = jsonContactListStorage.readAddressBook(filePath).get();
+        jsonContactListStorage.saveContactList(original, filePath);
+        readBack = jsonContactListStorage.readContactList(filePath).get();
         assertEquals(original, new ContactList(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
-        jsonContactListStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonContactListStorage.readAddressBook().get(); // file path not specified
+        jsonContactListStorage.saveContactList(original); // file path not specified
+        readBack = jsonContactListStorage.readContactList().get(); // file path not specified
         assertEquals(original, new ContactList(readBack));
 
     }
@@ -110,7 +110,7 @@ public class JsonContactListStorageTest {
     private void saveAddressBook(ReadOnlyContactList addressBook, String filePath) {
         try {
             new JsonContactListStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveContactList(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

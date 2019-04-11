@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an contact list
  */
 public interface ReadOnlyContactList extends Observable {
 

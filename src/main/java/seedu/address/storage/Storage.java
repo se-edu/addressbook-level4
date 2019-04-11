@@ -24,16 +24,16 @@ public interface Storage extends ContactListStorage, UserPrefsStorage,
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    /* -----------------------Address Book ---------------------------------------------*/
+    /* -----------------------Contact List ---------------------------------------------*/
     @Override
-    Path getAddressBookFilePath();
+    Path getContactListFilePath();
 
 
     @Override
-    Optional<ReadOnlyContactList> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyContactList> readContactList() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyContactList addressBook) throws IOException;
+    void saveContactList(ReadOnlyContactList contactList) throws IOException;
 
     /* -----------------------Task List ---------------------------------------------*/
 

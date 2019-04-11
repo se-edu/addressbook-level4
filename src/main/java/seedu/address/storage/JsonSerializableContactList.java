@@ -41,7 +41,7 @@ class JsonSerializableContactList {
     }
 
     /**
-     * Converts this address book into the model's {@code ContactList} object.
+     * Converts this contact list into the model's {@code ContactList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

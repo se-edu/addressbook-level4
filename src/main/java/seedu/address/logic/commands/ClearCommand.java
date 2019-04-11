@@ -7,7 +7,7 @@ import seedu.address.model.ContactList;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the contact list.
  */
 public class ClearCommand extends Command {
 
@@ -18,8 +18,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.setAddressBook(new ContactList());
-        model.commitAddressBook();
+        model.setContactList(new ContactList());
+        model.commitContactList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

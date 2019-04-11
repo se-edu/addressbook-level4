@@ -65,12 +65,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyContactList getSampleAddressBook() {
-        ContactList sampleAb = new ContactList();
+    public static ReadOnlyContactList getSampleContactList() {
+        ContactList sampleCl = new ContactList();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleCl.addPerson(samplePerson);
         }
-        return sampleAb;
+        return sampleCl;
     }
 
     /**

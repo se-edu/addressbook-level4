@@ -35,7 +35,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final LifeParser lifeParser;
-    private boolean addressBookModified;
+    private boolean contactListModified;
     private boolean taskListModified;
     private boolean tickedTaskListModified;
     private boolean expenditureListModified;
@@ -49,8 +49,8 @@ public class LogicManager implements Logic {
         lifeParser = new LifeParser();
 
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set contactListModified to true whenever the models' contact list is modified.
+        model.getContactList().addListener(observable -> contactListModified = true);
         model.getTaskList().addListener(observable -> taskListModified = true);
         model.getTickedTaskList().addListener(observable -> tickedTaskListModified = true);
         model.getExpenditureList().addListener(observable -> expenditureListModified = true);
@@ -60,7 +60,7 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        contactListModified = false;
         taskListModified = false;
         tickedTaskListModified = false;
         expenditureListModified = false;
@@ -98,10 +98,10 @@ public class LogicManager implements Logic {
 
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (contactListModified) {
+            logger.info("Contact List modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveContactList(model.getContactList());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -111,8 +111,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyContactList getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyContactList getContactList() {
+        return model.getContactList();
     }
 
     @Override
@@ -166,8 +166,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getContactListFilePath() {
+        return model.getContactListFilePath();
     }
 
     @Override

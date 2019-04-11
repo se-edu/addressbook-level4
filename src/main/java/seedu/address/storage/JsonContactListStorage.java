@@ -27,22 +27,22 @@ public class JsonContactListStorage implements ContactListStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getContactListFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyContactList> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyContactList> readContactList() throws DataConversionException {
+        return readContactList(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readContactList()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyContactList> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyContactList> readContactList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableContactList> jsonAddressBook = JsonUtil.readJsonFile(
@@ -60,21 +60,21 @@ public class JsonContactListStorage implements ContactListStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyContactList addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveContactList(ReadOnlyContactList contactList) throws IOException {
+        saveContactList(contactList, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyContactList)}.
+     * Similar to {@link #saveContactList(ReadOnlyContactList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyContactList addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveContactList(ReadOnlyContactList contactList, Path filePath) throws IOException {
+        requireNonNull(contactList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableContactList(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableContactList(contactList), filePath);
     }
 
 }

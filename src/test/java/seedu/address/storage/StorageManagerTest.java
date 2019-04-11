@@ -63,14 +63,14 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonContactListStorageTest} class.
          */
         ContactList original = getTypicalContactList();
-        storageManager.saveAddressBook(original);
-        ReadOnlyContactList retrieved = storageManager.readAddressBook().get();
+        storageManager.saveContactList(original);
+        ReadOnlyContactList retrieved = storageManager.readContactList().get();
         assertEquals(original, new ContactList(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getContactListFilePath());
     }
 
 }
