@@ -474,6 +474,10 @@ The following sequence diagram shows how the `deletetask` operation works.
 .Delete Task Sequence Diagram
 image::DeleteTaskSequenceDiagram.png[width='800']
 
+The following activity diagrams illustrates an example when the user executes a `deletetask` command.
+[Delete Task Activity Diagram]
+.Activity Diagram of user executing a `deletetask` command
+image::DeleteTaskActivityDiagram.png[width='800']
 {nbsp} +
 
 ==== Tick Task
