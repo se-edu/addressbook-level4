@@ -334,35 +334,45 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::Task[]
-=== Task List Feature
+
+=== Task Feature
++This entire section describes comprehensively the technical aspects of the `Task` feature as well
+as considerations made during the design of the feature.+
 
 ==== `Task` package
+This section describes inner dimensions of the `Task` package. +
 
 ===== Reason for implementation
 
 _LIFE_ is a tool for helping students manage their priorities, therefore the ability to help them document their tasks is highly essential.
 
+[Current Implentation of Task]
+
 ===== Current Implementation
 
-Each attribute of a Task, such as the task name, date of the deadline,
+Each attribute of a `Task`, such as the task name, date of the deadline,
 time of the deadline are classes in the `Task` package.
 Each of the classes provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
 
 The following classes are as such:
 
+.Classes in the `Task` Package
 [width="100%", cols="1,2,2", options="header"]
 |=======
 |Class |Constructor |Remark
-|TaskName |new TaskName("CS2101 Developer Guide")|Stores a `String` that represents the name
+|`TaskName` |new TaskName("CS2101 Developer Guide")|Stores a `String` that represents the name
  of the task.
-|DeadlineDate|new DeadlineDate("020419")|Stores a `String` that represents the deadline date of the task. String stored has to be in the DDMMYY format.
-|DeadlineTime|new DeadlineTime("2359")|Stores a `String` that represents the deadline time of the task.  String stored has to be in the 24HRS format.
-|Tag|new Tag()|Stores a `String` that acts as a tag to the task. This field is *optional*.
+|`DeadlineDate` |new DeadlineDate("020419")|Stores a `String` that represents the deadline date of the task. String stored has to be in the DDMMYY format.
+|`DeadlineTime` |new DeadlineTime("2359")|Stores a `String` that represents the deadline time of the task.  String stored has to be in the 24HRS format.
+|`Tag` |new Tag()|Stores a `String` that acts as a tag to the task. This field is *optional*.
 |=======
 
-The `task` package includes the `Task` class which documents information about a task.
- The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`)
 
+The `Task` package includes the `Task` class which documents information about a task.
+The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`).
+The `Task` class is shown below.
+
+.Table of `Task` Class
 [width="100%", cols="1,2,2", options="header"]
 |=======
 |Class |Constructor |Remark
@@ -370,43 +380,66 @@ The `task` package includes the `Task` class which documents information about a
  `DeadlineTime`, `Tag` objects to document a task's information.
 |=======
 
-`Task` objects have to be unique. They are considered duplicates
- if they share the same TaskName and there is a check for duplicates when adding the task. This check
- is found in the `addTaskCommand.java` file which calls for `model` to verify any duplication
- before adding the `Task` instance into the `UniqueTaskList`.
+{nbsp} +
+
+There is a check for duplicates when adding the task. This check
+is found in the `AddTaskCommand.java` file which calls for `model` to verify for any duplication
+before adding the `Task` instance into the `UniqueTaskList`.
+
+****
+TIP: `_Task_` objects have to be unique and they are considered duplicates if they share the same `_TaskName_`.
+****
+
+{nbsp} +
 
 ===== Reasons for how it is implemented
 The `task` package follows the model of the `person` package which existed before our
- team started this project. This made it easier for us to implement our features as we
-  could follow the style of how the `person` package was implemented thereby
-   improving the modularity and organization.
+ team started this project. This was because the `TaskList` was ideated to have the data
+ stored in an ArrayList like the Addressbook.
+This made it easier for us to implement our features as we could reuse some of the existing code
+and follow the style of how the Addressbook was implemented to made the code
+more readable.
+
+===== Model
+
+The `TaskList` is a separate feature that is distinct from the other features.
+This is done intentionally as the `Life` application is meant to be made up of four
+distinct features. Also, this would allow future enhancement of this `TaskList` to include more
+functionalities for the `TaskList` such as priority tagging without affecting the
+other features due to the low coupling other features have with `Task`.
+
+The following is a model diagram of the `TaskList` component.
+
+.Model Component of `TaskList`.
+image::TaskListModelDiagramComponent.png[width='800']
 
 //end::Task[]
-
-
+{nbsp} +
 
 ==== Add Task
+The `AddTaskCommand` will create an instance of the `Task` class and store it in the `TaskList`
 
 ===== Reason for implementation
-To be able to document tasks, students should be able to add their tasks into the application.
+To be able to document tasks, students should be able to add their tasks into the application. This will
+allow you to view the task in the task list.
 
 ===== Current Implementation
-The `AddTaskCommand` is created when the command word `addTask` is detected in the user input.
- Through the `AddTaskCommand`, the user input will then be split into its separate
+The `AddTaskCommand` is created when the command word `addtask` is detected in the user input alongside
+the compulsory parameters as shown in <<Current Implementation of Task>>. If the parameters are invalid, an error
+message will be displayed.
+
+Through the `AddTaskCommand`, the user input will then be split into its separate
   components(e.g. `TaskName`, `DeadlineDate`, `DeadlineTime`, `Tag`) through `ParserUtil`,
-   creating a `Task` instance. This instance is then passed from the `logic` component to the `model` component.
+   creating a `Task` instance. This instance is then passed from the `logic` component to the `model`
+   component as shown in <<Add Task Sequence Diagram>>.
 
-
-==== Model
-
-In the `Model` component, the new `Task` object gets added to the list of tasks into the `UniqueTaskList`.
 
 Given below is an example usage scenario and how the `addTask` mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
 _LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task li state.
 
-Step 2. The user executes the `addTask` command with `addTask n/Update User Documentation d/301219 e/2359`
+Step 2. The user executes the `addtask` command with `addtask n/CS2101 Guides d/140419 h/2359`
 
 Step 3. This command goes through the `AddTaskCommandParser` to extract the values of
 the input string and to process it. It also searches for invalid input and duplicates.
@@ -414,11 +447,110 @@ the input string and to process it. It also searches for invalid input and dupli
 Step 4. Once valid, it passes the Task from the `logic` component to the `model` component into an ArrayList called `TaskList`.
 
 
+The following sequence diagram shows how the `addtask` operation works.
+
+[Add Task Sequence Diagram]
+.Add Task Logic Diagram
+image::AddTaskSequenceDiagram.PNG[width="800"]
+
+{nbsp} +
+
+==== Delete Task
+The `DeleteTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
+in the UI)_ from the `TaskList`.
+
+===== Reason for implementation
+This `DeleteTaskCommand` is essential if the task is longer needed on the task list. For example,
+the user's boss has reassigned the task or the task is no longer valid.
+
+===== Current Implementation
+The `DeleteTaskCommand` is created when the command word `deletetask` is detected in the user input alongside
+the compulsory parameter which is an index in the `TaskList`. The `DeleteTaskCommand` will then check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following sequence diagram shows how the `deletetask` operation works.
+
+[Delete Task Sequence Diagram]
+.Delete Task Sequence Diagram
+image::DeleteTaskSequenceDiagram.PNG[width='800']
+
+The following activity diagrams illustrates an example when the user executes a `deletetask` command.
+[Delete Task Activity Diagram]
+.Activity Diagram of user executing a `deletetask` command
+image::DeleteTaskActivityDiagram.PNG[width='800']
+{nbsp} +
+
+==== Tick Task
+The `TickTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
+in the UI)_ from the `TaskList` and add them into the `TickedTaskList`.
+
+===== Reason for implementation
+Through ticking the tasks that the users have completed and adding them into the
+`TickedTaskList` (shown in the UI), the users will feel more motivated to complete more taskx.
+This is supported by research that is done by us.
+
+===== Current Implementation
+The `TickTaskCommand` is created when the command word `ticktask` is detected in the user input alongside
+the compulsory parameter which is an index in the `TaskList`. The `TickTaskCommand` will then check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following sequence diagram shows how the `ticktask` operation works.
+
+[Tick Task Sequence Diagram]
+.Tick Task Sequence Diagram
+image::TickTaskSequenceDiagram.PNG[width='800']
+
+{nbsp} +
+
+==== Edit Task
+The `EditTaskCommand` will find and edit the specified `Task` _(that is according to the Task List shown
+in the UI)_ from the `TaskList` and along with the given input by the user, edit accordingly.
+
+===== Reason for implementation
+We believe that this is essential as the user might have entered the wrong details of a task, there
+is a change in the deadline of the task, etc. We do not want to inconvenience the user by making him
+find the index of the task to be edited, deleting the task and adding the new task.
+
+===== Current Implementation
+The `EditTaskCommand` is created when the command word `edittask` is detected in the user input alongside
+the compulsory parameter consisting of the index in the `TaskList` and the details to be changed. (e.g. `TaskName,
+`DeadlineDate, `DeadlineTime`, `Set<Tag>`)
+Like previous commands, The `EditTaskCommand` will also check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following is what makes `EditTask` different from the other `Task` commands.
+
+The `EditTaskCommand` will locate the `Task` to be edited and from it, create a newly edited instance called `editedTask`.
+The model will take it both the `Task` to be edited and the `editedTask` and
+replace the former `Task` with the `editedTask`.
+
+
+The following sequence diagram shows how the `edittask` operation works.
+
+[Edit Task Sequence Diagram]
+.Edit Task Sequence Diagram
+image::EditTaskSequenceDiagram.PNG[width='800']
+
+
+
 ==== Alternatives considered
-There is consideration for the use of hash map to hold the task list so that
-we can easily implement a tag column. However, due to the lack of time and
-the presence of already made list functions, we decided to stick with the arraylist
-as our team is more familiar with it.
+* Alternative 1 (current choice): Create a new Array List Object to store the tasks e.g. `UniqueTaskList`.
+
+** Pros: Array List is the simplest data structure which allows for manipulation of data such as sorting.
+Like how the existing `UniquePersonList` was implemented,
+We can implement this `UniqueTaskList` in the same way. Therefore, making the overall code more
+readable and implementation much simpler.
+
+** Cons : Some operations require the traversing of the list which require O(N) time complexity.
+For instance, the `deletetask` command and the checking of duplicates.
+
+* Alternative 2 : Using a Hash Map to store the tasks
+
+** Pros: The `deletetask` command and checking of duplicates has time complexity of  O(1).
+
+** Cons: Implementation of Hash Map is a lot more complex than the implemented Array List. At the point
+of implementation, My team and I do not
+have enough expertise to utilise the Hash Map.
 
 
 
