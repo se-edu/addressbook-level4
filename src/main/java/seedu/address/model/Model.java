@@ -176,7 +176,7 @@ public interface Model {
 
     void setTask(Task target, Task editedTask);
 
-
+    Task getSelectedTask();
 
     /**
      * Replaces expenditure list with the data in {@code expenditureList}.

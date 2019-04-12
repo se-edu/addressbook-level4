@@ -340,11 +340,11 @@ image::UndoRedoActivityDiagram.png[width="650"]
 as considerations made during the design of the feature.+
 
 ==== `Task` package
-This section describes inner dimensions of the `Task` package. +
+This section describes the inner dimensions of the `Task` package. +
 
 ===== Reason for implementation
 
-_LIFE_ is a tool for helping students manage their priorities, therefore the ability to help them document their tasks is highly essential.
+_LIFE_ is a tool for helping users manage their priorities, therefore the ability to help them document their tasks is highly essential.
 
 [Current Implentation of Task]
 
@@ -369,7 +369,7 @@ The following classes are as such:
 
 
 The `Task` package includes the `Task` class which documents information about a task.
-The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`).
+The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`). +
 The `Task` class is shown below.
 
 .Table of `Task` Class
@@ -420,8 +420,7 @@ image::TaskListModelDiagramComponent.png[width='800']
 The `AddTaskCommand` will create an instance of the `Task` class and store it in the `TaskList`
 
 ===== Reason for implementation
-To be able to document tasks, students should be able to add their tasks into the application. This will
-allow you to view the task in the task list.
+To be able to document tasks, students should be able to add their tasks into the application.
 
 ===== Current Implementation
 The `AddTaskCommand` is created when the command word `addtask` is detected in the user input alongside
@@ -478,6 +477,7 @@ The following activity diagrams illustrates an example when the user executes a 
 [Delete Task Activity Diagram]
 .Activity Diagram of user executing a `deletetask` command
 image::DeleteTaskActivityDiagram.PNG[width='800']
+
 {nbsp} +
 
 ==== Tick Task
