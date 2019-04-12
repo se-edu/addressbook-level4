@@ -24,7 +24,7 @@ public class EditTaskDescriptorBuilder {
     }
 
     public EditTaskDescriptorBuilder(EditTaskDescriptor descriptor) {
-        this.descriptor = descriptor;
+        this.descriptor = new EditTaskDescriptor(descriptor);
     }
 
     /**

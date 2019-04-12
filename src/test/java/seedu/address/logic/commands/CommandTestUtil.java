@@ -16,6 +16,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.EditTaskCommand.EditTaskDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -90,8 +91,8 @@ public class CommandTestUtil {
             + PREFIX_DEADLINE_DATE + "259a"; // 'a' not allowed in deadline date
     //public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-    public static final EditTaskCommand.EditTaskDescriptor DESC_TASKONE;
-    public static final EditTaskCommand.EditTaskDescriptor DESC_TASKTWO;
+    public static final EditTaskDescriptor DESC_TASKONE;
+    public static final EditTaskDescriptor DESC_TASKTWO;
 
 
 
