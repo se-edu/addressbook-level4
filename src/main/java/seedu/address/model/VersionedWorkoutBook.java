@@ -19,7 +19,7 @@ public class VersionedWorkoutBook extends WorkoutBook {
         currentStatePointer = 0;
     }
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code ContactList} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {

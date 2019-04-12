@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "contactListFilePath" : "contactlist.json"
 }

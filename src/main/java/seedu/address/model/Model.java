@@ -45,35 +45,35 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' contact list file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactListFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' contact list file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setContactListFilePath(Path contactListFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces contact list data with the data in {@code contactList}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setContactList(ReadOnlyContactList contactList);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ContactList */
+    ReadOnlyContactList getContactList();
 
     ReadOnlyTaskList getTaskList();
 
     ReadOnlyTaskList getTickedTaskList();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the contact list.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the contact list.
      */
     void deletePerson(Person target);
 
@@ -92,14 +92,14 @@ public interface Model {
     void commitTickedTaskList();
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the contact list.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the contact list.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the contact list.
      */
     void setPerson(Person target, Person editedPerson);
 
@@ -125,29 +125,29 @@ public interface Model {
     void updateFilteredTickedTaskList(Predicate<Task> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous contact list states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoContactList();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone contact list states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoContactList();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's contact list to its previous state.
      */
-    void undoAddressBook();
+    void undoContactList();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's contact list to its previously undone state.
      */
-    void redoAddressBook();
+    void redoContactList();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current contact list state for undo/redo.
      */
-    void commitAddressBook();
+    void commitContactList();
 
     /**
      * Selected person in the filtered person list.

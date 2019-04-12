@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
@@ -27,17 +27,17 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+        model = new ModelManager(getTypicalContactList(), new UserPrefs(),
                 getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     }
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(),
+        Model expectedModel = new ModelManager(getTypicalContactList(),
                 new UserPrefs(), getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
         expectedModel.addPerson(validPerson);
-        expectedModel.commitAddressBook();
+        expectedModel.commitContactList();
 
         assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
@@ -45,7 +45,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
+        Person personInList = model.getContactList().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

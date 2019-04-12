@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "contactListFilePath" : "contactlist.json"
 }

@@ -14,7 +14,7 @@ import seedu.address.model.WorkoutBook;
 import seedu.address.model.workout.Workout;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable ContactList that is serializable to JSON format.
  */
 @JsonRootName(value = "workoutbook")
 class JsonSerializableWorkoutBook {
@@ -24,7 +24,7 @@ class JsonSerializableWorkoutBook {
     private final List<JsonAdaptedWorkout> workouts = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableContactList} with the given persons.
      */
     @JsonCreator
     public JsonSerializableWorkoutBook(@JsonProperty("workouts") List<JsonAdaptedWorkout> workouts) {
@@ -32,16 +32,16 @@ class JsonSerializableWorkoutBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyContactList} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableContactList}.
      */
     public JsonSerializableWorkoutBook(ReadOnlyWorkoutBook source) {
         workouts.addAll(source.getWorkoutList().stream().map(JsonAdaptedWorkout::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code ContactList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
