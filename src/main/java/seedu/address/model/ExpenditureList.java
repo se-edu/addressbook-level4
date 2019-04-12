@@ -56,8 +56,7 @@ public class ExpenditureList implements ReadOnlyExpenditureList {
     //// purchase-level operations
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a purchase to the contact list.
      */
     public void addPurchase(Purchase p) {
         purchases.add(p);

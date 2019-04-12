@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path contactListFilePath = Paths.get("data" , "contactlist.json");
     private Path taskListFilePath = Paths.get("data", "tasklist.json");
     private Path tickedTaskListFilePath = Paths.get("data", "tickedtasklist.json");
     private Path expenditureListFilePath = Paths.get("data" , "expenditurelist.json");
@@ -39,7 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setContactListFilePath(newUserPrefs.getContactListFilePath());
         setTaskListFilePath(newUserPrefs.getTaskListFilePath());
         setTickedTaskListFilePath(newUserPrefs.getTickedTaskListFilePath());
         setExpenditureListFilePath(newUserPrefs.getExpenditureListFilePath());
@@ -55,13 +55,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getContactListFilePath() {
+        return contactListFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setContactListFilePath(Path contactListFilePath) {
+        requireNonNull(contactListFilePath);
+        this.contactListFilePath = contactListFilePath;
     }
 
     public Path getTaskListFilePath() {
@@ -111,19 +111,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && contactListFilePath.equals(o.contactListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, contactListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + contactListFilePath);
         return sb.toString();
     }
 
