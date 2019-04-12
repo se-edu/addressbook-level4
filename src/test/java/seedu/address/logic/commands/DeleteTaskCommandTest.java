@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
@@ -27,7 +27,7 @@ import seedu.address.model.task.Task;
  */
 public class DeleteTaskCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
             getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -38,7 +38,7 @@ public class DeleteTaskCommandTest {
 
         String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+        ModelManager expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
                 model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.deleteTask(taskToDelete);
         expectedModel.commitTaskList();
@@ -62,7 +62,7 @@ public class DeleteTaskCommandTest {
 
         String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+        Model expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
                 model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.deleteTask(taskToDelete);
         expectedModel.commitTaskList();

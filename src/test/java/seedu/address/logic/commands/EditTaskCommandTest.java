@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
@@ -38,7 +38,7 @@ import seedu.address.testutil.TaskBuilder;
  */
 public class EditTaskCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
             getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -50,7 +50,7 @@ public class EditTaskCommandTest {
 
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+        Model expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
                 model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.setTask(model.getFilteredTaskList().get(0), editedTask);
         expectedModel.commitTaskList();
@@ -73,7 +73,7 @@ public class EditTaskCommandTest {
 
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+        Model expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
                 new TaskList(model.getTaskList()), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.setTask(lastTask, editedTask);
         expectedModel.commitTaskList();
@@ -88,7 +88,7 @@ public class EditTaskCommandTest {
 
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+        Model expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
                 new TaskList(model.getTaskList()), model.getExpenditureList(), model.getWorkoutList());
         expectedModel.commitTaskList();
 

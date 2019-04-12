@@ -20,7 +20,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyContactList;
 import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -123,27 +123,23 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
+        public Path getContactListFilePath() {
+            return null;
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
+        public void setContactListFilePath(Path contactListFilePath) {
+
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
+        public void setContactList(ReadOnlyContactList contactList) {
+
         }
 
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyContactList getContactList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -203,6 +199,11 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public void addPerson(Person person) {
+
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -228,28 +229,28 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public boolean canUndoContactList() {
+            return false;
         }
 
         @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public boolean canRedoContactList() {
+            return false;
         }
 
         @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public void undoContactList() {
+
         }
 
         @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public void redoContactList() {
+
         }
 
         @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public void commitContactList() {
+
         }
 
         @Override
