@@ -99,15 +99,15 @@ public class AddTaskCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid task Name
+        // invalid Task Name
         assertParseFailure(parser, INVALID_TASKNAME_DESC + DEADLINETIME_DESC_TWO + DEADLINEDATE_DESC_TWO
                 + TAG_DESC_TWO + TAG_DESC_ONE, TaskName.MESSAGE_CONSTRAINTS);
 
-        // invalid DeadLineTime
+        // invalid DeadLine Time
         assertParseFailure(parser, TASKNAME_DESC_TWO + INVALID_DEADLINETIME_DESC + DEADLINEDATE_DESC_TWO
                 + TAG_DESC_TWO + TAG_DESC_ONE, DeadlineTime.MESSAGE_CONSTRAINTS);
 
-        // invalid email
+        // invalid Deadline Date
         assertParseFailure(parser, TASKNAME_DESC_TWO + DEADLINETIME_DESC_TWO + INVALID_DEADLINEDATE_DESC
                 + TAG_DESC_TWO + TAG_DESC_ONE, DeadlineDate.MESSAGE_CONSTRAINTS);
 

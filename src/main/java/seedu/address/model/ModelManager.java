@@ -156,7 +156,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addTickedTaskList(Task task) {
-        task.addCompletedTag();
+        //task.addCompletedTag();
         versionedTickedTaskList.addTask(task);
     }
 

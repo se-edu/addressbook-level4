@@ -23,6 +23,7 @@ public class TickTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + "1";
 
     public static final String MESSAGE_TICK_TASK_SUCCESS = "Ticked task: %1$s";
+    public static final String MESSAGE_TICK_TASK_SUCCESS_COMPLETE = "Ticked task: %1$s";
 
     private final Index targetIndex;
 

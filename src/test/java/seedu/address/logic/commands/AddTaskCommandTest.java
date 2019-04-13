@@ -34,8 +34,9 @@ import seedu.address.testutil.TaskBuilder;
 
 
 
-
-
+/**
+ * Unit tests for {@code AddTaskCommand}.
+ */
 public class AddTaskCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

@@ -75,15 +75,18 @@ public class EditTaskCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_TASKNAME_DESC, TaskName.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_DEADLINETIME_DESC, DeadlineTime.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_DEADLINEDATE_DESC, DeadlineDate.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_DEADLINETIME_DESC, DeadlineTime
+                .MESSAGE_CONSTRAINTS); // invalid deadline time
+        assertParseFailure(parser, "1" + INVALID_DEADLINEDATE_DESC, DeadlineDate
+                .MESSAGE_CONSTRAINTS); // invalid deadline date
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        // invalid phone followed by valid email
+        // invalid deadline time followed by valid deadline date
         assertParseFailure(parser, "1" + INVALID_DEADLINETIME_DESC
                 + DEADLINEDATE_DESC_ONE, DeadlineTime.MESSAGE_CONSTRAINTS);
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        // valid deadline time followed by invalid deadline time.
+        // The test case for invalid deadline time followed by valid deadline time
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + DEADLINETIME_DESC_TWO
                 + INVALID_DEADLINETIME_DESC, DeadlineTime.MESSAGE_CONSTRAINTS);
@@ -134,13 +137,13 @@ public class EditTaskCommandParserTest {
         EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
+        // deadline time
         userInput = targetIndex.getOneBased() + DEADLINETIME_DESC_ONE;
         descriptor = new EditTaskDescriptorBuilder().withDeadlineTime(VALID_DEADLINETIME_ONE).build();
         expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
+        // deadline date
         userInput = targetIndex.getOneBased() + DEADLINEDATE_DESC_ONE;
         descriptor = new EditTaskDescriptorBuilder().withDeadlineDate(VALID_DEADLINEDATE_ONE).build();
         expectedCommand = new EditTaskCommand(targetIndex, descriptor);
