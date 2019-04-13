@@ -6,19 +6,25 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.TypeCasting;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ContactList;
+import seedu.address.model.ExpenditureList;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.purchase.Purchase;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -37,6 +43,14 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_PRICE_PRAWNMEE = "4.00";
+    public static final String VALID_PRICE_MOVIE = "27.00";
+    public static final String VALID_PURCHASENAME_PRAWNMEE = "Prawn mee";
+    public static final String VALID_PURCHASENAME_MOVIE = "2 Movie tickets for Avengers";
+    public static final String VALID_TAG_FOOD = "food";
+    public static final String VALID_TAG_ENTERTAINMENT = "entertainment";
+    public static final String VALID_TAG_FAMILY = "family";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -48,11 +62,22 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String PURCHASENAME_DESC_PRAWNMEE = " " + PREFIX_PURCHASENAME + VALID_PURCHASENAME_PRAWNMEE;
+    public static final String PURCHASENAME_DESC_MOVIE = " " + PREFIX_PURCHASENAME + VALID_PURCHASENAME_MOVIE;
+    public static final String PRICE_DESC_PRAWNMEE = " " + PREFIX_PRICE + VALID_PRICE_PRAWNMEE;
+    public static final String PRICE_DESC_MOVIE = " " + PREFIX_PRICE + VALID_PRICE_MOVIE;
+    public static final String TAG_DESC_FOOD = " " + PREFIX_TAG + VALID_TAG_FOOD;
+    public static final String TAG_DESC_ENTERTAINMENT = " " + PREFIX_TAG + VALID_TAG_ENTERTAINMENT;
+    public static final String TAG_DESC_FAMILY = " " + PREFIX_TAG + VALID_TAG_FAMILY;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String INVALID_PURCHASENAME_DESC = " " + PREFIX_PURCHASENAME + "PRAWNMEE!!"; // '! not allowed in purchasenames
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "$5.00"; // '$' not allowed in prices
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -103,6 +128,7 @@ public class CommandTestUtil {
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the contact list, filtered person list and selected person in {@code actualModel} remain unchanged <br>
+     * - the expenditure list, filtered expenditure list and selected purchase in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -112,6 +138,10 @@ public class CommandTestUtil {
         ContactList expectedContactList = new ContactList(actualModel.getContactList());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
         Person expectedSelectedPerson = actualModel.getSelectedPerson();
+
+        ExpenditureList expectedExpenditureList = new ExpenditureList(actualModel.getExpenditureList());
+        List<Purchase> expectedFilteredExpList = new ArrayList<>(actualModel.getFilteredPurchaseList());
+        Purchase expectedSelectedPurchase = actualModel.getSelectedPurchase();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -123,6 +153,9 @@ public class CommandTestUtil {
             assertEquals(expectedContactList, actualModel.getContactList());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
             assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
+            assertEquals(expectedExpenditureList, actualModel.getExpenditureList());
+            assertEquals(expectedFilteredExpList, actualModel.getFilteredPurchaseList());
+            assertEquals(expectedSelectedPurchase, actualModel.getSelectedPurchase());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
