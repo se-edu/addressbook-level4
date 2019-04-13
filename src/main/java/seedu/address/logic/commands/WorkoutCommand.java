@@ -8,7 +8,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.workout.Workout;
 
-
+/**
+ * Display up to 5 most recent workout
+ */
 public class WorkoutCommand extends Command {
 
     public static final String COMMAND_WORD = "workout";
