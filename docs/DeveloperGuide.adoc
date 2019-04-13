@@ -1405,19 +1405,23 @@ Authors: Jerome, YuQi, Wei Zhong, YongJia link:https://github.com/cs2113-ay1819s
 
 Pros:
 
-* Lots of features such as
-****
-* Task Management
-* Expenditure Management
-* Recording of Workouts
-* Documenting of Journal
-****
+* Convenience
+** All the things you want to keep track in your life can be recorded in this single application.
+
+* Many features such as
+** Task Management
+** Expenditure Management
+** Recording of Workouts
+** Documentation of Habits
+
 * Information can be located easily
+* User-friendly
 
 Cons:
 
 * Non-interactive user interface, used a console based interface instead
-* Have to memorise commands
+* Have to type out individual commands
+* Cannot be stored in mobiles (which are even more convenient)
 
 
 [appendix]
@@ -1434,7 +1438,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample data (Tasks, Purchases, Workouts, Habits). The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1442,29 +1446,62 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
-=== Deleting a person
+=== Adding a task
 
-. Deleting a person while all persons are listed
+. Adding a new task to the existing task list
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `addtask n/CS2101 user guide d/100419 h/0930` +
+   Expected: New task added to the task list with a different index number. Timestamp in the status bar is updated.
+.. Test case: `addtask n/ST2334 tutorial 8! d/150419 t/1400` +
+   Expected: No new task added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.
+.. Other incorrect addtask commands to try: `addtask n/testtask d/219019 t/2020`, `addtask` (without any inputs) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Removing a task
 
-=== Saving data
+. Deleting an existing task in the task list
+[NOTE]
+Refer to task list to check index number of a particular task
 
-. Dealing with missing/corrupted data files
+.. Test case: `deletetask 1` +
+   Expected: Task with index number 1 will be removed from the task list. Subsequent tasks will be shifted up. Timestamp in the status bar is updated.
+.. Test case: `deletetask 0` +
+   Expected: No task will be deleted. Details of invalid command will be reflected in the status message under the status bar. Timestamp in the status bar is not updated.
+.. Other incorrect deletetask commands to try:
+   `delete task1`, `deletetask` +
+   Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Ticking a task
 
-_{ more test cases ... }_
+. Indicating on the completed task list when a task has been completed
+.. Test case: `ticktask 2` +
+   Expected: Task with index number 2 will be removed from the existing task list. This deleted task will then be added into another panel called `Completed Task List`.
+             Timestamp in the status bar is updated.
+.. Test case: `ticktask 0` +
+   Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.
+
+=== Adding a purchase
+
+. Adding a new purchase to the existing expenditure list
+[NOTE]
+prefix of purchasename is 'pn' not 'n'
+
+.. Test case: 'addpurchase pn/chicken rice pr/3.50` +
+   Expected: New purchase added to the expenditure list with a different index number. Timestamp in the status bar is updated.
+.. Test case: `addpurchase pn/ice cream pr/$2.70` +
+   Expected: No new purchase added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar not updated.
+.. Other incorrect addpurchase commands to try:
+   `addpurchase pn/bicycle rental pr/10`, `addpurchase n/movie tickets pr/23.00` +
+   Expected: No purchases will be added. Details of error will be reflected.
+
+=== Clearing expenditure list
+
+. Clearing the existing populated expenditure list
+.. Test case: `clearexplist` +
+   Expected: If existing expenditure list has data, the list will be cleared successfully. Timestamp is updated in the status bar.
+             If existing expenditure list was already empty, invalid command will be shown.
+
 
 
 
