@@ -38,6 +38,11 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TickedTaskListPanel tickedTaskListPanel;
+    private WorkoutListPanel workoutListPanel;
+
+    private PersonListPanel personListPanel2;
+
+
 
     @FXML
     private StackPane browserPlaceholder;
@@ -65,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane purchaseListPanelPlaceholder;
+
+    @FXML
+    private StackPane workoutListPanelPlaceholder;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -144,6 +152,10 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPurchase);
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
+        workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.selectedWorkoutProperty(),
+                logic::setSelectedWorkout);
+        workoutListPanelPlaceholder.getChildren().add(workoutListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -192,6 +204,22 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    public PersonListPanel getPersonListPanel() {
+        return personListPanel;
+    }
+
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
+    }
+
+    public WorkoutListPanel getWorkoutListPanel() {
+        return workoutListPanel;
+    }
+
+    public PurchaseListPanel getPurchaseListPanel() {
+        return purchaseListPanel;
     }
 
     /**

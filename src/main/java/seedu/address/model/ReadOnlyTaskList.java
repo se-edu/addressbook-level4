@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
 
 /**
- * Unmodifiable View of Task List
+ * Unmodifiable View of task List
  */
 public interface ReadOnlyTaskList extends Observable {
     ObservableList<Task> getTaskList();

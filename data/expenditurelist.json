@@ -7,5 +7,13 @@
     "name" : "Deck Chicken Rice",
     "price" : "5.00",
     "tagged" : [ "AddMeat" ]
+  }, {
+    "name" : "Chicken rice",
+    "price" : "4.50",
+    "tagged" : [ "food" ]
+  }, {
+    "name" : "Chicken rice",
+    "price" : "4.50",
+    "tagged" : [ "food" ]
   } ]
 }

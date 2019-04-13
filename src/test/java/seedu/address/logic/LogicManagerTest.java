@@ -2,12 +2,17 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINEDATE_DESC_ONE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINETIME_DESC_ONE;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TASKNAME_DESC_ONE;
 import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalTasks.TASKONE;
 
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_PRAWNMEE;
 import static seedu.address.logic.commands.CommandTestUtil.PURCHASENAME_DESC_PRAWNMEE;
@@ -24,6 +29,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPurchaseCommand;
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -33,9 +39,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyContactList;
 import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.task.Task;
 import seedu.address.storage.JsonContactListStorage;
 import seedu.address.storage.JsonExpenditureListStorage;
 import seedu.address.storage.JsonTaskListStorage;
@@ -45,6 +53,7 @@ import seedu.address.storage.JsonWorkoutBookStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PurchaseBuilder;
+import seedu.address.testutil.TaskBuilder;
 
 
 public class LogicManagerTest {
@@ -64,13 +73,13 @@ public class LogicManagerTest {
         JsonContactListStorage contactListStorage = new JsonContactListStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
-        JsonTickedTaskListStorage jsonTickedTaskListStorage =
+        JsonTickedTaskListStorage tickedTaskListStorage =
                 new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(contactListStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, jsonTickedTaskListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -84,8 +93,11 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
+        String deleteTaskCommand = "deletetask 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
+        assertCommandException(deleteTaskCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+
     }
 
     @Test
@@ -102,7 +114,7 @@ public class LogicManagerTest {
                 new JsonContactListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage =
-                new JsonTaskListStorage(temporaryFolder.newFile().toPath()); //TODO
+                new JsonTaskListIoExceptionThrowingStub(temporaryFolder.newFile().toPath()); //TODO
         JsonTickedTaskListStorage tickedTaskListStorage =
                 new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
@@ -116,13 +128,24 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
+
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         expectedModel.commitContactList();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(addCommand);
+
+
+        String addTaskCommand = AddTaskCommand.COMMAND_WORD + TASKNAME_DESC_ONE + DEADLINETIME_DESC_ONE
+                + DEADLINEDATE_DESC_ONE;
+        Task expectedTask = new TaskBuilder(TASKONE).withTags().build();
+        expectedModel.addTask(expectedTask);
+        expectedModel.commitTaskList();
+        assertCommandBehavior(CommandException.class, addTaskCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addTaskCommand, addCommand);
+
+
     }
 
     @Test
@@ -259,4 +282,18 @@ public class LogicManagerTest {
         }
     }
 
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonTaskListIoExceptionThrowingStub extends JsonTaskListStorage {
+        private JsonTaskListIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveTaskList(ReadOnlyTaskList taskList, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
 }

@@ -19,20 +19,24 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ContactList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyContactList;
 import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.TaskList;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TaskBuilder;
 
-public class AddCommandTest {
+
+
+
+
+public class AddTaskCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -42,56 +46,56 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullTask_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddTaskCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
+        Task validTask = new TaskBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateTask_throwsCommandException() throws Exception {
+        Task validTask = new TaskBuilder().build();
+        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
+        ModelStub modelStub = new ModelStubWithTask(validTask);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
+        addTaskCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Task taskOne = new TaskBuilder().withTaskName("taskOne").build();
+        Task taskTwo = new TaskBuilder().withTaskName("taskTwo").build();
+        AddTaskCommand addTaskOneCommand = new AddTaskCommand(taskOne);
+        AddTaskCommand addTaskTwoCommand = new AddTaskCommand(taskTwo);
 
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        //same object -> returns true
+        assertTrue(addTaskOneCommand.equals(addTaskOneCommand));
 
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        //same values -> returns true
+        AddTaskCommand addTaskOneCommandCopy = new AddTaskCommand(taskOne);
+        assertTrue(addTaskOneCommand.equals(addTaskOneCommandCopy));
 
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        // different types -> return false
+        assertFalse(addTaskOneCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addTaskOneCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different task -> returns false
+        assertFalse(addTaskOneCommand.equals(addTaskTwoCommand));
     }
 
     /**
@@ -120,23 +124,19 @@ public class AddCommandTest {
 
         @Override
         public Path getContactListFilePath() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
 
         @Override
         public void setContactListFilePath(Path contactListFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
 
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setContactList(ReadOnlyContactList contactList) {
-            throw new AssertionError("This method should not be called.");
+
         }
+
 
         @Override
         public ReadOnlyContactList getContactList() {
@@ -199,6 +199,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPerson(Person person) {
+
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -225,27 +230,27 @@ public class AddCommandTest {
 
         @Override
         public boolean canUndoContactList() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
         public boolean canRedoContactList() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
         public void undoContactList() {
-            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
         public void redoContactList() {
-            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
         public void commitContactList() {
-            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
@@ -293,7 +298,6 @@ public class AddCommandTest {
             return null;
         }
 
-
         @Override
         public void addPurchase(Purchase purchase) {
 
@@ -337,7 +341,7 @@ public class AddCommandTest {
 
         @Override
         public Path getExpenditureListFilePath() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
 
         @Override
@@ -385,59 +389,59 @@ public class AddCommandTest {
 
         }
 
-
         @Override
         public Purchase getSelectedPurchase() {
             return null;
         }
-
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single task.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithTask extends ModelStub {
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        private final Task task;
+
+        ModelStubWithTask(Task task) {
+            requireNonNull(task);
+            this.task = task;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return this.task.isSameTask(task);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A model stub that always accept the person being added/
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingTaskAdded extends ModelStub {
+
+        final ArrayList<Task> tasksAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return tasksAdded.stream().anyMatch(task::isSameTask);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addTask(Task task) {
+            requireNonNull(task);
+            tasksAdded.add(task);
         }
 
         @Override
-        public void commitContactList() {
-            // called by {@code AddCommand#execute()}
+        public void commitTaskList() {
+
         }
 
         @Override
-        public ReadOnlyContactList getContactList() {
-            return new ContactList();
+        public ReadOnlyTaskList getTaskList() {
+            return new TaskList();
         }
+
     }
-
 }

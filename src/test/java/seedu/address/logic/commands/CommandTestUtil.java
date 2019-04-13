@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -14,18 +16,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.TypeCasting;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.EditTaskCommand.EditTaskDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ContactList;
 import seedu.address.model.ExpenditureList;
 import seedu.address.model.Model;
+import seedu.address.model.TaskList;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -85,6 +89,36 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final String VALID_TASKNAME_ONE = "CS2101 Developer Guide";
+    public static final String VALID_TASKNAME_TWO = "Internship Application";
+    public static final String VALID_DEADLINETIME_ONE = "2359";
+    public static final String VALID_DEADLINETIME_TWO = "1000";
+    public static final String VALID_DEADLINEDATE_ONE = "200419";
+    public static final String VALID_DEADLINEDATE_TWO = "300419";
+    public static final String VALID_TAG_IMPORTANT = "IMPORTANT";
+    public static final String VALID_TAG_PROJECT = "PROJECT";
+
+    public static final String TASKNAME_DESC_ONE = " " + PREFIX_NAME + VALID_TASKNAME_ONE;
+    public static final String TASKNAME_DESC_TWO = " " + PREFIX_NAME + VALID_TASKNAME_TWO;
+    public static final String DEADLINETIME_DESC_ONE = " " + PREFIX_DEADLINE_TIME + VALID_DEADLINETIME_ONE;
+    public static final String DEADLINETIME_DESC_TWO = " " + PREFIX_DEADLINE_TIME + VALID_DEADLINETIME_TWO;
+    public static final String DEADLINEDATE_DESC_ONE = " " + PREFIX_DEADLINE_DATE + VALID_DEADLINEDATE_ONE;
+    public static final String DEADLINEDATE_DESC_TWO = " " + PREFIX_DEADLINE_DATE + VALID_DEADLINEDATE_TWO;
+    public static final String TAG_DESC_ONE = " " + PREFIX_TAG + VALID_TAG_IMPORTANT;
+    public static final String TAG_DESC_TWO = " " + PREFIX_TAG + VALID_TAG_PROJECT;
+
+    public static final String INVALID_TASKNAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in task names
+    public static final String INVALID_DEADLINETIME_DESC = " "
+            + PREFIX_DEADLINE_TIME + "07109a"; // 'a' not allowed in deadline time
+    public static final String INVALID_DEADLINEDATE_DESC = " "
+            + PREFIX_DEADLINE_DATE + "259a"; // 'a' not allowed in deadline date
+    //public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final EditTaskDescriptor DESC_TASKONE;
+    public static final EditTaskDescriptor DESC_TASKTWO;
+
+
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -92,6 +126,12 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_TASKONE = new EditTaskDescriptorBuilder().withTaskName(VALID_TASKNAME_ONE)
+                .withDeadlineTime(VALID_DEADLINETIME_ONE).withDeadlineDate(VALID_DEADLINEDATE_ONE)
+                .withTags(VALID_TAG_IMPORTANT).build();
+        DESC_TASKTWO = new EditTaskDescriptorBuilder().withTaskName(VALID_TASKNAME_TWO)
+                .withDeadlineTime(VALID_DEADLINETIME_TWO).withDeadlineDate(VALID_DEADLINEDATE_TWO)
+                .withTags(VALID_TAG_PROJECT).build();
     }
 
     /**
@@ -114,7 +154,8 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command,
+     * Model, CommandHistory, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -181,6 +222,44 @@ public class CommandTestUtil {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
         model.commitContactList();
+    }
+
+    /**
+     * Deletes the first task in {@code task}'s filtered list from {@code model}'s task list.
+     */
+    public static void deleteFirstTask(Model model) {
+        Task firstTask = model.getFilteredTaskList().get(0);
+        model.deleteTask(firstTask);
+        model.commitTaskList();
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the task list, filtered task list and selected person in {@code actualModel} remain unchanged <br>
+     * - {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertTaskCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        TaskList expectedTaskList = new TaskList(actualModel.getTaskList());
+        List<Task> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTaskList());
+        Task expectedSelectedTask = actualModel.getSelectedTask();
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        try {
+            command.execute(actualModel, actualCommandHistory);
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedTaskList, actualModel.getTaskList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredTaskList());
+            assertEquals(expectedSelectedTask, actualModel.getSelectedTask());
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        }
     }
 
 }
