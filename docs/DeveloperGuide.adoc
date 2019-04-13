@@ -402,7 +402,7 @@ more readable.
 ===== Model
 
 The `TaskList` is a separate feature that is distinct from the other features.
-This is done intentionally as the `_LIFE_` application is meant to be made up of four
+This is done intentionally as the _LIFE_ application is meant to be made up of four
 distinct features. Also, this would allow future enhancement of this `TaskList` to include more
 functionalities for the `TaskList` such as priority tagging without affecting the
 other features due to the low coupling other features have with `Task`.
@@ -603,7 +603,7 @@ The `AddPurchaseCommand` is created when the command word `addPurchase` is detec
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-_LIFE_ will initialize with the initial expenditure list state.
+LIFE will initialize with the initial expenditure list state.
 
 Step 2. The user executes the `addPurchase` command with `addPurchase pn/Ice Cream pr/$1.50`
 
@@ -951,7 +951,7 @@ have completed at the end of the day
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `_LIFE_` application and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the _LIFE_ application and the *Actor* is the `user`, unless specified otherwise)
 
 === Use case: Add a  task
 
