@@ -469,7 +469,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<Workout> getRecent() { return versionedWorkoutBook.getRecent(); }
+    public ArrayList<Workout> getRecent() {
+        return versionedWorkoutBook.getRecent();
+    }
 
     @Override
     public boolean equals(Object obj) {

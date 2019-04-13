@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.workout.Workout;
@@ -18,7 +19,7 @@ public class WorkoutCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displaying up to 5 most recent workout";
 
-    public static final String MESSAGE_SUCCESS =  "Recent workout(s) found!";
+    public static final String MESSAGE_SUCCESS = "Recent workout(s) found!";
 
 
     public WorkoutCommand () {}
@@ -31,7 +32,7 @@ public class WorkoutCommand extends Command {
         final StringBuilder builder = new StringBuilder();
         int howMany = results.size();
         builder.append(howMany + " most recent workout(s): ").append("\n");
-        while(!results.isEmpty()) {
+        while (!results.isEmpty()) {
             builder.append(results.get(0).toString());
             results.remove(0);
             builder.append("\n");
