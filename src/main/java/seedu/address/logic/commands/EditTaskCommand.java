@@ -29,7 +29,7 @@ import seedu.address.model.task.TaskName;
 
 
 /**
- * edits a task
+ * Edits a task
  * takes an index of the task and finds it and edits it
  */
 public class EditTaskCommand extends Command {

@@ -68,11 +68,11 @@ public class UniqueTaskList implements Iterable<Task> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            Logger.getLogger("task not found");
+            throw new TaskNotFoundException();
         }
-        if (!editedTask.isSameTask(editedTask)
+        if (!target.isSameTask(editedTask)
                 && contains(editedTask)) {
-            Logger.getLogger("Duplicate task");
+            throw new DuplicateTaskException();
         }
         internalList.set(index, editedTask);
     }

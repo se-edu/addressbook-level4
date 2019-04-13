@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * task class which contains all the different classes
+ * Task class which contains all the different classes
  */
 public class Task {
     private final DeadlineDate deadlineDate;

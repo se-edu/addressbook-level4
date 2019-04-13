@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
 /**
- * Deletes a person from the address book
+ * Deletes a task from the task list
  */
 public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "deletetask";

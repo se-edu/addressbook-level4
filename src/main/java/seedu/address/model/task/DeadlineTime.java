@@ -7,6 +7,7 @@ import static seedu.address.model.ModelManager.isValidTime;
 
 /**
  * DeadlineTime class
+ * Guarantees: immutable; is valid as declared in {@link #isValidDeadlineTime(String)}
  */
 public class DeadlineTime {
 
