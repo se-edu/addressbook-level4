@@ -68,10 +68,11 @@ public class ParserUtil {
      */
     public static TaskName parseTaskName(String name) throws ParseException {
         requireNonNull(name);
-        if (!TaskName.isValidName(name)) {
+        String trimmedTaskName = name.trim();
+        if (!TaskName.isValidName(trimmedTaskName)) {
             throw new ParseException(TaskName.MESSAGE_CONSTRAINTS);
         }
-        return new TaskName(name);
+        return new TaskName(trimmedTaskName);
     }
 
     /**
@@ -82,13 +83,14 @@ public class ParserUtil {
      */
     public static DeadlineDate parseDeadlineDate(String date) throws ParseException {
         requireNonNull(date);
-        if (!DeadlineDate.isValidDeadlineDateInput(date)) {
+        String trimmedDate = date.trim();
+        if (!DeadlineDate.isValidDeadlineDateInput(trimmedDate)) {
             throw new ParseException(DeadlineDate.MESSAGE_CONSTRAINTS);
         }
-        if (!DeadlineDate.isValidDeadlineDate(date)) {
+        if (!DeadlineDate.isValidDeadlineDate(trimmedDate)) {
             throw new ParseException(DeadlineDate.MESSAGE_CONSTRAINTS_INVALID_DATE);
         }
-        return new DeadlineDate(date);
+        return new DeadlineDate(trimmedDate);
     }
 
     /**
@@ -99,13 +101,14 @@ public class ParserUtil {
      */
     public static DeadlineTime parseDeadlineTime(String time) throws ParseException {
         requireNonNull(time);
-        if (!DeadlineTime.isValidDeadlineTimeInput(time)) {
+        String trimmedTime = time.trim();
+        if (!DeadlineTime.isValidDeadlineTimeInput(trimmedTime)) {
             throw new ParseException((DeadlineTime.MESSAGE_CONSTRAINTS));
         }
-        if (!DeadlineTime.isValidDeadlineTime(time)) {
+        if (!DeadlineTime.isValidDeadlineTime(trimmedTime)) {
             throw new ParseException((DeadlineTime.MESSAGE_CONSTRAINTS_INVALID_TIME));
         }
-        return new DeadlineTime(time);
+        return new DeadlineTime(trimmedTime);
     }
 
     /**

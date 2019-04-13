@@ -146,7 +146,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
         versionedContactList.setPerson(target, editedPerson);
     }
-    //=========== Task List ================================================================================
+    //=========== task List ================================================================================
 
     @Override
     public void addTask(Task task) {
@@ -249,7 +249,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-    //=========== Filtered Task List Accessors =============================================================
+    //=========== Filtered task List Accessors =============================================================
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {

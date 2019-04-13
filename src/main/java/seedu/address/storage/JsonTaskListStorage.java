@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyTaskList;
 
 /**
- * A class to access Task List Data as a json file on the hard disk
+ * A class to access task List Data as a json file on the hard disk
  */
 public class JsonTaskListStorage implements TaskListStorage {
 

@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyTaskList;
 
 /**
- * A class to access to the Ticked Task List Data as a json file on the hard disk
+ * A class to access to the Ticked task List Data as a json file on the hard disk
  */
 public class JsonTickedTaskListStorage implements TickedTaskListStorage {
 

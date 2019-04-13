@@ -19,7 +19,7 @@ import seedu.address.model.task.Task;
 
 
 /**
- * A utility class containing a list of {@code Task} objects to be used in tests.
+ * A utility class containing a list of {@code task} objects to be used in tests.
  */
 public class TypicalTasks {
 
@@ -45,7 +45,7 @@ public class TypicalTasks {
     public static final Task TASKSEVEN = new TaskBuilder().withTaskName("Mark homework")
             .withDeadlineTime("2359").withDeadlineDate("200719").build();
 
-    // Manually added - Task's details found in {@code CommandTestUtil)
+    // Manually added - task's details found in {@code CommandTestUtil)
     public static final Task TASKONE = new TaskBuilder().withTaskName(VALID_TASKNAME_ONE)
             .withDeadlineTime(VALID_DEADLINETIME_ONE).withDeadlineDate(VALID_DEADLINEDATE_ONE)
             .withTags(VALID_TAG_IMPORTANT).build();
