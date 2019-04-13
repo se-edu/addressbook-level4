@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -68,6 +69,9 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
         workouts.add(w);
         indicateModified();
     }
+    public ArrayList<Workout> getRecent() {
+        return workouts.getRecent();
+    }
 
     @Override
     public void addListener(InvalidationListener listener) {
@@ -103,4 +107,8 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     public int hashCode() {
         return workouts.hashCode();
     }
+
+
+
+
 }
