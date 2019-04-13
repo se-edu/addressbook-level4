@@ -33,7 +33,7 @@ Features to help you get a better life include: +
 * Contact List
 
 Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
-
+//end::UserGuideIntro[]
 == Quick Start
 
 .  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
@@ -156,7 +156,7 @@ _Ticks the task at index 5 off._
 Helps you to *sort* the tasks in the task list according to their deadline with upcoming deadlines first! +
 Format: `sorttask`
 
-
+//end::TaskFeature[]
 
 === Expenditure List
 A list to help you keep track of all your expenses so that you can better manage your finances! +
