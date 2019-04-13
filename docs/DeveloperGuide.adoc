@@ -336,7 +336,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::task[]
 
 === Task Feature
-+This entire section describes comprehensively the technical aspects of the `Task` feature as well
++ This entire section describes comprehensively the technical aspects of the `Task` feature as well
 as considerations made during the design of the feature.+
 
 ==== `Task` package
@@ -369,8 +369,7 @@ The following classes are as such:
 
 
 The `Task` package includes the `Task` class which documents information about a task.
-The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`). +
-The `Task` class is shown below.
+The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`). The `Task` class is shown below.
 
 .Table of `Task` Class
 [width="100%", cols="1,2,2", options="header"]
@@ -403,7 +402,7 @@ more readable.
 ===== Model
 
 The `TaskList` is a separate feature that is distinct from the other features.
-This is done intentionally as the `_Life_` application is meant to be made up of four
+This is done intentionally as the `_LIFE_` application is meant to be made up of four
 distinct features. Also, this would allow future enhancement of this `TaskList` to include more
 functionalities for the `TaskList` such as priority tagging without affecting the
 other features due to the low coupling other features have with `Task`.
@@ -486,7 +485,7 @@ in the UI)_ from the `TaskList` and add them into the `TickedTaskList`.
 
 ===== Reason for implementation
 Through ticking the tasks that the users have completed and adding them into the
-`TickedTaskList` (shown in the UI), the users will feel more motivated to complete more taskx.
+`TickedTaskList` (shown in the UI), the users will feel more motivated to complete more tasks.
 This is supported by research that is done by us.
 
 ===== Current Implementation
@@ -959,10 +958,27 @@ have completed at the end of the day
 *MSS*
 
 . User requests to add a new task  +
-example: `addTask n/Update CS2113T Developer Guide
+example: `addtask n/Update CS2113T Developer Guide
  d/311219 h/2359` +
 . _LIFE_ adds the task into the array list +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The task details are invalid
++
+[none]
+**  _LIFE_ shows an error message. + Use Case ends.
+
+* 1b. Task already exists.
++
+[none]
+**  _LIFE_ shows an error message. +
+Use case ends.
+
+
+
 
 
 === Use case: Edit a task
@@ -971,42 +987,63 @@ Use case ends.
 
 . _LIFE_ already shows a list of daily tasks
 . User requests to edit a specific task in the list via INDEX
-e.g. `editTask INDEX n/REDO CS2113T`
-. _LIFE_ edits the task
+e.g. `edittask INDEX n/REDO CS2113T`
+. _LIFE_ edits the task at index INDEX
 +
 Use case ends.
 
 *Extensions*
-
-* 2a. Task List is empty.
-+
+[none]
+* 2a. Index not in Task List. +
+[none]
+** _LIFE_ shows an error message. +
 Use case ends.
 
-* 3a. Index not in Task List.
-** 3a1. _LIFE_ shows an error message.
-+
-Use case ends.
+* 2b. The task details are invalid. +
+[none]
+** _LIFE_ shows an error message + Use Case ends.
 
 === Use Case: Delete a Task
 
 *MSS*
 
 . _LIFE_ already displays the task list
-. User requests to remove the task with `deleteTask INDEX`
-. _LIFE_ removes the task
+. User requests to delete the task with `deletetask INDEX`
+. _LIFE_ delete the task
 +
 Use case ends.
 
 *Extensions*
+[none]
+* 3a. Index not in Task List.
+[none]
+** _LIFE_ shows an error message.+ Use case ends.
 
-* 1. Task List is empty.
+=== Use Case: Tick Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User completed the task and wishes to tick off the task with `ticktask INDEX`
+. Task ticked disappears from the task list panel and appears in the completed task list panel.
 +
 Use case ends.
-* 2a. Index not in Task List.
-** 2a1. _LIFE_ shows an error message.
+
+*Extensions*
+[none]
+* 4a. Index not in Task List.
+[none]
+** _LIFE_ shows an error message.+ Use case ends.
+
+=== Use Case: Sort Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User wishes to sort the tasks according to their deadline
+. _LIFE_ sorts the task in the task list.
 +
 Use case ends.
-
 
 
 === Use Case: Add a new purchase
@@ -1213,35 +1250,55 @@ These instructions only provide a starting point for testers to work on; testers
 . Adding a new task to the existing task list
 
 .. Test case: `addtask n/CS2101 user guide d/100419 h/0930` +
-   Expected: New task added to the task list with a different index number. Timestamp in the status bar is updated.
+   Expected: New task added to the task list with a different index number.
 .. Test case: `addtask n/ST2334 tutorial 8! d/150419 t/1400` +
-   Expected: No new task added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.
+   Expected: No new task added. Details of invalid command is reflected in the status message under the command bar.
 .. Other incorrect addtask commands to try: `addtask n/testtask d/219019 t/2020`, `addtask` (without any inputs) +
    Expected: Similar to previous.
 
-=== Removing a task
+=== Deleting a task
 
 . Deleting an existing task in the task list
 [NOTE]
 Refer to task list to check index number of a particular task
 
+.. Prerequisites: Index entered must available in the task list
 .. Test case: `deletetask 1` +
-   Expected: Task with index number 1 will be removed from the task list. Subsequent tasks will be shifted up. Timestamp in the status bar is updated.
+   Expected: Task with index number 1 will be removed from the task list. Subsequent tasks will be shifted up.
 .. Test case: `deletetask 0` +
-   Expected: No task will be deleted. Details of invalid command will be reflected in the status message under the status bar. Timestamp in the status bar is not updated.
+   Expected: No task will be deleted. Details of invalid command will be
+    reflected in the status message under the status bar.
 .. Other incorrect deletetask commands to try:
    `delete task1`, `deletetask` +
    Expected: Similar to previous.
 
+=== Editing a task
+
+. Editing an existing task in the task list
+.. Prerequisites: Index entered must be available in the task list
+.. Test case: `edittask 1 n/Repair iPhone` +
+   Expected: The task name of the indicated task by the index is changed to Repair iPhone.
+.. Test case: `edittask 1 h/2400` +
+   Expected: Unable to edit the Deadline Time, as 2400HRS is not a valid time in the 24HR format.
+   Error details shown in the status message.
+.. Test case: `edittask 0 h/2359` +
+   Expected: No task is deleted as unable to detect a valid task index.
+   Error details shown in the status message.
+.. Other incorrect edittask commands to try:
+   `edit task1`, `edittask` +
+   Expected: Similar to previous.
+
+
+
 === Ticking a task
 
 . Indicating on the completed task list when a task has been completed
+.. Prerequisites: Index entered must available in the task list
 .. Test case: `ticktask 2` +
    Expected: Task with index number 2 will be removed from the existing task list. This deleted task will then be added into another panel called `Completed Task List`.
-             Timestamp in the status bar is updated.
-.. Test case: `ticktask 0` +
-   Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.
 
+.. Test case: `ticktask 0` +
+   Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar.
 === Adding a purchase
 
 . Adding a new purchase to the existing expenditure list
@@ -1251,7 +1308,7 @@ prefix of purchasename is 'pn' not 'n'
 .. Test case: 'addpurchase pn/chicken rice pr/3.50` +
    Expected: New purchase added to the expenditure list with a different index number. Timestamp in the status bar is updated.
 .. Test case: `addpurchase pn/ice cream pr/$2.70` +
-   Expected: No new purchase added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar not updated.
+   Expected: No new purchase added. Details of invalid command is reflected in the status message under the command bar.
 .. Other incorrect addpurchase commands to try:
    `addpurchase pn/bicycle rental pr/10`, `addpurchase n/movie tickets pr/23.00` +
    Expected: No purchases will be added. Details of error will be reflected.
@@ -1260,7 +1317,7 @@ prefix of purchasename is 'pn' not 'n'
 
 . Clearing the existing populated expenditure list
 .. Test case: `clearexplist` +
-   Expected: If existing expenditure list has data, the list will be cleared successfully. Timestamp is updated in the status bar.
+   Expected: If existing expenditure list has data, the list will be cleared successfully.
              If existing expenditure list was already empty, invalid command will be shown.
 
 
