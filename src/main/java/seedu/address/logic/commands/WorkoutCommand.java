@@ -9,10 +9,6 @@ import seedu.address.model.Model;
 import seedu.address.model.workout.Workout;
 
 
-/**
- * Finds and lists all persons in contact list whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
- */
 public class WorkoutCommand extends Command {
 
     public static final String COMMAND_WORD = "workout";

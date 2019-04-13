@@ -20,8 +20,7 @@ public class WorkoutList implements Iterable<Workout> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a workout to the list.
      */
     public void add(Workout toAdd) {
         requireNonNull(toAdd);
