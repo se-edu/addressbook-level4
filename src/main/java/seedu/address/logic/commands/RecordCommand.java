@@ -16,7 +16,7 @@ public class RecordCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New workout added: ";
 
-    public static final String MESSAGE_USAGE = "dummy string";
+    public static final String MESSAGE_USAGE = "Please use the format EXERCISE SETS REPS TIME";
 
     private final Workout newWorkout;
 

@@ -95,7 +95,12 @@ public class LogicManager implements Logic {
             }
         }
         if (workoutBookModified) {
-
+            logger.info("Workout list modified, saving to file.");
+            try {
+                storage.saveWorkoutBook(model.getWorkoutList());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         if (contactListModified) {
