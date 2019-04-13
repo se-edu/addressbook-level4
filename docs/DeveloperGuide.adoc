@@ -240,6 +240,8 @@ As a more OOP model, we can store a `Tag` list in `Expenditure List`, which `Pur
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
+//end::developerModel[]
+
 [[Design-Storage]]
 === Storage component
 
@@ -560,7 +562,7 @@ of implementation, My team and I do not
 have enough expertise to utilise the Hash Map.
 
 
-
+//end::developerTask[]
 
 // tag::Purchase[]
 === Expenditure List Feature
@@ -909,7 +911,7 @@ A project often depends on third-party libraries. For example, _LIFE_ depends on
 
 *Value proposition*: One-stop application for students to improve their student life through
  documentation of their priorities and daily targets, enhancing their ability to manage their lives.
-
+//end::developerProductScope[]
 
 [appendix]
 == User Stories
@@ -959,9 +961,10 @@ have completed at the end of the day
 
 [appendix]
 == Use Cases
+// tag::developerUseCase[]
 
 (For all use cases below, the *System* is the _LIFE_ application and the *Actor* is the `user`, unless specified otherwise)
-// tag::developerUseCaseAdd[]
+
 === Use case: Add a  task
 
 *MSS*
@@ -988,8 +991,6 @@ Use case ends.
 
 
 
-
-// tag::developerUseCaseEdit[]
 === Use case: Edit a task
 
 *MSS*
@@ -1012,7 +1013,7 @@ Use case ends.
 [none]
 ** _LIFE_ shows an error message + Use Case ends.
 
-// tag::developerUseCaseDelete[]
+
 === Use Case: Delete a Task
 
 *MSS*
@@ -1054,7 +1055,7 @@ Use case ends.
 . _LIFE_ sorts the task in the task list.
 +
 Use case ends.
-
+//end::developerUseCase[]
 
 === Use Case: Add a new purchase
 
@@ -1206,7 +1207,7 @@ Cons:
 * Have to type out individual commands
 * Cannot be stored in mobiles (which are even more convenient)
 
-
+//end::developerProjectSurvey[]
 [appendix]
 // tag::developerFeatureContribution[]
 == Feature Contribution
@@ -1233,7 +1234,7 @@ features that they did are listed below
 ** Added the `Habit` feature
 *** This allowed the users to document their habits.
 
-
+//end::developerFeatureContribution[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1256,7 +1257,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-// tag::developerManualAdd[]
+// tag::developerTaskManual[]
 === Adding a task
 
 . Adding a new task to the existing task list
@@ -1267,7 +1268,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No new task added. Details of invalid command is reflected in the status message under the command bar.
 .. Other incorrect addtask commands to try: `addtask n/testtask d/219019 t/2020`, `addtask` (without any inputs) +
    Expected: Similar to previous.
-// tag::developerManualDelete[]
+
 === Deleting a task
 
 . Deleting an existing task in the task list
@@ -1284,7 +1285,7 @@ Refer to task list to check index number of a particular task
    `delete task1`, `deletetask` +
    Expected: Similar to previous.
 
-// tag::developerManualEdit[]
+
 === Editing a task
 
 . Editing an existing task in the task list
@@ -1302,7 +1303,6 @@ Refer to task list to check index number of a particular task
    Expected: Similar to previous.
 
 
-// tag::developerManualTick[]
 === Ticking a task
 
 . Indicating on the completed task list when a task has been completed
@@ -1312,6 +1312,7 @@ Refer to task list to check index number of a particular task
 
 .. Test case: `ticktask 0` +
    Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar.
+//end::developerTaskManual[]
 === Adding a purchase
 
 . Adding a new purchase to the existing expenditure list

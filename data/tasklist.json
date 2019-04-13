@@ -1,23 +1,13 @@
 {
   "tasks" : [ {
-    "taskName" : "GAYROME",
-    "deadlineDate" : "311219",
+    "taskName" : "DEVELOPER GUIDE",
+    "deadlineDate" : "150419",
     "deadlineTime" : "2359",
-    "tagged" : [ ]
+    "tagged" : [ "IMPORTANT" ]
   }, {
-    "taskName" : "JEROME",
-    "deadlineDate" : "230319",
+    "taskName" : "USER GUIDE",
+    "deadlineDate" : "150419",
     "deadlineTime" : "2359",
-    "tagged" : [ ]
-  }, {
-    "taskName" : "DEVELOEPR",
-    "deadlineDate" : "230319",
-    "deadlineTime" : "2359",
-    "tagged" : [ ]
-  }, {
-    "taskName" : "DEVELOEPR232",
-    "deadlineDate" : "230319",
-    "deadlineTime" : "2359",
-    "tagged" : [ ]
+    "tagged" : [ "IMPORTANT" ]
   } ]
 }
