@@ -48,11 +48,6 @@ public class WorkoutList implements Iterable<Workout> {
         }
         return results;
     }
-
-
-
-
-
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

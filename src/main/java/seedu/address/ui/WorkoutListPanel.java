@@ -37,8 +37,6 @@ public class WorkoutListPanel extends UiPart<Region> {
         selectedWorkout.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected person changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected person,
-            // otherwise we would have an infinite loop.
             if (Objects.equals(workoutListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
@@ -54,7 +52,7 @@ public class WorkoutListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Workout} using a {@code WorkoutCard}.
      */
     class WorkoutListViewCell extends ListCell<Workout> {
         @Override
