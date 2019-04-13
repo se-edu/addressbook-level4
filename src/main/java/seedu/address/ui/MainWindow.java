@@ -41,6 +41,8 @@ public class MainWindow extends UiPart<Stage> {
     private WorkoutListPanel workoutListPanel;
 
     private PersonListPanel personListPanel2;
+    private TickedTaskListPanel tickedTaskListPanel;
+
 
     @FXML
     private StackPane browserPlaceholder;
@@ -68,9 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane purchaseListPanelPlaceholder;
+
     @FXML
     private StackPane workoutListPanelPlaceholder;
-
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -157,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getContactListFilePath(), logic.getContactList());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -217,6 +219,7 @@ public class MainWindow extends UiPart<Stage> {
     public PurchaseListPanel getPurchaseListPanel() {
         return purchaseListPanel;
     }
+
     /**
      * Executes the command and returns the result.
      *
