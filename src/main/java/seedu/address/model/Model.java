@@ -223,6 +223,16 @@ public interface Model {
      */
     void setSelectedPurchase(Purchase purchase);
 
+    /**
+     * Returns the user prefs' expenditure list file path.
+     */
+    Path getExpenditureListFilePath();
+
+    /**
+     * Sets the user prefs' expenditure list file path.
+     */
+    void setExpenditureListFilePath(Path expenditureListFilePath);
+
     void addWorkout(Workout workout);
 
     void commitWorkoutBook();

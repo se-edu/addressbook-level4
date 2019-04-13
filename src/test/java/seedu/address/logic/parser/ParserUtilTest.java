@@ -20,6 +20,8 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.purchase.Price;
+import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
@@ -36,6 +38,10 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    private static final String INVALID_PRICE = "$3.50";
+    private static final String INVALID_PURCHASENAME = "movie^";
+    private static final String INVALID_TAGFORPURCHASE= "#foodislife";
 
     private static final String WHITESPACE = " \t\r\n";
 

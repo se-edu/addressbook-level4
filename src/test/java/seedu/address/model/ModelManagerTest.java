@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
+import static seedu.address.testutil.TypicalPurchases.MCFLURRY;
+import static seedu.address.testutil.TypicalPurchases.SUBWAY;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
@@ -28,6 +30,10 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.ContactListBuilder;
 import seedu.address.testutil.PersonBuilder;
 
+import seedu.address.model.purchase.Purchase;
+import seedu.address.testutil.ExpenditureListBuilder;
+import seedu.address.testutil.PurchaseBuilder;
+
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -39,6 +45,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new ContactList(), new ContactList(modelManager.getContactList()));
+        assertEquals(new ExpenditureList(), new ExpenditureList(modelManager.getExpenditureList()));
         assertEquals(null, modelManager.getSelectedPerson());
     }
 
@@ -152,6 +159,14 @@ public class ModelManagerTest {
         assertEquals(ALICE, modelManager.getSelectedPerson());
     }
 
+
+    @Test
+    public void setExpenditureListFilePath_nullPath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setExpenditureList(null);
+    }
+
+
     @Test
     public void equals() {
         ContactList contactList = new ContactListBuilder().withPerson(ALICE).withPerson(BENSON).build();
@@ -160,8 +175,8 @@ public class ModelManagerTest {
         TaskList taskList = getTypicalTaskList(); //TODO
         TaskList differentTaskList = new TaskList(); //TODO
 
-        ExpenditureList expenditureList = getTypicalExpenditureList(); //TODO
-        ExpenditureList differentExpenditureList = new ExpenditureList(); //TODO
+        ExpenditureList expenditureList = new ExpenditureListBuilder().withPurchase(MCFLURRY).withPurchase(SUBWAY).build();
+        ExpenditureList differentExpenditureList = new ExpenditureList();
 
         WorkoutBook workoutBook = getTypicalWorkoutList();
         WorkoutBook differentWorkoutBook = new WorkoutBook();

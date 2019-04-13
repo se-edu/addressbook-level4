@@ -9,6 +9,10 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_PRAWNMEE;
+import static seedu.address.logic.commands.CommandTestUtil.PURCHASENAME_DESC_PRAWNMEE;
+import static seedu.address.testutil.TypicalPurchases.PRAWNMEE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -19,6 +23,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPurchaseCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -27,8 +32,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyContactList;
+import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.purchase.Purchase;
 import seedu.address.storage.JsonContactListStorage;
 import seedu.address.storage.JsonExpenditureListStorage;
 import seedu.address.storage.JsonTaskListStorage;
@@ -37,6 +44,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonWorkoutBookStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PurchaseBuilder;
 
 
 public class LogicManagerTest {
@@ -98,7 +106,7 @@ public class LogicManagerTest {
         JsonTickedTaskListStorage tickedTaskListStorage =
                 new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
-                new JsonExpenditureListStorage(temporaryFolder.newFile().toPath()); //TODO
+                new JsonExpenditureListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
 
         StorageManager storage = new StorageManager(contactListStorage, userPrefsStorage,
@@ -121,6 +129,35 @@ public class LogicManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredPersonList().remove(0);
+    }
+
+    @Test
+    public void execute_exp_storageThrowsIoException_throwsCommandException() throws Exception {
+        // Setup LogicManager with JsonContactListIoExceptionThrowingStub
+        JsonContactListStorage contactListStorage =
+                new JsonContactListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
+        JsonTaskListStorage taskListStorage =
+                new JsonTaskListStorage(temporaryFolder.newFile().toPath()); //TODO
+        JsonTickedTaskListStorage tickedTaskListStorage =
+                new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
+        JsonExpenditureListStorage expenditureListStorage =
+                new JsonExpenditureListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
+
+        StorageManager storage = new StorageManager(contactListStorage, userPrefsStorage,
+                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
+        logic = new LogicManager(model, storage);
+
+        // Execute addpurchase command
+        String addpurchaseCommand = AddPurchaseCommand.COMMAND_WORD + PURCHASENAME_DESC_PRAWNMEE + PRICE_DESC_PRAWNMEE;
+        Purchase expectedPurchase = new PurchaseBuilder(PRAWNMEE).withTags().build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addPurchase(expectedPurchase);
+        expectedModel.commitExpenditureList();
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandBehavior(CommandException.class, addpurchaseCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addpurchaseCommand);
     }
 
     /**
@@ -195,7 +232,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called.
+     * A stub class to throw an {@code IOException} when the save method for contact list is called.
      */
     private static class JsonContactListIoExceptionThrowingStub extends JsonContactListStorage {
         private JsonContactListIoExceptionThrowingStub(Path filePath) {
@@ -207,4 +244,19 @@ public class LogicManagerTest {
             throw DUMMY_IO_EXCEPTION;
         }
     }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method for expenditure list is called.
+     */
+    private static class JsonExpenditureListIoExceptionThrowingStub extends JsonExpenditureListStorage {
+        private JsonExpenditureListIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveExpenditureList(ReadOnlyExpenditureList expenditureList, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
 }
