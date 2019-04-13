@@ -43,7 +43,7 @@ public class EditTaskCommand extends Command {
             + "[" + PREFIX_DEADLINE_TIME + "DeadlineTime] "
             + "[" + PREFIX_DEADLINE_DATE + "DeadlineDate] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + "1"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DEADLINE_DATE + "311219 "
             + PREFIX_DEADLINE_TIME + "2359";
 

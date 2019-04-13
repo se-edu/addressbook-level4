@@ -7,5 +7,9 @@
     "name" : "Deck Chicken Rice",
     "price" : "5.00",
     "tagged" : [ "AddMeat" ]
+  }, {
+    "name" : "Mala",
+    "price" : "23.50",
+    "tagged" : [ ]
   } ]
 }
