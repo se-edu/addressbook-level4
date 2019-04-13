@@ -43,11 +43,11 @@ public class EditTaskCommand extends Command {
             + "[" + PREFIX_DEADLINE_TIME + "DeadlineTime] "
             + "[" + PREFIX_DEADLINE_DATE + "DeadlineDate] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + "1"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DEADLINE_DATE + "311219 "
             + PREFIX_DEADLINE_TIME + "2359";
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
@@ -81,7 +81,7 @@ public class EditTaskCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Task} with the details of {@code taskToEdit}
+     * Creates and returns a {@code task} with the details of {@code taskToEdit}
      * edited with {@code editTaskDescriptor}.
      */
     private Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {

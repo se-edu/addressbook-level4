@@ -135,10 +135,10 @@ public class MainApp extends Application {
             initialTasks = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Task List");
+            logger.warning("Data file not in the correct format. Will be starting with an empty task List");
             initialTasks = new TaskList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Task List");
+            logger.warning("Problem while reading from the file. Will be starting with an empty task List");
             initialTasks = new TaskList();
         }
 
@@ -149,10 +149,10 @@ public class MainApp extends Application {
             }
             initialTickedTasks = tickedTaskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Ticked Task List");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Ticked task List");
             initialTickedTasks = new TaskList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Ticked Task List");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Ticked task List");
             initialTickedTasks = new TaskList();
         }
 

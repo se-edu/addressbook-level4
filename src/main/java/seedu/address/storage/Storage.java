@@ -35,7 +35,7 @@ public interface Storage extends ContactListStorage, UserPrefsStorage,
     @Override
     void saveContactList(ReadOnlyContactList contactList) throws IOException;
 
-    /* -----------------------Task List ---------------------------------------------*/
+    /* -----------------------task List ---------------------------------------------*/
 
     @Override
     Path getTaskListFilePath();

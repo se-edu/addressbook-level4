@@ -41,7 +41,7 @@ public class AddTaskCommand extends Command {
 
     /**
      * @param task that is being added.
-     * Creates an AddCommand to add the specified {@code Task}
+     * Creates an AddCommand to add the specified {@code task}
      */
     public AddTaskCommand(Task task) {
         requireNonNull(task);

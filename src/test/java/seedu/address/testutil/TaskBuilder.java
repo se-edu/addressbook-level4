@@ -11,7 +11,7 @@ import seedu.address.model.task.TaskName;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Task objects.
+ * A utility class to help with building task objects.
  */
 
 public class TaskBuilder {
@@ -43,7 +43,7 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets the {@code TaskName} of the {@code Task} that we are building
+     * Sets the {@code TaskName} of the {@code task} that we are building
      */
     public TaskBuilder withTaskName(String taskName) {
         this.taskName = new TaskName(taskName);
@@ -51,7 +51,7 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets the {@code DeadlineTime} of the {@code Task} that we are building
+     * Sets the {@code DeadlineTime} of the {@code task} that we are building
      */
     public TaskBuilder withDeadlineTime(String deadlineTime) {
         this.deadlineTime = new DeadlineTime(deadlineTime);
@@ -59,7 +59,7 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets the {@code DeadlineDate} of the {@code Task} that we are building
+     * Sets the {@code DeadlineDate} of the {@code task} that we are building
      */
     public TaskBuilder withDeadlineDate(String deadlineDate) {
         this.deadlineDate = new DeadlineDate(deadlineDate);
@@ -67,7 +67,7 @@ public class TaskBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Task}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code task}
      * that we are building.
      */
     public TaskBuilder withTags(String ... tags) {

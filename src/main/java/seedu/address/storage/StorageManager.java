@@ -88,7 +88,7 @@ public class StorageManager implements Storage {
         contactListStorage.saveContactList(contactList, filePath);
     }
 
-    // ====================Task List methods ========================================
+    // ====================task List methods ========================================
 
     @Override
     public Path getTaskListFilePath() {
