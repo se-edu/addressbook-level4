@@ -41,7 +41,7 @@ public class WorkoutCard extends UiPart<Region> {
         exercise.setText(workout.getExercise().toString());
         sets.setText(workout.getSets().toString() + " Sets");
         reps.setText(workout.getReps().toString() + " Reps");
-        time.setText(workout.getTime().toString() + " Time");
+        time.setText("Completed in " + workout.getTime().toString() + " minutes");
     }
 
     @Override

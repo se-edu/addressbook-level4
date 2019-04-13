@@ -11,7 +11,7 @@ public class Time {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Time should only contain numbers, in minutes";
-    public static final String VALIDATION_REGEX = "\\d";
+    public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
 
 
