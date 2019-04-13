@@ -25,7 +25,7 @@ import seedu.address.model.task.TaskName;
  * Storage class of {@link Task}.
  */
 public class JsonAdaptedTask {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "task's %s field is missing!";
 
     private final String taskName;
     private final String deadlineDate;
