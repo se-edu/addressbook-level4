@@ -19,8 +19,16 @@ By: `Team T08-2`  	Since: `May 2019`  	Licence: `MIT`
 == Introduction
 === What is LIFE
 _LIFE_ - Lifestyle Improvement For Everyone +
-It is a desktop application for students to easily manage their
-tasks, expenditure and fitness.
+This is a one stop lifestyle management application made for people to better manage their lives through documenting
+ and tracking their tasks, expenses, workouts and habits. +
+
+Features include:
+
+* Task List +
+* Expenditure List +
+* Workout Tracker +
+* Habit Tracker +
+* Contact List
 
 === Core Team
 _LIFE_ was developed and is continually being maintained and improved upon
@@ -208,6 +216,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+// tag::developerModel[]
 [[Design-Model]]
 === Model component
 
@@ -333,8 +342,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::task[]
-
+// tag::developerTask[]
 === Task Feature
 + This entire section describes comprehensively the technical aspects of the `Task` feature as well
 as considerations made during the design of the feature.+
@@ -884,6 +892,7 @@ A project often depends on third-party libraries. For example, _LIFE_ depends on
 . Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
+// tag::developerProductScope[]
 == Product Scope
 
 *Target user profile*:
@@ -952,7 +961,7 @@ have completed at the end of the day
 == Use Cases
 
 (For all use cases below, the *System* is the _LIFE_ application and the *Actor* is the `user`, unless specified otherwise)
-
+// tag::developerUseCaseAdd[]
 === Use case: Add a  task
 
 *MSS*
@@ -980,7 +989,7 @@ Use case ends.
 
 
 
-
+// tag::developerUseCaseEdit[]
 === Use case: Edit a task
 
 *MSS*
@@ -1003,6 +1012,7 @@ Use case ends.
 [none]
 ** _LIFE_ shows an error message + Use Case ends.
 
+// tag::developerUseCaseDelete[]
 === Use Case: Delete a Task
 
 *MSS*
@@ -1169,6 +1179,7 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
+// tag::developerProjectSurvey[]
 == Product Survey
 
 *_LIFE_*
@@ -1197,6 +1208,7 @@ Cons:
 
 
 [appendix]
+// tag::developerFeatureContribution[]
 == Feature Contribution
 In case you want to improve a specific feature in the _LIFE_ App or
 if you want to know how the creators did it, you can contact the creators
@@ -1244,7 +1256,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-
+// tag::developerManualAdd[]
 === Adding a task
 
 . Adding a new task to the existing task list
@@ -1255,7 +1267,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No new task added. Details of invalid command is reflected in the status message under the command bar.
 .. Other incorrect addtask commands to try: `addtask n/testtask d/219019 t/2020`, `addtask` (without any inputs) +
    Expected: Similar to previous.
-
+// tag::developerManualDelete[]
 === Deleting a task
 
 . Deleting an existing task in the task list
@@ -1272,6 +1284,7 @@ Refer to task list to check index number of a particular task
    `delete task1`, `deletetask` +
    Expected: Similar to previous.
 
+// tag::developerManualEdit[]
 === Editing a task
 
 . Editing an existing task in the task list
@@ -1289,7 +1302,7 @@ Refer to task list to check index number of a particular task
    Expected: Similar to previous.
 
 
-
+// tag::developerManualTick[]
 === Ticking a task
 
 . Indicating on the completed task list when a task has been completed

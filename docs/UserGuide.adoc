@@ -16,11 +16,15 @@ endif::[]
 
 By: `CS2113-AY1819S2-T08-2`      Since: `Mar 2019`      Licence: `MIT`
 
+// tag::UserGuideIntro[]
 == Introduction
 
 *LIFE* - _Lifestyle Improvement For Everyone_ +
-This is a one stop application made for NUS students to manage and improve their student lives amidst their hectic schedules. +
-Interesting features include: +
+
+Looking for life? Look no further for _LIFE_ is here!
+
+_LIFE_ is a one stop lifestyle management application made for people to better manage their lives. +
+Features to help you get a better life include: +
 
 * Task List +
 * Expenditure List +
@@ -69,6 +73,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+// tag::TaskFeature[]
 === Task List
 A feature to help you record your tasks with  deadlines, say no more to forgetting your tasks! +
 
