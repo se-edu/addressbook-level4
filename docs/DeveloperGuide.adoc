@@ -346,7 +346,6 @@ This section describes the inner dimensions of the `Task` package. +
 
 _LIFE_ is a tool for helping users manage their priorities, therefore the ability to help them document their tasks is highly essential.
 
-[Current Implentation of Task]
 
 ===== Current Implementation
 
@@ -356,6 +355,7 @@ Each of the classes provide utility methods to check the correctness of the stri
 
 The following classes are as such:
 
+[[Current-Implementation-of-Task]]
 .Classes in the `Task` Package
 [width="100%", cols="1,2,2", options="header"]
 |=======
@@ -423,19 +423,19 @@ To be able to document tasks, students should be able to add their tasks into th
 
 ===== Current Implementation
 The `AddTaskCommand` is created when the command word `addtask` is detected in the user input alongside
-the compulsory parameters as shown in <<Current Implementation of Task>>. If the parameters are invalid, an error
+the compulsory parameters as shown in <<Current-Implementation-of-Task>>. If the parameters are invalid, an error
 message will be displayed.
 
 Through the `AddTaskCommand`, the user input will then be split into its separate
   components(e.g. `TaskName`, `DeadlineDate`, `DeadlineTime`, `Tag`) through `ParserUtil`,
    creating a `Task` instance. This instance is then passed from the `logic` component to the `model`
-   component as shown in <<Add Task Sequence Diagram>>.
+   component as shown in <<Add-Task-Sequence-Diagram>>.
 
 
 Given below is an example usage scenario and how the `addTask` mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-_LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task li state.
+_LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task list state.
 
 Step 2. The user executes the `addtask` command with `addtask n/CS2101 Guides d/140419 h/2359`
 
@@ -447,8 +447,8 @@ Step 4. Once valid, it passes the Task from the `logic` component to the `model`
 
 The following sequence diagram shows how the `addtask` operation works.
 
-[Add Task Sequence Diagram]
-.Add Task Logic Diagram
+[[Add-Task-Sequence-Diagram]]
+.Add Task Sequence Diagram
 image::AddTaskSequenceDiagram.PNG[width="800"]
 
 {nbsp} +
