@@ -26,12 +26,12 @@ import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the LIFE application data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedContactList versionedContactList;
     private final VersionedExpenditureList versionedExpenditureList;
     private final VersionedWorkoutBook versionedWorkoutBook;
     private final VersionedTaskList versionedTaskList;
@@ -48,22 +48,22 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Workout> selectedWorkout = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given lifeApp and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
+    public ModelManager(ReadOnlyContactList contactList, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
                         ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook) {
         super();
-        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook);
+        requireAllNonNull(contactList, userPrefs, taskList, expenditureList, workoutBook);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with contact list: " + contactList + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedContactList = new VersionedContactList(contactList);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
         versionedTickedTaskList = new VersionedTaskList(new TaskList());
 
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons = new FilteredList<>(versionedContactList.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredTasks = new FilteredList<>(versionedTaskList.getTaskList());
         filteredTickTasks = new FilteredList<>(versionedTickedTaskList.getTaskList());
@@ -73,7 +73,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
+        this(new ContactList(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -101,50 +101,50 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getContactListFilePath() {
+        return userPrefs.getContactListFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setContactListFilePath(Path contactListFilePath) {
+        requireNonNull(contactListFilePath);
+        userPrefs.setContactListFilePath(contactListFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ContactList ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setContactList(ReadOnlyContactList contactList) {
+        versionedContactList.resetData(contactList);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyContactList getContactList() {
+        return versionedContactList;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return versionedContactList.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+        versionedContactList.removePerson(target);
 
     }
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        versionedContactList.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedContactList.setPerson(target, editedPerson);
     }
     //=========== Task List ================================================================================
 
@@ -190,6 +190,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Task getSelectedTask() {
+        return selectedTask.getValue();
+    }
+
+    @Override
     public void sortTask() {
         versionedTaskList.sortTask();
     }
@@ -230,7 +235,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedContactList}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -296,28 +301,28 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoContactList() {
+        return versionedContactList.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoContactList() {
+        return versionedContactList.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoContactList() {
+        versionedContactList.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoContactList() {
+        versionedContactList.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitContactList() {
+        versionedContactList.commit();
     }
 
     @Override
@@ -476,7 +481,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedContactList.equals(other.versionedContactList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

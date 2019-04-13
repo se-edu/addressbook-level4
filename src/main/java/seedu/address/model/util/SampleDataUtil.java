@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ContactList;
 import seedu.address.model.ExpenditureList;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyContactList;
 import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyWorkoutBook;
@@ -21,10 +21,14 @@ import seedu.address.model.purchase.Price;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.DeadlineDate;
+import seedu.address.model.task.DeadlineTime;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskName;
 
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Contact Lsit} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -50,6 +54,21 @@ public class SampleDataUtil {
         };
     }
 
+    public static Task[] getSampleTasks() {
+        return new Task[] {
+            new Task(new TaskName("CS2101 Developer Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
+                    getTagSet("IMPORTANT", "TEAM")),
+            new Task(new TaskName("CS2113 User Guide"), new DeadlineTime("2359"), new DeadlineDate("250619"),
+                    getTagSet()),
+            new Task(new TaskName("Product Demo"), new DeadlineTime("0800"), new DeadlineDate("230719"),
+                    getTagSet("TEAM", "PRACTICE")),
+            new Task(new TaskName("CS3235 Assignment"), new DeadlineTime("2359"), new DeadlineDate("230519"),
+                    getTagSet("RACHEL")),
+            new Task(new TaskName("Review Pull Request"), new DeadlineTime("1900"), new DeadlineDate("150519"),
+                    getTagSet())
+        };
+    }
+
     public static Purchase[] getSamplePurchases() {
         return new Purchase[] {
             new Purchase(new PurchaseName("Chicken rice"), new Price("3.50"),
@@ -65,12 +84,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyContactList getSampleContactList() {
+        ContactList sampleCl = new ContactList();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleCl.addPerson(samplePerson);
         }
-        return sampleAb;
+        return sampleCl;
     }
 
     /**
@@ -83,9 +102,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyTaskList getSampleTaskList() {
-        TaskList taskList = new TaskList();
-        //TODO
-        return taskList;
+        TaskList sampleTl = new TaskList();
+        for (Task sampleTask : getSampleTasks()) {
+            sampleTl.addTask(sampleTask);
+        }
+        return sampleTl;
     }
 
     public static ReadOnlyExpenditureList getSampleExpenditureList() {

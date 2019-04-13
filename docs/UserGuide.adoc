@@ -67,73 +67,91 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-* Items in square brackets are optional e.g n/NAME [d/DEADLINE_DATE] can be used as n/CS2113 User Guide d/030919 or as n/CS2113 User Guide.
 ====
 
 === Task List
-A feature to help you record your tasks at hand with the deadlines, say no more to procrastination! +
+A feature to help you record your tasks with  deadlines, say no more to forgetting your tasks! +
 
-==== Adding a Task : `addTask`
+The following subsections are commands of the task list.
 
-Adds a task to the daily list. +
-Format: `addTask n/TAK d/DEADLINE_DATE h/DEADLINE_TIME`
+==== Adding a Task : `addtask`
+
+The first step to managing your tasks is to *add* them into the task list! +
+Format: `addtask n/TASK_NAME d/DEADLINE_DATE h/DEADLINE_TIME [t/TAGS]`
 
 ****
-Words in `UPPER_CASE` are the parameters. +
-All fields are compulsory +
-TASK contains the name of the TASK +
-DEADLINE_DATE should be in the DDMMYY format +
-DEADLINE_TIME should be in 24HRS
+* _TASK_NAME_ is the name of the task that you want to input {nbsp}
+* _DEADLINE_DATE_ is the date of the deadline of the task in _DDMMYY_ format. {nbsp} +
+* _DEADLINE_TIME_ is the time of the deadline of the task in _24HRS_ format {nbsp} +
+****
 
+[TIP]
+_Tags_ are optional and are alphanumeric without space
+
+The following are examples of some commands that you can try out:
+
+* `addtask n/Complete CS2113T Assignment d/180319 h/2359`
+* `addtask n/Submit Exchange Application d/200319 h/0800 t/IMPORTANT`
+
+==== Delete Task : `deletetask`
+
+In case the task is no longer required, you can *delete* it off the task list by specifying the index of
+the task you want to delete! +
+Format: `deletetask INDEX`
+
+[TIP]
+The index is the integer on the left side of the Task Name in the Task List that you want to *delete*!
+
+[WARNING]
+The index must be a valid index in the task list and it must be present.
+
+Examples:
+
+* `deletetask 5` +
+_Deletes the task at index 5_
+
+==== Edit Task : `edittask`
+In case you want to change the details of a task, you can *edit* it through specifying the index of the task
+as well as the information you want to edit. +
+Format: `edittask 1 [n/TASK_NAME] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
+
+[WARNING]
+The index must be a valid index in the task list and it must be present. +
+At least one optional field must be provided.
+
+****
+* Existing values will be replaced with the input values +
+* DEADLINE_DATE is the deadline date of the task and should be in the DDMMYY format +
+* DEADLINE_TIME is the deadline time of the task and should be in the 24HRS format
 ****
 
 Examples:
 
-* `addTask n/Complete CS2113T Assignment d/180319 h/2359`
-* `addTask n/Submit Exchange Application d/200319 h/0800`
-==== Delete Task : `deleteTask`
+* `edittask 2 n/Banana` +
+_Changes the task name of the task specified at index 2 to Banana._
 
-Deletes the specified item off the Task List.  +
-Format: `deleteTask INDEX`
+* `edittask 2 d/290319` +
+_Change sthe deadline date of the task specified at index 2 to 290319._
 
-****
-Words in `UPPER_CASE` are the parameters.
-Deletes the item at the specified `INDEX`. +
-The `INDEX` can be found just by looking at the INDEX of the task displayed in the GUI +
-The `INDEX` must be a positive integer 1,2,3 ...
-****
+==== Tick Task : `ticktask`
 
-Examples:
+*Ticks* off the task that you have completed off the task list and adds it into the completed task list! +
+Format: `ticktask` INDEX
 
-* `deleteTask 5` +
-Deletes the task at INDEX 5
-
-==== Edit Task : `editTask`
-Edits an existing specified task on the Task List.  +
-Format: `editTask 1 [n/TASK_NAME] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
-
-****
-Words in `UPPER_CASE` are the parameters.
-Edits the task at the specified INDEX. +
-The index needs to be provided +
-At least one of the optional fields must be provied +
-Existing values will be replaced with the input values +
-DEADLINE_DATE should be in the DDMMYY format +
-DEADLINE_TIME should be in the 24HRS format
-****
+[WARNING]
+The index must be a valid index in the task list and it must be present. +
+Once the application restarts, all the data in the Completed Task List will be gone.
 
 Examples:
 
-* `editTask 2 n/Banana` +
-Change the task name of the task specified at INDEX 2 to Banana.
+* `ticktask 5` +
+_Ticks the task at index 5 off._
 
-* `editTask 2 d/290319` +
-Change the deadline date of the task specified at INDEX 2 to 300219.
+==== Sort Task List : `sorttask`
+Helps you to *sort* the tasks in the task list according to their deadline with upcoming deadlines first! +
+Format: `sorttask`
 
-==== Clear Task : `clearTask` [coming soon]
 
-Clears off all the tasks from the Task List. +
-Format: `clearTask`
 
 === Expenditure List
 A list to help you keep track of all your expenses so that you can better manage your finances! +
