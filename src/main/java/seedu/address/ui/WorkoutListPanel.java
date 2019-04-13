@@ -4,8 +4,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-
-
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;

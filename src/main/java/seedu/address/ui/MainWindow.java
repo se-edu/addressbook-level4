@@ -214,7 +214,9 @@ public class MainWindow extends UiPart<Stage> {
         return taskListPanel;
     }
 
-    public WorkoutListPanel getWorkoutListPanel() { return workoutListPanel; }
+    public WorkoutListPanel getWorkoutListPanel() {
+        return workoutListPanel;
+    }
 
     public PurchaseListPanel getPurchaseListPanel() {
         return purchaseListPanel;
