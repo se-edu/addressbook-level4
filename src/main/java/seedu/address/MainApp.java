@@ -1,5 +1,10 @@
 package seedu.address;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -10,23 +15,45 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenditureList;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.TaskList;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.WorkoutBook;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.*;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.ExpenditureListStorage;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonExpenditureListStorage;
+import seedu.address.storage.JsonTaskListStorage;
+import seedu.address.storage.JsonTickedTaskListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonWorkoutBookStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.TaskListStorage;
+import seedu.address.storage.TickedTaskListStorage;
+import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.WorkoutBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
+
+
 
 /**
  * The main entry point to the application.
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 4, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -52,9 +79,13 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
-        ExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
+        TickedTaskListStorage tickedTaskListStorage =
+                new JsonTickedTaskListStorage(userPrefs.getTickedTaskListFilePath());
+        ExpenditureListStorage expenditureListStorage =
+                new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage, expenditureListStorage, workoutBookStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage,
+                expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
 
         initLogging(config);
 
@@ -74,8 +105,10 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTaskList> taskListOptional;
         Optional<ReadOnlyExpenditureList> expenditureListOptional;
+        Optional<ReadOnlyTaskList> tickedTaskListOptional;
         ReadOnlyAddressBook initialData;
         ReadOnlyTaskList initialTasks;
+        ReadOnlyTaskList initialTickedTasks;
         ReadOnlyExpenditureList initialPurchases;
         ReadOnlyWorkoutBook initialWorkout;
 
@@ -102,12 +135,28 @@ public class MainApp extends Application {
             initialTasks = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Task List");
             initialTasks = new TaskList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Task List");
             initialTasks = new TaskList();
         }
+
+        try {
+            tickedTaskListOptional = storage.readTickedTaskList();
+            if (!tickedTaskListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a empty ticked task list");
+            }
+            initialTickedTasks = tickedTaskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Ticked Task List");
+            initialTickedTasks = new TaskList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Ticked Task List");
+            initialTickedTasks = new TaskList();
+        }
+
+
 
 
         try {

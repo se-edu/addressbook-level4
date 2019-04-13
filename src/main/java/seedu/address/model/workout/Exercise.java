@@ -3,7 +3,9 @@ package seedu.address.model.workout;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
+/**
+ * Class exercise
+ */
 public class Exercise {
 
     public static final String MESSAGE_CONSTRAINTS =

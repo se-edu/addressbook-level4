@@ -5,23 +5,23 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.ExpenditureList;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenditureList;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.TaskList;
+import seedu.address.model.WorkoutBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.ExpenditureList;
-import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.purchase.Price;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.purchase.PurchaseName;
-import seedu.address.model.purchase.Price;
-import seedu.address.model.WorkoutBook;
-import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -50,12 +50,20 @@ public class SampleDataUtil {
         };
     }
 
-   /* public static Purchase[] getSamplePurchases() {
-        return new Purchase[]{
-                new Purchase(new PurchaseName("Chicken rice"), new Price("3.50"),
-                        getTagSet("very nice"))
+    public static Purchase[] getSamplePurchases() {
+        return new Purchase[] {
+            new Purchase(new PurchaseName("Chicken rice"), new Price("3.50"),
+                getTagSet("food")),
+            new Purchase(new PurchaseName("Bicycle rental for 3hrs"), new Price("10.00"),
+                getTagSet("family", "outing")),
+            new Purchase(new PurchaseName("Calbee potato chip"), new Price("1.50"),
+                getTagSet("snack")),
+            new Purchase(new PurchaseName("Gongcha honey milk tea"), new Price("3.70"),
+                getTagSet("drinks")),
+            new Purchase(new PurchaseName("Movie captain marvel"), new Price("13.50"),
+                getTagSet("entertainment", "sunday"))
         };
-    } */
+    }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
@@ -80,20 +88,14 @@ public class SampleDataUtil {
         return taskList;
     }
 
-  /*  public static ReadOnlyExpenditureList getSampleExpenditureList() {
-        ExpenditureList sampleExplist = new ExpenditureList();
-        for (Purchase samplePurchase : getSamplePurchases()) {
-            sampleExplist.addPurchase(samplePurchase);
-        }
-        return sampleExplist;
-    }
-    */
-
     public static ReadOnlyExpenditureList getSampleExpenditureList() {
-        ExpenditureList expenditureList = new ExpenditureList();
-        //TODO
-        return expenditureList;
+        ExpenditureList sampleExpl = new ExpenditureList();
+        for (Purchase samplePurchase : getSamplePurchases()) {
+            sampleExpl.addPurchase(samplePurchase);
+        }
+        return sampleExpl;
     }
+
     public static ReadOnlyWorkoutBook getSampleWorkoutBook() {
         WorkoutBook workoutBook = new WorkoutBook();
         //TODO

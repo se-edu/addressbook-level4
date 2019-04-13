@@ -19,10 +19,17 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.task.Task;
 import seedu.address.model.purchase.Purchase;
+import seedu.address.model.task.Task;
+import seedu.address.model.workout.Workout;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -142,6 +149,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyTaskList getTickedTaskList() {
+            return null;
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -157,7 +169,32 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTickedTaskList(Task task) {
+
+        }
+
+        @Override
+        public boolean hasTask(Task task) {
+            return false;
+        }
+
+        @Override
+        public void deleteTask(Task task) {
+
+        }
+
+        @Override
+        public void sortTask() {
+
+        }
+
+        @Override
         public void commitTaskList() {
+
+        }
+
+        @Override
+        public void commitTickedTaskList() {
 
         }
 
@@ -178,6 +215,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
+
+        }
+
+        @Override
+        public void updateFilteredTickedTaskList(Predicate<Task> predicate) {
 
         }
 
@@ -223,6 +265,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Task> getFilteredTaskList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTickedTaskList() {
             return null;
         }
 
@@ -280,6 +327,46 @@ public class AddCommandTest {
 
         @Override
         public void setSelectedPurchase(Purchase purchase) {
+
+        }
+
+        @Override
+        public void addWorkout(Workout workout) {
+
+        }
+
+        @Override
+        public void commitWorkoutBook() {
+
+        }
+
+        @Override
+        public void setSelectedWorkout(Workout workout) {
+
+        }
+
+        @Override
+        public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Workout> getFilteredWorkoutList() {
+            return null;
+        }
+
+        @Override
+        public ReadOnlyWorkoutBook getWorkoutList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+
+        }
+
+        @Override
+        public void setWorkoutBook(ReadOnlyWorkoutBook workoutBook) {
 
         }
 

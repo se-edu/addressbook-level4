@@ -16,7 +16,7 @@ import seedu.address.model.purchase.Purchase;
 /**
  * Panel containing the list of purchases.
  */
-public class PurchaseListPanel extends UiPart<Region>{
+public class PurchaseListPanel extends UiPart<Region> {
 
     private static final String FXML = "PurchaseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PurchaseListPanel.class);

@@ -1,8 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
@@ -22,9 +23,9 @@ public class AddPurchaseCommand extends Command {
             + PREFIX_PRICE + "PRICE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PURCHASENAME + "Ice cream "
-            + PREFIX_PRICE + "1.50 "
-            + PREFIX_TAG + "from 7-11";
+            + PREFIX_PURCHASENAME + "Chicken rice "
+            + PREFIX_PRICE + "4.50 "
+            + PREFIX_TAG + "food";
 
     public static final String MESSAGE_SUCCESS = "New purchase added: %1$s";
 

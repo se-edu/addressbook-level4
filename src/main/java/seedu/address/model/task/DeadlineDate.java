@@ -3,17 +3,25 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.model.ModelManager.isValidDate;
 
+/**
+ * DeadlineDate class
+ */
 public class DeadlineDate {
-    public static final String MESSAGE_CONSTRAINTS =  "Deadline Date should only contain 6 integers in the ddMMyy format";
-    public final String value;
+    public static final String MESSAGE_CONSTRAINTS = "Deadline Date should only contain"
+            + " 6 integers in the ddMMyy format";
+    public static final String MESSAGE_CONSTRAINTS_INVALID_DATE = "The date "
+            + "you have entered does not exist";
     public static final String VALIDATION_REGEX = "\\d{6}";
+    public final String value;
+
     /**
      * Constructs a {@code DeadlineDate}.
      * @param deadlineDate a valid date
      */
     public DeadlineDate(String deadlineDate) {
         requireNonNull(deadlineDate);
-        checkArgument(isValidDeadlineDate(deadlineDate), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDeadlineDateInput(deadlineDate), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDeadlineDate(deadlineDate), MESSAGE_CONSTRAINTS_INVALID_DATE);
         value = deadlineDate;
     }
 
@@ -22,10 +30,13 @@ public class DeadlineDate {
      * @param deadlineDate a valid deadlineDate
      * @return Returns true if a given string is a valid time
      */
-    public static boolean isValidDeadlineDate(String deadlineDate) {
-        return deadlineDate.matches(VALIDATION_REGEX) && isValidDate(deadlineDate);
+    public static boolean isValidDeadlineDateInput(String deadlineDate) {
+        return deadlineDate.matches(VALIDATION_REGEX);
     }
 
+    public static boolean isValidDeadlineDate(String deadlineDate) {
+        return isValidDate(deadlineDate);
+    }
 
     @Override
     public String toString() {

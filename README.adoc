@@ -1,27 +1,26 @@
-= Student HandBook
+= *LIFE* - Lifestyle Improvement For Everyone
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/cs2113-ay1819s2-t08-2/main[image:https://api.travis-ci.org/cs2113-ay1819s2-t08-2/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/studenthandbookUI.PNG[width="600"]
+image::docs/images/readmeUI.PNG[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/studenthandbookUI.png[width="600"]
+image::images/readmeUI.PNG[width="600"]
 endif::[]
 
-* This is a desktop Student HandBook application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-A one stop application for NUS students to manage their student life in terms of
+* _LIFE_ is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+It is a one stop application for NUS students to manage their student life in terms of
 ** Meeting deadlines
 ** Managing finances
 ** Planning and recording workouts
 ** Forming good habits to improve lifestyle
-* Features: Task List, Expenditure List, Workout Book, Habit Tracker and Address Book.
+* Features: Task List, Expenditure List, Workout Tracker, Habit Tracker and Contact List.
 * *Written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
 
@@ -40,4 +39,4 @@ _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TestFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 * This code was transformed from the great https://github.com/se-edu/addressbook-level4[AddressBook Level 4].
 
-== Licence : link:LICENSE[MIT]
+== License : link:LICENSE[MIT]

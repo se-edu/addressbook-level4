@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWorkoutBook;
 import seedu.address.model.UserPrefs;
@@ -23,15 +23,18 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private TaskListStorage taskListStorage;
+    private TickedTaskListStorage tickedTaskListStorage;
     private WorkoutBookStorage workoutBookStorage;
     private ExpenditureListStorage expenditureListStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage, WorkoutBookStorage workoutBookStorage) {
+                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage,
+                          WorkoutBookStorage workoutBookStorage, TickedTaskListStorage tickedTaskListStorage) {
       super();
 
         this.taskListStorage = taskListStorage;
+        this.tickedTaskListStorage = tickedTaskListStorage;
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.workoutBookStorage = workoutBookStorage;
@@ -88,30 +91,62 @@ public class StorageManager implements Storage {
     // ====================Task List methods ========================================
 
     @Override
-    public Path getTaskListFilePath(){ return taskListStorage.getTaskListFilePath(); }
+    public Path getTaskListFilePath() {
+        return taskListStorage.getTaskListFilePath();
+    }
 
     @Override
-    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException{
+    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
         return readTaskList(taskListStorage.getTaskListFilePath());
     }
+
     @Override
-    public Optional<ReadOnlyTaskList> readTaskList(Path filePath) throws DataConversionException, IOException{
+    public Optional<ReadOnlyTaskList> readTaskList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
+        logger.info("READING FROM FILE" + filePath);
         return taskListStorage.readTaskList(filePath);
     }
+
     @Override
     public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
         saveTaskList(taskList, taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public void saveTaskList(ReadOnlyTaskList taskList, Path filePath) throws IOException{
+    public void saveTaskList(ReadOnlyTaskList taskList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         taskListStorage.saveTaskList(taskList, filePath);
     }
 
-// ================ Expenditure List methods ==============================
-@Override
+    @Override
+    public Path getTickedTaskListFilePath() {
+        return tickedTaskListStorage.getTickedTaskListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readTickedTaskList() throws DataConversionException, IOException {
+        logger.info("HELLO");
+        return readTickedTaskList(tickedTaskListStorage.getTickedTaskListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readTickedTaskList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        logger.info("READING FROM FILE" + filePath);
+        return tickedTaskListStorage.readTickedTaskList(filePath);
+    }
+
+    @Override
+    public void saveTickedTaskList(ReadOnlyTaskList tasklist) throws IOException {
+
+    }
+
+    @Override
+    public void saveTickedTaskList(ReadOnlyTaskList taskList, Path filepath) throws IOException {
+
+    }
+
+    @Override
     public Path getExpenditureListFilePath() {
         return expenditureListStorage.getExpenditureListFilePath();
     }
@@ -122,7 +157,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyExpenditureList> readExpenditureList(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyExpenditureList> readExpenditureList(Path filePath) throws DataConversionException,
+            IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return expenditureListStorage.readExpenditureList(filePath);
     }
@@ -140,10 +176,12 @@ public class StorageManager implements Storage {
 
     // =================WorkoutBook methods =====================================
     @Override
-    public Path getWorkoutBookFilePath() { return workoutBookStorage.getWorkoutBookFilePath();}
+    public Path getWorkoutBookFilePath() {
+        return workoutBookStorage.getWorkoutBookFilePath();
+    }
 
     @Override
-    public Optional<ReadOnlyWorkoutBook> readWorkoutBook() throws DataConversionException, IOException{
+    public Optional<ReadOnlyWorkoutBook> readWorkoutBook() throws DataConversionException, IOException {
         return readWorkoutBook(workoutBookStorage.getWorkoutBookFilePath());
     }
     @Override
@@ -157,7 +195,7 @@ public class StorageManager implements Storage {
         saveWorkoutBook(workoutList, workoutBookStorage.getWorkoutBookFilePath());
     }
     @Override
-    public void saveWorkoutBook(ReadOnlyWorkoutBook workoutList, Path filePath) throws IOException{
+    public void saveWorkoutBook(ReadOnlyWorkoutBook workoutList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         workoutBookStorage.saveWorkoutBook(workoutList, filePath);
 

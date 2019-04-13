@@ -59,27 +59,6 @@ public class Purchase {
                 && (otherPurchase.getPrice().equals(getPrice()));
     }
 
-
-    /**
-     * Returns true if both purchases have the same identity and data fields.
-     * This defines a stronger notion of equality between two purchases.
-     */
- /*   @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Purchase)) {
-            return false;
-        }
-
-        Purchase otherPurchase = (Purchase) other;
-        return otherPurchase.getPurchaseName().equals(getPurchaseName())
-                && otherPurchase.getPrice().equals(getPrice())
-                && otherPurchase.getTags().equals(getTags());
-    }
-*/
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
@@ -90,7 +69,7 @@ public class Purchase {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getPurchaseName())
-                .append(" Price: ")
+                .append(" Price: $")
                 .append(getPrice())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

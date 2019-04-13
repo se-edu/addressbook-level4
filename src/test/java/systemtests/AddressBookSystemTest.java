@@ -30,8 +30,10 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
@@ -275,22 +277,6 @@ public abstract class AddressBookSystemTest {
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
-
-
-
-//    /**
-//     * Testing for AddTask Command
-//     */
-//    protected void assertAddTaskThrowsException(){
-//      //  executeCommand(AddTaskCommand.COMMAND_WORD);
-//        assertEquals(new AddTaskCommand(),"AddTask");
-//    }
-
-
-
-
-
-
 
     /**
      * Returns a defensive copy of the current model.
