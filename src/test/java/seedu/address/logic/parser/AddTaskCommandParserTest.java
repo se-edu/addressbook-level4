@@ -99,7 +99,7 @@ public class AddTaskCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid Task Name
+        // invalid task Name
         assertParseFailure(parser, INVALID_TASKNAME_DESC + DEADLINETIME_DESC_TWO + DEADLINEDATE_DESC_TWO
                 + TAG_DESC_TWO + TAG_DESC_ONE, TaskName.MESSAGE_CONSTRAINTS);
 

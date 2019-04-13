@@ -74,7 +74,7 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
         if (taskListModified) {
-            logger.info("Task list modified, saving to file.");
+            logger.info("task list modified, saving to file.");
             try {
                 storage.saveTaskList(model.getTaskList());
             } catch (IOException ioe) {
@@ -83,7 +83,7 @@ public class LogicManager implements Logic {
         }
 
         if (tickedTaskListModified) {
-            logger.info("Ticked Task List modified. Saving to file. ");
+            logger.info("Ticked task List modified. Saving to file. ");
         } //TODO
 
         if (expenditureListModified) {

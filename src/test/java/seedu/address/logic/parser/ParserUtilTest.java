@@ -21,6 +21,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.DeadlineDate;
+import seedu.address.model.task.DeadlineTime;
+import seedu.address.model.task.TaskName;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
@@ -29,6 +32,11 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_TASKNAME = "J$ROME";
+    private static final String INVALID_DEADLINETIME = "35003";
+    private static final String INVALID_DEADLINETIME_INVALIDTIME = "2599";
+    private static final String INVALID_DEADLINEDATE = "0319392";
+    private static final String INVALID_DEADLINEDATE_INVALIDDATE = "310219";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -36,8 +44,13 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TASKNAME = "Jerome Tan";
+    private static final String VALID_DEADLINETIME = "2359";
+    private static final String VALID_DEADLINEDATE = "311219";
 
     private static final String WHITESPACE = " \t\r\n";
+
+
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -204,5 +217,75 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTaskName_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTaskName((String) null));
+    }
+
+    @Test
+    public void parseTaskName_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTaskName(INVALID_TASKNAME));
+    }
+
+    @Test
+    public void parseTaskName_validValueWithoutWhitespace_returnsTaskName() throws Exception {
+        TaskName expectedTaskName = new TaskName(VALID_TASKNAME);
+        assertEquals(expectedTaskName, ParserUtil.parseTaskName(VALID_TASKNAME));
+    }
+
+    @Test
+    public void parseTaskName_validValueWithWhitespace_returnsTrimmedTaskName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_TASKNAME + WHITESPACE;
+        TaskName expectedTaskName = new TaskName(VALID_TASKNAME);
+        assertEquals(expectedTaskName, ParserUtil.parseTaskName(nameWithWhitespace));
+    }
+    @Test
+    public void parseDeadlineTime_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDeadlineTime((String) null));
+    }
+
+    @Test
+    public void parseDeadlineTime_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDeadlineTime(INVALID_DEADLINETIME));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDeadlineTime(INVALID_DEADLINETIME_INVALIDTIME));
+    }
+
+    @Test
+    public void parseDeadlineTime_validValueWithoutWhitespace_returnsDeadlineTime() throws Exception {
+        DeadlineTime expectedDeadlineTime = new DeadlineTime(VALID_DEADLINETIME);
+        assertEquals(expectedDeadlineTime, ParserUtil.parseDeadlineTime(VALID_DEADLINETIME));
+    }
+
+    @Test
+    public void parseDeadlineTime_validValueWithWhitespace_returnsTrimmedDeadlineTime() throws Exception {
+        String deadlineTimeWithWhitespace = WHITESPACE + VALID_DEADLINETIME + WHITESPACE;
+        DeadlineTime expectedDeadlineTime = new DeadlineTime(VALID_DEADLINETIME);
+        assertEquals(expectedDeadlineTime, ParserUtil.parseDeadlineTime(deadlineTimeWithWhitespace));
+    }
+
+    @Test
+    public void parseDeadlineDate_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDeadlineDate((String) null));
+    }
+
+    @Test
+    public void parseDeadlineDate_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDeadlineDate(INVALID_DEADLINEDATE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDeadlineDate(INVALID_DEADLINEDATE_INVALIDDATE));
+    }
+
+    @Test
+    public void parseDeadlineDate_validValueWithoutWhitespace_returnsDeadlineDate() throws Exception {
+        DeadlineDate expectedDeadlineDate = new DeadlineDate(VALID_DEADLINEDATE);
+        assertEquals(expectedDeadlineDate, ParserUtil.parseDeadlineDate(VALID_DEADLINEDATE));
+    }
+
+    @Test
+    public void parseDeadlineDate_validValueWithWhitespace_returnsTrimmedDeadlineDate() throws Exception {
+        String deadlineDateWithWhitespace = WHITESPACE + VALID_DEADLINEDATE + WHITESPACE;
+        DeadlineDate expectedDeadlineDate = new DeadlineDate(VALID_DEADLINEDATE);
+        assertEquals(expectedDeadlineDate, ParserUtil.parseDeadlineDate(deadlineDateWithWhitespace));
     }
 }

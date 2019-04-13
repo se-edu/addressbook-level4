@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
 /**
- * Utility class for Task
+ * Utility class for task
  */
 public class TaskUtil {
 
