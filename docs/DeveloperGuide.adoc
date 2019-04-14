@@ -223,6 +223,8 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
+//end::developerModel[]
+
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
@@ -232,7 +234,7 @@ The `Model`,
 (There exists `ObservableList<Workout>`, `ObservableList<Habit>` and `ObservableList<Person>` as well)
 * does not depend on any of the other three components.
 
-//end::developerModel[]
+
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Expenditure List`, which `Purchase` can reference. This would allow `Expenditure List` to only require one `Tag` object per unique `Tag`, instead of each `Purchase` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -409,6 +411,8 @@ This made it easier for us to implement our features as we could reuse some of t
 and follow the style of how the link:https://github.com/se-edu/addressbook-level4[Addressbook] was implemented to made the code
 more readable.
 
+//end::developerTask[]
+
 ===== Model
 
 The `TaskList` is a separate feature that is distinct from the other features.
@@ -422,9 +426,10 @@ The following is a model diagram of the `TaskList` component.
 .Model Component of `TaskList`.
 image::TaskListModelDiagramComponent.png[width='800']
 
-//end::task[]
+
 {nbsp} +
 
+// tag::developerAddTask[]
 ==== Add Task
 The `AddTaskCommand` will create an instance of the `Task` class and store it in the `TaskList`
 
@@ -463,6 +468,8 @@ image::AddTaskSequenceDiagram.PNG[width="800"]
 
 {nbsp} +
 
+//end::developerAddTask[]
+
 ==== Delete Task
 The `DeleteTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
 in the UI)_ from the `TaskList`.
@@ -488,7 +495,7 @@ The following activity diagrams illustrates an example when the user executes a 
 image::DeleteTaskActivityDiagram.PNG[width='800']
 
 {nbsp} +
-
+// tag::developerTickEditTask[]
 ==== Tick Task
 The `TickTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
 in the UI)_ from the `TaskList` and add them into the `TickedTaskList`.
@@ -541,7 +548,6 @@ The following sequence diagram shows how the `edittask` operation works.
 image::EditTaskSequenceDiagram.PNG[width='800']
 
 
-
 ==== Alternatives considered
 * Alternative 1 (current choice): Create a new Array List Object to store the tasks e.g. `UniqueTaskList`.
 
@@ -561,8 +567,7 @@ For instance, the `deletetask` command and the checking of duplicates.
 of implementation, My team and I do not
 have enough expertise to utilise the Hash Map.
 
-
-//end::developerTask[]
+//end::developerTickEditTask[]
 
 // tag::Purchase[]
 === Expenditure List Feature
@@ -1074,7 +1079,33 @@ Use case ends.
 **  _LIFE_ shows an error message. +
 Use case ends.
 
+=== Use Case: Sort Task
 
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User wishes to sort the tasks according to their deadline
+. _LIFE_ sorts the task in the task list.
++
+Use case ends.
+
+=== Use Case: Tick Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User completed the task and wishes to tick off the task with `ticktask INDEX`
+. Task ticked disappears from the task list panel and appears in the completed task list panel.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 4a. Index not in Task List.
+[none]
+** _LIFE_ shows an error message.+ Use case ends.
+
+//end::developerUseCase[]
 
 === Use case: Edit a task
 
@@ -1115,32 +1146,6 @@ Use case ends.
 [none]
 ** _LIFE_ shows an error message.+ Use case ends.
 
-=== Use Case: Tick Task
-
-*MSS*
-
-. _LIFE_ already displays the task list.
-. User completed the task and wishes to tick off the task with `ticktask INDEX`
-. Task ticked disappears from the task list panel and appears in the completed task list panel.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 4a. Index not in Task List.
-[none]
-** _LIFE_ shows an error message.+ Use case ends.
-
-=== Use Case: Sort Task
-
-*MSS*
-
-. _LIFE_ already displays the task list.
-. User wishes to sort the tasks according to their deadline
-. _LIFE_ sorts the task in the task list.
-+
-Use case ends.
-//end::developerUseCase[]
 
 === Use Case: Add a new purchase
 
@@ -1234,8 +1239,10 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
+
 // tag::developerProjectSurvey[]
+
+[appendix]
 == Product Survey
 
 *_LIFE_*
@@ -1293,7 +1300,9 @@ features that they did are listed below
 
 //end::developerFeatureContribution[]
 [appendix]
+//tag::developerManualHeader[]
 == Instructions for Manual Testing
+//end::developerManualHeader[]
 
 Given below are instructions to test the app manually.
 
@@ -1314,7 +1323,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-// tag::developerTaskManual[]
+
 === Adding a task
 
 . Adding a new task to the existing task list
@@ -1342,7 +1351,7 @@ Refer to task list to check index number of a particular task
    `delete task1`, `deletetask` +
    Expected: Similar to previous.
 
-
+// tag::developerTaskManual[]
 === Editing a task
 
 . Editing an existing task in the task list
