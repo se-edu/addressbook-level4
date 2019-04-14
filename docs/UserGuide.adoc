@@ -399,16 +399,16 @@ Example:
 
 
 
-=== Workout Tracker [coming in v1.4]
+=== Workout Tracker
 Record your workouts and reps so that you can make the most out of the exercises! +
 
-==== View workout: `workout` [coming soon]
+==== View workout: `workout`
 
 View the past 5 most recent workout. +
 Format: `workout`
 
 ****
-Only the most recent 5 workout will be displayed, older workout will not be shown
+Only up to 5 most recent workout will be displayed, older workout will not be shown
 
 ****
 
@@ -416,7 +416,7 @@ Examples:
 
 * `workout`
 
-==== Record workout : `record` [coming soon]
+==== Record workout : `record`
 
 Record your current workout and add them into your workout records. +
 Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
@@ -424,7 +424,7 @@ Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
 ****
 Words in `UPPER_CASE` are the parameters.
 EXERCISE must only contain alphanumeric. +
-SETS, REPS and TIME must only contain integer, and TIME must be in minutes +
+SETS, REPS and TIME must only contain integers, and TIME must be in minutes +
 ****
 
 Examples:
