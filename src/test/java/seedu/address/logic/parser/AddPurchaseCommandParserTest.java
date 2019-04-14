@@ -38,6 +38,7 @@ public class AddPurchaseCommandParserTest {
    /*
     private AddPurchaseCommandParser parser = new AddPurchaseCommandParser();
 
+ /*
     @Test
     public void parse_allFieldsPresent_success() {
         Purchase expectedPurchase = new PurchaseBuilder(MOVIE).withTags(VALID_TAG_ENTERTAINMENT).build();
@@ -60,7 +61,9 @@ public class AddPurchaseCommandParserTest {
         assertParseSuccess(parser, PURCHASENAME_DESC_MOVIE + PRICE_DESC_MOVIE
                 + TAG_DESC_ENTERTAINMENT + TAG_DESC_FAMILY, new AddPurchaseCommand(expectedPurchaseMultipleTags));
     }
+*/
 
+    /*
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
@@ -68,6 +71,7 @@ public class AddPurchaseCommandParserTest {
         assertParseSuccess(parser, PURCHASENAME_DESC_PRAWNMEE + PRICE_DESC_PRAWNMEE,
                 new AddPurchaseCommand(expectedPurchase));
     }
+    */
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {

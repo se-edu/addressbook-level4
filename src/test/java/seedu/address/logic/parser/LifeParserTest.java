@@ -15,16 +15,15 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
-//import seedu.address.logic.commands.AddPurchaseCommand;
+import seedu.address.logic.commands.AddPurchaseCommand;
 import seedu.address.logic.commands.AddTaskCommand;
-//import seedu.address.logic.commands.AddPurchaseCommand;
 import seedu.address.logic.commands.ClearCommand;
-//import seedu.address.logic.commands.ClearExpListCommand;
+import seedu.address.logic.commands.ClearExpListCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-//import seedu.address.logic.commands.ExpListCommand;
+import seedu.address.logic.commands.ExpListCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -35,10 +34,13 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PurchaseBuilder;
+import seedu.address.testutil.PurchaseUtil;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TaskUtil;
 
@@ -156,5 +158,24 @@ public class LifeParserTest {
         assertEquals(new AddTaskCommand(task), command);
     }
 
+/*
+    @Test
+    public void parseCommand_addPurchase() throws Exception {
+        Purchase purchase = new PurchaseBuilder().build();
+        AddPurchaseCommand command = (AddPurchaseCommand) parser.parseCommand(PurchaseUtil.getAddPurchaseCommand(purchase));
+        assertEquals(new AddPurchaseCommand(purchase), command);
+    }
+    */
 
+    @Test
+    public void parseCommand_clearExpList() throws Exception {
+        assertTrue(parser.parseCommand(ClearExpListCommand.COMMAND_WORD) instanceof ClearExpListCommand);
+        assertTrue(parser.parseCommand(ClearExpListCommand.COMMAND_WORD + " 3") instanceof ClearExpListCommand);
+    }
+
+    @Test
+    public void parseCommand_explist() throws Exception {
+        assertTrue(parser.parseCommand(ExpListCommand.COMMAND_WORD) instanceof ExpListCommand);
+        assertTrue(parser.parseCommand(ExpListCommand.COMMAND_WORD + " 3") instanceof ExpListCommand);
+    }
 }
