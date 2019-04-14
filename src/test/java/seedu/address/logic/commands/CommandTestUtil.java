@@ -170,7 +170,8 @@ public class CommandTestUtil {
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the contact list, filtered person list and selected person in {@code actualModel} remain unchanged <br>
-     * - the expenditure list, filtered expenditure list and selected purchase in {@code actualModel} remain unchanged <br>
+     * - the expenditure list, filtered expenditure list and selected purchase
+     *   in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,

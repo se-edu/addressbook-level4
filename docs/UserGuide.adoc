@@ -63,8 +63,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 //end::UserGuideQuickStart[]
 
-
-
 [[Features]]
 == Features
 
@@ -498,7 +496,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
-// end::undoredo[]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====

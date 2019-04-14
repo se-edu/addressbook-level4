@@ -61,8 +61,6 @@ IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
-
-
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
