@@ -29,11 +29,11 @@ Below is a screenshot of the user interface of the project, _LIFE_.
 
 .User Interface of _LIFE_
 ifdef::env-github[]
-image::docs/images/finalui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/finalui.png[width="600"]
+image::images/Ui.png[width="600"]
 endif::[]
 
 == My Role
