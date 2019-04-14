@@ -29,7 +29,7 @@ import seedu.address.model.task.TaskName;
 
 
 /**
- * edits a task
+ * Edits a task
  * takes an index of the task and finds it and edits it
  */
 public class EditTaskCommand extends Command {
@@ -43,7 +43,7 @@ public class EditTaskCommand extends Command {
             + "[" + PREFIX_DEADLINE_TIME + "DeadlineTime] "
             + "[" + PREFIX_DEADLINE_DATE + "DeadlineDate] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + "1"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DEADLINE_DATE + "311219 "
             + PREFIX_DEADLINE_TIME + "2359";
 

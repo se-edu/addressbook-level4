@@ -22,9 +22,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
 
 /**
- * Unit tests for {@code DeleteTaskCommand}.
+ * Unit tests for {@code TickTaskCommand}.
  */
-public class DeleteTaskCommandTest {
+public class TickTaskCommandTest {
 
     private Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
             getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
@@ -32,64 +32,67 @@ public class DeleteTaskCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
+        Task taskToTick = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        TickTaskCommand tickTaskCommand = new TickTaskCommand(INDEX_FIRST_TASK);
 
-        String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(TickTaskCommand.MESSAGE_TICK_TASK_SUCCESS, taskToTick);
 
         ModelManager expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
                 model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
-        expectedModel.deleteTask(taskToDelete);
+        expectedModel.addTickedTaskList(taskToTick);
+        expectedModel.deleteTask(taskToTick);
+        expectedModel.commitTickedTaskList();
         expectedModel.commitTaskList();
 
-        assertCommandSuccess(deleteTaskCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(tickTaskCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
-        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
+        TickTaskCommand tickTaskCommand = new TickTaskCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteTaskCommand, model, commandHistory, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandFailure(tickTaskCommand, model, commandHistory, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
 
-        Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
+        Task taskToTick = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        TickTaskCommand tickTaskCommand = new TickTaskCommand(INDEX_FIRST_TASK);
 
-        String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(TickTaskCommand.MESSAGE_TICK_TASK_SUCCESS, taskToTick);
 
         Model expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
                 model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
-        expectedModel.deleteTask(taskToDelete);
+        expectedModel.addTickedTaskList(taskToTick);
+        expectedModel.deleteTask(taskToTick);
+        expectedModel.commitTickedTaskList();
         expectedModel.commitTaskList();
         showNoTask(expectedModel);
 
-        assertCommandSuccess(deleteTaskCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(tickTaskCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-
     @Test
     public void equals() {
-        DeleteTaskCommand deleteFirstCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
-        DeleteTaskCommand deleteSecondCommand = new DeleteTaskCommand(INDEX_SECOND_TASK);
+        TickTaskCommand tickFirstCommand = new TickTaskCommand(INDEX_FIRST_TASK);
+        TickTaskCommand tickSecondCommand = new TickTaskCommand(INDEX_SECOND_TASK);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertTrue(tickFirstCommand.equals(tickFirstCommand));
 
         // same values -> returns true
-        DeleteTaskCommand deleteFirstCommandCopy = new DeleteTaskCommand(INDEX_FIRST_TASK);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        TickTaskCommand tickFirstCommandCopy = new TickTaskCommand(INDEX_FIRST_TASK);
+        assertTrue(tickFirstCommand.equals(tickFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertFalse(tickFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(tickFirstCommand.equals(null));
 
         // different task -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertFalse(tickFirstCommand.equals(tickSecondCommand));
     }
 
     /**
@@ -100,4 +103,5 @@ public class DeleteTaskCommandTest {
 
         assertTrue(model.getFilteredTaskList().isEmpty());
     }
+
 }

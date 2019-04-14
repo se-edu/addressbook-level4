@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -167,7 +168,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addTickedTaskList(Task task) {
-        task.addCompletedTag();
+        //task.addCompletedTag();
         versionedTickedTaskList.addTask(task);
     }
 
@@ -476,6 +477,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
         return selectedWorkout;
+    }
+
+    @Override
+    public ArrayList<Workout> getRecent() {
+        return versionedWorkoutBook.getRecent();
     }
 
     @Override

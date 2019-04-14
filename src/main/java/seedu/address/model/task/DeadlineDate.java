@@ -5,6 +5,7 @@ import static seedu.address.model.ModelManager.isValidDate;
 
 /**
  * DeadlineDate class
+ * Guarantees: immutable; is valid as declared in {@link #isValidDeadlineDate(String)}
  */
 public class DeadlineDate {
     public static final String MESSAGE_CONSTRAINTS = "Deadline Date should only contain"

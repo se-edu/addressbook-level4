@@ -14,35 +14,35 @@ import seedu.address.model.TaskList;
 import seedu.address.model.task.Task;
 
 /**
- * An Immutable ContactList that is serializable to JSON format.
+ * An Immutable TaskList that is serializable to JSON format.
  */
 @JsonRootName(value = "tasklist")
 class JsonSerializableTaskList {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
 
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableContactList} with the given persons.
+     * Constructs a {@code JsonSerializableTaskList} with the given tasks.
      */
     @JsonCreator
     public JsonSerializableTaskList(@JsonProperty("tasks") List<JsonAdaptedTask>
-                                                tasks) {
+                                            tasks) {
         this.tasks.addAll(tasks);
     }
 
     /**
-     * Converts a given {@code ReadOnlyContactList} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyTaskList} into this class
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableContactList}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableTaskList}.
      */
     public JsonSerializableTaskList(ReadOnlyTaskList source) {
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code ContactList} object.
+     * Converts this LIFE into the model's {@code TaskList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -51,7 +51,7 @@ class JsonSerializableTaskList {
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType();
             if (taskList.hasTask(task)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
             taskList.addTask(task);
         }

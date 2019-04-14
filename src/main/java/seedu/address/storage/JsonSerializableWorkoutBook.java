@@ -14,17 +14,15 @@ import seedu.address.model.WorkoutBook;
 import seedu.address.model.workout.Workout;
 
 /**
- * An Immutable ContactList that is serializable to JSON format.
+ * An Immutable WorkoutList that is serializable to JSON format.
  */
 @JsonRootName(value = "workoutbook")
 class JsonSerializableWorkoutBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-
     private final List<JsonAdaptedWorkout> workouts = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableContactList} with the given persons.
+     * Constructs a {@code JsonSerializableWorkoutBook} with the given workouts.
      */
     @JsonCreator
     public JsonSerializableWorkoutBook(@JsonProperty("workouts") List<JsonAdaptedWorkout> workouts) {
@@ -32,16 +30,16 @@ class JsonSerializableWorkoutBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyContactList} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyWorkoutList} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableContactList}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableWorkoutBook}.
      */
     public JsonSerializableWorkoutBook(ReadOnlyWorkoutBook source) {
         workouts.addAll(source.getWorkoutList().stream().map(JsonAdaptedWorkout::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code ContactList} object.
+     * Converts this workout book into the model's {@code WorkoutBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -50,9 +48,6 @@ class JsonSerializableWorkoutBook {
         WorkoutBook workoutBook = new WorkoutBook();
         for (JsonAdaptedWorkout jsonAdaptedWorkout : workouts) {
             Workout workout = jsonAdaptedWorkout.toModelType();
-            // if (workoutBook.hasWorkout(workout)) {
-            //   throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            //}
             workoutBook.addWorkout(workout);
         }
         return workoutBook;

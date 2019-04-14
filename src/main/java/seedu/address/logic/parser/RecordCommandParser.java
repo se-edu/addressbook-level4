@@ -18,13 +18,13 @@ import seedu.address.model.workout.Workout;
 
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new RecordCommand object
  */
 public class RecordCommandParser implements Parser<RecordCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RecordCommand
+     * and returns an RecordCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecordCommand parse(String args) throws ParseException {

@@ -19,8 +19,16 @@ By: `Team T08-2`  	Since: `May 2019`  	Licence: `MIT`
 == Introduction
 === What is LIFE
 _LIFE_ - Lifestyle Improvement For Everyone +
-It is a desktop application for students to easily manage their
-tasks, expenditure and fitness.
+This is a one stop lifestyle management application made for people to better manage their lives through documenting
+ and tracking their tasks, expenses, workouts and habits. +
+
+Features include:
+
+* Task List +
+* Expenditure List +
+* Workout Tracker +
+* Habit Tracker +
+* Contact List
 
 === Core Team
 _LIFE_ was developed and is continually being maintained and improved upon
@@ -208,6 +216,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+// tag::developerModel[]
 [[Design-Model]]
 === Model component
 
@@ -230,6 +239,8 @@ As a more OOP model, we can store a `Tag` list in `Expenditure List`, which `Pur
 (This goes the same for each `Task`, `Workout`, `Habit` and `Person`)
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+
+//end::developerModel[]
 
 [[Design-Storage]]
 === Storage component
@@ -333,10 +344,9 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::task[]
-
+// tag::developerTask[]
 === Task Feature
-+This entire section describes comprehensively the technical aspects of the `Task` feature as well
++ This entire section describes comprehensively the technical aspects of the `Task` feature as well
 as considerations made during the design of the feature.+
 
 ==== `Task` package
@@ -346,7 +356,6 @@ This section describes the inner dimensions of the `Task` package. +
 
 _LIFE_ is a tool for helping users manage their priorities, therefore the ability to help them document their tasks is highly essential.
 
-[Current Implentation of Task]
 
 ===== Current Implementation
 
@@ -356,6 +365,7 @@ Each of the classes provide utility methods to check the correctness of the stri
 
 The following classes are as such:
 
+[[Current-Implementation-of-Task]]
 .Classes in the `Task` Package
 [width="100%", cols="1,2,2", options="header"]
 |=======
@@ -369,8 +379,7 @@ The following classes are as such:
 
 
 The `Task` package includes the `Task` class which documents information about a task.
-The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`). +
-The `Task` class is shown below.
+The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`). The `Task` class is shown below.
 
 .Table of `Task` Class
 [width="100%", cols="1,2,2", options="header"]
@@ -403,7 +412,7 @@ more readable.
 ===== Model
 
 The `TaskList` is a separate feature that is distinct from the other features.
-This is done intentionally as the `_Life_` application is meant to be made up of four
+This is done intentionally as the _LIFE_ application is meant to be made up of four
 distinct features. Also, this would allow future enhancement of this `TaskList` to include more
 functionalities for the `TaskList` such as priority tagging without affecting the
 other features due to the low coupling other features have with `Task`.
@@ -424,19 +433,19 @@ To be able to document tasks, students should be able to add their tasks into th
 
 ===== Current Implementation
 The `AddTaskCommand` is created when the command word `addtask` is detected in the user input alongside
-the compulsory parameters as shown in <<Current Implementation of Task>>. If the parameters are invalid, an error
+the compulsory parameters as shown in <<Current-Implementation-of-Task>>. If the parameters are invalid, an error
 message will be displayed.
 
 Through the `AddTaskCommand`, the user input will then be split into its separate
   components(e.g. `TaskName`, `DeadlineDate`, `DeadlineTime`, `Tag`) through `ParserUtil`,
    creating a `Task` instance. This instance is then passed from the `logic` component to the `model`
-   component as shown in <<Add Task Sequence Diagram>>.
+   component as shown in <<Add-Task-Sequence-Diagram>>.
 
 
 Given below is an example usage scenario and how the `addTask` mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-_LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task li state.
+_LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task list state.
 
 Step 2. The user executes the `addtask` command with `addtask n/CS2101 Guides d/140419 h/2359`
 
@@ -448,8 +457,8 @@ Step 4. Once valid, it passes the Task from the `logic` component to the `model`
 
 The following sequence diagram shows how the `addtask` operation works.
 
-[Add Task Sequence Diagram]
-.Add Task Logic Diagram
+[[Add-Task-Sequence-Diagram]]
+.Add Task Sequence Diagram
 image::AddTaskSequenceDiagram.PNG[width="800"]
 
 {nbsp} +
@@ -486,7 +495,7 @@ in the UI)_ from the `TaskList` and add them into the `TickedTaskList`.
 
 ===== Reason for implementation
 Through ticking the tasks that the users have completed and adding them into the
-`TickedTaskList` (shown in the UI), the users will feel more motivated to complete more taskx.
+`TickedTaskList` (shown in the UI), the users will feel more motivated to complete more tasks.
 This is supported by research that is done by us.
 
 ===== Current Implementation
@@ -553,7 +562,7 @@ of implementation, My team and I do not
 have enough expertise to utilise the Hash Map.
 
 
-
+//end::developerTask[]
 
 // tag::Purchase[]
 === Expenditure List Feature
@@ -631,7 +640,7 @@ The following sequence diagram illustrates how the `addpurchase` operation works
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-_LIFE_ will initialize with the initial expenditure list state.
+LIFE will initialize with the initial expenditure list state.
 
 Step 2. The user executes the `addPurchase` command with `addpurchase pn/Ice Cream pr/1.50`
 
@@ -946,6 +955,7 @@ A project often depends on third-party libraries. For example, _LIFE_ depends on
 . Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
+// tag::developerProductScope[]
 == Product Scope
 
 *Target user profile*:
@@ -962,7 +972,7 @@ A project often depends on third-party libraries. For example, _LIFE_ depends on
 
 *Value proposition*: One-stop application for students to improve their student life through
  documentation of their priorities and daily targets, enhancing their ability to manage their lives.
-
+//end::developerProductScope[]
 
 [appendix]
 == User Stories
@@ -1012,18 +1022,34 @@ have completed at the end of the day
 
 [appendix]
 == Use Cases
+// tag::developerUseCase[]
 
-(For all use cases below, the *System* is the `_LIFE_` application and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the _LIFE_ application and the *Actor* is the `user`, unless specified otherwise)
 
 === Use case: Add a  task
 
 *MSS*
 
 . User requests to add a new task  +
-example: `addTask n/Update CS2113T Developer Guide
+example: `addtask n/Update CS2113T Developer Guide
  d/311219 h/2359` +
 . _LIFE_ adds the task into the array list +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The task details are invalid
++
+[none]
+**  _LIFE_ shows an error message. + Use Case ends.
+
+* 1b. Task already exists.
++
+[none]
+**  _LIFE_ shows an error message. +
+Use case ends.
+
 
 
 === Use case: Edit a task
@@ -1032,43 +1058,65 @@ Use case ends.
 
 . _LIFE_ already shows a list of daily tasks
 . User requests to edit a specific task in the list via INDEX
-e.g. `editTask INDEX n/REDO CS2113T`
-. _LIFE_ edits the task
+e.g. `edittask INDEX n/REDO CS2113T`
+. _LIFE_ edits the task at index INDEX
 +
 Use case ends.
 
 *Extensions*
-
-* 2a. Task List is empty.
-+
+[none]
+* 2a. Index not in Task List. +
+[none]
+** _LIFE_ shows an error message. +
 Use case ends.
 
-* 3a. Index not in Task List.
-** 3a1. _LIFE_ shows an error message.
-+
-Use case ends.
+* 2b. The task details are invalid. +
+[none]
+** _LIFE_ shows an error message + Use Case ends.
+
 
 === Use Case: Delete a Task
 
 *MSS*
 
 . _LIFE_ already displays the task list
-. User requests to remove the task with `deleteTask INDEX`
-. _LIFE_ removes the task
+. User requests to delete the task with `deletetask INDEX`
+. _LIFE_ delete the task
 +
 Use case ends.
 
 *Extensions*
+[none]
+* 3a. Index not in Task List.
+[none]
+** _LIFE_ shows an error message.+ Use case ends.
 
-* 1. Task List is empty.
+=== Use Case: Tick Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User completed the task and wishes to tick off the task with `ticktask INDEX`
+. Task ticked disappears from the task list panel and appears in the completed task list panel.
 +
 Use case ends.
-* 2a. Index not in Task List.
-** 2a1. _LIFE_ shows an error message.
+
+*Extensions*
+[none]
+* 4a. Index not in Task List.
+[none]
+** _LIFE_ shows an error message.+ Use case ends.
+
+=== Use Case: Sort Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User wishes to sort the tasks according to their deadline
+. _LIFE_ sorts the task in the task list.
 +
 Use case ends.
-
-
+//end::developerUseCase[]
 
 === Use Case: Add a new purchase
 
@@ -1182,6 +1230,7 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
+// tag::developerProjectSurvey[]
 == Product Survey
 
 *_LIFE_*
@@ -1208,8 +1257,9 @@ Cons:
 * Have to type out individual commands
 * Cannot be stored in mobiles (which are even more convenient)
 
-
+//end::developerProjectSurvey[]
 [appendix]
+// tag::developerFeatureContribution[]
 == Feature Contribution
 In case you want to improve a specific feature in the _LIFE_ App or
 if you want to know how the creators did it, you can contact the creators
@@ -1234,7 +1284,7 @@ features that they did are listed below
 ** Added the `Habit` feature
 *** This allowed the users to document their habits.
 
-
+//end::developerFeatureContribution[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1257,41 +1307,62 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-
+// tag::developerTaskManual[]
 === Adding a task
 
 . Adding a new task to the existing task list
 
 .. Test case: `addtask n/CS2101 user guide d/100419 h/0930` +
-   Expected: New task added to the task list with a different index number. Timestamp in the status bar is updated.
+   Expected: New task added to the task list with a different index number.
 .. Test case: `addtask n/ST2334 tutorial 8! d/150419 t/1400` +
-   Expected: No new task added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.
+   Expected: No new task added. Details of invalid command is reflected in the status message under the command bar.
 .. Other incorrect addtask commands to try: `addtask n/testtask d/219019 t/2020`, `addtask` (without any inputs) +
    Expected: Similar to previous.
 
-=== Removing a task
+=== Deleting a task
 
 . Deleting an existing task in the task list
 [NOTE]
 Refer to task list to check index number of a particular task
 
+.. Prerequisites: Index entered must available in the task list
 .. Test case: `deletetask 1` +
-   Expected: Task with index number 1 will be removed from the task list. Subsequent tasks will be shifted up. Timestamp in the status bar is updated.
+   Expected: Task with index number 1 will be removed from the task list. Subsequent tasks will be shifted up.
 .. Test case: `deletetask 0` +
-   Expected: No task will be deleted. Details of invalid command will be reflected in the status message under the status bar. Timestamp in the status bar is not updated.
+   Expected: No task will be deleted. Details of invalid command will be
+    reflected in the status message under the status bar.
 .. Other incorrect deletetask commands to try:
    `delete task1`, `deletetask` +
    Expected: Similar to previous.
 
+
+=== Editing a task
+
+. Editing an existing task in the task list
+.. Prerequisites: Index entered must be available in the task list
+.. Test case: `edittask 1 n/Repair iPhone` +
+   Expected: The task name of the indicated task by the index is changed to Repair iPhone.
+.. Test case: `edittask 1 h/2400` +
+   Expected: Unable to edit the Deadline Time, as 2400HRS is not a valid time in the 24HR format.
+   Error details shown in the status message.
+.. Test case: `edittask 0 h/2359` +
+   Expected: No task is deleted as unable to detect a valid task index.
+   Error details shown in the status message.
+.. Other incorrect edittask commands to try:
+   `edit task1`, `edittask` +
+   Expected: Similar to previous.
+
+
 === Ticking a task
 
 . Indicating on the completed task list when a task has been completed
+.. Prerequisites: Index entered must available in the task list
 .. Test case: `ticktask 2` +
    Expected: Task with index number 2 will be removed from the existing task list. This deleted task will then be added into another panel called `Completed Task List`.
-             Timestamp in the status bar is updated.
-.. Test case: `ticktask 0` +
-   Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.
 
+.. Test case: `ticktask 0` +
+   Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar.
+//end::developerTaskManual[]
 === Adding a purchase
 
 . Adding a new purchase to the existing expenditure list
@@ -1301,7 +1372,7 @@ prefix of purchasename is 'pn' not 'n'
 .. Test case: 'addpurchase pn/chicken rice pr/3.50` +
    Expected: New purchase added to the expenditure list with a different index number. Timestamp in the status bar is updated.
 .. Test case: `addpurchase pn/ice cream pr/$2.70` +
-   Expected: No new purchase added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar not updated.
+   Expected: No new purchase added. Details of invalid command is reflected in the status message under the command bar.
 .. Other incorrect addpurchase commands to try:
    `addpurchase pn/bicycle rental pr/10`, `addpurchase n/movie tickets pr/23.00` +
    Expected: No purchases will be added. Details of error will be reflected.
@@ -1310,7 +1381,7 @@ prefix of purchasename is 'pn' not 'n'
 
 . Clearing the existing populated expenditure list
 .. Test case: `clearexplist` +
-   Expected: If existing expenditure list has data, the list will be cleared successfully. Timestamp is updated in the status bar.
+   Expected: If existing expenditure list has data, the list will be cleared successfully.
              If existing expenditure list was already empty, invalid command will be shown.
 
 

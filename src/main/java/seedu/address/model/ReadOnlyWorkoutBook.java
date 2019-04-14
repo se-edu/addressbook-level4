@@ -6,13 +6,12 @@ import javafx.collections.ObservableList;
 import seedu.address.model.workout.Workout;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an workout book
  */
 public interface ReadOnlyWorkoutBook extends Observable {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the workout list.
      */
     ObservableList<Workout> getWorkoutList();
 }
