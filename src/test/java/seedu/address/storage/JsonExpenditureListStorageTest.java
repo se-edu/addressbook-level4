@@ -31,7 +31,8 @@ public class JsonExpenditureListStorageTest {
     }
 
     private java.util.Optional<ReadOnlyExpenditureList> readExpenditureList(String filePath) throws Exception {
-        return new JsonExpenditureListStorage(Paths.get(filePath)).readExpenditureList(addToTestDataPathIfNotNull(filePath));
+        return new JsonExpenditureListStorage(Paths.get(filePath))
+                .readExpenditureList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
