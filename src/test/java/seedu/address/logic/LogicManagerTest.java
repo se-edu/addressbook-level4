@@ -154,7 +154,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_exp_storageThrowsIoException_throwsCommandException() throws Exception {
+    public void execute_expstorageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonContactListIoExceptionThrowingStub
         JsonContactListStorage contactListStorage =
                 new JsonContactListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
