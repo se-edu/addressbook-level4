@@ -50,44 +50,46 @@
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
 
 
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Contact List" textAlignment="CENTER" textOrigin="TOP"  />
+          <VBox fx:id="personList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
+            <Text fill="black" strokeType="OUTSIDE"  wrappingWidth="225" text="Contact List" textAlignment="CENTER" textOrigin="TOP"  />
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="taskList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="taskList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Task List" textAlignment="CENTER" textOrigin="TOP"  />
+            <Text fill="black" strokeType="OUTSIDE"  wrappingWidth="225" text="Task List" textAlignment="CENTER" textOrigin="TOP"  />
             <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="purchaseList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="tickedTaskList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Expenditure List" textAlignment="CENTER" textOrigin="TOP"  />
+            <Text fill="black" strokeType="OUTSIDE"  wrappingWidth="225" text="Completed List" textAlignment="CENTER" textOrigin="TOP"  />
+            <StackPane fx:id="tickedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="purchaseList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Text fill="black" strokeType="OUTSIDE"  wrappingWidth="225" text="Expenditure List" textAlignment="CENTER" textOrigin="TOP"  />
             <StackPane fx:id="purchaseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="workoutList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="workoutList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Workout List" textAlignment="CENTER" textOrigin="TOP"  />
+            <Text fill="black" strokeType="OUTSIDE"  wrappingWidth="225" text="Workout List" textAlignment="CENTER" textOrigin="TOP"  />
             <StackPane fx:id="workoutListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-          <VBox fx:id="tickedTaskList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <Text fill="WHITE" strokeType="OUTSIDE"  wrappingWidth="300" text="Completed List" textAlignment="CENTER" textOrigin="TOP"  />
-            <StackPane fx:id="tickedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+
 
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
