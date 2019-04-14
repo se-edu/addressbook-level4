@@ -46,13 +46,13 @@ public class Workout {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Exercise: ")
-                .append(getExercise())
-                .append("Sets: ")
-                .append(getSets())
-                .append("Reps: ")
-                .append(getReps())
-                .append("Duration: ")
-                .append(getTime());
+                .append(getExercise()).append(",")
+                .append(" Sets: ")
+                .append(getSets()).append(",")
+                .append(" Reps: ")
+                .append(getReps()).append(",")
+                .append(" Duration: ")
+                .append(getTime()).append(" minutes");
         return builder.toString();
     }
 

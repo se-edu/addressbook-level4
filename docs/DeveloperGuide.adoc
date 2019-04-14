@@ -61,8 +61,6 @@ IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
-
-
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
@@ -99,9 +97,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the cs2113-ay1819s2-t08-2 branding and refer to the `cs2113-ay1819s2-t08-2/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `cs2113-ay1819s2-t08-2/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -349,9 +347,9 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::developerTask[]
-=== Task Feature
-+ This entire section describes comprehensively the technical aspects of the `Task` feature as well
-as considerations made during the design of the feature.+
+=== Task List Feature
+This entire section describes comprehensively the technical aspects of the `Task` feature as well
+as considerations made during the design of the feature. +
 
 ==== `Task` package
 This section describes the inner dimensions of the `Task` package. +
@@ -408,9 +406,9 @@ TIP: `_Task_` objects have to be unique and they are considered duplicates if th
 ===== Reasons for how it is implemented
 The `task` package follows the model of the `person` package which existed before our
  team started this project. This was because the `TaskList` was ideated to have the data
- stored in an ArrayList like the Addressbook.
+ stored in an ArrayList like the link:https://github.com/se-edu/addressbook-level4[Addressbook].
 This made it easier for us to implement our features as we could reuse some of the existing code
-and follow the style of how the Addressbook was implemented to made the code
+and follow the style of how the link:https://github.com/se-edu/addressbook-level4[Addressbook] was implemented to made the code
 more readable.
 
 //end::developerTask[]
@@ -573,8 +571,10 @@ have enough expertise to utilise the Hash Map.
 
 // tag::Purchase[]
 === Expenditure List Feature
+This section describes the technical aspects of the `Expenditure List` feature and the design considerations made for the feature.
 
 ==== `Purchase` package
+This section describes the inner dimensions of the `Purchase` package.
 
 ===== Reason for implementation
 
@@ -603,18 +603,44 @@ The `purchase` package includes the `Purchase` class which documents information
 |=======
 
 ===== Reasons for how it is implemented
-The `purchase` package follows the model of the `person` package which existed before our team started this project. This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, improving the modularity and organization.
+Similar to the `task` package, the `purchase` package follows the model of the `person` package in the link:https://github.com/se-edu/addressbook-level4[Addressbook].
+This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, at the same time improving the modularity and organization.
+
+
+===== Model
+
+The `ExpenditureList` is a separate feature as well, being one of the four features in the _LIFE_ application.
+Likewise, this would allow future enhancement of this `ExpenditureList` to be built on with additional features such as finding a particular purchase without affecting the
+other features due to the low coupling other features have with this feature.
+
+The following is a model diagram of the `ExpenditureList` component.
+
+.Model Component of `ExpenditureList`.
+image::ExpenditureListModelComponentDiagram.png[width='800']
 
 //end::Purchase[]
+{nbsp} +
 
 ==== Add Purchase
+
+The `AddPurchaseCommand` will create an instance of the `Purchase` class and store it in the `ExpenditureList`
 
 ===== Reason for implementation
 To be able to track expenditure, students should be able to add the purchases bought, together with the prices.
 
 ===== Current Implementation
-The `AddPurchaseCommand` is created when the command word `addPurchase` is detected in the user input. Through the `AddPurchaseCommand`, the user input will then be split into its seperate components(e.g. `PurchaseName`, `Price`, `Tag`) through `ParserUtil`, creating a `Purchase` instance and pass it from the `logic` component to the `model` component.
+The `AddPurchaseCommand` is created when the command word `addPurchase` and the corresponding compulsory parameters are detected in the user input. Through the `AddPurchaseCommand`, the user input will then be split into its separate components(e.g. `PurchaseName`, `Price`, `Tag`) through `ParserUtil`, creating a `Purchase` instance and pass it from the `logic` component to the `model` component.
+Given below is an example usage scenario and how the `addpurchase` mechanism behaves at each step.
 
+Step 1. The user launches the application for the first time. _LIFE_ will initialize with the initial expenditure list state and the currentStatePointer pointing to that single purchase list state.
+
+Step 2. The user executes the `addpurchase` command with `addpurchase pn/chickenrice pr/3.50`
+
+Step 3. This command goes through the AddPurchaseCommandParser to extract the values of the input string and to process it. It also searches for invalid input.
+
+Step 4. Once valid, it passes the Purchase from the logic component to the model component into an ArrayList called ExpenditureList.
+
+The following sequence diagram illustrates how the `addpurchase` operation works.
 
 ==== Model
 Given below is an example usage scenario and how the add mechanism behaves at each step.
@@ -622,14 +648,49 @@ Given below is an example usage scenario and how the add mechanism behaves at ea
 Step 1. The user launches the application for the first time.
 LIFE will initialize with the initial expenditure list state.
 
-Step 2. The user executes the `addPurchase` command with `addPurchase pn/Ice Cream pr/$1.50`
+Step 2. The user executes the `addPurchase` command with `addpurchase pn/Ice Cream pr/1.50`
 
 Step 3. This command goes through the `AddPurchaseCommandParser` to extract the values of the input string and to process it. It also identifies invalid input.
 
 Step 4. Once valid, it passes the purchase from the `logic` component to the `model` component into an ArrayList called ExpenditureList.
 
+.Add Purchase Sequence Diagram
+image::AddPurchaseSequenceDiagram.png[width="800"]
+
+{nbsp} +
+
+The following activity diagram illustrates an example with a user executing the `addpurchase` command.
+
+.Activity Diagram of user executing a `addpurchase` command
+image::AddPurchaseActivityDiagram.png[width='800']
+
+{nbsp} +
+
+==== Clear Expenditure List
+The `ClearExpList` command will clear all the existing data shown in the expenditure list.
+
+===== Reason for implementation
+The Expenditure List is not just a platform to record spendings, it is also a feature to help manage finances. Hence, every week the list can be cleared to reset the data for the user to start over and better plan the spendings the following week.
+
+===== Current implementation
+The `ClearExpList` command is called when the command word `clearexplist` is detected in the user input. Through the `CleapExpList` command, an empty expenditure list model will be set and committed as the new expenditure list.
+Given below is an example usage scenario and how the `ClearExpList` mechanism behaves at each step.
+
+Step 1. The user has previously added purchases into the expenditure list. The current list is populated with one or more purchases with the corresponding prices.
+
+Step 2. The user executes the `clearexplist` command.
+
+Step 3. `resetData` method in `ExpenditureList` class is used to reset the data in the expenditure list into a new clean slate.
+
 ==== Alternatives considered
-Similarly to the task list, a hash map could be considered, but the arraylist was decided to be used due to the lack of time and the presence of already made list functions.
+
+* Alternative 1 (current choice): Create a new Array List Object to store the purchases e.g. `purchaselist`.
+** Pros: Using this simple data structure allows for manipulation of data such as sorting. Like how the existing `UniquePersonList` was implemented, we can implement this `PurchaseList` in the same way. Standardizing this format will also make the overall code more readable and the implementation to be much simpler.
+** Cons: Some possible future operations may require the traversing of the list which require O(N) time complexity. For instance, a `findpurchase` command.
+
+* Alternative 2: Using a Hash Map to store the purchases
+** Pros: Future possible operations like `findpurchase` can be executed with O(1) time complexity.
+** Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.
 
 // tag::Workout[]
 === Workout Feature
@@ -682,7 +743,7 @@ The `RecordCommand` is created when the command word `record` is detected in the
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single address book state.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
 
 Step 2. The user executes the `record` command with `record e/push ups s/5 r/20 t/20`
 
@@ -691,6 +752,28 @@ the input string and to process it. It also searches for invalid input and dupli
 
 Step 4. Once valid, it passes the Workout from the `logic` component to the `model` component into an ArrayList called  ‘WorkoutList`.
 
+==== View recent workout
+
+===== Reason for implementation
+To be able to plan for their future workouts, students should able to view their recent workouts.
+
+===== Current Implementation
+The `WorkoutCommand` is created when command word `workout` is detected in the user input. Through the `WorkoutCommand`, the command
+will then search through the `Workout List` in which workout records are stored and output up to 5 most recent workouts.
+
+====
+Step 1. The user launches the application for the first time.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
+
+Step 2. The user execute the `workout` command with `workout`.
+
+Step 3. This command goes through `LifeParser` which will create a `WorkoutCommand` instance.
+
+Step 4. `WorkoutCommand` will then search through the `Workout List` in the `storage` component and will find up to 5 most recent
+workouts
+
+Step 5. `WorkoutCommand` will then output up to 5 most recent workout back to the user through `CommandResult`
+====
 
 === Logging
 
@@ -1068,7 +1151,8 @@ Use case ends.
 
 *MSS*
 
-. User requests to add a new purchase into the Expenditure List
+. User requests to add a new purchase into the Expenditure List +
+example: addpurchase pn/chicken rice pr/3.50 +
 . _LIFE_ adds the purchase into the Expenditure List with name of purchase and its price
 +
 Use case ends.
@@ -1098,41 +1182,10 @@ Use case ends.
 +
 Use case ends.
 
-=== Use Case: Find a specific purchase
-
-*MSS*
-
-. User requests to see log of a specific purchase
-. _LIFE_ shows this particular purchase with its price
-+
-Use case ends.
-
 *Extensions*
 
 * 1a. Expenditure List is empty.
-+
-Use case ends.
-
-* 2a. Index not in Daily List.
-** 2a1. _LIFE_ shows an error message.
-+
-Use case ends.
-
-=== Use Case: Start Stopwatch
-
-*MSS*
-
-. User requests to start a stopwatch
-. _LIFE_ records the time
-+
-Use case ends.
-
-=== Use Case: Stop Stopwatch
-
-*MSS*
-
-. User requests to stop the running stopwatch
-. _LIFE_ retrieves the start time and shows the total time elapsed
+** 1a1. _LIFE_ shows an error message.
 +
 Use case ends.
 
@@ -1227,20 +1280,22 @@ The contact details of the creators and the
 features that they did are listed below
 
 * *Jerome Tan* link:https://github.com/jayrometan/[~Contact~]
-** Implemented the `Task` feature which includes the 5 `Task` commands.
+** Implemented the `Task List` feature which includes the 5 `Task` commands.
 *** This allowed the users to manage their tasks.
 ** Created the Task List and Completed Task List Panel in the UI.
 *** This enabled the visualization of the `Task` they have entered.
 * *Wei Zhong* link:https://github.com/weizhonglauw/[~Contact~]
-** Refactored the entire application to match our product _LIFE_.
-*** This allowed the morphing of our product from addressbook to _LIFE_.
-** Implemented the `Purchase` feature
+** Implemented the `Expenditure List` feature
 *** This allowed the users to manage their expenses.
+** Refactored the entire application to match our product _LIFE_.
+*** This allowed the morphing of our product from AddressBook to _LIFE_.
 * *Yong Jia* link:https://github.com/yongjia96[~Contact~]
-** Added the `Workout` feature
+** Added the `Workout Tracker` feature
 *** This allowed the users to manage their workout.
+** Created Workout list Panel in the UI.
+*** This enabled the visualization of the `Workout` they have entered.
 * *Yu Qi* link:https://github.com/wongyuqi[~Contact~]
-** Added the `Habit` feature
+** Added the `Habit Tracker` feature
 *** This allowed the users to document their habits.
 
 //end::developerFeatureContribution[]
@@ -1345,7 +1400,20 @@ prefix of purchasename is 'pn' not 'n'
    Expected: If existing expenditure list has data, the list will be cleared successfully.
              If existing expenditure list was already empty, invalid command will be shown.
 
+=== Recording new workout
 
+. Add a new workout to the workout list
+.. Test case: `record e/Push ups s/5 r/10 t/10` +
+   Expected: "New workout added: Push ups | 5 SETS, 20 REPS, COMPLETED IN: 10 MINUTES"
+
+=== Viewing recent workout
+
+. View up to 5 most recent workout in the workout list
+.. Test case: `workout` +
+   Expected: If workout list is empty, "No workout found" +
+             If workout list is not empty, "Recent workout(s) found!" +
+             "X most recent workout(s): ", where X is the number of recent workout found, up to 5, +
+             workout listed will be in the format "Exercise: EXERCISE, Sets: SETS, Reps: REPS, Duration: TIME minutes"
 
 
 

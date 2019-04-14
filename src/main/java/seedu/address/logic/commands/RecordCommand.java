@@ -16,7 +16,7 @@ public class RecordCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New workout added: ";
 
-    public static final String MESSAGE_USAGE = "Please use the format EXERCISE SETS REPS TIME";
+    public static final String MESSAGE_USAGE = "Please use the format: record e/EXERCISE s/SETS r/REPS t/TIME";
 
     private final Workout newWorkout;
 
@@ -35,8 +35,8 @@ public class RecordCommand extends Command {
         model.addWorkout(newWorkout);
         model.commitWorkoutBook();
         String toBePrinted = MESSAGE_SUCCESS + newWorkout.getExercise() + " | "
-                + "SETS: " + newWorkout.getSets() + ' ' + newWorkout.getReps() + "REPS"
-                + "TIME: " + newWorkout.getTime();
+                + newWorkout.getSets() + " SETS, " + newWorkout.getReps() + " REPS, "
+                + "COMPLETED IN: " + newWorkout.getTime() + " MINUTES";
         return new CommandResult(String.format(toBePrinted, newWorkout));
     }
 }

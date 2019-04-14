@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -223,6 +224,16 @@ public interface Model {
      */
     void setSelectedPurchase(Purchase purchase);
 
+    /**
+     * Returns the user prefs' expenditure list file path.
+     */
+    Path getExpenditureListFilePath();
+
+    /**
+     * Sets the user prefs' expenditure list file path.
+     */
+    void setExpenditureListFilePath(Path expenditureListFilePath);
+
     void addWorkout(Workout workout);
 
     void commitWorkoutBook();
@@ -238,5 +249,7 @@ public interface Model {
     void updateFilteredWorkoutList(Predicate<Workout> predicate);
 
     void setWorkoutBook(ReadOnlyWorkoutBook workoutBook);
+
+    ArrayList<Workout> getRecent();
 
 }

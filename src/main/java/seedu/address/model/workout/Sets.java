@@ -11,7 +11,7 @@ public class Sets {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Sets should only contain numbers";
-    public static final String VALIDATION_REGEX = "\\d";
+    public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
 
 

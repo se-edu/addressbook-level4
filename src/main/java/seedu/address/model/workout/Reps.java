@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * reps class
+ * class Reps
  */
 public class Reps {
 
 
     public static final String MESSAGE_CONSTRAINTS =
             "Reps should only contain numbers";
-    public static final String VALIDATION_REGEX = "\\d";
+    public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
 
 

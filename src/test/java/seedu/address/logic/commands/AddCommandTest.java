@@ -336,8 +336,23 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getExpenditureListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setExpenditureListFilePath(Path expenditureListFilePath) {
+
+        }
+
+        @Override
         public void addWorkout(Workout workout) {
 
+        }
+
+        @Override
+        public ArrayList<Workout> getRecent() {
+            return null;
         }
 
         @Override

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -11,8 +12,7 @@ import seedu.address.model.workout.Workout;
 import seedu.address.model.workout.WorkoutList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the workout-book level
  */
 public class WorkoutBook implements ReadOnlyWorkoutBook {
 
@@ -20,14 +20,6 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
 
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
     {
         workouts = new WorkoutList();
 
@@ -36,7 +28,7 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     public WorkoutBook() {}
 
     /**
-     * Creates an ContactList using the Persons in the {@code toBeCopied}
+     * Creates an WorkoutList using the Workouts in the {@code toBeCopied}
      */
     public WorkoutBook(ReadOnlyWorkoutBook toBeCopied) {
         this();
@@ -44,16 +36,16 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     }
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the workout list with {@code workouts}.
      */
+
     public void setWorkouts(List<Workout> workouts) {
         this.workouts.setWorkout(workouts);
         indicateModified();
     }
 
     /**
-     * Resets the existing data of this {@code ContactList} with {@code newData}.
+     * Resets the existing data of this {@code WorkoutList} with {@code newData}.
      */
     public void resetData(ReadOnlyWorkoutBook newData) {
         requireNonNull(newData);
@@ -61,12 +53,14 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a workout to the workout book.
      */
     public void addWorkout(Workout w) {
         workouts.add(w);
         indicateModified();
+    }
+    public ArrayList<Workout> getRecent() {
+        return workouts.getRecent();
     }
 
     @Override
@@ -80,7 +74,7 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the workout book has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -103,4 +97,8 @@ public class WorkoutBook implements ReadOnlyWorkoutBook {
     public int hashCode() {
         return workouts.hashCode();
     }
+
+
+
+
 }

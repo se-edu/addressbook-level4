@@ -28,6 +28,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortTaskCommand;
 import seedu.address.logic.commands.TickTaskCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.WorkoutCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -119,6 +120,10 @@ public class LifeParser {
 
         case TickTaskCommand.COMMAND_WORD:
             return new TickTaskCommandParser().parse(arguments);
+
+        case WorkoutCommand.COMMAND_WORD:
+            return new WorkoutCommand();
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -28,7 +28,7 @@ class JsonAdaptedWorkout {
 
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedWorkout} with the given workout details.
      */
     @JsonCreator
     public JsonAdaptedWorkout(@JsonProperty("exercise") String exercise, @JsonProperty("sets") String sets,
@@ -40,7 +40,7 @@ class JsonAdaptedWorkout {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Workout} into this class for Jackson use.
      */
     public JsonAdaptedWorkout(Workout source) {
         exercise = source.getExercise().exerciseName;
@@ -50,9 +50,9 @@ class JsonAdaptedWorkout {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted workout object into the model's {@code Workout} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted workout.
      */
     public Workout toModelType() throws IllegalValueException {
 

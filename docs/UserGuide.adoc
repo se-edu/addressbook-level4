@@ -34,6 +34,8 @@ Features to help you get a better life include: +
 
 Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 //end::UserGuideIntro[]
+
+// tag::UserGuideQuickStart[]
 == Quick Start
 
 .  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
@@ -59,7 +61,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-
+//end::UserGuideQuickStart[]
 
 [[Features]]
 == Features
@@ -79,6 +81,8 @@ A feature to help you record your tasks with  deadlines, say no more to forgetti
 
 The following subsections are commands of the task list.
 
+// tag::addtask[]
+[[AddTask]]
 ==== Adding a Task : `addtask`
 
 The first step to managing your tasks is to *add* them into the task list! +
@@ -118,6 +122,10 @@ Format: `sorttask`
 
 //end::TaskFeature[]
 
+// tag::deletetask[]
+
+[[DeleteTask]]
+
 ==== Delete Task : `deletetask`
 
 In case the task is no longer required, you can *delete* it off the task list by specifying the index of
@@ -135,6 +143,8 @@ Examples:
 * `deletetask 5` +
 _Deletes the task at index 5_
 
+
+[[EditTask]]
 ==== Edit Task : `edittask`
 In case you want to change the details of a task, you can *edit* it through specifying the index of the task
 as well as the information you want to edit. +
@@ -163,13 +173,15 @@ _Change sthe deadline date of the task specified at index 2 to 290319._
 === Expenditure List
 A list to help you keep track of all your expenses so that you can better manage your finances! +
 
+// tag::addpurchase[]
+[[AddPurchase]]
 ==== Adding a purchase: `addpurchase`
 
 Adds a new purchase to the expenditure list +
 Format: `addpurchase n/NAME pr/PRICE [t/TAG]...`
 
 ****
-* Only SGD currency is supported.
+* Only Singapore Dollar(SGD) currency is supported.
 * You only have to input the value (see example)
 ****
 
@@ -178,12 +190,21 @@ Examples:
 * `addpurchase pn/Ice cream pr/1.50`
 * `addpurchase pn/Bicycle rental pr/10.00 t/family t/eastcoastpark`
 
+// tag::clearexplist[]
+[[ClearExpList]]
+==== Clearing expenditure list: `clearexplist`
+
+Clears all past purchases recorded from the expenditure list. +
+Format: `clearexplist`
+
+//tag::explist[]
+[[ExpList]]
 ==== Listing all past expenditures: `explist`
 
 Shows a list of all recorded purchases with the corresponding price in the expenditure list. +
 Format: `explist`
 
-==== Deleting a purchase: `deletepurchase` [coming soon]
+==== Deleting a purchase: `deletepurchase` [coming in v2.0]
 
 Deletes an existing purchase in the expenditure list. +
 Format: `deletepurchase INDEX`
@@ -200,13 +221,8 @@ Example:
 `deletepurchase 2` +
 Deletes the 2nd purchase in the expenditure list.
 
-==== Clearing expenditure list: `clearexplist`
 
-Clears all past purchases recorded from the expenditure list. +
-Format: `clearexplist`
-
-
-==== Calculating total expenditure for the day: `totalexpday` [coming soon]
+==== Calculating total expenditure for the day: `totalexpday` [coming in v2.0]
 
 Views total expenditure for the day +
 Format: `totalexpday DATE`
@@ -218,7 +234,8 @@ DATE should be in the DDMMYY format
 Example:
 `totalexpday 191218`
 
-==== Set spending limit: `setlimit` [coming soon]
+
+==== Set spending limit: `setlimit` [coming in v2.0]
 
 Sets a spending limit for one day to control expenditure. +
 Format: `setlimit VALUE`
@@ -231,9 +248,69 @@ Format: `setlimit VALUE`
 Example:
 `setlimit 20.00`
 
+
+=== Workout Tracker
+Record your workouts and reps so that you can make the most out of the exercises! +
+
+// tag::workout[]
+[[Workout]]
+==== View workout: `workout`
+
+View the past 5 most recent workout. +
+Format: `workout`
+
+****
+Only the most recent 5 workout will be displayed, older workout will not be shown
+
+****
+
+Examples:
+
+* `workout`
+
+// tag::record[]
+[[Record]]
+==== Record workout : `record`
+
+Record your current workout and add them into your workout records. +
+Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
+
+****
+Words in `UPPER_CASE` are the parameters.
+EXERCISE must only contain alphanumeric. +
+SETS, REPS and TIME must only contain integer, and TIME must be in minutes +
+****
+
+Examples:
+
+* `record e/SIT UPS s/5 r/20 t/10`
+
+Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
+
+=== Habit Tracker [coming in v1.4]
+Change your lifestyle now by recording an activity regularly to turn it into a habit! +
+
+// tag::addhabit[]
+[[AddHabit]]
+==== Add desired Habits: `addHabit` [coming soon]
+
+Add habit which you wish to track into your monthly habit tracker. +
+Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'
+
+****
+A calendar of the month is shown, along with previous records of the month.
+****
+
+Example:
+
+* `addHabit d/010119 n/SleepBefore12am a/Done`
+
+
 === Contact List
 Manage all your contacts easily in this ultimate list holding your contacts with their information! +
 
+// tag::add[]
+[[Add]]
 ==== Adding a person : `add`
 
 Adds a person to the contact list +
@@ -247,11 +324,15 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+// tag::list[]
+[[List]]
 ==== Listing all persons : `list`
 
 Shows a list of all persons in the contact list. +
 Format: `list`
 
+// tag::edit[]
+[[Edit]]
 ==== Editing a person : `edit`
 
 Edits an existing person in the contact list. +
@@ -272,26 +353,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-==== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
+[[Delete]]
 ==== Deleting a person : `delete`
 
 Deletes the specified person from the contact list. +
@@ -312,6 +374,30 @@ Deletes the 2nd person in the contact list.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+[[Find]]
+==== Locating persons by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+
+
+[[Select]]
 ==== Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
@@ -332,8 +418,36 @@ Selects the 2nd person in the contact list.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-// tag::undoredo[]
-==== Undoing previous command : `undo`
+
+== General Commands
+
+
+[[Help]]
+=== Viewing help : `help`
+
+Format: `help`
+
+[TIP]
+====
+Use this if you face trouble navigating the application or entering the correct commands!
+====
+
+// tag::history[]
+[[History]]
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order (most recent at the top). +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+[[Undo]]
+=== Undoing previous command : `undo` [currently only applicable for contact list commands]
+[NOTE]
+Implementation of this feature will be available for the other lists in v2.0
 
 Restores _LIFE_ application to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -359,7 +473,10 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-==== Redoing the previously undone command : `redo`
+[[Redo]]
+=== Redoing the previously undone command : `redo` [currently only applicable for contact list commands]
+[NOTE]
+Implementation of this feature will be available for the other lists in v2.0
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -380,85 +497,13 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-
-=== Habit Tracker [coming in v1.4]
-Change your lifestyle now by recording an activity regularly to turn it into a habit! +
-
-==== Add desired Habits: `addHabit` [coming soon]
-
-Add habit which you wish to track into your monthly habit tracker. +
-Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'
-
-****
-A calendar of the month is shown, along with previous records of the month.
-****
-
-Example:
-
-* `addHabit d/010119 n/SleepBefore12am a/Done`
-
-
-
-=== Workout Tracker [coming in v1.4]
-Record your workouts and reps so that you can make the most out of the exercises! +
-
-==== View workout: `workout` [coming soon]
-
-View the past 5 most recent workout. +
-Format: `workout`
-
-****
-Only the most recent 5 workout will be displayed, older workout will not be shown
-
-****
-
-Examples:
-
-* `workout`
-
-==== Record workout : `record` [coming soon]
-
-Record your current workout and add them into your workout records. +
-Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
-
-****
-Words in `UPPER_CASE` are the parameters.
-EXERCISE must only contain alphanumeric. +
-SETS, REPS and TIME must only contain integer, and TIME must be in minutes +
-****
-
-Examples:
-
-* `record e/SIT UPS s/5 r/20 t/10`
-
-Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
-
-== General Commands
-
-=== Viewing help : `help`
-
-Format: `help`
-
-[TIP]
-====
-Use this if you face trouble navigating the application or entering the correct commands!
-====
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order (most recent at the top). +
-Format: `history`
-
-[NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
 
-
-== Exiting the program : `exit`
+[[Exit]]
+=== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
@@ -473,28 +518,100 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _LIFE_ folder.
 
-== Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *List* : `list`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *Help* : `help`
-* *Add Task* : `addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME` +
-e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
-* *Add Purchase* : `addpurchase pn/NAME pr/PRICE [t/TAG]...` +
-e.g. `addpurchase pn/Bicycle rental pr/10.00 t/family`
-* *View Purchases*: `explist`
-* *Clear Expenditure List*: `clearexplist`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
-* *Clear* : `clear`
-* *Exit* : `exit`
+== Command Summary
+This section provides a quick summary of the existing commands in the _LIFE_ application, for easier reference.
+
+=== General Commands
+General commands for easier navigability within the application.
+
+[width="100%",cols="20%,<30%,<20%,<30",options="header",]
+|=======================================================================
+|Function |Purpose |Command |Example
+
+|<<Help, Help>> |Shows you the user guide for reference in app |`help` | `help`
+
+|<<History, History>> |Shows you a history of all commands used |`history` | `history`
+
+|<<Undo, Undo>> |Undo your previous command [currently only available for contact list commands] |`undo` | `undo`
+
+|<<Redo, Redo>> |Redo your undo [currently only available for contact list commands] | `redo` | `redo`
+
+|=======================================================================
+
+=== Task List Commands
+Commands to help you maximise utility of Task List:
+[width="100%",cols="20%,<30%,<20%,<30",options="header",]
+|=======================================================================
+|Function |Purpose |Command |Example
+
+|<<AddTask, Add Task>> |Adds a new task |
+`addtask` | `addtask n/Complete CS2113T Assignment d/180319 h/2359`
+|<<DeleteTask, Delete Task>> |Deletes a task off the task list |
+`deletetask` | `deletetask 1`
+|<<EditTask, Edit Task>> |Edits the task specified with the entered parameters |
+`edittask` | `edittask 2 n/Banana`
+|<<Tick Task, Tick Task>> |Shows that a task has been completed |
+`ticktask` | `ticktask 5`
+|<<Sort Task, Sort Task>> |Sorts the task list according to the deadline of each task  |
+`sorttask` | `sorttask`
+
+|=======================================================================
+
+=== Expenditure List Commands
+Commands to help you use the expenditure list to manage your expenses:
+[width="100%",cols="20%,<30%,<20%,<30",options="header",]
+|=======================================================================
+|Function |Purpose |Command |Example
+
+|<<AddPurchase, Add Purchase>> |Adds a new purchase |
+`addpurchase` | `addpurchase pn/Ice cream pr/1.50`
+|<<ClearExpList, Clear Expenditure List>> |Clears the existing expenditure list |
+`clearexplist` | `clearexplist`
+|<<ExpList, Expenditure List>> |Shows list of purchases with the price |
+`explist` | `explist`
+
+|=======================================================================
+
+=== Workout Tracker Commands
+Commands to help you utilise the workout book:
+[width="100%",cols="20%,<30%,<20%,<30",options="header",]
+|=======================================================================
+|Function |Purpose |Command |Example
+
+|<<Workout, Workout>> |Views the past 5 most recent workout |
+`workout` | `workout`
+|<<Record, Record workout>> |Records a new workout and add into existing workout records |
+`record` | `record e/Sit ups s/5 r/20 t/10`
+
+|=======================================================================
+
+=== Habit Tracker Commands
+Commands to help you navigate about the habit list:
+[width="100%",cols="20%,<30%,<20%,<30",options="header",]
+|=======================================================================
+|Function |Purpose |Command |Example
+
+|<<AddHabit, Add Habit>> |Adds a newly desired habit |
+`addhabit` | `d/010119 n/SleepBefore12am a/Done`
+
+|=======================================================================
+
+=== Contact List Commands
+Commands to help you use the Contact List:
+[width="100%",cols="20%,<30%,<20%,<30",options="header",]
+|=======================================================================
+|Function |Purpose |Command |Example
+
+|<<Add, Add Person>> |Adds a new person |
+`add` | `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+|<<List, List>> |Shows all the people in the contact list  |
+`list` | `list`
+|<<Edit, Edit Person>> |Edits the contact details specified with the entered parameters |
+`edit` | `edit 1 p/91234567 e/johndoe@example.com`
+|<<Delete, Delete Person>> |Deletes a person off the contact list |
+`delete` | `delete 1`
+|<<Find, Find Person>> |Finds and then show the people with names containing the keywords entered|
+`find` | `find John`
+|<<Select, Select Person>> |Selects a specified person  |
+`select` | `select 2`
