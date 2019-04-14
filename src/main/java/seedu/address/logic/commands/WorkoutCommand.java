@@ -29,15 +29,18 @@ public class WorkoutCommand extends Command {
         results = model.getRecent();
         final StringBuilder builder = new StringBuilder();
         int howMany = results.size();
-        builder.append(howMany + " most recent workout(s): ").append("\n");
-        while (!results.isEmpty()) {
-            builder.append(results.get(0).toString());
-            results.remove(0);
-            builder.append("\n");
+
+        if (howMany == 0) {
+            return new CommandResult("No workout found");
         }
-
-
-
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + builder.toString());
+        else {
+            builder.append(howMany + " most recent workout(s): ").append("\n");
+            while (!results.isEmpty()) {
+                builder.append(results.get(0).toString());
+                results.remove(0);
+                builder.append("\n");
+            }
+            return new CommandResult(MESSAGE_SUCCESS + "\n" + builder.toString());
+        }
     }
 }
