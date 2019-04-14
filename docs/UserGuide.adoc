@@ -34,6 +34,8 @@ Features to help you get a better life include: +
 
 Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 //end::UserGuideIntro[]
+
+// tag::UserGuideQuickStart[]
 == Quick Start
 
 .  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
@@ -58,6 +60,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+//end::UserGuideQuickStart[]
 
 
 
