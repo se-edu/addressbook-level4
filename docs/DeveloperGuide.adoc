@@ -675,7 +675,7 @@ The `RecordCommand` is created when the command word `record` is detected in the
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single address book state.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
 
 Step 2. The user executes the `record` command with `record e/push ups s/5 r/20 t/20`
 
@@ -683,6 +683,29 @@ Step 3. This command goes through the `RecordCommandParser` to extract the value
 the input string and to process it. It also searches for invalid input and duplicates.
 
 Step 4. Once valid, it passes the Workout from the `logic` component to the `model` component into an ArrayList called  ‘WorkoutList`.
+
+==== View recent workout
+
+===== Reason for implementation
+To be able to plan for their future workouts, students should able to view their recent workouts.
+
+===== Current Implementation
+The `WorkoutCommand` is created when command word `workout` is detected in the user input. Through the `WorkoutCommand`, the command
+will then search through the `Workout List` in which workout records are stored and output up to 5 most recent workouts.
+
+====
+Step 1. The user launches the application for the first time.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
+
+Step 2. The user execute the `workout` command with `workout`.
+
+Step 3. This command goes through `LifeParser` which will create a `WorkoutCommand` instance.
+
+Step 4. `WorkoutCommand` will then search through the `Workout List` in the `storage` component and will find up to 5 most recent
+workouts
+
+Step 5. `WorkoutCommand` will then output up to 5 most recent workout back to the user through `CommandResult`
+
 
 
 === Logging
