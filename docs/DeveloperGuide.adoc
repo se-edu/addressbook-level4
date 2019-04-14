@@ -345,7 +345,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::developerTask[]
 === Task List Feature
 This entire section describes comprehensively the technical aspects of the `Task` feature as well
-as considerations made during the design of the feature.+
+as considerations made during the design of the feature. +
 
 ==== `Task` package
 This section describes the inner dimensions of the `Task` package. +
@@ -647,14 +647,15 @@ Step 3. This command goes through the `AddPurchaseCommandParser` to extract the 
 
 Step 4. Once valid, it passes the purchase from the `logic` component to the `model` component into an ArrayList called ExpenditureList.
 
-.Add Purchase Logic Diagram
-image::AddPurchaseSequenceDiagram.PNG[width="800"]
+.Add Purchase Sequence Diagram
+image::AddPurchaseSequenceDiagram.png[width="800"]
 
 {nbsp} +
 
 The following activity diagram illustrates an example with a user executing the `addpurchase` command.
+
 .Activity Diagram of user executing a `addpurchase` command
-image::AddPurchaseActivityDiagram.PNG[width='800']
+image::AddPurchaseActivityDiagram.png[width='800']
 
 {nbsp} +
 
