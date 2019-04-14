@@ -34,6 +34,8 @@ Features to help you get a better life include: +
 
 Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 //end::UserGuideIntro[]
+
+// tag::UserGuideQuickStart[]
 == Quick Start
 
 .  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
@@ -58,6 +60,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+//end::UserGuideQuickStart[]
 
 
 
@@ -305,32 +309,6 @@ Examples:
 
 Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
 
-== General Commands
-
-
-[[Help]]
-=== Viewing help : `help`
-
-Format: `help`
-
-[TIP]
-====
-Use this if you face trouble navigating the application or entering the correct commands!
-====
-
-// tag::history[]
-[[History]]
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order (most recent at the top). +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-
 === Contact List
 Manage all your contacts easily in this ultimate list holding your contacts with their information! +
 
@@ -441,6 +419,32 @@ Selects the 2nd person in the contact list.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+
+== General Commands
+
+
+[[Help]]
+=== Viewing help : `help`
+
+Format: `help`
+
+[TIP]
+====
+Use this if you face trouble navigating the application or entering the correct commands!
+====
+
+// tag::history[]
+[[History]]
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order (most recent at the top). +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
 [[Undo]]
 === Undoing previous command : `undo` [currently only applicable for contact list commands]
 [NOTE]
@@ -501,7 +505,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 
 [[Exit]]
-== Exiting the program : `exit`
+=== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
