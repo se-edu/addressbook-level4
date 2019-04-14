@@ -1245,7 +1245,9 @@ features that they did are listed below
 
 //end::developerFeatureContribution[]
 [appendix]
+//tag::developerManualHeader[]
 == Instructions for Manual Testing
+//end::developerManualHeader[]
 
 Given below are instructions to test the app manually.
 
@@ -1266,7 +1268,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-// tag::developerTaskManual[]
+
 === Adding a task
 
 . Adding a new task to the existing task list
@@ -1294,7 +1296,7 @@ Refer to task list to check index number of a particular task
    `delete task1`, `deletetask` +
    Expected: Similar to previous.
 
-
+// tag::developerTaskManual[]
 === Editing a task
 
 . Editing an existing task in the task list
