@@ -48,8 +48,7 @@ image::https://raw.githubusercontent.com/cs2113-ay1819s2-t08-2/main/master/docs/
 ** +What does it do:+
 *** Allows an individual to keep track of his tasks through adding a task
 *** Help organize and prioritize the tasks through editing, deleting and sorting
-the tasks.
-*** It has has a tick task command, where the ticked task will be added
+the tasks. It also has a tick task command, where the ticked task will be added
 into the completed task list.
 ** +Justification+
 *** In the modern world, many people are increasingly bombarded with tasks to do,
@@ -60,21 +59,17 @@ when they see how many tasks they have completed so far.
 
 
 * Project Management
-** Created the organization and forked the repo.
+** Created the organization and forked the repo. Also, all the labels and milestones for the repo. This includes wrapping
+up the milestones and moving the incomplete tasks to the future milestones.
+https://github.com/cs2113-ay1819s2-t08-2/main/milestones?state=closed[~milestone~]
 ** There was a total of  2 releases, from version 1.3 to 1.4,
 I managed release 1.3. https://github.com/cs2113-ay1819s2-t08-2/main/releases/tag/v1.3[~v1.3~]
-** Created all the labels and milestones for the repo. This includes wrapping
-up the milestones and moving the incomplete tasks to the future milestones.
- https://github.com/cs2113-ay1819s2-t08-2/main/milestones?state=closed[~milestone~]
+
 * Documentation
-** Created the sequence and logic diagrams and gave the template
-to my team to make it easier for them to design their diagrams.
 ** Created and wrote content for the AboutUs page.
 https://github.com/cs2113-ay1819s2-t08-2/main/commit/86d17cacd7f591bfad32bf43d27a9d1802ffad05#diff-4747f5fd213c3cd2f4bdb06834f49fa8[~#8~]
 ** Refining and ensuring sufficient content of the developer and user guides.
-* Community
-** Reviewed teammate's pull request.
-** Helped teammate resolve some merge conflicts.
+
 * Code contributed: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=jayrometan[Functional Code]][https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=jayrometan[Test Code]]
 
 == Contributions to the User Guide
@@ -104,6 +99,7 @@ include::../DeveloperGuide.adoc[tag=developerUseCase]
 //include::../DeveloperGuide.adoc[tag=developerProjectSurvey]
 //include::../DeveloperGuide.adoc[tag=developerFeatureContribution]
 //tag::developerManualHeader[]
+include::../DeveloperGuide.adoc[tag=developerManualHeader]
 include::../DeveloperGuide.adoc[tag=developerTaskManual]
 
 == Here are the rest of the contributions that could be useful! +
