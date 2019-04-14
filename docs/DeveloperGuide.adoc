@@ -343,8 +343,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::developerTask[]
-=== Task Feature
-+ This entire section describes comprehensively the technical aspects of the `Task` feature as well
+=== Task List Feature
+This entire section describes comprehensively the technical aspects of the `Task` feature as well
 as considerations made during the design of the feature.+
 
 ==== `Task` package
