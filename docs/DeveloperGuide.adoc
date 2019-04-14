@@ -498,7 +498,7 @@ image::DeleteTaskActivityDiagram.PNG[width='800']
 {nbsp} +
 
 
-// tag::developerTickEditTask[]
+
 ==== Tick Task
 The `TickTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
 in the UI)_ from the `TaskList` and add them into the `TickedTaskList`.
@@ -520,6 +520,8 @@ The following sequence diagram shows how the `ticktask` operation works.
 image::TickTaskSequenceDiagram.PNG[width='800']
 
 {nbsp} +
+
+// tag::developerTickEditTask[]
 
 ==== Edit Task
 The `EditTaskCommand` will find and edit the specified `Task` _(that is according to the Task List shown

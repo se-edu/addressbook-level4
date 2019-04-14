@@ -104,7 +104,7 @@ The following are examples of some commands that you can try out:
 
 ==== Tick Task : `ticktask`
 
-*Ticks* off the task that you have completed off the task list and adds it into the completed task list! +
+*Ticks* off the task that you have completed off the task list and adds it into the completed task list! Good Job! +
 Format: `ticktask` INDEX
 
 [WARNING]
