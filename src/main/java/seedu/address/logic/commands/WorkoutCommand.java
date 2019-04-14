@@ -32,8 +32,7 @@ public class WorkoutCommand extends Command {
 
         if (howMany == 0) {
             return new CommandResult("No workout found");
-        }
-        else {
+        } else {
             builder.append(howMany + " most recent workout(s): ").append("\n");
             while (!results.isEmpty()) {
                 builder.append(results.get(0).toString());

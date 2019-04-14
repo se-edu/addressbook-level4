@@ -1,11 +1,6 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPurchases.MCFLURRY;
-import static seedu.address.testutil.TypicalPurchases.SUBWAY;
-import static seedu.address.testutil.TypicalPurchases.KARAOKE;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,12 +11,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ExpenditureList;
 import seedu.address.model.ReadOnlyExpenditureList;
 
 public class JsonExpenditureListStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonExpenditureListStorageTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonExpenditureListStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
