@@ -15,13 +15,13 @@ In my 4th semester of university, my team and I were tasked with enhancing a bas
 We chose to morph it into a lifestyle manager called _LIFE_, which stands for Lifestyle Improvement For Everyone.
 
 This application aims to help people to better manage their daily lives, in which we decided to include 4 main features, namely
-the *Task*, *Expenditure*, *Workout* and *Habit* tracker. These features will help to manage their tasks' deadlines, daily spending,
-exercise routine as well as setting aims for good habits, thereby helping them to manage their daily lives better.
+the *Task*, *Expenditure*, *Workout* and *Habit* trackers. These features will help to manage their tasks' deadlines, daily spending,
+exercise routine as well as set aims for good habits, thereby helping them to manage their daily lives better.
 
 
 == My role
 
-My role in the project was to implement the `record` and `workout` features for the workout tracker. I am also tasked to design
+My role in the project was to implement the `record` and `workout` features for the workout tracker. I was also tasked to design
 the model component for the `workout` class, as well as the data structures needed for the storage component for any `workout`
 related features. I also need to ensure that the UI component for my workout tracker is displayed properly.
 
@@ -34,20 +34,20 @@ and executed by the application.
 == Summary of contributions
 
 This section shows a summary of my coding, documentation and other helpful contributions
-that i have contributed to the team project.
+that I have contributed to the team project.
 
 * *Major Enhancement #1*: implemented the `record` feature.
 ** +What does it do:+
 *** Allows an individual to keep track of his workout through adding a workout to the workout tracker
 ** +Justification+
-*** Helping people keep track of their workout helps them to better prepare plan future workout routine
+*** Helping people keep track of their workout helps them to better plan future workout routine
 *** The workout list also helps people to feel a sense of achievement when they see how many workouts they completed
 
 * *Major Enhancement #2*: implemented the `workout` feature.
 ** +What does it do:+
-*** Allows an individual to view up to 5 most recent workout
+*** Allows an individual to view up to 5 most recent workouts
 ** +Justification+
-*** Allows the user to view their recent workouts so they can plan to do different type of workout for the next few workouts
+*** Allows the user to view their recent workouts so they can plan to do different types of workouts for the next few workouts
 
 * *Minor enhancement*
 ** Implemented the `workout` class and the relevant classes such as `Exercise`, `Sets`, `Reps`, `Time` in the model component
@@ -60,7 +60,7 @@ that i have contributed to the team project.
 ** Fixed some formatting errors in the User and Developer guide
 
 * *Community*
-** Reviewed teammates pull request
+** Reviewed teammates' pull request
 ** Solve merge conflicts for teammates
 
 * *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=yongjia96[Functional Code]][https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=yongjia96[Test Code]]
@@ -85,19 +85,19 @@ include::../DeveloperGuide.adoc[tag=Workout1]
 include::../DeveloperGuide.adoc[tag=Workout2]
 
 == Designs considerations
-= Aspect: How `workout` executes
-* Alternative 1 (current choice): Display it as a command line message to the user
-** Pros: Easy to implement, clearer to the user
-** Cons: Less graphically appealing
-* Alternative 2: Filter the Workout List in the UI
-** Pros: More appealing to the user
-** Cons: Hard to implement
+* Aspect: How `workout` executes
+** Alternative 1 (current choice): Display it as a command line message to the user
+*** Pros: Easy to implement, clearer to the user
+*** Cons: Less graphically appealing
+** Alternative 2: Filter the Workout List in the UI
+*** Pros: More appealing to the user
+*** Cons: Hard to implement
 
-= Aspect: Data structure to store the recent workout for `workout`
-* Alternative 1 (current choice): Array List
-** Pros: Easy to implement, add and remove operations is easy
-** Cons: Additional memory space needed for the extra Array List
-* Alternative 2: Run through the Observable list and print it out as a feedback string in `CommandResult`
-** Pros: No need for extra memory for additional data structure
-** Cons: Difficult to implement
+* Aspect: Data structure to store the recent workout for `workout`
+** Alternative 1 (current choice): Array List
+*** Pros: Easy to implement, add and remove operations is easy
+*** Cons: Additional memory space needed for the extra Array List
+** Alternative 2: Run through the Observable list and print it out as a feedback string in `CommandResult`
+*** Pros: No need for extra memory for additional data structure
+*** Cons: Difficult to implement
 
