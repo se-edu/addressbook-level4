@@ -1,8 +1,8 @@
-= Lauw Wei Zhong - Project Portfolio for _LIFE_ Application
-
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+
+= Lauw Wei Zhong - Project Portfolio for _LIFE_ Application
 
 == Overview
 
@@ -27,7 +27,14 @@ Features in _LIFE_ include: +
 
 Below is a screenshot of the user interface of the project, _LIFE_.
 
-////////////ADD SCREENSHOT////////////////
+.User Interface of _LIFE_
+ifdef::env-github[]
+image::docs/images/finalui.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::images/finalui.png[width="600"]
+endif::[]
 
 == My Role
 
