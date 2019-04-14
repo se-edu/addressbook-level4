@@ -286,6 +286,7 @@ Examples:
 * `record e/SIT UPS s/5 r/20 t/10`
 
 Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
+// end::workout[]
 
 === Habit Tracker [coming in v1.4]
 Change your lifestyle now by recording an activity regularly to turn it into a habit! +

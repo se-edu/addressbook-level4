@@ -779,7 +779,7 @@ workouts
 
 Step 5. `WorkoutCommand` will then output up to 5 most recent workout back to the user through `CommandResult`
 ====
-
+// end::Workout[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -1204,6 +1204,8 @@ Use case ends.
 +
 Use case ends.
 
+// tag::Workout1[]
+
 === Use Case: Record Completed Workout
 
 *MSS*
@@ -1221,7 +1223,7 @@ Use case ends.
 . _LIFE_ shows the Workout Log
 +
 Use case ends.
-
+// end::Workout1[]
 *Extensions*
 
 * 1a. Workout Log is empty.
@@ -1407,7 +1409,7 @@ prefix of purchasename is 'pn' not 'n'
 .. Test case: `clearexplist` +
    Expected: If existing expenditure list has data, the list will be cleared successfully.
              If existing expenditure list was already empty, invalid command will be shown.
-
+// tag::Workout2[]
 === Recording new workout
 
 . Add a new workout to the workout list
@@ -1422,7 +1424,7 @@ prefix of purchasename is 'pn' not 'n'
              If workout list is not empty, "Recent workout(s) found!" +
              "X most recent workout(s): ", where X is the number of recent workout found, up to 5, +
              workout listed will be in the format "Exercise: EXERCISE, Sets: SETS, Reps: REPS, Duration: TIME minutes"
-
+// end::Workout2[]
 
 
 
