@@ -1133,6 +1133,25 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><strong>Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: From macOS Mojave onwards, applications without <code>Accessibility</code> permission cannot simulate certain keyboard and mouse movements.</p>
+</li>
+<li>
+<p>Solution: Open <code>System Preferences</code>, click <code>Security and Privacy</code> &#8594; <code>Privacy</code> &#8594; <code>Accessibility</code>, and check the box beside <code>Intellij IDEA</code>.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/testfx-idea-accessibility-permissions.png" alt="testfx idea accessibility permissions" width="600">
+</div>
+<div class="title">Figure 10. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
+</div>
 </div>
 </div>
 </div>
@@ -2258,4 +2277,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-27 16:53:20 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 04:13:23 UTC</div></div></div></body></html>
