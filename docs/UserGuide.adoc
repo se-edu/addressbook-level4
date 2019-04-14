@@ -597,7 +597,7 @@ Commands to help you navigate about the habit list:
 
 |=======================================================================
 
-=== Task List Commands
+=== Contact List Commands
 Commands to help you use the Contact List:
 [width="100%",cols="20%,<30%,<20%,<30",options="header",]
 |=======================================================================

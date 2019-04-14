@@ -734,7 +734,7 @@ The `RecordCommand` is created when the command word `record` is detected in the
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single address book state.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
 
 Step 2. The user executes the `record` command with `record e/push ups s/5 r/20 t/20`
 
@@ -742,6 +742,29 @@ Step 3. This command goes through the `RecordCommandParser` to extract the value
 the input string and to process it. It also searches for invalid input and duplicates.
 
 Step 4. Once valid, it passes the Workout from the `logic` component to the `model` component into an ArrayList called  ‘WorkoutList`.
+
+==== View recent workout
+
+===== Reason for implementation
+To be able to plan for their future workouts, students should able to view their recent workouts.
+
+===== Current Implementation
+The `WorkoutCommand` is created when command word `workout` is detected in the user input. Through the `WorkoutCommand`, the command
+will then search through the `Workout List` in which workout records are stored and output up to 5 most recent workouts.
+
+====
+Step 1. The user launches the application for the first time.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
+
+Step 2. The user execute the `workout` command with `workout`.
+
+Step 3. This command goes through `LifeParser` which will create a `WorkoutCommand` instance.
+
+Step 4. `WorkoutCommand` will then search through the `Workout List` in the `storage` component and will find up to 5 most recent
+workouts
+
+Step 5. `WorkoutCommand` will then output up to 5 most recent workout back to the user through `CommandResult`
+
 
 
 === Logging
@@ -1158,25 +1181,6 @@ Use case ends.
 +
 Use case ends.
 
-
-=== Use Case: Start Stopwatch
-
-*MSS*
-
-. User requests to start a stopwatch
-. _LIFE_ records the time
-+
-Use case ends.
-
-=== Use Case: Stop Stopwatch
-
-*MSS*
-
-. User requests to stop the running stopwatch
-. _LIFE_ retrieves the start time and shows the total time elapsed
-+
-Use case ends.
-
 *Extensions*
 
 * 1a. User did not start the stopwatch.
@@ -1278,6 +1282,8 @@ features that they did are listed below
 * *Yong Jia* link:https://github.com/yongjia96[~Contact~]
 ** Added the `Workout` feature
 *** This allowed the users to manage their workout.
+** Created Workout list Panel in the UI.
+*** This enabled the visualization of the `Workout` they have entered.
 * *Yu Qi* link:https://github.com/wongyuqi[~Contact~]
 ** Added the `Habit` feature
 *** This allowed the users to document their habits.
@@ -1382,7 +1388,20 @@ prefix of purchasename is 'pn' not 'n'
    Expected: If existing expenditure list has data, the list will be cleared successfully.
              If existing expenditure list was already empty, invalid command will be shown.
 
+=== Recording new workout
 
+. Add a new workout to the workout list
+.. Test case: `record e/Push ups s/5 r/10 t/10` +
+   Expected: "New workout added: Push ups | 5 SETS, 20 REPS, COMPLETED IN: 10 MINUTES"
+
+=== Viewing recent workout
+
+. View up to 5 most recent workout in the workout list
+.. Test case: `workout` +
+   Expected: If workout list is empty, "No workout found" +
+             If workout list is not empty, "Recent workout(s) found!" +
+             "X most recent workout(s): ", where X is the number of recent workout found, up to 5, +
+             workout listed will be in the format "Exercise: EXERCISE, Sets: SETS, Reps: REPS, Duration: TIME minutes"
 
 
 
