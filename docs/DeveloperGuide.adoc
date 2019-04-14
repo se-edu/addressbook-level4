@@ -766,8 +766,7 @@ Step 4. `WorkoutCommand` will then search through the `Workout List` in the `sto
 workouts
 
 Step 5. `WorkoutCommand` will then output up to 5 most recent workout back to the user through `CommandResult`
-
-
+====
 
 === Logging
 
