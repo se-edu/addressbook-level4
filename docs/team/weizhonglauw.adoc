@@ -1,0 +1,97 @@
+= Lauw Wei Zhong - Project Portfolio for _LIFE_ Application
+
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Overview
+
+This Project Portfolio shows my contributions to the technical aspects and documentations of the project _LIFE_.
+
+== Project
+
+_LIFE_ - LifeStyle Improvement For Everyone
+
+== About the Project
+
+This is a project based on the software engineering course CS2113T, and my team and I were tasked to enhance a basic `addressbook` application.
+The result was this desktop application called _LIFE_. +
+
+_LIFE_ is an application meant to provide a comprehensive platform for all users to record their tasks, manage their expenditure, record their workout routines and to track their desired habits. +
+Features in _LIFE_ include: +
+
+* Task List
+* Expenditure List
+* Workout Tracker
+* Habit Tracker
+
+Below is a screenshot of the user interface of the project, _LIFE_.
+
+////////////ADD SCREENSHOT////////////////
+
+== My Role
+
+My main role in the team is to implement the Expenditure List feature. +
+In addition, I did necessary additions to the user guide and developer guide to ensure users can navigate around the application comfortably,
+as well as to ensure incoming developers can adjust accordingly to the style of the project.
+
+The following sections clearly illustrates my contributions to the enhancement of the project and the relevant documentations.
+
+
+== Summary of Contributions
+
+This section presents a summary of the different contributions I did to the project, in terms of the implementation of codes for the Expenditure List feature, and also the relevant documentations in the user guide and developer guide.
+
+* Implementation of the `Expenditure List` feature.
+** Purpose: +
+ To aid people in managing their expenditure by providing a consolidated list of purchases with their corresponding prices, complemented with tags to categorise each purchase
+
+** Functions available: +
+*** `AddPurchase` function to add a new purchase, with its price and tag (category) to the list
+*** `ClearExpList` function to clear the expenditure list and start with a new list with better management
+
+* Morphing of AddressBook into _LIFE_ +
+** Refactored classes of AddressBook into Contact List, as a sub-feature of _LIFE_
+
+* Project Management
+** Assisted in managing the team repository in terms of constant updates of issues and milestones, to ensure that the project stays on track with its functionality and timeline
+** Managed the release of v1.4
+
+* Documentation
+** Managed [https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/README.adoc[README.adoc]], on the main page of the team repository
+** Updates of different parts of User Guide and Developer Guide to ensure proper documentation of project
+
+
+|===
+|_This link shows a rough estimation of the amount of contribution I have made._
+[https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=weizhonglauw[_Reposense_]]
+|===
+
+== Contributions to User Guide
+This section presents the various contributions I have committed to the team in terms of the User Guide, demonstrating my understanding of the project towards the target users.
+
+include::../UserGuide.adoc[tag=ExpListFeature]
+include::../UserGuide.adoc[tag=commandsummary]
+
+
+
+== Contributions to Developer Guide
+This section shows the various contributions I have made to the team in terms of the Developer Guide. +
+This showcases my ability to do the necessary technical documentations and understanding of the project.
+
+
+include::../DeveloperGuide.adoc[tag=uicomponent]
+include::../DeveloperGuide.adoc[tag=modelandstorage]
+include::../DeveloperGuide.adoc[tag=ExpListFeature]
+include::../DeveloperGuide.adoc[tag=wzusecases]
+include::../DeveloperGuide.adoc[tag=developerManualHeader]
+include::../DeveloperGuide.adoc[tag=wzmanualtesting]
+include::../DeveloperGuide.adoc[tag=wzmanualtesting2]
+
+
+== Wrap Up and Lessons learnt
+
+After one gruelling semester of coding, debugging, testing and documentation,
+I have picked up basic programming knowledge of Java, which I have not touched before previously. Implementing this knowledge in _LIFE_
+allowed me to hone my programming skills and developed my maturity in software engineering.
+This is also the first time I have worked on a developed software with a team, using an iterative model in the software development life cycle.

@@ -176,6 +176,7 @@ image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
 
+//tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -192,6 +193,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+//end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -225,6 +228,7 @@ image::ModelClassDiagram.png[width="800"]
 
 //end::developerModel[]
 
+//tag::modelandstorage[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
@@ -256,6 +260,8 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the _LIFE_ application data in json format and read it back.
+
+//end::modelandstorage[]
 
 [[Design-Commons]]
 === Common classes
@@ -574,7 +580,7 @@ have enough expertise to utilise the Hash Map.
 
 //end::developerTickEditTask[]
 
-// tag::Purchase[]
+// tag::ExpListFeature[]
 === Expenditure List Feature
 This section describes the technical aspects of the `Expenditure List` feature and the design considerations made for the feature.
 
@@ -623,7 +629,7 @@ The following is a model diagram of the `ExpenditureList` component.
 .Model Component of `ExpenditureList`.
 image::ExpenditureListModelComponentDiagram.png[width='800']
 
-//end::Purchase[]
+
 {nbsp} +
 
 ==== Add Purchase
@@ -696,6 +702,8 @@ Step 3. `resetData` method in `ExpenditureList` class is used to reset the data 
 * Alternative 2: Using a Hash Map to store the purchases
 ** Pros: Future possible operations like `findpurchase` can be executed with O(1) time complexity.
 ** Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.
+
+//end::ExpListFeature[]
 
 // tag::Workout[]
 === Workout Feature
@@ -1180,6 +1188,7 @@ Use case ends.
 +
 Use case ends.
 
+//tag::wzusecases[]
 === Use Case: Clear Expenditure List
 
 *MSS*
@@ -1204,6 +1213,7 @@ Use case ends.
 +
 Use case ends.
 
+//end::wzusecases[]
 === Use Case: Record Completed Workout
 
 *MSS*
@@ -1331,7 +1341,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-
+//tag::wzmanualtesting[]
 === Adding a task
 
 . Adding a new task to the existing task list
@@ -1358,7 +1368,7 @@ Refer to task list to check index number of a particular task
 .. Other incorrect deletetask commands to try:
    `delete task1`, `deletetask` +
    Expected: Similar to previous.
-
+//end::wzmanualtesting[]
 // tag::developerTaskManual[]
 === Editing a task
 
@@ -1387,6 +1397,8 @@ Refer to task list to check index number of a particular task
 .. Test case: `ticktask 0` +
    Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar.
 //end::developerTaskManual[]
+
+//tag::wzmanualtesting2[]
 === Adding a purchase
 
 . Adding a new purchase to the existing expenditure list
@@ -1423,7 +1435,7 @@ prefix of purchasename is 'pn' not 'n'
              "X most recent workout(s): ", where X is the number of recent workout found, up to 5, +
              workout listed will be in the format "Exercise: EXERCISE, Sets: SETS, Reps: REPS, Duration: TIME minutes"
 
-
+//end::wzmanualtesting2[]
 
 
 
