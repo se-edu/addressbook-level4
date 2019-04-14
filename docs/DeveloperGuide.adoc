@@ -343,8 +343,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::developerTask[]
-=== Task Feature
-+ This entire section describes comprehensively the technical aspects of the `Task` feature as well
+=== Task List Feature
+This entire section describes comprehensively the technical aspects of the `Task` feature as well
 as considerations made during the design of the feature.+
 
 ==== `Task` package
@@ -616,7 +616,8 @@ image::ExpenditureListModelComponentDiagram.png[width='800']
 
 ==== Add Purchase
 
-The `AddPurchaseCommand` will create an instance of the `Purchase` class and store it in the `ExpenditureList`..
+The `AddPurchaseCommand` will create an instance of the `Purchase` class and store it in the `ExpenditureList`
+
 ===== Reason for implementation
 To be able to track expenditure, students should be able to add the purchases bought, together with the prices.
 
@@ -1270,22 +1271,22 @@ The contact details of the creators and the
 features that they did are listed below
 
 * *Jerome Tan* link:https://github.com/jayrometan/[~Contact~]
-** Implemented the `Task` feature which includes the 5 `Task` commands.
+** Implemented the `Task List` feature which includes the 5 `Task` commands.
 *** This allowed the users to manage their tasks.
 ** Created the Task List and Completed Task List Panel in the UI.
 *** This enabled the visualization of the `Task` they have entered.
 * *Wei Zhong* link:https://github.com/weizhonglauw/[~Contact~]
-** Implemented the `Purchase` feature
+** Implemented the `Expenditure List` feature
 *** This allowed the users to manage their expenses.
 ** Refactored the entire application to match our product _LIFE_.
 *** This allowed the morphing of our product from AddressBook to _LIFE_.
 * *Yong Jia* link:https://github.com/yongjia96[~Contact~]
-** Added the `Workout` feature
+** Added the `Workout Tracker` feature
 *** This allowed the users to manage their workout.
 ** Created Workout list Panel in the UI.
 *** This enabled the visualization of the `Workout` they have entered.
 * *Yu Qi* link:https://github.com/wongyuqi[~Contact~]
-** Added the `Habit` feature
+** Added the `Habit Tracker` feature
 *** This allowed the users to document their habits.
 
 //end::developerFeatureContribution[]

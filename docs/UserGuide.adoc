@@ -592,7 +592,7 @@ Commands to help you navigate about the habit list:
 |=======================================================================
 |Function |Purpose |Command |Example
 
-|<<Add Habit, Add Habit>> |Adds a newly desired habit |
+|<<AddHabit, Add Habit>> |Adds a newly desired habit |
 `addhabit` | `d/010119 n/SleepBefore12am a/Done`
 
 |=======================================================================
