@@ -42,7 +42,7 @@ that i have contributed to the team project.
 To aid the potential visualization of my work, here is the user interface of _LIFE_.
 
 .User Interface of _LIFE_
-image::https://raw.githubusercontent.com/cs2113-ay1819s2-t08-2/main/master/docs/images/jayrometanPPP.png[width="800"]
+image::https://raw.githubusercontent.com/cs2113-ay1819s2-t08-2/main/master/docs/images/jayrometanPPP.png[width="600"]
 
 * *Major Feature #1*: implemented the `Task` feature.
 ** +What does it do:+
