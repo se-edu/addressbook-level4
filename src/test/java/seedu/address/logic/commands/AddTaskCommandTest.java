@@ -341,6 +341,16 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public Path getExpenditureListFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setExpenditureListFilePath(Path expenditureListFilePath) {
+
+        }
+
+        @Override
         public void addWorkout(Workout workout) {
 
         }

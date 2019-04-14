@@ -176,6 +176,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Path getExpenditureListFilePath() {
+        return model.getExpenditureListFilePath();
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }

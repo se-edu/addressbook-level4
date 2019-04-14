@@ -112,6 +112,17 @@ public class ModelManager implements Model {
         userPrefs.setContactListFilePath(contactListFilePath);
     }
 
+    @Override
+    public Path getExpenditureListFilePath() {
+        return userPrefs.getExpenditureListFilePath();
+    }
+
+    @Override
+    public void setExpenditureListFilePath(Path expenditureListFilePath) {
+        requireNonNull(expenditureListFilePath);
+        userPrefs.setExpenditureListFilePath(expenditureListFilePath);
+    }
+
     //=========== ContactList ================================================================================
 
     @Override
