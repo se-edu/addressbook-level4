@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.address.model.workout.Exercise;
-import seedu.address.model.workout.Sets;
 import seedu.address.model.workout.Reps;
+import seedu.address.model.workout.Sets;
 import seedu.address.model.workout.Time;
 import seedu.address.model.workout.Workout;
 
