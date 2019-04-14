@@ -469,7 +469,7 @@ image::AddTaskSequenceDiagram.PNG[width="800"]
 {nbsp} +
 
 //end::developerAddTask[]
-
+// tag::developerDeleteTask[]
 ==== Delete Task
 The `DeleteTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
 in the UI)_ from the `TaskList`.
@@ -494,7 +494,10 @@ The following activity diagrams illustrates an example when the user executes a 
 .Activity Diagram of user executing a `deletetask` command
 image::DeleteTaskActivityDiagram.PNG[width='800']
 
+//end::developerDeleteTask[]
 {nbsp} +
+
+
 // tag::developerTickEditTask[]
 ==== Tick Task
 The `TickTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
@@ -1049,9 +1052,10 @@ have completed at the end of the day
 
 [appendix]
 
+// tag::developerUseCase[]
+
 [appendix]
 == Use Cases
-// tag::developerUseCase[]
 
 (For all use cases below, the *System* is the _LIFE_ application and the *Actor* is the `user`, unless specified otherwise)
 
@@ -1079,16 +1083,6 @@ Use case ends.
 **  _LIFE_ shows an error message. +
 Use case ends.
 
-=== Use Case: Sort Task
-
-*MSS*
-
-. _LIFE_ already displays the task list.
-. User wishes to sort the tasks according to their deadline
-. _LIFE_ sorts the task in the task list.
-+
-Use case ends.
-
 === Use Case: Tick Task
 
 *MSS*
@@ -1106,6 +1100,18 @@ Use case ends.
 ** _LIFE_ shows an error message.+ Use case ends.
 
 //end::developerUseCase[]
+
+=== Use Case: Sort Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User wishes to sort the tasks according to their deadline
+. _LIFE_ sorts the task in the task list.
++
+Use case ends.
+
+
 
 === Use case: Edit a task
 
