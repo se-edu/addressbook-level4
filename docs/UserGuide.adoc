@@ -169,11 +169,10 @@ _Changes the task name of the task specified at index 2 to Banana._
 _Change sthe deadline date of the task specified at index 2 to 290319._
 
 
-
+//tag::ExpListFeature[]
 === Expenditure List
 A list to help you keep track of all your expenses so that you can better manage your finances! +
 
-// tag::addpurchase[]
 [[AddPurchase]]
 ==== Adding a purchase: `addpurchase`
 
@@ -190,14 +189,12 @@ Examples:
 * `addpurchase pn/Ice cream pr/1.50`
 * `addpurchase pn/Bicycle rental pr/10.00 t/family t/eastcoastpark`
 
-// tag::clearexplist[]
 [[ClearExpList]]
 ==== Clearing expenditure list: `clearexplist`
 
 Clears all past purchases recorded from the expenditure list. +
 Format: `clearexplist`
 
-//tag::explist[]
 [[ExpList]]
 ==== Listing all past expenditures: `explist`
 
@@ -248,7 +245,7 @@ Format: `setlimit VALUE`
 Example:
 `setlimit 20.00`
 
-
+//end::ExpListFeature[]
 === Workout Tracker
 Record your workouts and reps so that you can make the most out of the exercises! +
 
@@ -288,7 +285,7 @@ Examples:
 Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
 // end::workout[]
 
-=== Habit Tracker [coming in v1.4]
+=== Habit Tracker
 Change your lifestyle now by recording an activity regularly to turn it into a habit! +
 
 // tag::addhabit[]
@@ -519,7 +516,7 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _LIFE_ folder.
 
-
+//tag::commandsummary[]
 == Command Summary
 This section provides a quick summary of the existing commands in the _LIFE_ application, for easier reference.
 
@@ -616,3 +613,6 @@ Commands to help you use the Contact List:
 `find` | `find John`
 |<<Select, Select Person>> |Selects a specified person  |
 `select` | `select 2`
+
+|=======================================================================
+//end::commandsummary[]
