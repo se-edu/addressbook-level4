@@ -96,12 +96,19 @@ technical depth of my contributions to the project._
 
 include::../DeveloperGuide.adoc[tag=developerModel]
 include::../DeveloperGuide.adoc[tag=developerTask]
-include::../DeveloperGuide.adoc[tag=developerAddTask]
+//include::../DeveloperGuide.adoc[tag=developerAddTask]
+include::../DeveloperGuide.adoc[tag=developerDeleteTask]
 include::../DeveloperGuide.adoc[tag=developerTickEditTask]
 //include::../DeveloperGuide.adoc[tag=developerProductScope]
 include::../DeveloperGuide.adoc[tag=developerUseCase]
 //include::../DeveloperGuide.adoc[tag=developerProjectSurvey]
-include::../DeveloperGuide.adoc[tag=developerFeatureContribution]
+//include::../DeveloperGuide.adoc[tag=developerFeatureContribution]
 //tag::developerManualHeader[]
 include::../DeveloperGuide.adoc[tag=developerTaskManual]
+
+== Here are the rest of the contributions that could be useful! +
+* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-scope[Product Scope]
+* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-survey[Product Survey]
+* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#instructions-for-manual-testing[Manual Testing]
+* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#feature-contribution[Feature Contribution]
 
