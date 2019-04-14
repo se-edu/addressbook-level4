@@ -20,8 +20,8 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-//import seedu.address.model.purchase.Price;
-//import seedu.address.model.purchase.PurchaseName;
+import seedu.address.model.purchase.Price;
+import seedu.address.model.purchase.PurchaseName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.DeadlineDate;
 import seedu.address.model.task.DeadlineTime;
@@ -33,6 +33,8 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_PRICE = "$3.50";
+    private static final String INVALID_PURCHASENAME = "movie^";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_TASKNAME = "J$ROME";
     private static final String INVALID_DEADLINETIME = "35003";
@@ -42,17 +44,15 @@ public class ParserUtilTest {
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
+    private static final String VALID_PRICE = "1.50";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_PURCHASENAME = "Ice Cream";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_TASKNAME = "Jerome Tan";
     private static final String VALID_DEADLINETIME = "2359";
     private static final String VALID_DEADLINEDATE = "311219";
-
-    private static final String INVALID_PRICE = "$3.50";
-    private static final String INVALID_PURCHASENAME = "movie^";
-    private static final String INVALID_TAGFORPURCHASE = "#foodislife";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -294,4 +294,45 @@ public class ParserUtilTest {
         DeadlineDate expectedDeadlineDate = new DeadlineDate(VALID_DEADLINEDATE);
         assertEquals(expectedDeadlineDate, ParserUtil.parseDeadlineDate(deadlineDateWithWhitespace));
     }
+
+    @Test
+    public void parsePurchaseName_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePurchaseName((String) null));
+    }
+
+    @Test
+    public void parsePurchaseName_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePurchaseName(INVALID_PURCHASENAME));
+    }
+
+    @Test
+    public void parsePurchaseName_validValueWithWhitespace_returnsTrimmedPurchaseName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_PURCHASENAME + WHITESPACE;
+        PurchaseName expectedPurchaseName = new PurchaseName(VALID_PURCHASENAME);
+        assertEquals(expectedPurchaseName, ParserUtil.parsePurchaseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parsePrice_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePrice((String) null));
+    }
+
+    @Test
+    public void parsePrice_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePrice(INVALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithoutWhitespace_returnsPrice() throws Exception {
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithWhitespace_returnsTrimmedPrice() throws Exception {
+        String priceWithWhitespace = WHITESPACE + VALID_PRICE + WHITESPACE;
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(priceWithWhitespace));
+    }
+
 }
