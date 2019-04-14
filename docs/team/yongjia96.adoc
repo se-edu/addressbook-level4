@@ -84,9 +84,20 @@ include::../DeveloperGuide.adoc[tag=Workout]
 include::../DeveloperGuide.adoc[tag=Workout1]
 include::../DeveloperGuide.adoc[tag=Workout2]
 
-== Here are the rest of the contributions that could be useful! +
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-scope[Product Scope]
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-survey[Product Survey]
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#instructions-for-manual-testing[Manual Testing]
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#feature-contribution[Feature Contribution]
+== Designs considerations
+= Aspect: How `workout` executes
+* Alternative 1 (current choice): Display it as a command line message to the user
+** Pros: Easy to implement, clearer to the user
+** Cons: Less graphically appealing
+* Alternative 2: Filter the Workout List in the UI
+** Pros: More appealing to the user
+** Cons: Hard to implement
+
+= Aspect: Data structure to store the recent workout for `workout`
+* Alternative 1 (current choice): Array List
+** Pros: Easy to implement, add and remove operations is easy
+** Cons: Additional memory space needed for the extra Array List
+* Alternative 2: Run through the Observable list and print it out as a feedback string in `CommandResult`
+** Pros: No need for extra memory for additional data structure
+** Cons: Difficult to implement
 

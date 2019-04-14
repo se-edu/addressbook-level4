@@ -1407,7 +1407,10 @@ prefix of purchasename is 'pn' not 'n'
 .. Test case: `clearexplist` +
    Expected: If existing expenditure list has data, the list will be cleared successfully.
              If existing expenditure list was already empty, invalid command will be shown.
+
+
 // tag::Workout2[]
+
 === Recording new workout
 
 . Add a new workout to the workout list
