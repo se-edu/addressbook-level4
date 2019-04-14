@@ -247,8 +247,13 @@ public class AddPurchaseCommandTest {
 
         }
 
+        @Override
+        public Task getSelectedTask() {
+            return null;
+        }
 
-// ---------------------------Workout Book----------------------------
+
+        // ---------------------------Workout Book----------------------------
 @Override
 public void addWorkout(Workout workout) {
 
@@ -287,6 +292,11 @@ public void addWorkout(Workout workout) {
         @Override
         public void setWorkoutBook(ReadOnlyWorkoutBook workoutBook) {
 
+        }
+
+        @Override
+        public ArrayList<Workout> getRecent() {
+            return null;
         }
 
 // ------------------------------- contact list---------------------------
