@@ -249,6 +249,44 @@ Example:
 `setlimit 20.00`
 
 
+=== Workout Tracker
+Record your workouts and reps so that you can make the most out of the exercises! +
+
+// tag::workout[]
+[[Workout]]
+==== View workout: `workout`
+
+View the past 5 most recent workout. +
+Format: `workout`
+
+****
+Only the most recent 5 workout will be displayed, older workout will not be shown
+
+****
+
+Examples:
+
+* `workout`
+
+// tag::record[]
+[[Record]]
+==== Record workout : `record`
+
+Record your current workout and add them into your workout records. +
+Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
+
+****
+Words in `UPPER_CASE` are the parameters.
+EXERCISE must only contain alphanumeric. +
+SETS, REPS and TIME must only contain integer, and TIME must be in minutes +
+****
+
+Examples:
+
+* `record e/SIT UPS s/5 r/20 t/10`
+
+Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
+
 === Habit Tracker [coming in v1.4]
 Change your lifestyle now by recording an activity regularly to turn it into a habit! +
 
@@ -267,45 +305,6 @@ Example:
 
 * `addHabit d/010119 n/SleepBefore12am a/Done`
 
-
-
-=== Workout Tracker [coming in v1.4]
-Record your workouts and reps so that you can make the most out of the exercises! +
-
-// tag::workout[]
-[[Workout]]
-==== View workout: `workout` [coming soon]
-
-View the past 5 most recent workout. +
-Format: `workout`
-
-****
-Only the most recent 5 workout will be displayed, older workout will not be shown
-
-****
-
-Examples:
-
-* `workout`
-
-// tag::record[]
-[[Record]]
-==== Record workout : `record` [coming soon]
-
-Record your current workout and add them into your workout records. +
-Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
-
-****
-Words in `UPPER_CASE` are the parameters.
-EXERCISE must only contain alphanumeric. +
-SETS, REPS and TIME must only contain integer, and TIME must be in minutes +
-****
-
-Examples:
-
-* `record e/SIT UPS s/5 r/20 t/10`
-
-Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
 
 === Contact List
 Manage all your contacts easily in this ultimate list holding your contacts with their information! +
@@ -354,6 +353,27 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+[[Delete]]
+==== Deleting a person : `delete`
+
+Deletes the specified person from the contact list. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the contact list.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
 [[Find]]
 ==== Locating persons by name: `find`
 
@@ -375,26 +395,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-[[Delete]]
-==== Deleting a person : `delete`
 
-Deletes the specified person from the contact list. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the contact list.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
 
 [[Select]]
 ==== Selecting a person : `select`
@@ -595,3 +596,22 @@ Commands to help you navigate about the habit list:
 `addhabit` | `d/010119 n/SleepBefore12am a/Done`
 
 |=======================================================================
+
+=== Task List Commands
+Commands to help you use the Contact List:
+[width="100%",cols="20%,<30%,<20%,<30",options="header",]
+|=======================================================================
+|Function |Purpose |Command |Example
+
+|<<Add, Add Person>> |Adds a new person |
+`add` | `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+|<<List, List>> |Shows all the people in the contact list  |
+`list` | `list`
+|<<Edit, Edit Person>> |Edits the contact details specified with the entered parameters |
+`edit` | `edit 1 p/91234567 e/johndoe@example.com`
+|<<Delete, Delete Person>> |Deletes a person off the contact list |
+`delete` | `delete 1`
+|<<Find, Find Person>> |Finds and then show the people with names containing the keywords entered|
+`find` | `find John`
+|<<Select, Select Person>> |Selects a specified person  |
+`select` | `select 2`
