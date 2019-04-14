@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PURCHASENAME_PRAWNMEE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PURCHASENAME_MOVIE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_PRAWNMEE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_MOVIE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_PRAWNMEE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PURCHASENAME_MOVIE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PURCHASENAME_PRAWNMEE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ENTERTAINMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 
 import java.util.ArrayList;
 import java.util.Arrays;

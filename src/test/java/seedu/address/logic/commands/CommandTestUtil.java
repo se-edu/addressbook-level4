@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -80,7 +80,8 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-    public static final String INVALID_PURCHASENAME_DESC = " " + PREFIX_PURCHASENAME + "PRAWNMEE!!"; // '! not allowed in purchasenames
+    public static final String INVALID_PURCHASENAME_DESC = " " + PREFIX_PURCHASENAME + "PRAWNMEE!!";
+    // '! not allowed in purchasenames
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "$5.00"; // '$' not allowed in prices
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

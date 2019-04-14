@@ -10,13 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.DEADLINETIME_DESC_ONE
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TASKNAME_DESC_ONE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalTasks.TASKONE;
-
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_PRAWNMEE;
 import static seedu.address.logic.commands.CommandTestUtil.PURCHASENAME_DESC_PRAWNMEE;
+import static seedu.address.logic.commands.CommandTestUtil.TASKNAME_DESC_ONE;
+import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPurchases.PRAWNMEE;
+import static seedu.address.testutil.TypicalTasks.TASKONE;
 
 import java.io.IOException;
 import java.nio.file.Path;

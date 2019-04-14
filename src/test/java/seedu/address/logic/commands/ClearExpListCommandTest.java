@@ -23,7 +23,8 @@ public class ClearExpListCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitExpenditureList();
 
-        assertCommandSuccess(new ClearExpListCommand(), model, commandHistory, ClearExpListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearExpListCommand(), model, commandHistory,
+                ClearExpListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -35,6 +36,7 @@ public class ClearExpListCommandTest {
         expectedModel.setExpenditureList(new ExpenditureList());
         expectedModel.commitExpenditureList();
 
-        assertCommandSuccess(new ClearExpListCommand(), model, commandHistory, ClearExpListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearExpListCommand(), model, commandHistory,
+                ClearExpListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

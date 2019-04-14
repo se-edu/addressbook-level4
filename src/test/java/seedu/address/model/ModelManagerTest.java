@@ -9,12 +9,12 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
-import static seedu.address.testutil.TypicalTasks.TASKONE;
-import static seedu.address.testutil.TypicalTasks.TASKTWO;
+//import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalPurchases.MCFLURRY;
 import static seedu.address.testutil.TypicalPurchases.SUBWAY;
-import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
+import static seedu.address.testutil.TypicalTasks.TASKONE;
+import static seedu.address.testutil.TypicalTasks.TASKTWO;
+//import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
 
 import java.nio.file.Path;
@@ -31,12 +31,12 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.ContactListBuilder;
+import seedu.address.testutil.ExpenditureListBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TaskListBuilder;
 
-import seedu.address.model.purchase.Purchase;
-import seedu.address.testutil.ExpenditureListBuilder;
-import seedu.address.testutil.PurchaseBuilder;
+//import seedu.address.model.purchase.Purchase;
+//import seedu.address.testutil.PurchaseBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -209,7 +209,8 @@ public class ModelManagerTest {
         TaskList taskList = new TaskListBuilder().withTask(TASKONE).withTask(TASKTWO).build();
         TaskList differentTaskList = new TaskList(); //TODO
 
-        ExpenditureList expenditureList = new ExpenditureListBuilder().withPurchase(MCFLURRY).withPurchase(SUBWAY).build();
+        ExpenditureList expenditureList = new ExpenditureListBuilder()
+                .withPurchase(MCFLURRY).withPurchase(SUBWAY).build();
         ExpenditureList differentExpenditureList = new ExpenditureList();
 
         WorkoutBook workoutBook = getTypicalWorkoutList();

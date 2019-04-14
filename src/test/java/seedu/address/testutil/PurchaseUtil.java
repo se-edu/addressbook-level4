@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PURCHASENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 //import java.util.Set;
@@ -30,7 +30,7 @@ public class PurchaseUtil {
         sb.append(PREFIX_PURCHASENAME + purchase.getPurchaseName().fullName + " ");
         sb.append(PREFIX_PRICE + purchase.getPrice().value + " ");
         purchase.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }

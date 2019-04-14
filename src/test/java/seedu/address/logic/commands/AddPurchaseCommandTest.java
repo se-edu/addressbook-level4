@@ -52,7 +52,8 @@ public class AddPurchaseCommandTest {
 
         CommandResult commandResult = new AddPurchaseCommand(validPurchase).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddPurchaseCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddPurchaseCommand.MESSAGE_SUCCESS, validPurchase),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -85,8 +86,7 @@ public class AddPurchaseCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
-// -----------------------------UserPrefs and GuiSettings-------------------------------------
+        // -----------------------------UserPrefs and GuiSettings-------------------------------------
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -107,7 +107,7 @@ public class AddPurchaseCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-//-----------------------------Expenditure List------------------------------------
+        //-----------------------------Expenditure List------------------------------------
 
         @Override
         public void addPurchase(Purchase purchase) {
@@ -165,7 +165,7 @@ public class AddPurchaseCommandTest {
             return null;
         }
 
-// --------------------------------Task List-------------------------------------
+        // --------------------------------Task List-------------------------------------
 
         @Override
         public ReadOnlyTaskList getTaskList() {
@@ -254,10 +254,10 @@ public class AddPurchaseCommandTest {
 
 
         // ---------------------------Workout Book----------------------------
-@Override
-public void addWorkout(Workout workout) {
+        @Override
+        public void addWorkout(Workout workout) {
 
-}
+        }
 
         @Override
         public void commitWorkoutBook() {
@@ -299,7 +299,7 @@ public void addWorkout(Workout workout) {
             return null;
         }
 
-// ------------------------------- contact list---------------------------
+        // ------------------------------- contact list---------------------------
 
         @Override
         public Path getContactListFilePath() {

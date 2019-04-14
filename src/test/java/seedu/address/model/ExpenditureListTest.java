@@ -1,16 +1,16 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ENTERTAINMENT;
+//import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertTrue;
+//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ENTERTAINMENT;
 import static seedu.address.testutil.TypicalPurchases.PRAWNMEE;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+//import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.purchase.Purchase;
-import seedu.address.testutil.PurchaseBuilder;
+//import seedu.address.testutil.PurchaseBuilder;
 
 public class ExpenditureListTest {
     @Rule

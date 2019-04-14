@@ -4,12 +4,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PURCHASENAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_PRAWNMEE;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_MOVIE;
-import static seedu.address.logic.commands.CommandTestUtil.PURCHASENAME_DESC_PRAWNMEE;
-import static seedu.address.logic.commands.CommandTestUtil.PURCHASENAME_DESC_MOVIE;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_MOVIE;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_PRAWNMEE;
+import static seedu.address.logic.commands.CommandTestUtil.PURCHASENAME_DESC_MOVIE;
+import static seedu.address.logic.commands.CommandTestUtil.PURCHASENAME_DESC_PRAWNMEE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_ENTERTAINMENT;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FAMILY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FOOD;
@@ -17,12 +17,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_MOVIE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PURCHASENAME_MOVIE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ENTERTAINMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FAMILY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPurchases.PRAWNMEE;
 import static seedu.address.testutil.TypicalPurchases.MOVIE;
+import static seedu.address.testutil.TypicalPurchases.PRAWNMEE;
 
 import org.junit.Test;
 
@@ -53,8 +52,8 @@ public class AddPurchaseCommandParserTest {
                 + TAG_DESC_ENTERTAINMENT, new AddPurchaseCommand(expectedPurchase));
 
         // multiple tags - all accepted
-        Purchase expectedPurchaseMultipleTags = new PurchaseBuilder(MOVIE).withTags(VALID_TAG_ENTERTAINMENT, VALID_TAG_FAMILY)
-                .build();
+        Purchase expectedPurchaseMultipleTags = new PurchaseBuilder(MOVIE)
+                .withTags(VALID_TAG_ENTERTAINMENT, VALID_TAG_FAMILY).build();
         assertParseSuccess(parser, PURCHASENAME_DESC_MOVIE + PRICE_DESC_MOVIE
                 + TAG_DESC_ENTERTAINMENT + TAG_DESC_FAMILY, new AddPurchaseCommand(expectedPurchaseMultipleTags));
     }

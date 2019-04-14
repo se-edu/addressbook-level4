@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalPurchases.MCFLURRY;
 import static seedu.address.testutil.TypicalPurchases.MOVIE;
 
 //import java.util.Arrays;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -68,7 +69,8 @@ public class PurchaseListTest {
     @Test
     public void setPurchases_list_replacesOwnListWithProvidedList() {
         purchaseList.add(MCFLURRY);
-        List<Purchase> purchasesList = Collections.singletonList(MOVIE);    //used purchasesList as purchaseList has been used
+        List<Purchase> purchasesList = Collections.singletonList(MOVIE);
+        //used purchasesList as purchaseList has been used
         purchaseList.setPurchases(purchasesList);
         PurchaseList expectedPurchaseList = new PurchaseList();
         expectedPurchaseList.add(MOVIE);
@@ -98,8 +100,8 @@ public class PurchaseListTest {
     @Test
     public void contains_purchaseWithSameIdentityFieldsInList_returnsTrue() {
         purchaseList.add(MCFLURRY);
-        Purchase editedMcflurry = new PurchaseBuilder(MCFLURRY).withPrice(VALID_PRICE_MOVIE).withTags(VALID_TAG_ENTERTAINMENT)
-                .build();
+        Purchase editedMcflurry = new PurchaseBuilder(MCFLURRY).withPrice(VALID_PRICE_MOVIE)
+        .withTags(VALID_TAG_ENTERTAINMENT).build();
         assertTrue(purchaseList.contains(editedMcflurry));
     }
 
@@ -128,5 +130,6 @@ public class PurchaseListTest {
         purchaseList.remove(MCFLURRY);
         PurchaseList expectedPurchaseList = new PurchaseList();
         assertEquals(expectedPurchaseList, purchaseList);
-    }  */
+    }
+    */
 }
