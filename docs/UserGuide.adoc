@@ -98,6 +98,26 @@ The following are examples of some commands that you can try out:
 * `addtask n/Complete CS2113T Assignment d/180319 h/2359`
 * `addtask n/Submit Exchange Application d/200319 h/0800 t/IMPORTANT`
 
+==== Tick Task : `ticktask`
+
+*Ticks* off the task that you have completed off the task list and adds it into the completed task list! +
+Format: `ticktask` INDEX
+
+[WARNING]
+The index must be a valid index in the task list and it must be present. +
+Once the application restarts, all the data in the Completed Task List will be gone.
+
+Examples:
+
+* `ticktask 5` +
+_Ticks the task at index 5 off._
+
+==== Sort Task List : `sorttask`
+Helps you to *sort* the tasks in the task list according to their deadline with upcoming deadlines first! +
+Format: `sorttask`
+
+//end::TaskFeature[]
+
 ==== Delete Task : `deletetask`
 
 In case the task is no longer required, you can *delete* it off the task list by specifying the index of
@@ -138,25 +158,7 @@ _Changes the task name of the task specified at index 2 to Banana._
 * `edittask 2 d/290319` +
 _Change sthe deadline date of the task specified at index 2 to 290319._
 
-==== Tick Task : `ticktask`
 
-*Ticks* off the task that you have completed off the task list and adds it into the completed task list! +
-Format: `ticktask` INDEX
-
-[WARNING]
-The index must be a valid index in the task list and it must be present. +
-Once the application restarts, all the data in the Completed Task List will be gone.
-
-Examples:
-
-* `ticktask 5` +
-_Ticks the task at index 5 off._
-
-==== Sort Task List : `sorttask`
-Helps you to *sort* the tasks in the task list according to their deadline with upcoming deadlines first! +
-Format: `sorttask`
-
-//end::TaskFeature[]
 
 === Expenditure List
 A list to help you keep track of all your expenses so that you can better manage your finances! +
