@@ -34,8 +34,10 @@ public class MainWindowCloseTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
-        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
+        JsonAddressBookStorage jsonAddressBookStorage =
+                new JsonAddressBookStorage(temporaryFolder.getRoot().toPath().resolve("addressBook.json"));
+        JsonUserPrefsStorage jsonUserPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.getRoot().toPath().resolve("userPrefs.json"));
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
