@@ -10,9 +10,8 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -21,9 +20,8 @@ public class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
-
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    @TempDir
+    public Path tempDir;
 
     @Test
     public void read_null_throwsNullPointerException() {
@@ -89,7 +87,7 @@ public class ConfigUtilTest {
     public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
-        Path configFilePath = testFolder.getRoot().toPath().resolve("TempConfig.json");
+        Path configFilePath = tempDir.resolve("TempConfig.json");
 
         //Try writing when the file doesn't exist
         ConfigUtil.saveConfig(original, configFilePath);
