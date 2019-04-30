@@ -1,16 +1,16 @@
 package seedu.address.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ListElementPointerTest {
     private static final String FIRST_ELEMENT = "first";
@@ -18,7 +18,7 @@ public class ListElementPointerTest {
     private List<String> pointerElements;
     private ListElementPointer pointer;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         pointerElements = new ArrayList<>();
         pointerElements.add(FIRST_ELEMENT);

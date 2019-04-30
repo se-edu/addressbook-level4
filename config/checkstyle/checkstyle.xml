@@ -229,6 +229,7 @@
     <module name="VisibilityModifier">
       <property name="protectedAllowed" value="true"/>
       <property name="allowPublicFinalFields" value="true"/>
+      <property name="ignoreAnnotationCanonicalNames" value="RegisterExtension, TempDir"/>
     </module>
 
     <!--
@@ -390,7 +391,7 @@
         Single line of code methods are often due to refactor for readability.
       -->
       <property name="minLineCount" value="1"/>
-      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After, AfterClass, Subscribe"/>
+      <property name="allowedAnnotations" value="Override, Test, BeforeAll, BeforeEach, AfterAll, AfterEach, Subscribe"/>
       <property name="scope" value="public"/>
       <property name="allowUndeclaredRTE" value="true"/>
       <property name="allowThrowsTagsForSubclasses" value="true"/>
@@ -407,7 +408,7 @@
         We define methods that have more than 3 lines of code as non-trivial.
       -->
       <property name="minLineCount" value="3"/>
-      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After, AfterClass, Subscribe"/>
+      <property name="allowedAnnotations" value="Override, Test, BeforeAll, BeforeEach, AfterAll, AfterEach, Subscribe"/>
       <property name="scope" value="private"/>
       <property name="allowUndeclaredRTE" value="true"/>
       <property name="allowThrowsTagsForSubclasses" value="true"/>
