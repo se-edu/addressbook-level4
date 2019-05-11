@@ -33,7 +33,7 @@ public class ListElementPointer {
     }
 
     /**
-     * Returns true if calling {@code #next()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #next()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasNext() {
         int nextIndex = index + 1;
@@ -41,7 +41,7 @@ public class ListElementPointer {
     }
 
     /**
-     * Returns true if calling {@code #previous()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #previous()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasPrevious() {
         int previousIndex = index - 1;
@@ -49,7 +49,7 @@ public class ListElementPointer {
     }
 
     /**
-     * Returns true if calling {@code #current()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #current()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasCurrent() {
         return isWithinBounds(index);
