@@ -107,7 +107,7 @@ public class ModelManagerTest {
     public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
         modelManager.addPerson(ALICE);
         modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getDisplayPersonList());
         modelManager.setSelectedPerson(BOB);
         modelManager.deletePerson(BOB);
         assertEquals(ALICE, modelManager.getSelectedPerson());
@@ -124,7 +124,7 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getDisplayPersonList().remove(0));
     }
 
     @Test
@@ -135,7 +135,7 @@ public class ModelManagerTest {
     @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
         modelManager.addPerson(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
+        assertEquals(Collections.singletonList(ALICE), modelManager.getDisplayPersonList());
         modelManager.setSelectedPerson(ALICE);
         assertEquals(ALICE, modelManager.getSelectedPerson());
     }
