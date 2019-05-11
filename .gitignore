@@ -1,20 +1,21 @@
-build/
-.gradle/
-.checkstyle
-.settings/
-.idea/
-lib/*
-*.iml
-*.log
-*.log.*
-*.csv
-config.json
-src/test/data/sandbox/
-preferences.json
-.DS_Store
-./screenshot*.png
-classes/
-/data/
-/bin/
+# Gradle build files
+/.gradle/
+/build/
 src/main/resources/docs/
-out/
+
+# IDEA files
+/.idea/
+/out/
+/*.iml
+
+# Storage/log files
+/data/
+/config.json
+/preferences.json
+/*.log.*
+
+# Test sandbox files
+src/test/data/sandbox/
+
+# MacOS custom attributes files created by Finder
+.DS_Store
