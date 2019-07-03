@@ -44,22 +44,24 @@ You can achieve this by creating a dictionary of colors and import it à la CSS
 For example, you can create a `style.puml` with the contents
 
 .style.puml
-[source, puml]
-```
+[source]
+----
 ...
 'T1 and T2 are triadic colors.
 
 !define LOGIC_COLOR #493DD1
 !define LOGIC_COLOR_T1 #933DD1
+
+
 !define LOGIC_COLOR_T2 #3D7BD1
 ...
-```
+----
 
 and use it in another PlantUML file like this:
 
 .undo-sequence-diagram.puml
-[source, puml]
-```
+[source]
+----
 !include style.puml
 
 box Logic LOGIC_COLOR_T2
@@ -67,7 +69,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":UndoCommand" as UndoCommand LOGIC_COLOR
 end box
-```
+----
 
 ***
 
@@ -78,5 +80,3 @@ dependencies. The PlantUML integration plugin supports exporting individual file
 
 The PlantUML executable jar provided on the official http://plantuml.com/download[PlantUML website] will export the
 entire directory instead. This can prove to be extremely useful.
-
-

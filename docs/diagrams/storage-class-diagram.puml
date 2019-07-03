@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface Storage
+Interface UserPrefsStorage
+Interface AddressBookStorage
+
+
+Class StorageManager
+Class JsonUserPrefsStorage
+Class JsonAddressBookStorage
+
+
+
+StorageManager -left-|> Storage
+UserPrefsStorage -right-o StorageManager
+AddressBookStorage -down-o StorageManager
+
+JsonUserPrefsStorage -left-|> UserPrefsStorage
+JsonAddressBookStorage -left-|> AddressBookStorage
+JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
+JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
+JsonSerializablePerson .right.> JsonAdaptedTag
+@enduml
