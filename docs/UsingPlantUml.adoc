@@ -1,0 +1,82 @@
+= Using PlantUML
+:site-section: DeveloperGuide
+:imagesDir: images
+:stylesDir: stylesheets
+:experimental:
+:toc:
+:toc-title:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+
+== Setting up PlantUML
+
+=== Installing Graphviz
+
+Graphviz is a dependency that PlantUML requires to generate more advanced
+diagrams. Head over to the https://www.graphviz.org/download/[downloads page] on
+the offcial Graphviz website and follow instructions to install Graphviz.
+
+=== Installing the `PlantUML integration` plugin for IntelliJ IDEA
+
+While this is not compulsory, the `PlantUML integration` provides a live preview
+of the PlantUML file you are working on.
+
+.Settings - Plugins - Marketplace: install the `PlantUML integration` plugin
+image::PlantUmlPlugin.png[]
+
+=== Configuring `PlantUML integration`
+
+Go to `Settings` > `Other Settings` > `PlantUML` or search for PlantUML.
+Configure the path to the `dot` executable.
+
+.Settings - Other Settings - PlantUML: input the path to your dot executable
+image::ConfiguringGraphviz.png[]
+
+== Common tasks
+
+=== Applying consistent formatting to UML diagrams
+
+It is highly recommended to consistently color your UML diagrams as an visual aid.
+You can achieve this by creating a dictionary of colors and import it à la CSS
+
+For example, you can create a `style.puml` with the contents
+
+.style.puml
+[source, puml]
+```
+...
+'T1 and T2 are triadic colors.
+
+!define LOGIC_COLOR #493DD1
+!define LOGIC_COLOR_T1 #933DD1
+!define LOGIC_COLOR_T2 #3D7BD1
+...
+```
+
+and use it in another PlantUML file like this:
+
+.undo-sequence-diagram.puml
+[source, puml]
+```
+!include style.puml
+
+box Logic LOGIC_COLOR_T2
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":UndoCommand" as UndoCommand LOGIC_COLOR
+end box
+```
+
+***
+
+=== Exporting UML diagrams as PNGs for use
+
+As GitHub has not implemented native support for PlantUML, we export all of our diagrams as images to avoid external
+dependencies. The PlantUML integration plugin supports exporting individual files.
+
+The PlantUML executable jar provided on the official http://plantuml.com/download[PlantUML website] will export the
+entire directory instead. This can prove to be extremely useful.
+
+
