@@ -1,0 +1,12 @@
+@startuml
+start
+:User executes command;
+if (command commits AddressBook?) then
+    :Purge redunant states;
+    :Save AddressBook to
+    addressBookStateList;
+else
+endif
+stop
+
+@enduml
