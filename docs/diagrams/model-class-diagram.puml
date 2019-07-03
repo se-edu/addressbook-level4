@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+hide members
+
+Interface ReadOnlyAddressBook
+Interface Model
+Interface ObservableList
+
+AddressBook .left.|> ReadOnlyAddressBook
+VersionedAddressBook .up.|> AddressBook
+
+ModelManager .left.> Model
+Model ..> ObservableList
+ModelManager o-right-> "1" VersionedAddressBook
+ModelManager o-right-> "1" UserPrefs
+UserPrefs .right.|> ReadOnlyUserPrefs
+VersionedAddressBook -[hidden]down- UserPrefs
+
+VersionedAddressBook *-> "1" UniquePersonList
+UniquePersonList o--> "*" Person
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *--> "*" Tag
+
+ModelManager -->"1" Person : filtered list
+@enduml
