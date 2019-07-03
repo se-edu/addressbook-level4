@@ -1,0 +1,29 @@
+@startuml
+!include ../style.puml
+
+Class A LOGIC_COLOR_T3
+Class B LOGIC_COLOR_T3
+Class C LOGIC_COLOR_T3
+Class D LOGIC_COLOR_T3
+
+Class 1 MODEL_COLOR_T3
+Class 2 MODEL_COLOR_T3
+Class 3 MODEL_COLOR_T3
+Class 4 MODEL_COLOR_T3
+
+Class Z UI_COLOR_T3
+
+'default is down
+A --> Z
+'specify down
+B -down-> Z
+'shorthand for down
+C -d-> Z
+'arrow lengths take priority
+D -down> Z
+
+A -up-> 1
+B -up-> 2
+C -up-> 3
+D -up-> 4
+@enduml
