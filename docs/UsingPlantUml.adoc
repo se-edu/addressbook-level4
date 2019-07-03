@@ -22,9 +22,9 @@ Head over to the https://www.graphviz.org/download/[downloads page] on the offic
 
 === Installing the `PlantUML integration` plugin for IntelliJ IDEA
 
-While this is not compulsory, the `PlantUML integration` provides a live preview of the PlantUML file you are working on.
+Go to `Settings` > `Plugins` > `Marketplace` and install the plugin `PlantUML integration`.
 
-Go to `Settings` > `Other Settings` > `PlantUML` or search for PlantUML.
+Then go to `Settings` > `Other Settings` > `PlantUML` or search for PlantUML.
 Configure the path to the `dot` executable.
 This executable can be found in the `/bin` directory where you installed GraphViz.
 
@@ -44,13 +44,9 @@ However, do take note that these changes _will not_ be reflected in the develope
 == Export PlantUML diagrams
 
 The `PlantUML integration` plugin allows you to export individual diagrams to a location of your choosing.
-
-However, the plugin does not support diagrams with multiple pages.
-If you have diagrams using the `newpage` feature, you will need to download the `plantuml` jar from the http://plantuml.com/download[official website].
+Click the `Save Current Diagram Only` button and choose the location to export the image file.
 
 NOTE: You will have to `git add` any new diagrams generated!
-
-TIP: `plantuml.jar` will monitor changes and automatically export diagrams that have been modified!
 
 == Common tasks
 
