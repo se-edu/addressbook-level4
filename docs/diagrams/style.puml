@@ -1,0 +1,63 @@
+/'
+ 'Commonly used styles and colors across diagrams.
+ 'Refer to https://plantuml-documentation.readthedocs.io/en/latest for a more
+ 'comprehensive list of skinparams.
+ '/
+
+'T1 and T2 are triadic colors.
+
+!define UI_COLOR #3DD155
+!define UI_COLOR_T1 #3DD19F
+!define UI_COLOR_T2 #6FD13D
+
+!define LOGIC_COLOR #493DD1
+!define LOGIC_COLOR_T1 #933DD1
+!define LOGIC_COLOR_T2 #3D7BD1
+
+!define MODEL_COLOR #D18C3D
+!define MODEL_COLOR_T1 #CCD13D
+!define MODEL_COLOR_T2 #D1423D
+
+!define STORAGE_COLOR #D1423D
+!define STORAGE_COLOR_T1 #D18C3D
+!define STORAGE_COLOR_T2 #D13D82
+
+!define USER_COLOR #000000
+
+
+skinparam BackgroundColor #FFFFFFF
+
+skinparam Shadowing false
+
+skinparam Class {
+    FontColor White
+    BorderThickness 0
+    BorderColor #FFFFFF
+}
+
+skinparam Actor {
+    BorderColor USER_COLOR
+    Color USER_COLOR
+}
+
+
+skinparam Sequence {
+    MessageAlign center
+    BoxFontSize 15
+    BoxPadding 0
+    BoxFontColor #FFFFFF
+}
+
+
+skinparam Participant {
+    FontColor #FFFFFFF
+    Padding 20
+}
+
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam Shadowing false
+skinparam DefaultTextAlignment center
+
+hide footbox
+hide members
