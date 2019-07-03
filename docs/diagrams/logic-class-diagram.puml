@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+hide members
+
+Interface Logic
+Interface Parser
+Abstract Class Command
+
+LogicManager .left..|> Logic
+LogicManager --up->"1" CommandHistory
+LogicManager -down->"1" AddressBookParser
+AddressBookParser -right-> XYZCommandParser: creates >
+XYZCommandParser .right.> XYZCommand : creates >
+XYZCommandParser .up.|> Parser
+XYZCommandParser ..> ArgumentTokenizer
+XYZCommandParser ..> ArgumentMultimap
+ArgumentTokenizer .right.> ArgumentMultimap
+XYZCommandParser .[hidden].> ArgumentMultimap
+XYZCommandParser ..> CliSyntax
+XYZCommandParser ..> ParserUtil
+ParserUtil .down.> Prefix
+ArgumentTokenizer .down.> Prefix
+XYZCommand .right.> Command
+LogicManager .up..> Command : executes >
+
+note top of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+@enduml
