@@ -1,13 +1,13 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T2
+box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T2
+box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
 end box
