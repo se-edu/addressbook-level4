@@ -1,14 +1,14 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor UI_COLOR
+skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 hide members
 
 package UI <<Rectangle>>{
-Interface Ui
-Abstract Class UiPart
+Interface Ui <<Interface>>
+Abstract Class UiPart <<Abstract>>
 Class UiManager
 Class MainWindow
 Class HelpWindow
@@ -21,11 +21,13 @@ Class CommandBox
 }
 
 package Model <<Rectangle>> {
-Class Model MODEL_COLOR
+Class HiddenModel #FFFFFF
+hide circle
 }
 
 package Logic <<Rectangle>> {
-Class Logic LOGIC_COLOR
+Class HiddenLogic #FFFFFF
+hide circle
 }
 
 UiManager .left.|> Ui

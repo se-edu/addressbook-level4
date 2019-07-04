@@ -4,11 +4,9 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-hide members
-
-Interface ReadOnlyAddressBook
-Interface Model
-Interface ObservableList
+Interface ReadOnlyAddressBook <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
 
 AddressBook .left.|> ReadOnlyAddressBook
 VersionedAddressBook .up.|> AddressBook
