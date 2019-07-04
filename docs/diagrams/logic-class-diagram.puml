@@ -1,32 +1,65 @@
 @startuml
 !include style.puml
 
+' TODO: Split diagram by package and supplement with description
+
 skinparam arrowThickness 1.1
-skinparam arrowColor LOGIC_COLOR
+skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
-
+skinparam packageStyle Rectangle
 hide members
+hide circle
+package Logic {
 
-Interface Logic
-Interface Parser
-Abstract Class Command
+package Parser {
+Interface Parser <<Interface>>
+Class AddressBookParser
+Class XYZCommandParser
+Class CliSyntax
+Class ParserUtil
+Class ArgumentMultimap
+Class ArgumentTokenizer
+Class Prefix
+}
 
-LogicManager .left..|> Logic
-LogicManager --up->"1" CommandHistory
-LogicManager -down->"1" AddressBookParser
-AddressBookParser -right-> XYZCommandParser: creates >
-XYZCommandParser .right.> XYZCommand : creates >
-XYZCommandParser .up.|> Parser
+package Command {
+Class XYZCommand
+Abstract Class Command <<Abstract>>
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+Class CommandHistory
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+hide circle
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+LogicManager .up.|> Logic
+LogicManager -left->"1" CommandHistory
+LogicManager -->"1" AddressBookParser
+LogicManager -[hidden]->"1" AddressBookParser
+AddressBookParser -left-> XYZCommandParser: creates >
+
+XYZCommandParser ..> XYZCommand : creates >
+XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentTokenizer
 XYZCommandParser ..> ArgumentMultimap
 ArgumentTokenizer .right.> ArgumentMultimap
-XYZCommandParser .[hidden].> ArgumentMultimap
+Parser -right[hidden]-> ArgumentTokenizer
 XYZCommandParser ..> CliSyntax
 XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
-XYZCommand .right.> Command
-LogicManager .up..> Command : executes >
+XYZCommand .up.> Command
+LogicManager ..> Command : executes >
 
-note top of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+LogicManager --> Model
+Command .right.> Model
+note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 @enduml

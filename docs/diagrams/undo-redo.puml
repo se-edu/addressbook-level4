@@ -1,8 +1,10 @@
 @startuml
+!include style.puml
+skinparam ClassFontColor #000000
 hide members
 hide circle
 
-package States <<rectangle>> {
+package States {
     class State1 as "__ab0:AddressBook__"
     class State2 as "__ab1:AddressBook__"
     class State3 as "__ab2:AddressBook__"
@@ -12,12 +14,13 @@ State2 -[hidden]right-> State3
 hide State2
 hide State3
 
-class Pointer as "CurrentState = 0"
+class Pointer as "CurrentState = 0" #FFFFF
 Pointer -up-> State1
 @end
 
 @startuml
-
+!include style.puml
+skinparam ClassFontColor #000000
 hide members
 hide circle
 
@@ -34,13 +37,14 @@ State2 -[hidden]right-> State3
 hide State3
 
 
-class Pointer as "CurrentState = 1"
+class Pointer as "CurrentState = 1" #FFFFF
 
 Pointer -up-> State2 : Delete Person
 @end
 
 @startuml
-
+!include style.puml
+skinparam ClassFontColor #000000
 hide members
 hide circle
 
@@ -54,14 +58,15 @@ package States <<rectangle>> {
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "CurrentState = 2"
+class Pointer as "CurrentState = 2" #FFFFF
 
 Pointer -up-> State3 : add n/David
 
 @end
 
 @startuml
-
+!include style.puml
+skinparam ClassFontColor #000000
 hide members
 hide circle
 
@@ -75,14 +80,15 @@ package States <<rectangle>> {
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "CurrentState = 1"
+class Pointer as "CurrentState = 1" #FFFFF
 
 Pointer -up-> State2 : undo
 
 @end
 
 @startuml
-
+!include style.puml
+skinparam ClassFontColor #000000
 hide members
 hide circle
 
@@ -96,14 +102,15 @@ package States <<rectangle>> {
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "CurrentState = 1"
+class Pointer as "CurrentState = 1" #FFFFF
 
 Pointer -up-> State2 : list
 
 @end
 
 @startuml
-
+!include style.puml
+skinparam ClassFontColor #000000
 hide members
 hide circle
 
@@ -117,7 +124,7 @@ package States <<rectangle>> {
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "CurrentState = 2"
+class Pointer as "CurrentState = 2" #FFFFF
 
 Pointer -up-> State3 : clear
 
