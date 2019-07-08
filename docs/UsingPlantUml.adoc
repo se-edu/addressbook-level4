@@ -3,14 +3,19 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :experimental:
-:toc:
-:toc-title:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
 
-== Setting up PlantUML
+== Introduction to PlantUML
+
+PlantUML is a popular tool allowing users to create various diagrams through a
+simple domain specific language.
+For more information about the basics of PlantUML, head over to
+link:http://plantuml.com/[its official website].
+
+== Set up PlantUML
 
 === Installing Graphviz
 
@@ -34,16 +39,42 @@ Configure the path to the `dot` executable.
 .Settings - Other Settings - PlantUML: input the path to your dot executable
 image::plantuml/ConfiguringGraphviz.png[]
 
+== Create/Edit PlantUML diagrams
+
+After installing the `PlantUML integration` plugin, simply create or open any
+`.puml` file to start editing it.
+
+.Editing `DeleteSequenceDiagram.puml`
+image::plantuml/OpenPumlFile.png[]
+
+Any changes you make in editor pane on the left will be reflected in the
+preview pane on the right.
+However, do take note that these changes _will not_ be reflected in the
+developers guide until you export the diagram.
+//TODO: Discussion about why we're not using asciidoctor-diagram
+
+== Export UML diagrams
+
+A helpful Gradle task `:plantUml` is provided to generate all diagrams in the
+`docs/diagrams` directory and output them in the `.png` format under
+`docs/images` directory.
+
+NOTE: You will have to `git add` any new diagrams generated!
+
+When editing your documentation, you might find it useful to have Gradle monitor
+changes to your PlantUML diagrams and and automatically export them. You can
+do this by running `gradlew -t plantUml` in a terminal.
+
 == Common tasks
 
-=== Applying consistent formatting to UML diagrams
+=== Applying consistent formatting to PlantUML diagrams
 
 It is highly recommended to consistently color your UML diagrams as an visual aid.
 You can achieve this by creating a dictionary of colors and import it à la CSS
 
-For example, you can create a `style.puml` with the contents
+For example, you can create a `Style.puml` with the contents
 
-.style.puml
+.Style.puml
 [source]
 ----
 ...
@@ -59,10 +90,10 @@ For example, you can create a `style.puml` with the contents
 
 and use it in another PlantUML file like this:
 
-.undo-sequence-diagram.puml
+.UndoSequenceDiagram.puml
 [source]
 ----
-!include style.puml
+!include Style.puml
 
 box Logic LOGIC_COLOR_T2
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -71,12 +102,136 @@ participant ":UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 ----
 
+You can fine-tune the formatting of PlantUML diagrams with the `skinparam`
+command.
+For example, `skinparam backgroundColor transparent` turns the background of the
+diagram transparent.
+
+for a comprehensive list of ``skinparam``s head over to the
+link:https://plantuml-documentation.readthedocs.io/en/latest/[unofficial
+PlantUML skinparam documentation].
+
 ***
 
-=== Exporting UML diagrams as PNGs for use
+=== Repositioning elements in PlantUML diagrams
 
-As GitHub has not implemented native support for PlantUML, we export all of our diagrams as images to avoid external
-dependencies. The PlantUML integration plugin supports exporting individual files.
+While PlantUML's automatic layout engine usually produces satisfactory results,
+it is not uncommon to get a lemon, especially on larger diagrams.
 
-The PlantUML executable jar provided on the official http://plantuml.com/download[PlantUML website] will export the
-entire directory instead. This can prove to be extremely useful.
+.The UI class diagram without additional formatting
+image::plantuml/RawUiDiagram.png[]
+
+NOTE: In most cases, you should consider decomposing the diagram into smaller
+ones or focusing on a more specific portion of the diagram.
+
+Here are some of the techniques you can use to coerce the layout engine to
+obtain a more palatable diagram.
+
+==== Link lengths
+By default, a short link (`->`) points to right and a long link (`-->`)
+points downwards. you can extend any link to make it longer (`-->`).
+
+.Length of arrows and its effects
+image::plantuml/ArrowLength.png[]
+
+==== Link directions
+Clever usage of arrow directions will resolve most layout issues.
+
+.Link directions
+[cols="40a,60a"]
+|===
+|Source |Result
+
+|[source, puml]
+----
+A --> Z
+B --> Z
+C --> Z
+D --> Z
+
+A --> 1
+B --> 2
+C --> 3
+D --> 4
+----
+|image::plantuml/AllDown.png[]
+
+|[source, puml]
+----
+'default is down
+A --> Z
+'specify down
+B -down-> Z
+'shorthand for down
+C -d-> Z
+'arrow lengths take priority
+D -down> Z
+
+A -up-> 1
+B -up-> 2
+C -up-> 3
+D -up-> 4
+
+----
+|image::plantuml/UpAndDown.png[]
+
+|[source, puml]
+----
+A -up-> Z
+B -up-> Z
+C -up-> Z
+D -up-> Z
+
+A --> 1
+B --> 2
+C --> 3
+D --> 4
+
+'Force A B C D
+A -right[hidden]- B
+B -right[hidden]- C
+C -right[hidden]- D
+----
+|image::plantuml/HiddenArrows.png[]
+|===
+
+==== Reordering definitions
+As a general rule of thumb, the layout engine will attempt to order symbols in
+the order in which they are defined. If there is no formal definition, the
+symbol is taken to be declared upon first usage.
+
+.Definition ordering and outcomes
+[cols="70a,30a"]
+|===
+|Source |Result
+
+|[source, puml]
+----
+A --> B
+C --> D
+----
+|image::plantuml/ABeforeC.png[]
+
+|[source, puml]
+----
+'Class C is defined before A
+Class C
+
+A --> B
+C --> D
+----
+|image::plantuml/CBeforeA.png[]
+
+|[source, puml]
+----
+package "Rule Of Thumb"{
+    Class C
+    A --> B
+    C --> D
+}
+----
+|image::plantuml/PackagesAndConsistency.png[]
+|===
+
+We strongly recommend that you explicitly define all symbols to avoid any
+potential layout mishaps.

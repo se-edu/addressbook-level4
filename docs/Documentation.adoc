@@ -30,7 +30,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 === Editing Diagrams
 
-See <<UsingPlantUml, UsingPlantUml.adoc>> to find out how to create and update the UML diagrams in the developer guide.
+See <<UsingPlantUml#, UsingPlantUml.adoc>> to find out how to create and update the UML diagrams in the developer guide.
 
 === Publishing Documentation
 
