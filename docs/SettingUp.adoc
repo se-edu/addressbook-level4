@@ -1,5 +1,5 @@
 = AddressBook Level 4 - Developer Guide - Setting Up
-:site-section: SettingUp
+:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
