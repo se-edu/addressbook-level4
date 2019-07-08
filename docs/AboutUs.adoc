@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === John Doe
-image::damithc.jpg[width="150", align="left"]
+image::about/JohnDoe.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Advisor
@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === John Roe
-image::lejolly.jpg[width="150", align="left"]
+image::about/JohnRoe.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
+image::about/JohnnyDoe.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Johnny Roe
-image::m133225.jpg[width="150", align="left"]
+image::about/JohnnyRoe.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -46,11 +46,10 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
+=== BensonMeier
+image::about/BensonMeier.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
-
 '''

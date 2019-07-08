@@ -16,32 +16,32 @@ If you have not set up Travis CI, see <<UsingTravis#, UsingTravis.adoc>>. Curren
 .  Find the switch for the forked repository.
 * If the organization is not shown, click `GITHUB SETTINGS` as shown below:
 +
-image:coveralls/github_settings.png[GitHub settings]
+image:coveralls/GithubSettings.png[GitHub settings]
 +
 This should bring you to a GitHub page that manages the access of third-party applications. Depending on whether you are the owner of the repository, you can either grant access
 +
-image:grant_access.png[Grant Access]
+image:coveralls/GrantAccess.png[Grant Access]
 +
 or request access
 +
-image:request_access.png[Request Access]
+image:coveralls/RequestAccess.png[Request Access]
 +
 to Coveralls so that it can access your repository.
 * If your repository cannot be found, click `SYNC REPOS`.
 +
-image:coveralls/sync_repos.png[Sync repos]
+image:coveralls/SyncRepos.png[Sync repos]
 +
 .  Activate the switch.
 +
-image:coveralls/flick_repository_switch.png[Activate the switch]
+image:coveralls/FlickRepositorySwitch.png[Activate the switch]
 +
 .  Update the link of the `Coverage Status` badge at the top of your <<README#, README.adoc>> to point to that of your own repo by replacing the outlined areas with `your-org-name/your-repo-name`.
 +
-image:coveralls/coverage_asciidoc_code.png[Coverage Status Badge]
+image:coveralls/CoverageAsciidocCode.png[Coverage Status Badge]
 +
 .  You can now see the coverage report for your project after each Travis build by clicking on the `Coverage Status` badge.
 +
-image:coveralls/coverage_report.png[Coverage Report Summary]
+image:coveralls/CoverageReport.png[Coverage Report Summary]
 
 == Disabling Coveralls Automatic Comments on Pull Requests
 
@@ -51,4 +51,4 @@ Coveralls automatically comments on the coverage status of the pull requests in 
 +
 .  Uncheck the `LEAVE COMMENTS?` checkbox. Then click `SAVE CHANGES`.
 +
-image:coveralls/disable_comments.png[Disable comments, width = 942]
+image:coveralls/DisableComments.png[Disable comments, width = 942]

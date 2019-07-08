@@ -24,7 +24,7 @@ While this is not compulsory, the `PlantUML integration` provides a live preview
 of the PlantUML file you are working on.
 
 .Settings - Plugins - Marketplace: install the `PlantUML integration` plugin
-image::PlantUmlPlugin.png[]
+image::plantuml/PlantUmlPlugin.png[]
 
 === Configuring `PlantUML integration`
 
@@ -32,7 +32,7 @@ Go to `Settings` > `Other Settings` > `PlantUML` or search for PlantUML.
 Configure the path to the `dot` executable.
 
 .Settings - Other Settings - PlantUML: input the path to your dot executable
-image::ConfiguringGraphviz.png[]
+image::plantuml/ConfiguringGraphviz.png[]
 
 == Common tasks
 

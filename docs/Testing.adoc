@@ -1,5 +1,5 @@
 = AddressBook Level 4 - Developer Guide - Testing
-:site-section: Testing
+:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -71,6 +71,6 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Open `System Preferences`, click `Security and Privacy` -> `Privacy` -> `Accessibility`, and check the box beside `Intellij IDEA`.
 
 .`Accessibility` permission is granted to `IntelliJ IDEA`
-image::testfx-idea-accessibility-permissions.png[width="600"]
+image::TestfxIdeaAccessibilityPermissions.png[width="600"]
 
 // end::testing[]
