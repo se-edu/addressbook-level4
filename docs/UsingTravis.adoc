@@ -20,36 +20,36 @@ If you would like to customise your travis build further, you can learn more abo
 .  Fork the repo to your own organization.
 .  Go to https://travis-ci.org/ and click `Sign in with GitHub`, then enter your GitHub account details if needed.
 +
-image:signing_in.png[Signing into Travis CI]
+image:travis/SigningIn.png[Signing into Travis CI]
 +
 .  Head to the https://travis-ci.org/profile[Accounts] page, and find the switch for the forked repository.
 * If the organization is not shown, click `Review and add` as shown below:
 +
-image:review_and_add.png[Review and add]
+image:travis/ReviewAndAdd.png[Review and add]
 +
 This should bring you to a GitHub page that manages the access of third-party applications. Depending on whether you are the owner of the repository, you can either grant access
 +
-image:grant_access.png[Grant Access]
+image:travis/GrantAccess.png[Grant Access]
 +
 or request access
 +
-image:request_access.png[Request Access]
+image:travis/RequestAccess.png[Request Access]
 +
 to Travis CI so that it can access your commits and build your code.
 * If repository cannot be found, click `Sync account`
 .  Activate the switch.
 +
-image:flick_repository_switch.png[Activate the switch]
+image:travis/FlickRepositorySwitch.png[Activate the switch]
 +
 .  This repo comes with a link:../.travis.yml[`.travis.yml`] that tells Travis what to do. So there is no need for you to create one yourself.
 .  To see the CI in action, push a commit to the master branch!
 * Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
 +
-image:build_pending.png[Commit build]
+image:travis/BuildPending.png[Commit build]
 +
 * As the build is run on a provided remote machine, we can only examine the logs it produces:
 +
-image:travis_build.png[Travis build]
+image:travis/TravisBuild.png[Travis build]
 +
 .  If the build is successful, you should be able to check the coverage details of the tests at http://coveralls.io/[Coveralls]
 .  Update the link to the 'build status' badge at the top of the `README.adoc` to point to the build status of your own repo.
@@ -74,11 +74,11 @@ If you are the only one with write access to the repo, you can use your own acco
 --
 We will use this token to grant Travis access to the repo.
 +
-image:generate_token.png[Generate token]
+image:travis/GenerateToken.png[Generate token]
 
 .  Head to the https://travis-ci.org/profile[Accounts] page, and find the switch for the forked repository.
 +
-image:flick_repository_switch.png[Activate the switch]
+image:travis/FlickRepositorySwitch.png[Activate the switch]
 +
 .  Click on the settings button next to the switch. In the Environment Variables section, add a new environment variable with
 +
@@ -87,7 +87,7 @@ image:flick_repository_switch.png[Activate the switch]
 * value: personal access token copied in step 1
 * Display value in build log: `OFF`
 --
-image:travis_add_token.png[Travis add token]
+image:travis/TravisAddToken.png[Travis add token]
 +
 [NOTE]
 *Make sure you set `Display value in build log` to `OFF`.* +

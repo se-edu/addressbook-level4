@@ -15,7 +15,7 @@ https://www.netlify.com/[Netlify] is an automated hosting platform for deploying
 . You will then be brought to the setup page. Click `GitHub` to link your repository to Netlify.
 * Depending on whether you are the owner of the repository, you can either grant or request access to Netlify so that it can access your repository and build your documentation.
 +
-image:netlify/grant_or_request_access.png[Grant or request access, width = 630]
+image:netlify/GrantOrRequestAccess.png[Grant or request access, width = 630]
 * After granting or requesting access to your repository, click `Authorize netlify`.
 +
 . Pick your repository from the list.
@@ -34,11 +34,11 @@ The publish directory is the directory in which the built HTML documentation res
 . Once Netlify has completed building your project, you can now:
 * View your main branch's deployed documentation on the site name given by Netlify (customizable as shown <<Changing the site name of your project, below>>).
 +
-image:netlify/temp_site_name.png[Temporary site name, width = 630]
+image:netlify/TempSiteName.png[Temporary site name, width = 630]
 +
 * Preview the updated documentation whenever a pull request is made by clicking the `Details` hyperlink next to the Netlify test status.
 +
-image:netlify/netlify_details.png[Netlify details link, width = 630]
+image:netlify/NetlifyDetails.png[Netlify details link, width = 630]
 
 == Changing the site name of your project
 If you don't like the site name given by Netlify, you can change it as follows:
@@ -47,4 +47,4 @@ If you don't like the site name given by Netlify, you can change it as follows:
 +
 . Then click `Change site name` and fill in your desired site name.
 +
-image:netlify/change_site_name.png[Change site name, width = 630]
+image:netlify/ChangeSiteName.png[Change site name, width = 630]

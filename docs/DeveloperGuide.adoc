@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>
 === Architecture
 
 .Architecture Diagram
-image::architecture-diagram.png[width="480"]
+image::ArchitectureDiagram.png[width="480"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -59,7 +59,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::logic-class-diagram.png[width="1158px"]
+image::LogicClassDiagram.png[width="1158px"]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -67,7 +67,7 @@ image::logic-class-diagram.png[width="1158px"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::architecture-sequence-diagram.png[width="552"]
+image::ArchitectureSequenceDiagram.png[width="552"]
 
 The sections below give more details of each component.
 
@@ -75,7 +75,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::ui-class-diagram.png[width="1077"]
+image::UiClassDiagram.png[width="1077"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -93,7 +93,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::logic-class-diagram.png[width="1158px"]
+image::LogicClassDiagram.png[width="1158px"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -107,13 +107,13 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::delete-sequence-diagram.png[width="1011"]
+image::DeleteSequenceDiagram.png[width="1011"]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::model-class-diagram.png[width="754px"]
+image::ModelClassDiagram.png[width="754px"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -127,13 +127,13 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:better-model-class-diagram.png[width="598px"]
+image:BetterModelClassDiagram.png[width="598px"]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::storage-class-diagram.png[width="864"]
+image::StorageClassDiagram.png[width="864"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -169,29 +169,29 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-image::undo-redo.png[width="446"]
+image::UndoRedoState0.png[width="446"]
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
-image::undo-redo_001.png[width="446"]
+image::UndoRedoState1.png[width="446"]
 
 Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
-image::undo-redo_002.png[width="446"]
+image::UndoRedoState2.png[width="446"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
 Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-image::undo-redo_003.png[width="446"]
+image::UndoRedoState3.png[width="446"]
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::undo-sequence-diagram.png[width="934"]
+image::UndoSequenceDiagram.png[width="934"]
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
@@ -200,15 +200,15 @@ If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, poin
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
-image::undo-redo_004.png[width="446"]
+image::UndoRedoState4.png[width="446"]
 
 Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
-image::undo-redo_005.png[width="541px"]
+image::UndoRedoState5.png[width="541px"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::commit-activity-diagram.png[width="244px"]
+image::CommitActivityDiagram.png[width="244px"]
 
 ==== Design Considerations
 

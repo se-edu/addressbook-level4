@@ -18,7 +18,7 @@ Restart the IDE to complete the installation.
 . Ensure that the `Checkstyle version` is set to `8.1`. This is the same version that we are using inside Gradle, so that you won't get any errors due to version incompatibility
  * If `Checkstyle version` is not set to `8.1`, set it to version `8.1` and click `Apply`
 +
-image::checkstyle-idea-scan-scope.png[width="500"]
+image::checkstyle/CheckstyleIdeaScanScope.png[width="500"]
 . Click the plus sign under `Configuration File`
 . Enter an arbitrary description e.g. addressbook
 . Select `Use a local Checkstyle file`
@@ -26,7 +26,7 @@ image::checkstyle-idea-scan-scope.png[width="500"]
 . Click `Next` > `Finish`
 . Mark `Active` for the newly imported check configuration
 +
-image::checkstyle-idea-configuration.png[width="700"]
+image::checkstyle/CheckstyleIdeaConfiguration.png[width="700"]
 . Click `OK`
 
 == Troubleshooting Checkstyle-IDEA

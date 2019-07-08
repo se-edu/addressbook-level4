@@ -1,5 +1,5 @@
 = AddressBook Level 4 - Developer Guide - Documentation
-:site-section: Documentation
+:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -44,7 +44,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
-image::chrome_save_as_pdf.png[width="300"]
+image::ChromeSaveAsPdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings

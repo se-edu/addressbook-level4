@@ -1,4 +1,4 @@
-@startuml
+@startuml UndoRedoState0
 !include style.puml
 skinparam ClassFontColor #000000
 hide members
@@ -18,7 +18,7 @@ class Pointer as "CurrentState = 0" #FFFFF
 Pointer -up-> State1
 @end
 
-@startuml
+@startuml UndoRedoState1
 !include style.puml
 skinparam ClassFontColor #000000
 hide members
@@ -42,7 +42,7 @@ class Pointer as "CurrentState = 1" #FFFFF
 Pointer -up-> State2 : Delete Person
 @end
 
-@startuml
+@startuml UndoRedoState2
 !include style.puml
 skinparam ClassFontColor #000000
 hide members
@@ -64,7 +64,7 @@ Pointer -up-> State3 : add n/David
 
 @end
 
-@startuml
+@startuml UndoRedoState3
 !include style.puml
 skinparam ClassFontColor #000000
 hide members
@@ -86,7 +86,7 @@ Pointer -up-> State2 : undo
 
 @end
 
-@startuml
+@startuml UndoRedoState4
 !include style.puml
 skinparam ClassFontColor #000000
 hide members
@@ -108,7 +108,7 @@ Pointer -up-> State2 : list
 
 @end
 
-@startuml
+@startuml UndoRedoState5
 !include style.puml
 skinparam ClassFontColor #000000
 hide members
