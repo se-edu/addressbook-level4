@@ -83,4 +83,4 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 === Getting started with coding
 
-When you are ready to start coding, get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
