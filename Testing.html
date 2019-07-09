@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>AddressBook Level 4 - Testing</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level4</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level4"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>AddressBook Level 4 - Testing</h1></div><div id="content"><div class="sect1">
+<h2 id="running-tests"><a class="link" href="#running-tests">1. Running Tests</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are three ways to run tests.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Method 1: Using IntelliJ JUnit test runner</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To run all tests, right-click on the <code>src/test/java</code> folder and choose <code>Run 'All Tests'</code></p>
+</li>
+<li>
+<p>To run a subset of tests, you can right-click on a test package, test class, or a test and choose <code>Run 'ABC'</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Method 2: Using Gradle</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open a console and run the command <code>gradlew clean allTests</code> (Mac/Linux: <code>./gradlew clean allTests</code>)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run tests using Gradle.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Method 3: Using Gradle (headless)</strong></p>
+</div>
+<div class="paragraph">
+<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.</p>
+</div>
+<div class="paragraph">
+<p>To run tests in headless mode, open a console and run the command <code>gradlew clean headless allTests</code> (Mac/Linux: <code>./gradlew clean headless allTests</code>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="types-of-tests"><a class="link" href="#types-of-tests">2. Types of tests</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have two types of tests:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>GUI Tests</strong> - These are tests involving the GUI. They include,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
+</li>
+<li>
+<p><em>Unit tests</em> that test the individual components. These are in <code>seedu.address.ui</code> package.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
+e.g. <code>seedu.address.commons.StringUtilTest</code></p>
+</li>
+<li>
+<p><em>Integration tests</em> that are checking the integration of multiple code units (those code units are assumed to be working).<br>
+e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
+</li>
+<li>
+<p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
+e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">3. Troubleshooting Testing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: One of its dependencies, <code>HelpWindow.html</code> in <code>src/main/resources/docs</code> is missing.</p>
+</li>
+<li>
+<p>Solution: Execute Gradle task <code>processResources</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: From macOS Mojave onwards, applications without <code>Accessibility</code> permission cannot simulate certain keyboard and mouse movements.</p>
+</li>
+<li>
+<p>Solution: Open <code>System Preferences</code>, click <code>Security and Privacy</code> &#8594; <code>Privacy</code> &#8594; <code>Accessibility</code>, and check the box beside <code>Intellij IDEA</code>.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/testfx-idea-accessibility-permissions.png" alt="testfx idea accessibility permissions" width="600">
+</div>
+<div class="title">Figure 1. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-07-09 13:29:14 UTC</div></div></div></body></html>

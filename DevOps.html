@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>AddressBook Level 4 - Dev Ops</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level4</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level4"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>AddressBook Level 4 - Dev Ops</h1></div><div id="content"><div class="sect1">
+<h2 id="build-automation"><a class="link" href="#build-automation">1. Build Automation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> to learn how to use Gradle for build automation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="continuous-integration"><a class="link" href="#continuous-integration">2. Continuous Integration</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.html">UsingTravis.adoc</a> and <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="coverage-reporting"><a class="link" href="#coverage-reporting">3. Coverage Reporting</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We use <a href="https://coveralls.io/">Coveralls</a> to track the code coverage of our projects. See <a href="UsingCoveralls.html">UsingCoveralls.adoc</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="documentation-previews"><a class="link" href="#documentation-previews">4. Documentation Previews</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When a pull request has changes to asciidoc files, you can use <a href="https://www.netlify.com/">Netlify</a> to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <a href="UsingNetlify.html">UsingNetlify.adoc</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="making-a-release"><a class="link" href="#making-a-release">5. Making a Release</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here are the steps to create a new release.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update the version number in <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp.java</code></a>.</p>
+</li>
+<li>
+<p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
+</li>
+<li>
+<p>Tag the repo with the version number. e.g. <code>v0.1</code></p>
+</li>
+<li>
+<p><a href="https://help.github.com/articles/creating-releases/">Create a new release using GitHub</a> and upload the JAR file you created.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="managing-dependencies"><a class="link" href="#managing-dependencies">6. Managing Dependencies</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A project often depends on third-party libraries. For example, Address Book depends on the <a href="https://github.com/FasterXML/jackson">Jackson library</a> for JSON parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Include those libraries in the repo (this bloats the repo size)</p>
+</li>
+<li>
+<p>Require developers to download those libraries manually (this creates extra work for developers)</p>
+</li>
+</ol>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-07-09 13:29:14 UTC</div></div></div></body></html>

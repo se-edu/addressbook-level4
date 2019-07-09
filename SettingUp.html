@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>AddressBook Level 4 - Setting Up</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level4</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level4"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>AddressBook Level 4 - Setting Up</h1></div><div id="content"><div class="sect1">
+<h2 id="prerequisites"><a class="link" href="#prerequisites">1. Prerequisites</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>JDK <code>11</code></strong> or above</p>
+</li>
+<li>
+<p><strong>IntelliJ</strong> IDE</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+IntelliJ by default has Gradle and JavaFx plugins installed.<br>
+Do not disable them. If you have disabled them, go to <code>File</code> &gt; <code>Settings</code> &gt; <code>Plugins</code> to re-enable them.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-the-project-in-your-computer"><a class="link" href="#setting-up-the-project-in-your-computer">2. Setting up the project in your computer</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Fork this repo, and clone the fork to your computer</p>
+</li>
+<li>
+<p>Open IntelliJ (if you are not in the welcome screen, click <code>File</code> &gt; <code>Close Project</code> to close the existing project dialog first)</p>
+</li>
+<li>
+<p>Set up the correct JDK version for Gradle</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <code>Configure</code> &gt; <code>Project Defaults</code> &gt; <code>Project Structure</code></p>
+</li>
+<li>
+<p>Click <code>New&#8230;&#8203;</code> and find the directory of the JDK</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Click <code>Import Project</code></p>
+</li>
+<li>
+<p>Locate the <code>build.gradle</code> file and select it. Click <code>OK</code></p>
+</li>
+<li>
+<p>Click <code>Open as Project</code></p>
+</li>
+<li>
+<p>Click <code>OK</code> to accept the default settings</p>
+</li>
+<li>
+<p>Open a console and run the command <code>gradlew processResources</code> (Mac/Linux: <code>./gradlew processResources</code>). It should finish with the <code>BUILD SUCCESSFUL</code> message.<br>
+This will generate all resources required by the application and tests.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="verifying-the-setup"><a class="link" href="#verifying-the-setup">3. Verifying the setup</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the <code>seedu.address.Main</code> and try a few commands</p>
+</li>
+<li>
+<p><a href="DeveloperGuide.html#Testing">Run the tests</a> to ensure they all pass.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configurations-to-do-before-writing-code"><a class="link" href="#configurations-to-do-before-writing-code">4. Configurations to do before writing code</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="configuring-the-coding-style"><a class="link" href="#configuring-the-coding-style">4.1. Configuring the coding style</a></h3>
+<div class="paragraph">
+<p>This project follows <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc">oss-generic coding standards</a>. IntelliJ&#8217;s default style is mostly compliant with ours but it uses a different import order from ours. To rectify,</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <code>File</code> &gt; <code>Settings&#8230;&#8203;</code> (Windows/Linux), or <code>IntelliJ IDEA</code> &gt; <code>Preferences&#8230;&#8203;</code> (macOS)</p>
+</li>
+<li>
+<p>Select <code>Editor</code> &gt; <code>Code Style</code> &gt; <code>Java</code></p>
+</li>
+<li>
+<p>Click on the <code>Imports</code> tab to set the order</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For <code>Class count to use import with '*'</code> and <code>Names count to use static import with '*'</code>: Set to <code>999</code> to prevent IntelliJ from contracting the import statements</p>
+</li>
+<li>
+<p>For <code>Import Layout</code>: The order is <code>import static all other imports</code>, <code>import java.*</code>, <code>import javax.*</code>, <code>import org.*</code>, <code>import com.*</code>, <code>import all other imports</code>. Add a <code>&lt;blank line&gt;</code> between each <code>import</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Optionally, you can follow the <a href="UsingCheckstyle.html">UsingCheckstyle.adoc</a> document to configure Intellij to check style-compliance as you write code.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updating-documentation-to-match-your-fork"><a class="link" href="#updating-documentation-to-match-your-fork">4.2. Updating documentation to match your fork</a></h3>
+<div class="paragraph">
+<p>After forking the repo, the documentation will still have the SE-EDU branding and refer to the <code>se-edu/addressbook-level4</code> repo.</p>
+</div>
+<div class="paragraph">
+<p>If you plan to develop this fork as a separate product (i.e. instead of contributing to <code>se-edu/addressbook-level4</code>), you should do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure the <a href="Documentation.html#Docs-SiteWideDocSettings">site-wide documentation settings</a> in link:https://github.com/se-edu/addressbook-level4/tree/master/build
+.gradle[<code>build.gradle</code>], such as the <code>site-name</code>, to suit your own project.</p>
+</li>
+<li>
+<p>Replace the URL in the attribute <code>repoURL</code> in <a href="https://github.com/se-edu/addressbook-level4/tree/master/docs/DeveloperGuide.adoc"><code>DeveloperGuide.adoc</code></a> and <a href="https://github.com/se-edu/addressbook-level4/tree/master/docs/UserGuide.adoc"><code>UserGuide.adoc</code></a> with the URL of your fork.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-ci"><a class="link" href="#setting-up-ci">4.3. Setting up CI</a></h3>
+<div class="paragraph">
+<p>Set up Travis to perform Continuous Integration (CI) for your fork. See <a href="UsingTravis.html">UsingTravis.adoc</a> to learn how to set it up.</p>
+</div>
+<div class="paragraph">
+<p>After setting up Travis, you can optionally set up coverage reporting for your team fork (see <a href="UsingCoveralls.html">UsingCoveralls.adoc</a>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Optionally, you can set up AppVeyor as a second CI (see <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getting-started-with-coding"><a class="link" href="#getting-started-with-coding">4.4. Getting started with coding</a></h3>
+<div class="paragraph">
+<p>When you are ready to start coding,</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get some sense of the overall design by reading <a href="DeveloperGuide.html#Design-Architecture">DeveloperGuide.html</a>.</p>
+</li>
+<li>
+<p>Take a look at <a href="DeveloperGuide.html#GetStartedProgramming">DeveloperGuide.html</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-07-09 13:29:14 UTC</div></div></div></body></html>
