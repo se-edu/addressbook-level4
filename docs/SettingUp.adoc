@@ -40,7 +40,7 @@ This will generate all resources required by the application and tests.
 == Verifying the setup
 
 . Run the `seedu.address.Main` and try a few commands
-. <<DeveloperGuide#Testing,Run the tests>> to ensure they all pass.
+. <<Testing#,Run the tests>> to ensure they all pass.
 
 == Configurations to do before writing code
 
