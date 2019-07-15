@@ -261,7 +261,6 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 Refer to the guide <<Documentation#, here>>.
 
-[[Testing]]
 == Testing
 
 Refer to the guide <<Testing#, here>>.
