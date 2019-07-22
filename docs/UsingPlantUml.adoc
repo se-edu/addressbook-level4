@@ -47,6 +47,15 @@ Any changes you make in editor pane on the left will be reflected in the preview
 However, do take note that these changes _will not_ be reflected in the developers guide until you export the diagram.
 //TODO: Discussion about why we're not using asciidoctor-diagram
 
+== Export UML diagrams
+
+A helpful Gradle task `:plantUml` is provided to generate all diagrams in the `docs/diagrams` directory and output them in the `.png` format under `docs/images` directory.
+
+NOTE: You will have to `git add` any new diagrams generated!
+
+When editing your documentation, you might find it useful to have Gradle monitor changes to your PlantUML diagrams and and automatically export them.
+You can do this by running `gradlew -t plantUml` in a terminal.
+
 == Common tasks
 
 === Applying consistent formatting to PlantUML diagrams

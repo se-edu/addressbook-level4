@@ -4,10 +4,20 @@
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
+buildscript {
+    dependencies {
+        classpath('com.cosminpolifronie.gradle:gradle-plantuml-plugin:1.6.0') {
+            exclude group: 'net.sourceforge.plantuml', module: 'plantuml'
+        }
+        classpath "net.sourceforge.plantuml:plantuml:1.2019.8"
+    }
+}
+
 plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
+    id 'com.cosminpolifronie.gradle.plantuml' version '1.6.0'
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
@@ -227,6 +237,14 @@ task deployOfflineDocs(type: Copy) {
     }
 }
 
+apply plugin: 'com.cosminpolifronie.gradle.plantuml'
+
+plantUml {
+    render input: 'docs/diagrams/*.puml', output: 'docs/images', format: 'png', withMetadata: false
+}
+
+// workaround as the task and plugin has the same name
+asciidoctor.dependsOn tasks.plantUml
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
