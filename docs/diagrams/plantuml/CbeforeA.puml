@@ -1,0 +1,11 @@
+@startuml
+!include ../style.puml
+
+Class C UI_COLOR_T3
+Class A LOGIC_COLOR_T3
+Class B LOGIC_COLOR_T3
+Class D UI_COLOR_T3
+
+A --> B
+C --> D
+@enduml
