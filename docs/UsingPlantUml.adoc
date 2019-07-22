@@ -1,6 +1,6 @@
 = Using PlantUML
 :site-section: DeveloperGuide
-:imagesDir: images
+:imagesDir: images/plantuml
 :stylesDir: stylesheets
 :experimental:
 ifdef::env-github[]
@@ -11,8 +11,7 @@ endif::[]
 == Introduction to PlantUML
 
 PlantUML is a popular tool in this project to create UML diagrams.
-For more information about the basics of PlantUML, head over to
-link:http://plantuml.com/[its official website].
+For more information about the basics of PlantUML, head over to http://plantuml.com/[its official website].
 
 == Set up PlantUML
 
@@ -25,13 +24,9 @@ Head over to the https://www.graphviz.org/download/[downloads page] on the offci
 
 While this is not compulsory, the `PlantUML integration` provides a live preview of the PlantUML file you are working on.
 
-.Settings - Plugins - Marketplace: install the `PlantUML integration` plugin
-image::PlantUmlPlugin.png[]
-
-=== Configuring `PlantUML integration`
-
 Go to `Settings` > `Other Settings` > `PlantUML` or search for PlantUML.
 Configure the path to the `dot` executable.
+This executable can be found in the `/bin` directory where you installed GraphViz.
 
 .Settings - Other Settings - PlantUML: input the path to your dot executable
 image::ConfiguringGraphviz.png[]
@@ -41,11 +36,21 @@ image::ConfiguringGraphviz.png[]
 After installing the `PlantUML integration` plugin, simply create or open any `.puml` file to start editing it.
 
 .Editing `DeleteSequenceDiagram.puml`
-image::OpenPumlFile.png[]
-
+image::EditingDeleteSequenceDiagram.png[]
 Any changes you make in editor pane on the left will be reflected in the preview pane on the right.
 However, do take note that these changes _will not_ be reflected in the developers guide until you export the diagram.
 //TODO: Discussion about why we're not using asciidoctor-diagram
+
+== Export UML diagrams
+
+A helpful Gradle task `:plantUml` is provided to generate all diagrams in the `docs/diagrams` directory and output them in the `.png` format under `docs/images` directory.
+
+NOTE: You will have to `git add` any new diagrams generated!
+
+When editing your documentation, you might find it useful to have Gradle monitor changes to your PlantUML diagrams and and automatically export them.
+You can do this by running `gradlew -t plantUml` in a terminal.
+The `-t` flag enables _continuous build_ which will watch for changes to files and execute specified tasks.
+In this case, gradle will run the task `plantUml` when it detects changes to your PlantUML diagrams.
 
 == Common tasks
 
@@ -109,6 +114,7 @@ image::ArrowLength.png[]
 
 ==== Link directions
 Clever usage of arrow directions will resolve most layout issues.
+For example, the table below shows how the way in which you specify arrows can results in drastically different layouts for the same diagram.
 
 .Link directions
 [cols="40a,60a"]
@@ -205,5 +211,4 @@ package "Rule Of Thumb"{
 |image::PackagesAndConsistency.png[]
 |===
 
-We strongly recommend that you explicitly define all symbols to avoid any
-potential layout mishaps.
+TIP: Explicitly define all symbols to avoid any potential layout mishaps.
