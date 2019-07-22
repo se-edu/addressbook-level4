@@ -1,0 +1,27 @@
+@startuml
+!include ../style.puml
+
+Package "Short\n->" {
+Class A LOGIC_COLOR_T1
+Class B LOGIC_COLOR_T1
+A -> B
+}
+
+Package "Long\n-->" {
+Class C LOGIC_COLOR_T2
+Class D LOGIC_COLOR_T2
+C --> D
+}
+
+Package "Longer\n--->" {
+Class E LOGIC_COLOR_T3
+Class F LOGIC_COLOR_T3
+E ---> F
+}
+
+Package "Even Longer\n---->" {
+Class G LOGIC_COLOR_T4
+Class H LOGIC_COLOR_T4
+G ----> H
+}
+@enduml
