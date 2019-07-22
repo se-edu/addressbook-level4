@@ -4,8 +4,6 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-hide members
-
 VersionedAddressBook *-right-> "1" UniquePersonList
 VersionedAddressBook *-right-> "1" UniqueTagList
 UniqueTagList -[hidden]down- UniquePersonList
@@ -20,5 +18,4 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-
 @enduml

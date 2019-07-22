@@ -42,11 +42,13 @@ skinparam Class {
     BorderThickness 1
     BorderColor #FFFFFF
     StereotypeFontColor #FFFFFF
+    FontName Arial
 }
 
 skinparam Actor {
     BorderColor USER_COLOR
     Color USER_COLOR
+    FontName Arial
 }
 
 skinparam Sequence {
@@ -54,6 +56,7 @@ skinparam Sequence {
     BoxFontSize 15
     BoxPadding 0
     BoxFontColor #FFFFFF
+    FontName Arial
 }
 
 skinparam Participant {

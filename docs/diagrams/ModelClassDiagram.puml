@@ -54,7 +54,5 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-
-
 ModelManager -->"1" Person : filtered list
 @enduml

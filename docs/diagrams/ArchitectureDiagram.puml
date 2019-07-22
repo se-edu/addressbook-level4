@@ -42,8 +42,4 @@ Hidden .down.> Commons
 Storage .right.>File
 User --> UI
 Main --> Hidden
-
-'Main -up[hidden]-Storage
-'UI -[hidden]- Hidden
-hide circle
 @enduml

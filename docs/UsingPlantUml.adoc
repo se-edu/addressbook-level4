@@ -43,14 +43,14 @@ However, do take note that these changes _will not_ be reflected in the develope
 
 == Export PlantUML diagrams
 
-A Gradle task `plantUml` is provided to generate all diagrams in the `docs/diagrams` directory and output them in the `.png` format under `docs/images` directory.
+The `PlantUML integration` plugin allows you to export individual diagrams to a location of your choosing.
+
+However, the plugin does not support diagrams with multiple pages.
+If you have diagrams using the `newpage` feature, you will need to download the `plantuml` jar from the http://plantuml.com/download[official website].
 
 NOTE: You will have to `git add` any new diagrams generated!
 
-TIP: When editing your documentation, you might find it useful to have Gradle monitor changes to your PlantUML diagrams and and automatically export them.
-You can do this by running `gradlew -t plantUml` in a terminal.
-The `-t` flag enables _continuous build_ which will watch for changes to files and execute specified tasks.
-In this case, gradle will run the task `plantUml` when it detects changes to your PlantUML diagrams.
+TIP: `plantuml.jar` will monitor changes and automatically export diagrams that have been modified!
 
 == Common tasks
 

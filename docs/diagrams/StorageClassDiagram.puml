@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-
+skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
@@ -8,12 +8,9 @@ Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface AddressBookStorage <<Interface>>
 
-
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonAddressBookStorage
-
-
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage

@@ -66,6 +66,4 @@ deactivate DeleteCommand
 
 [<--LogicManager
 deactivate LogicManager
-
-hide footbox
 @enduml

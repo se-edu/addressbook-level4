@@ -1,14 +1,9 @@
 @startuml
 !include style.puml
-
-' TODO: Split diagram by package and supplement with description
-
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
-skinparam packageStyle Rectangle
-hide members
-hide circle
+
 package Logic {
 
 package Parser {

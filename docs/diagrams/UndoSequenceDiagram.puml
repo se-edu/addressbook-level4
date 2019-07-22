@@ -48,7 +48,6 @@ deactivate UndoCommand
 UndoCommand -[hidden]-> LogicManager : result
 destroy UndoCommand
 
-
 [<--LogicManager
 deactivate LogicManager
 
