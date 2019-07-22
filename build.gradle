@@ -243,8 +243,6 @@ plantUml {
     render input: 'docs/diagrams/*.puml', output: 'docs/images', format: 'png', withMetadata: false
 }
 
-// workaround as the task and plugin has the same name
-asciidoctor.dependsOn tasks.plantUml
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
