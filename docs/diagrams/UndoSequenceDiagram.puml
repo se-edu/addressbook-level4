@@ -50,6 +50,4 @@ destroy UndoCommand
 
 [<--LogicManager
 deactivate LogicManager
-
-hide footbox
 @enduml

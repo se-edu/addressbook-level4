@@ -20,12 +20,10 @@ Class CommandBox
 
 package Model <<Rectangle>> {
 Class HiddenModel #FFFFFF
-hide circle
 }
 
 package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
-hide circle
 }
 
 Class HiddenOutside #FFFFFF

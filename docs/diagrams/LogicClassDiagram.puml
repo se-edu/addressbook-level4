@@ -30,7 +30,6 @@ Class CommandHistory
 
 package Model{
 Class HiddenModel #FFFFFF
-hide circle
 }
 
 Class HiddenOutside #FFFFFF

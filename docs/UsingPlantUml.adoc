@@ -10,7 +10,7 @@ endif::[]
 
 == Introduction to PlantUML
 
-PlantUML is a popular tool in this project to create UML diagrams.
+PlantUML is a tool used in this project to create UML diagrams.
 For more information about the basics of PlantUML, head over to http://plantuml.com/[its official website].
 
 == Set up PlantUML
@@ -18,7 +18,7 @@ For more information about the basics of PlantUML, head over to http://plantuml.
 === Installing Graphviz
 
 Graphviz is a dependency that PlantUML requires to generate more advanced diagrams.
-Head over to the https://www.graphviz.org/download/[downloads page] on the offcial Graphviz website and follow instructions to install Graphviz.
+Head over to the https://www.graphviz.org/download/[downloads page] on the official Graphviz website and follow instructions to install Graphviz.
 
 === Installing the `PlantUML integration` plugin for IntelliJ IDEA
 
