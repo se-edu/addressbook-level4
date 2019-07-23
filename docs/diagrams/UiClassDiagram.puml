@@ -8,7 +8,7 @@ hide members
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
-Abstract Class UiPart <<Abstract>>
+Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
@@ -29,6 +29,9 @@ package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 hide circle
 }
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow

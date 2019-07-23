@@ -15,12 +15,12 @@ Class JsonAddressBookStorage
 
 
 
-StorageManager -left-|> Storage
-UserPrefsStorage -right-o StorageManager
-AddressBookStorage -down-o StorageManager
+StorageManager .left.|> Storage
+StorageManager o-right-> UserPrefsStorage
+StorageManager o--> AddressBookStorage
 
-JsonUserPrefsStorage -left-|> UserPrefsStorage
-JsonAddressBookStorage -left-|> AddressBookStorage
+JsonUserPrefsStorage .left.|> UserPrefsStorage
+JsonAddressBookStorage .left.|> AddressBookStorage
 JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
 JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
 JsonSerializablePerson .right.> JsonAdaptedTag
