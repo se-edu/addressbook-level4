@@ -177,10 +177,10 @@ task headless {
         println 'Setting headless mode properties.'
         test {
             systemProperties = [
-                'testfx.robot': 'glass',
-                'testfx.headless': 'true',
-                'prism.order': 'sw',
-                'prism.text': 't2k',
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
             ]
         }
     }
@@ -195,22 +195,22 @@ asciidoctor {
     outputDir "${buildDir}/docs"
 
     options = [
-        template_dirs: [file("${sourceDir}/templates")],
+            template_dirs: [file("${sourceDir}/templates")],
     ]
 
     attributes = [
-        linkcss: true,
-        stylesheet: 'gh-pages.css',
-        'source-highlighter': 'coderay',
-        icons: 'font',
-        experimental: true,
-        sectlinks: true,
-        idprefix: '',  // for compatibility with GitHub preview
-        idseparator: '-',
-        'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+            linkcss: true,
+            stylesheet: 'gh-pages.css',
+            'source-highlighter': 'coderay',
+            icons: 'font',
+            experimental: true,
+            sectlinks: true,
+            idprefix: '',  // for compatibility with GitHub preview
+            idseparator: '-',
+            'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
+            'site-name': 'AddressBook-Level4',
+            'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
+            'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
     options['template_dirs'].each {
