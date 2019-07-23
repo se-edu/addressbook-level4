@@ -9,7 +9,7 @@ buildscript {
         classpath('com.cosminpolifronie.gradle:gradle-plantuml-plugin:1.6.0') {
             exclude group: 'net.sourceforge.plantuml', module: 'plantuml'
         }
-        classpath "net.sourceforge.plantuml:plantuml:1.2019.8"
+        classpath 'net.sourceforge.plantuml:plantuml:1.2019.7'
     }
 }
 

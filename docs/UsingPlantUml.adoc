@@ -41,13 +41,13 @@ Any changes you make in editor pane on the left will be reflected in the preview
 However, do take note that these changes _will not_ be reflected in the developers guide until you export the diagram.
 //TODO: Discussion about why we're not using asciidoctor-diagram
 
-== Export UML diagrams
+== Export PlantUML diagrams
 
-A helpful Gradle task `:plantUml` is provided to generate all diagrams in the `docs/diagrams` directory and output them in the `.png` format under `docs/images` directory.
+A Gradle task `plantUml` is provided to generate all diagrams in the `docs/diagrams` directory and output them in the `.png` format under `docs/images` directory.
 
 NOTE: You will have to `git add` any new diagrams generated!
 
-When editing your documentation, you might find it useful to have Gradle monitor changes to your PlantUML diagrams and and automatically export them.
+TIP: When editing your documentation, you might find it useful to have Gradle monitor changes to your PlantUML diagrams and and automatically export them.
 You can do this by running `gradlew -t plantUml` in a terminal.
 The `-t` flag enables _continuous build_ which will watch for changes to files and execute specified tasks.
 In this case, gradle will run the task `plantUml` when it detects changes to your PlantUML diagrams.
@@ -57,9 +57,9 @@ In this case, gradle will run the task `plantUml` when it detects changes to you
 === Applying consistent formatting to PlantUML diagrams
 
 It is highly recommended to consistently color your UML diagrams as an visual aid.
-You can achieve this by creating a dictionary of colors and import it à la CSS
+You can achieve this by creating a dictionary of colors and import it like CSS.
 
-For example, you can create a `Style.puml` with the contents
+For example, you can create a `Style.puml` with the contents:
 
 .Style.puml
 [source]
@@ -73,7 +73,7 @@ For example, you can create a `Style.puml` with the contents
 ...
 ----
 
-and use it in another PlantUML file like this:
+Then you can use it in another PlantUML file like this:
 
 .UndoSequenceDiagram.puml
 [source]
@@ -106,8 +106,8 @@ NOTE: In most cases, you should consider decomposing the diagram into smaller on
 Here are some of the techniques we used in this project to obtain a more palatable diagram.
 
 ==== Link lengths
-By default, a short link (`->`) points to right and a long link (`-->`)
-points downwards. you can extend any link to make it longer (`-->`).
+By default, a short link (`\->`) points to right and a long link (`-\->`)
+points downwards. you can extend any link to make it longer (```--\->```).
 
 .Length of arrows and its effects
 image::ArrowLength.png[]
