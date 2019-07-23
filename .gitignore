@@ -19,3 +19,7 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# style.png generated from the style.puml file
+/docs/images/style.png
+/docs/images/plantuml/style.png
