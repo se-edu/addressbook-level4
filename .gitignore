@@ -22,3 +22,4 @@ src/test/data/sandbox/
 
 # style.png generated from the style.puml file
 /docs/images/style.png
+/docs/images/plantuml/style.png
