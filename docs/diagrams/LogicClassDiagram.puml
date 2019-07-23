@@ -24,7 +24,8 @@ Class Prefix
 
 package Command {
 Class XYZCommand
-Abstract Class Command <<Abstract>>
+Class CommandResult
+Class "{abstract}\nCommand" as Command
 }
 
 Interface Logic <<Interface>>
@@ -43,23 +44,27 @@ HiddenOutside ..> Logic
 LogicManager .up.|> Logic
 LogicManager -left->"1" CommandHistory
 LogicManager -->"1" AddressBookParser
-LogicManager -[hidden]->"1" AddressBookParser
-AddressBookParser -left-> XYZCommandParser: creates >
+AddressBookParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentTokenizer
 XYZCommandParser ..> ArgumentMultimap
-ArgumentTokenizer .right.> ArgumentMultimap
-Parser -right[hidden]-> ArgumentTokenizer
+XYZCommandParser ..> ArgumentTokenizer
+ArgumentTokenizer .left.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
+CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
-XYZCommand .up.> Command
+XYZCommand -up-|> Command
 LogicManager ..> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
 note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+
+Logic ..> CommandResult
+LogicManager .down.> CommandResult
+Command .left.> CommandResult
+CommandResult -[hidden]-> Parser
 @enduml
