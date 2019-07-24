@@ -90,7 +90,7 @@ end box
 You can fine-tune the formatting of PlantUML diagrams with the `skinparam` command.
 For example, `skinparam backgroundColor transparent` turns the background of the diagram transparent.
 
-For a comprehensive list of ``skinparam``s head over to the link:https://plantuml-documentation.readthedocs.io/en/latest/[unofficial PlantUML skinparam documentation].
+For a comprehensive list of ``skinparam``s head over to the https://plantuml-documentation.readthedocs.io/en/latest/[unofficial PlantUML skinparam documentation].
 
 ***
 
