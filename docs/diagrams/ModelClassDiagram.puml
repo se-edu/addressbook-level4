@@ -33,23 +33,22 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook ..|> ReadOnlyAddressBook
-VersionedAddressBook ..|> AddressBook
+AddressBook .up.|> ReadOnlyAddressBook
+VersionedAddressBook .up.|> AddressBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" VersionedAddressBook
-ModelManager o-right-> "1" UserPrefs
-UserPrefs .right.|> ReadOnlyUserPrefs
-'VersionedAddressBook -[hidden]down- UserPrefs
+ModelManager o-left-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
 
-VersionedAddressBook *-right-> "1" UniquePersonList
-UniquePersonList o--right> "*" Person
+VersionedAddressBook *--> "1" UniquePersonList
+UniquePersonList o--> "*" Person
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-Person *-right-> "*" Tag
+Person *--> "*" Tag
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address

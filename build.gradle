@@ -237,8 +237,6 @@ task deployOfflineDocs(type: Copy) {
     }
 }
 
-apply plugin: 'com.cosminpolifronie.gradle.plantuml'
-
 plantUml {
     render input: 'docs/diagrams/*.puml', output: 'docs/images', format: 'png'
     render input: 'docs/diagrams/plantuml/*.puml', output: 'docs/images/plantuml', format: 'png'
