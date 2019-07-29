@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Using PlantUML</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level4</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level4"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Using PlantUML</h1></div><div id="content"><div class="sect1">
+<h2 id="introduction-to-plantuml"><a class="link" href="#introduction-to-plantuml">Introduction to PlantUML</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PlantUML is a tool used in this project to create UML diagrams.
+For more information about the basics of PlantUML, head over to <a href="http://plantuml.com/">its official website</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="set-up-plantuml"><a class="link" href="#set-up-plantuml">Set up PlantUML</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="installing-graphviz"><a class="link" href="#installing-graphviz">Installing Graphviz</a></h3>
+<div class="paragraph">
+<p>Graphviz is a dependency that PlantUML requires to generate more advanced diagrams.
+Head over to the <a href="https://www.graphviz.org/download/">downloads page</a> on the official Graphviz website and follow instructions to install Graphviz.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-the-code-plantuml-integration-code-plugin-for-intellij-idea"><a class="link" href="#installing-the-code-plantuml-integration-code-plugin-for-intellij-idea">Installing the <code>PlantUML integration</code> plugin for IntelliJ IDEA</a></h3>
+<div class="paragraph">
+<p>Go to <code>Settings</code> &gt; <code>Plugins</code> &gt; <code>Marketplace</code> and install the plugin <code>PlantUML integration</code>.</p>
+</div>
+<div class="paragraph">
+<p>Then go to <code>Settings</code> &gt; <code>Other Settings</code> &gt; <code>PlantUML</code> or search for PlantUML.
+Configure the path to the <code>dot</code> executable.
+This executable can be found in the <code>/bin</code> directory where you installed GraphViz.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/plantuml/ConfiguringGraphviz.png" alt="ConfiguringGraphviz">
+</div>
+<div class="title">Figure 1. Settings - Other Settings - PlantUML: input the path to your dot executable</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-edit-plantuml-diagrams"><a class="link" href="#create-edit-plantuml-diagrams">Create/Edit PlantUML diagrams</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After installing the <code>PlantUML integration</code> plugin, simply create or open any <code>.puml</code> file to start editing it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/plantuml/EditingDeleteSequenceDiagram.png" alt="EditingDeleteSequenceDiagram">
+</div>
+<div class="title">Figure 2. Editing <code>DeleteSequenceDiagram.puml</code></div>
+</div>
+<div class="paragraph">
+<p>Any changes you make in editor pane on the left will be reflected in the preview pane on the right.
+However, do take note that these changes <em>will not</em> be reflected in the developers guide until you export the diagram.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="export-plantuml-diagrams"><a class="link" href="#export-plantuml-diagrams">Export PlantUML diagrams</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>PlantUML integration</code> plugin allows you to export individual diagrams to a location of your choosing.
+Click the <code>Save Current Diagram Only</code> button and choose the location to export the image file.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You will have to <code>git add</code> any new diagrams generated!
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="common-tasks"><a class="link" href="#common-tasks">Common tasks</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="applying-consistent-formatting-to-plantuml-diagrams"><a class="link" href="#applying-consistent-formatting-to-plantuml-diagrams">Applying consistent formatting to PlantUML diagrams</a></h3>
+<div class="paragraph">
+<p>It is highly recommended to consistently color your UML diagrams as an visual aid.
+You can achieve this by creating a dictionary of colors and import it like CSS.</p>
+</div>
+<div class="paragraph">
+<p>For example, you can create a <code>Style.puml</code> with the contents:</p>
+</div>
+<div class="listingblock">
+<div class="title">Style.puml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code>...
+!define LOGIC_COLOR #3333C4
+!define LOGIC_COLOR_T1 #7777DB
+!define LOGIC_COLOR_T2 #5252CE
+!define LOGIC_COLOR_T3 #1616B0
+!define LOGIC_COLOR_T4 #101086
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you can use it in another PlantUML file like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">UndoSequenceDiagram.puml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code>!include Style.puml
+
+box Logic LOGIC_COLOR_T2
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":UndoCommand" as UndoCommand LOGIC_COLOR
+end box</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can fine-tune the formatting of PlantUML diagrams with the <code>skinparam</code> command.
+For example, <code>skinparam backgroundColor transparent</code> turns the background of the diagram transparent.</p>
+</div>
+<div class="paragraph">
+<p>For a comprehensive list of <code>skinparam</code>s head over to the <a href="https://plantuml-documentation.readthedocs.io/en/latest/">unofficial PlantUML skinparam documentation</a>.</p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="repositioning-elements-in-plantuml-diagrams"><a class="link" href="#repositioning-elements-in-plantuml-diagrams">Repositioning elements in PlantUML diagrams</a></h3>
+<div class="paragraph">
+<p>While PlantUML&#8217;s automatic layout engine usually produces satisfactory results, at times the result can be less than ideal, especially on larger diagrams.
+Here is an example where the default layout generated by PlantUML has a lot of overlapping lines that are hard to decipher:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/plantuml/RawUiDiagram.png" alt="RawUiDiagram">
+</div>
+<div class="title">Figure 3. The UI class diagram without additional formatting</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In most cases, you should consider decomposing the diagram into smaller ones or focusing on a more specific portion of the diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here are some of the techniques we used in this project to obtain a more palatable diagram.</p>
+</div>
+<div class="sect3">
+<h4 id="link-lengths"><a class="link" href="#link-lengths">Link lengths</a></h4>
+<div class="paragraph">
+<p>By default, a short link (<code>-&gt;</code>) points to right and a long link (<code>--&gt;</code>)
+points downwards. you can extend any link to make it longer (<code><code>---&gt;</code></code>).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/plantuml/ArrowLength.png" alt="ArrowLength">
+</div>
+<div class="title">Figure 4. Length of arrows and its effects</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="link-directions"><a class="link" href="#link-directions">Link directions</a></h4>
+<div class="paragraph">
+<p>Clever usage of arrow directions will resolve most layout issues.
+For example, the table below shows how the way in which you specify arrows can results in drastically different layouts for the same diagram.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Link directions</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Source</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="puml">A --&gt; Z
+B --&gt; Z
+C --&gt; Z
+D --&gt; Z
+
+A --&gt; 1
+B --&gt; 2
+C --&gt; 3
+D --&gt; 4</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img src="images/plantuml/AllDown.png" alt="AllDown">
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="puml">'default is down
+A --&gt; Z
+'specify down
+B -down-&gt; Z
+'shorthand for down
+C -d-&gt; Z
+'arrow lengths take priority
+D -down&gt; Z
+
+A -up-&gt; 1
+B -up-&gt; 2
+C -up-&gt; 3
+D -up-&gt; 4</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img src="images/plantuml/UpAndDown.png" alt="UpAndDown">
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="puml">A -up-&gt; Z
+B -up-&gt; Z
+C -up-&gt; Z
+D -up-&gt; Z
+
+A --&gt; 1
+B --&gt; 2
+C --&gt; 3
+D --&gt; 4
+
+'Force A B C D
+A -right[hidden]- B
+B -right[hidden]- C
+C -right[hidden]- D</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img src="images/plantuml/HiddenArrows.png" alt="HiddenArrows">
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="reordering-definitions"><a class="link" href="#reordering-definitions">Reordering definitions</a></h4>
+<div class="paragraph">
+<p>As a general rule of thumb, the layout engine will attempt to order objects in the order in which they are defined.
+If there is no formal definition, the objects is taken to be declared upon its first usage.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Definition ordering and outcomes</caption>
+<colgroup>
+<col style="width: 70%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Source</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="puml">A --&gt; B
+C --&gt; D</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img src="images/plantuml/ABeforeC.png" alt="ABeforeC">
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="puml">'Class C is defined before A
+Class C
+
+A --&gt; B
+C --&gt; D</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img src="images/plantuml/CBeforeA.png" alt="CBeforeA">
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="puml">package &quot;Rule Of Thumb&quot;{
+    Class C
+    A --&gt; B
+    C --&gt; D
+}</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img src="images/plantuml/PackagesAndConsistency.png" alt="PackagesAndConsistency">
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Explicitly define all symbols to avoid any potential layout mishaps.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-07-29 15:23:38 UTC</div></div></div></body></html>

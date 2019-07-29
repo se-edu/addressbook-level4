@@ -267,7 +267,7 @@ Additionally, it implements the following operations:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
+<img src="../images/UndoRedoState0.png" alt="UndoRedoState0">
 </div>
 </div>
 <div class="paragraph">
@@ -275,7 +275,7 @@ Additionally, it implements the following operations:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
+<img src="../images/UndoRedoState1.png" alt="UndoRedoState1">
 </div>
 </div>
 <div class="paragraph">
@@ -283,7 +283,7 @@ Additionally, it implements the following operations:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
+<img src="../images/UndoRedoState2.png" alt="UndoRedoState2">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -303,7 +303,7 @@ If a command fails its execution, it will not call <code>Model#commitAddressBook
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
+<img src="../images/UndoRedoState3.png" alt="UndoRedoState3">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -323,8 +323,20 @@ If the <code>currentStatePointer</code> is at index 0, pointing to the initial a
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
+<img src="../images/UndoSequenceDiagram.png" alt="UndoSequenceDiagram">
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>UndoCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
@@ -346,7 +358,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
+<img src="../images/UndoRedoState4.png" alt="UndoRedoState4">
 </div>
 </div>
 <div class="paragraph">
@@ -354,7 +366,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
+<img src="../images/UndoRedoState5.png" alt="UndoRedoState5">
 </div>
 </div>
 <div class="paragraph">
@@ -362,7 +374,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
+<img src="../images/CommitActivityDiagram.png" alt="CommitActivityDiagram">
 </div>
 </div>
 </div>
@@ -452,4 +464,4 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-07-18 09:22:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-07-29 15:23:38 UTC</div></div></div></body></html>
