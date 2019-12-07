@@ -71,6 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+<<DeveloperGuide#, Return to Top>>
 [[Design-Ui]]
 === UI component
 
@@ -87,6 +88,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+<<DeveloperGuide#, Return to Top>>
 
 [[Design-Logic]]
 === Logic component
@@ -111,6 +114,8 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+<<DeveloperGuide#, Return to Top>>
+
 [[Design-Model]]
 === Model component
 
@@ -131,6 +136,8 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+<<DeveloperGuide#, Return to Top>>
+
 [[Design-Storage]]
 === Storage component
 
@@ -143,6 +150,8 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
+
+<<DeveloperGuide#, Return to Top>>
 
 [[Design-Commons]]
 === Common classes
@@ -216,6 +225,8 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
+<<DeveloperGuide#, Return to Top>>
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -236,6 +247,8 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+<<DeveloperGuide#, Return to Top>>
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -259,6 +272,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+<<DeveloperGuide#, Return to Top>>
+
 [[Implementation-Configuration]]
 === Configuration
 
@@ -268,14 +283,19 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 Refer to the guide <<Documentation#, here>>.
 
+<<DeveloperGuide#, Return to Top>>
+
 == Testing
 
 Refer to the guide <<Testing#, here>>.
+
+<<DeveloperGuide#, Return to Top>>
 
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
 
+<<DeveloperGuide#, Return to Top>>
 [appendix]
 == Product Scope
 
@@ -289,6 +309,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
+<<DeveloperGuide#, Return to Top>>
 [appendix]
 == User Stories
 
@@ -312,6 +333,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 _{More to be added}_
 
+<<DeveloperGuide#, Return to Top>>
 [appendix]
 == Use Cases
 
@@ -345,6 +367,7 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+<<DeveloperGuide#, Return to Top>>
 [appendix]
 == Non Functional Requirements
 
@@ -354,6 +377,7 @@ _{More to be added}_
 
 _{More to be added}_
 
+<<DeveloperGuide#, Return to Top>>
 [appendix]
 == Glossary
 
@@ -363,6 +387,7 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+<<DeveloperGuide#, Return to Top>>
 [appendix]
 == Product Survey
 
@@ -380,6 +405,7 @@ Cons:
 * ...
 * ...
 
+<<DeveloperGuide#, Return to Top>>
 [appendix]
 == Instructions for Manual Testing
 
@@ -425,3 +451,5 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+<<DeveloperGuide#, Return to Top>>
