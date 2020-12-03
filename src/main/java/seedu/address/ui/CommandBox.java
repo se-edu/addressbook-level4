@@ -97,6 +97,10 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
+        if (commandTextField.getText().equals("")) {
+            return;
+        }
+
         try {
             commandExecutor.execute(commandTextField.getText());
             initHistory();
