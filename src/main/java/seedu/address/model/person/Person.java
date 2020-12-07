@@ -106,13 +106,16 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append("; Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
+                .append("; Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+                .append("; Address: ")
+                .append(getAddress());
+
+        if (getTags().size() > 0) {
+            builder.append("; Tags: ");
+        }
         getTags().forEach(builder::append);
         return builder.toString();
     }
