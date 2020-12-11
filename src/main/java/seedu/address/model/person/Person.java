@@ -116,8 +116,8 @@ public class Person {
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
+            tags.forEach(builder::append);
         }
-        tags.forEach(builder::append);
         return builder.toString();
     }
 
