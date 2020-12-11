@@ -113,10 +113,11 @@ public class Person {
                 .append("; Address: ")
                 .append(getAddress());
 
-        if (getTags().size() > 0) {
+        Set<Tag> tags = getTags();
+        if (!tags.isEmpty()) {
             builder.append("; Tags: ");
         }
-        getTags().forEach(builder::append);
+        tags.forEach(builder::append);
         return builder.toString();
     }
 
